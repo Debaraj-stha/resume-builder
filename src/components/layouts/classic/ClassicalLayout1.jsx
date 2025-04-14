@@ -4,7 +4,12 @@ import { ResumeWrapper } from "../../elements/resumeWrapper";
 import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
 import { personalDetails, sumary ,achievements,educations,experiences} from "../../../sttaic-data/resume-sample-data";
 import { ExperienceCard,SkillCard,EducationCard,AcheivementCard, ResumeHeader } from "../cards";
+import style from  "./style/layout1_style.json"
+import common from "./style/common.json"
+const Title=({title})=>{
+    return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}>{title}</H1>
 
+}
 const ClassicalLayout1 = (props) => {
 
     return (
@@ -16,8 +21,8 @@ const ClassicalLayout1 = (props) => {
                <ResumeHeader personalDetails={personalDetails}></ResumeHeader>
             </Section>
             {/* summary section */}
-            <Section marginTop="15px">
-                <H1 fontSize="25px" fontWeight="500" className="pb-1">Summary</H1>
+            <Section marginTop={common.Section.marginTop}>
+                <Title title="Summary"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
                     <P>
@@ -26,8 +31,8 @@ const ClassicalLayout1 = (props) => {
                 </SectionContent>
             </Section>
             {/* experience section */}
-            <Section marginTop="15px">
-                <H1 fontSize="25px" fontWeight="500" className="pb-1">Experience</H1>
+            <Section marginTop={common.Section.marginTop}>
+                 <Title title="Experience"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
                     {
@@ -40,7 +45,7 @@ const ClassicalLayout1 = (props) => {
             </Section>
             {/* educations Section */}
             <Section>
-                <H1 fontSize="25px" fontWeight="500" className="pb-1">Education</H1>
+                 <Title title="Education"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
                     {
@@ -51,8 +56,8 @@ const ClassicalLayout1 = (props) => {
                 </SectionContent>
             </Section>
             {/* acheivements Section */}
-            <Section  marginTop="15px">
-                <H1 fontSize="25px" fontWeight="500" className="pb-1">Acheivements</H1>
+            <Section  marginTop={common.Section.marginTop}>
+                 <Title title="Acheivements"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
                     <div className="grid grid-cols-2 gap-2">
@@ -67,8 +72,8 @@ const ClassicalLayout1 = (props) => {
 
             </Section>
             {/* skills Section */}
-            <Section  marginTop="15px">
-                <H1 fontSize="25px" fontWeight="500" className="pb-1">Skills</H1>
+            <Section  marginTop={common.Section.marginTop}>
+                 <Title title="Skills"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
                     <SkillCard></SkillCard>

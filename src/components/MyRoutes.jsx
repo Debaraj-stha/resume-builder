@@ -12,7 +12,7 @@ import ClassicalLayouts from "../pages/ClassicalLayouts";
 const MyRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home></Home>}></Route>
+            <Route index path="/" element={<Home></Home>}></Route>
             <Route path="/dashboard" element={<h1>Dashboard</h1>}></Route>
             <Route path="/templates" element={<LayoutOnly />}>
                 <Route index element={<Templates />} />

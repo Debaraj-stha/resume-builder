@@ -81,7 +81,7 @@ export const skills = [
     },
     {
         category: "Tools & Platforms",
-        items: ["Git", "Docker", "Jira", "AWS", "VS Code"]
+        items: ["Git", "Docker", "Jira", "AWS"]
     },
     {
         category: "Data Analysis & Visualization",
@@ -105,6 +105,7 @@ export const personalDetails={
     phone:"+9779812111121",
     email:"example@gmail.com",
     linkedin:"https://linkedin.com/jhone",
-    profession:"Business Data Analyst,Software Engineer"
+    profession:"Business Data Analyst,Software Engineer",
+    github:"https://github.com/jhon"
 
 }

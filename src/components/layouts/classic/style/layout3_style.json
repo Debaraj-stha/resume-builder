@@ -1,0 +1,51 @@
+{
+    "Title": {
+        "fontSize": "25px",
+        "fontWeight": "500",
+        "className": [
+            "pb-1"
+        ]
+    },
+    "ResumeHeader": {
+        "name": {
+            "fontSize": "40px",
+            "fontWeight": "700",
+            "fontFamily": "wittgenstein"
+        },
+        "profession": {
+            "fontWeight": "500",
+            "fontSize": "25px",
+            "color": "blue",
+            "fontFamily": "Roboto"
+        },
+        "address": {
+            "textAlign": "center"
+        }
+    },
+    "experienceCard":{
+        "div":{
+            "className":["text-left", "pb-4"]
+        },
+        "h2":{
+            "color":"blue"
+        }
+    },
+    "EducationCard":{
+        "outerDiv":{
+            "className":["grid", "grid-cols-2", "gap-2"]
+        },
+        "firstDiv":{
+            "className":["text-left"],
+            "h3":{
+                "textAlign":"left",
+                 "color":"blue"
+            }
+        },
+        "secondDiv":{
+            "className":["text-right"],
+            "p":{
+                 "textAlign":"right"
+            }
+        }
+    }
+}

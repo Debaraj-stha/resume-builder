@@ -1,0 +1,79 @@
+{
+    "Title": {
+        "fontSize": "25px",
+        "fontWeight": "600",
+        "textAlign": "left",
+        "className": [
+            "pb-1"
+        ]
+    },
+    "ResumeHeader": {
+        "name": {
+            "fontSize": "40px",
+            "fontWeight": "600",
+            "textAlign": "left"
+        },
+        "profession": {
+            "fontWeight": "500",
+            "fontSize": "20px",
+            "color": "blue",
+            "textAlign": "left"
+        },
+        "ul": {
+            "justifyContent": "start",
+            "listStyle": "none"
+        },
+        "li": {
+            "display": "flex",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "p": {
+            "className": [
+                "font-normal"
+            ]
+        }
+    },
+    "experienceCard": {
+        "div": {
+            "className": [
+                "text-left",
+                "pb-4"
+            ]
+        },
+        "InnerContentWrapper": {
+            "justifyContent": "start"
+        },
+        "FlexCard": {
+            "margin": "0 10px 0 0"
+        },
+        "h2":{
+            "color":"blue"
+        }
+    },
+    "educationCard": {
+        "innerDiv": {
+            "className": [
+                "text-left"
+            ],
+            "h3": {
+                "textAlign": "left"
+            },
+            "p": {
+                "color": "blue",
+                "fontWeight": "bold"
+            }
+        },
+        "p": {
+            "textAlign": "right"
+        }
+    },
+    "SkillCard":{
+        "div":{
+            "className":["grid", "grid-cols-6","gap-4"]
+        },
+        "p":{
+            "className":["text-left"]
+        }
+    }
+}
