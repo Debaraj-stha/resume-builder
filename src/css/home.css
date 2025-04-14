@@ -1,0 +1,13 @@
+.animate {
+  animation: scroll-up 1s linear 1;
+  
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

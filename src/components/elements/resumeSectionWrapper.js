@@ -1,0 +1,87 @@
+import styled from "styled-components";
+export const Section = styled.section.withConfig({
+    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
+})`
+    color:black;
+    text-align:${(props) => props.textAlign || "center"};
+    font-weight:${(props) => props.fontWeight || "500"};
+    padding:${(props) => props.padding || "0"};
+    margin-top:${(props) => props.marginTop || "0"};
+    `
+export const H1 = styled.h1.withConfig({
+    shouldForwardProp:(props)=>!["textAlign"].includes(props)
+})`
+      font-weight: ${(props) => props.fontWeight || "400"};
+      font-family: ${(props) => props.fontFamily || "system-ui, Avenir, Helvetica, Arial, sans-serif"};
+      font-size: ${(props) => props.fontSize || "30px"};
+      color:${(props)=>props.color||"black"};
+      text-align:${(props)=>props.textAlign||"center"};
+    `;
+
+export const SectionContent = styled.div`
+    padding-top:${(props) => props.paddingTop || "10px"};
+    `
+export const H2 = styled.h2`
+    font-weight:${(props) => props.fontWeight || "bold"};
+    font-size:${(props) => props.fontSize || "18px"};
+    color:${(props)=>props.color||"black"};
+    
+    `
+export const H3 = styled.h3.withConfig({
+    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
+})`
+    font-weight:${(props) => props.fontWeight || "600"};
+    font-size:${(props) => props.fontSize || "15px"};
+    text-align:${(props) => props.textAlign || "center"};
+     color:${(props)=>props.color||"black"};
+    `
+export const Ul = styled.ul.withConfig({
+    shouldForwardProp:(props)=>!["alignItems","justifyContent","listStyle"].includes(props)
+})`
+    display: ${(props) => props.display || "flex"};
+    list-style: ${(props) => props.listStyle || "disc"};
+    align-items: ${(props) => props.alignItems || "center"};
+    justify-content: ${(props) => props.justifyContent || "center"};
+    font-weight: ${(props) => props.fontWeight || "normal"};
+    gap: ${(props) => props.gap || "30px"};
+  `;
+  
+// flex list-disc  items-center content-center justify-center gap-5 font-normal
+
+export const P = styled.p.withConfig({
+    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
+})`
+    font-weight:${(props) => props.fontWeight || "normal"};
+    font-size:${(props) => props.fontSize || "15px"};
+    text-align:${(props) => props.textAlign || "left"};
+    color:${(props)=>props.color||"#444"};
+    `
+export const Li = styled.li.withConfig({
+    shouldForwardProp:(props)=>!["alignItems","justifyContent"].includes(props)
+})`
+    font-weight:${(props) => props.fontWeight || "normal"};
+    font-size:${(props) => props.fontSize || "15px"};
+    display:${(props)=>props.display||"bloxk"};
+    justify-content:${(props)=>props.justifyContent||"start"};
+    align-items:${(props)=>props.alignItems||"start"};
+    color:${(props)=>props.color||"#444"};
+    `
+export const InnerContentWrapper = styled.div.withConfig({
+    shouldForwardProp:(props)=>!["justifyContent"].includes(props)
+})`
+    display:flex;
+    justify-content:${(props)=>props.justifyContent||"space-between"};
+    ` 
+
+
+export const FlexCard=styled.div.withConfig({
+    shouldForwardProp:(props)=>!["justifyContent"].includes(props)
+})`
+display:flex;
+justify-content:${(props)=>props.justifyContent||"start"};
+margin:${(props)=>props.margin||"0 5px 0 0"};
+align-items:center;
+`
+export const IconHolder=styled.div`
+margin:${(props)=>props.margin||"0 5px 0 0"};
+`
