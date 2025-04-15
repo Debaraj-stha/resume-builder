@@ -213,10 +213,10 @@ const ClassicalSkillcardCase3 = () => {
                 skills.map((skill, index) => (
                     <SkillCardWrapper key={index}>
                         <P>{skill.category} : </P>
-                        <SkillCardItemsWrapper className="">
+                        <SkillCardItemsWrapper key={index} className="">
                             {
                                 skill.items.map((item, i) => (
-                                    <P>{item}</P>
+                                    <P key={i}>{item}</P>
                                 ))
                             }
                         </SkillCardItemsWrapper>

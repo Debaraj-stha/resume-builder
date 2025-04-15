@@ -14,16 +14,18 @@ import { ScallopUpDivider } from './components/Divider/ScallopDiviider'
 import { DividerWithStarBorder } from './components/Divider/TransparentDividers'
 import Modal from './components/Modal'
 import LayoutProvider from './provider/layoutProvider'
+import GlobalStyle from './theme/global_styles'
 
 function App() {
   return (
-    <>
-    <LayoutProvider>
-      <Header></Header>
-      <Container>
-        <MyRoutes></MyRoutes>
-      </Container>
-      <Footer />
+    <>       
+    <GlobalStyle />
+      <LayoutProvider>
+        <Header></Header>
+        <Container>
+          <MyRoutes></MyRoutes>
+        </Container>
+        <Footer />
       </LayoutProvider>
     </>
   )

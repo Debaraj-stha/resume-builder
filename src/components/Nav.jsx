@@ -1,18 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { StyledNavLink } from "./CustomComponents";
+
 
 const Nav = () => {
   return (
     <nav className="w-full">
       <ul className="flex space-x-8 text-white sm:font-sm">
         <li>
-          <Link to="/dashboard" className="text-blue-500 hover:text-blue-700 transition-all">Dashboard</Link>
+          <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
         </li>
         <li>
-          <Link to="/build-resume" className="text-blue-500 hover:text-blue-700 transition-all">Build Resume</Link>
+          <StyledNavLink to="/build-resume">Build Resume</StyledNavLink>
         </li>
         <li>
-          <Link to="/templates" className="text-blue-500 hover:text-pink-700 transition-all">Templates</Link>
+          <StyledNavLink to="/templates">Templates</StyledNavLink>
         </li>
       </ul>
     </nav>

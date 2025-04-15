@@ -3,14 +3,20 @@ import { useUser } from "../provider/userProvider";
 import Login from "./Login";
 import { MdArrowDropDown } from "react-icons/md";
 import Modal from "./Modal";
+import ToolTip from "./Tooltip";
+import { useTheme } from "styled-components";
+import { Button } from "./CustomComponents";
+
 
 const Usercard = () => {
     const { user, logout } = useUser();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const theme=useTheme()
 
     const handleLogout = () => {
         setIsModalOpen(true); // Trigger modal open
     };
+    
 
     return (
         <div className="user-card flex items-center gap-4 p-4 rounded-lg">
@@ -24,16 +30,19 @@ const Usercard = () => {
                         />
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold sm:text-lg sm:font-medium text-white">
+                        <h3 className="text-sm font-semibold sm:text-lg sm:font-medium" style={{color:theme.colors.text}}>
                             {user.name}
                         </h3>
-                        <button
+                        <ToolTip text="Logout">
+                        <Button variant="secondary"
                             onClick={handleLogout}
-                            className="text-sm md:text-md mt-2 px-2 py-1 sm:px-4 sm:py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-all"
+                            
                         >
                             Logout
-                        </button>
+                        </Button>
+                        </ToolTip>
                     </div>
+                    
 
                     {/* ✅ Render modal when modal state is true */}
                     {isModalOpen && (
@@ -42,21 +51,21 @@ const Usercard = () => {
                             header={<h2 className='text-green-500 text-2xl font-bold text-center'>Confirm Logout</h2>}
                             footer={
                                 <div className="flex justify-end gap-4">
-                                    <button
+                                    <Button variant="ghost"
                                         onClick={() => setIsModalOpen(false)}
                                         className="px-4 py-2 bg-gray-300 rounded text-black"
                                     >
                                         Cancel
-                                    </button>
-                                    <button
+                                    </Button>
+                                    <Button
+                                    varian="danger"
                                         onClick={() => {
                                             logout();
                                             setIsModalOpen(false);
                                         }}
-                                        className="px-4 py-2 bg-red-600 text-white rounded"
-                                    >
+                                                                        >
                                         Logout
-                                    </button>
+                                    </Button>
                                 </div>
                             }
                         >

@@ -1,22 +1,30 @@
 import React from "react";
 import Nav from "./Nav";
 import UserCard from "./UserCard";
-import { Link } from "react-router-dom";
+
+import ThemeToggler from "./ThemeToggler";
+import { StyledNavLink } from "./CustomComponents";
+import { useTheme } from "styled-components";
+;
+
 
 const Navbar = () => {
+  const theme=useTheme()
   return (
-    <div className="header shadow p-2 flex justify-between items-center w-full bg-gray-800 text-white fixed top-0 left-0 z-50">
+    <div className="header shadow p-2 flex justify-between items-center w-fullfixed top-0 left-0 z-50"style={{color:theme.colors.text,background:theme.colors.navBackground}}>
       {/* Left Section: Resume Builder Banner */}
       <div className="flex-1 text-left">
-        <Link to="/" className="text-pink-500 hover:text-pink-700 transition-all text-lg font-bold">
+        <StyledNavLink isBanner={true}  to="/" className="transition-all text-lg font-bold">
           Resume Builder
-        </Link>
+        </StyledNavLink >
       </div>
 
       {/* Center Section: Navigation Links */}
       <div className="flex-1 flex justify-center">
         <Nav />
       </div>
+      {/* theme toggle button  */}
+    <ThemeToggler/>
 
       {/* Right Section: User Card */}
       <div className="flex items-center">

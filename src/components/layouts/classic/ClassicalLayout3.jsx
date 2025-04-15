@@ -76,7 +76,7 @@ const ClassicalLayout3=()=>{
                    <Title title="Skills"></Title>
                        <TransparentLine></TransparentLine>
                        <SectionContent>
-                           <SkillCard layout_no="3"></SkillCard>
+                           <SkillCard layout_no="3" key="i"></SkillCard>
                        </SectionContent>
                    </Section>
        
