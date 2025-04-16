@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { H1, H2, H3 } from "../components/elements/resumeSectionWrapper";
 import styled, { useTheme } from "styled-components";
 import { resumes as initialResumes } from "../sttaic-data/resumes";
@@ -37,12 +37,57 @@ const StyledRow = styled.tr.withConfig({
     background-color: ${({ theme }) => theme.colors.tableRowHoverBg};
   }
 `;
+const UtilityHolder = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
 
+const SearchBox = styled.input`
+  padding: 0.75rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  width: 100%;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.accent};
+    outline: none;
+  }
+`;
+
+const SortSelect = styled.select`
+  padding: 0.75rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  width: 100%;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.accent};
+    outline: none;
+  }
+`;
 const Dashboard = () => {
     const theme = useTheme();
+    const [currentPageresume, setCurrentPageResume] = useState([])
     const [resumes, setResumes] = useState(initialResumes);
     const [isModalShow, setIsModalShow] = useState(false);
     const [selectedResumeId, setSelectedResumeId] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredResumes, setFilteredResumes] = useState([])
+    const [pages, setPages] = useState([])
+    const itemsPerPage = 3
+    const [currentPage, setCurrentPage] = useState(1)
+
+
 
     const handleDelete = useCallback(() => {
         setResumes(resumes.filter((resume) => resume.id !== selectedResumeId));
@@ -72,7 +117,7 @@ const Dashboard = () => {
 
     const closeModal = useCallback(() => {
         setIsModalShow(false)
-      
+
     }, [])
 
     const renderDeleteModal = () => (
@@ -102,16 +147,145 @@ const Dashboard = () => {
             <H3 fontSize="16px" fontWeight="500">This action cannot be undone.</H3>
         </Modal>
     );
+    const handleSearchQuery = useCallback((e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
 
+        const filtered = resumes.filter((resume) =>
+            resume.filename.toLowerCase().includes(query.toLowerCase())
+        );
+
+        setFilteredResumes(filtered);
+        setCurrentPage(1);
+    }, [resumes]);
+
+    const handleSort = useCallback((e) => {
+        const sortOrder = e.target.value;
+
+        const sorted = [...resumes].sort((a, b) => {
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+
+            return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+        });
+
+        setFilteredResumes(sorted);
+        setCurrentPage(1);
+    }, [resumes]);
+
+
+
+    //implementing pagination
+
+
+    const calculatePages = useCallback(() => {
+        const totalResumes =
+            filteredResumes.length > 0 ? filteredResumes.length : resumes.length;
+
+        const totalPages = Math.ceil(totalResumes / itemsPerPage);
+
+        const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+
+        setPages(pages)
+    }, [resumes, filteredResumes, itemsPerPage]);
+
+
+    useEffect(() => {
+        calculatePages()
+
+    }, [calculatePages])
+
+
+    //handling page changes
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+
+        const source = searchQuery || filteredResumes.length > 0 ? filteredResumes : resumes;
+
+        const firstIndex = itemsPerPage * (page - 1);
+        const lastIndex = firstIndex + itemsPerPage;
+
+        const pageResumes = source.slice(firstIndex, lastIndex);
+        setCurrentPageResume(pageResumes);
+    };
+
+
+    //loading on page change
+    useEffect(() => {
+        handlePageChange(currentPage);
+    }, [currentPage, resumes, filteredResumes]);
+
+
+
+
+    //pages
+
+    const PaginationPages = React.memo(() => {
+        return (
+            <div className="flex justify-center items-center content-center gap-3 mt-5">
+                {
+                    pages.map((_, index) => (
+                        <Button key={index} variant={index + 1 == currentPage ? "primary" : "outline"} onClick={() => handlePageChange(index + 1)}>{index + 1}</Button>
+                    ))
+                }
+            </div>
+        )
+    })
+
+
+    const ResumeRow = React.memo(({ resume, index }) => {
+        return (
+            <StyledRow key={index} isEven={index % 2 === 0}>
+                <StyledTD scope="row">{index + 1}</StyledTD>
+                <StyledTD>{resume.filename}</StyledTD>
+                <StyledTD>
+                    {new Date(resume.createdAt).toLocaleString()}
+                </StyledTD>
+                <StyledTD>
+                    <div className="flex items-center justify-center gap-2">
+                        <ToolTip text="Download">
+                            <Button>
+                                <BiDownload />
+                            </Button>
+                        </ToolTip>
+                        <ToolTip text="Edit">
+                            <Button variant="outline" onClick={() => handleEdit(resume.id)}>
+                                <BiEdit />
+                            </Button>
+                        </ToolTip>
+                        <ToolTip text="Delete">
+                            <Button variant="danger" onClick={() => confirmDelete(resume.id)}>
+                                <FiDelete />
+                            </Button>
+                        </ToolTip>
+                    </div>
+                </StyledTD>
+            </StyledRow>
+        )
+    })
     return (
         <>
             <Hspace />
             <div className="px-6">
                 <H1 color={theme.colors.text}>All Your Resumes</H1>
-                <Button onClick={handleCreate} className="my-4">
-                    + Create New Resume
-                </Button>
-              
+                <UtilityHolder>
+                    <Button onClick={handleCreate} className="my-4">
+                        + Create New Resume
+                    </Button>
+                    <SearchBox type="text"
+                        value={searchQuery}
+                        name="search"
+                        onChange={handleSearchQuery}
+                        placeholder="Search Here..."></SearchBox>
+                    <SortSelect onChange={handleSort}>
+                        <option>Sort By</option>
+                        <option value="asc">Ascending</option>
+                        <option value="dsce">Descending</option>
+                    </SortSelect>
+                </UtilityHolder>
+
+
 
                 <div className="mt-5 overflow-x-auto">
                     <table
@@ -132,37 +306,18 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {resumes.map((resume, index) => (
-                                <StyledRow key={index} isEven={index % 2 === 0}>
-                                    <StyledTD scope="row">{index + 1}</StyledTD>
-                                    <StyledTD>{resume.filename}</StyledTD>
-                                    <StyledTD>
-                                        {new Date(resume.createdAt).toLocaleString()}
-                                    </StyledTD>
-                                    <StyledTD>
-                                        <div className="flex items-center justify-center gap-2">
-                                            <ToolTip text="Download">
-                                                <Button>
-                                                    <BiDownload />
-                                                </Button>
-                                            </ToolTip>
-                                            <ToolTip text="Edit">
-                                                <Button variant="outline" onClick={() => handleEdit(resume.id)}>
-                                                    <BiEdit />
-                                                </Button>
-                                            </ToolTip>
-                                            <ToolTip text="Delete">
-                                                <Button variant="danger" onClick={() => confirmDelete(resume.id)}>
-                                                    <FiDelete />
-                                                </Button>
-                                            </ToolTip>
-                                        </div>
-                                    </StyledTD>
-                                </StyledRow>
-                            ))}
+                            {
+                                //if there is filtered resume show it otherwise all resume
+                                currentPageresume.map((resume, index) => (
+                                    <ResumeRow key={index} resume={resume} index={index} />
+                                ))
+                            }
+
                         </tbody>
                     </table>
                 </div>
+                {/* pagination pages */}
+                <PaginationPages />
             </div>
             {/* showing conformation modal before deleting  */}
             {isModalShow && renderDeleteModal()}

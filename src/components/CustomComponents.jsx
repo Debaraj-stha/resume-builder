@@ -53,8 +53,15 @@ background-color: ${({ theme }) => theme.colors.card.background};
 text-align: center;
 padding: 4rem 1.5rem;
 border: 1px solid ${({ theme }) => theme.colors.card.border};
-  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
-`;
+box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-4px);
+    background: ${({ theme }) => theme.colors.card.hoverBackground};
+  }
+`
+
+;
 
 export const CTAButton = styled.button`
 background: ${({ theme }) => theme.colors.card.background};
@@ -201,3 +208,11 @@ export const Avatar = styled.div`
     object-fit: cover;
   }
 `;
+
+export const ErrorParagraph=styled.p`
+color:${({theme})=>theme.colors.error};
+font-size:15px;
+margin:0;
+padding:0;
+text-align:left;
+`

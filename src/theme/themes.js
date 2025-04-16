@@ -14,7 +14,7 @@ export const lightTheme = {
     tableHeaderText: "#1f2937",     // gray-800
     tableRowAltBg: "#f9fafb",       // gray-50
     tableHoverBg: "#ddd",      // light gray hover
-  
+    error: "#e63946", // red tone for light mode
     tableRowEvenBg: "#ffffff",       // white
     tableRowOddBg: "#f9fafb",        // gray-50
     tableRowHoverBg: "#e0f2fe",      // light blue
@@ -129,6 +129,7 @@ export const darkTheme = {
     tableRowEvenBg: "#0f172a",      // slate-900
     tableRowOddBg: "#1e293b",       // slate-800
     tableRowHoverBg: "#334155",     // slate-700
+    error: "#ff6b6b", // slightly lighter red for dark background
     button: {
         // gray-500
         primary: {

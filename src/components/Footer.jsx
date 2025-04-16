@@ -33,7 +33,7 @@ const FooterContent = styled.div`
 const Title = styled.h2`
   font-size: 1rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.navText};
+  color: ${({ theme }) => theme.colors.accent};
 
   @media (min-width: 640px) {
     font-size: 1.125rem;
