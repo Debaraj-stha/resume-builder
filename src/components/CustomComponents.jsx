@@ -22,7 +22,9 @@ export const StyledNavLink = styled(Link).withConfig({
 
 
 
-export const Button = styled.button`
+export const Button = styled.button.withConfig({
+  shouldForwardProp:(props)=>!["variant"].includes(props)
+})`
   display:${({display})=>display||"block"};
   justify-content:space-between;
   align-items:center;
@@ -215,4 +217,15 @@ font-size:15px;
 margin:0;
 padding:0;
 text-align:left;
+`
+export const H1=styled.h1`
+color:${({theme})=>theme.colors.text||"black"};
+`
+export const H2=styled.h2`
+color:${({theme})=>theme.colors.text||"black"};
+font-size:22px;
+`
+export const H3=styled.h3`
+color:${({theme})=>theme.colors.text||"black"};
+font-size:18px;
 `

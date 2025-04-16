@@ -2,325 +2,47 @@ import React, { useState, useCallback, useEffect } from "react";
 import { H1, H2, H3 } from "../components/elements/resumeSectionWrapper";
 import styled, { useTheme } from "styled-components";
 import { resumes as initialResumes } from "../sttaic-data/resumes";
-import { Button, Hspace } from "../components/CustomComponents";
+import { Button, Heading, Hspace } from "../components/CustomComponents";
 import { BiDownload, BiEdit } from "react-icons/bi";
 import { FiDelete } from "react-icons/fi";
 import ToolTip from "../components/Tooltip";
 import Modal from "../components/Modal";
-import { BsExclamation } from "react-icons/bs";
+import { BsExclamation, BsEye } from "react-icons/bs";
 import RoundedIcon from "../components/RoundedIcon";
+import ClassicalLayout1 from "../components/layouts/classic/ClassicalLayout1";
+import ScrollableModal from "../components/ScrollableModal";
+import DashboardHeader from "../components/DashboardHeader";
+import ResumeTable from "../components/ResumeTable";
+import Pagination from "../components/Pagination";
+import DeleteModal from "../components/DeleteModal";
+import { useDashboard } from "../provider/DashboardProvider";
+import ErrorModal from "../components/ErrorModal";
 
 
-
-// Styled components
-const StyledTh = styled.th`
-  padding: 10px 15px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  text-align: center;
-`;
-
-const StyledTD = styled.td`
-  padding: ${({ padding }) => padding || "10px 15px"};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  text-align: center;
-`;
-
-const StyledRow = styled.tr.withConfig({
-    shouldForwardProp: (prop) => !["isEven"].includes(prop),
-})`
-  background-color: ${({ isEven, theme }) =>
-        isEven ? theme.colors.tableRowEvenBg : theme.colors.tableRowOddBg};
-  color: ${({ theme }) => theme.colors.text};
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.tableRowHoverBg};
-  }
-`;
-const UtilityHolder = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
-const SearchBox = styled.input`
-  padding: 0.75rem 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  width: 100%;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.accent};
-    outline: none;
-  }
-`;
-
-const SortSelect = styled.select`
-  padding: 0.75rem 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  width: 100%;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.accent};
-    outline: none;
-  }
-`;
-const Dashboard = () => {
-    const theme = useTheme();
-    const [currentPageresume, setCurrentPageResume] = useState([])
-    const [resumes, setResumes] = useState(initialResumes);
-    const [isModalShow, setIsModalShow] = useState(false);
-    const [selectedResumeId, setSelectedResumeId] = useState(null);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filteredResumes, setFilteredResumes] = useState([])
-    const [pages, setPages] = useState([])
-    const itemsPerPage = 3
-    const [currentPage, setCurrentPage] = useState(1)
-
-
-
-    const handleDelete = useCallback(() => {
-        setResumes(resumes.filter((resume) => resume.id !== selectedResumeId));
-        setIsModalShow(false);
-        setSelectedResumeId(null);
-    }, []);
-
-    const handleEdit = useCallback((id) => {
-        alert(`Edit resume with ID: ${id}`);
-    }, []);
-
-    const handleCreate = () => {
-        const newResume = {
-            id: Date.now(),
-            createdAt: new Date(),
-            filename: `New Resume ${resumes.length + 1}`,
-            url: "",
-        };
-        setResumes([newResume, ...resumes]);
-    };
-    //conforming before deleting 
-    const confirmDelete = (id) => {
-        //storing resume id for later use
-        setSelectedResumeId(id);
-        setIsModalShow(true);
-    };
-
-    const closeModal = useCallback(() => {
-        setIsModalShow(false)
-
-    }, [])
-
-    const renderDeleteModal = () => (
-        <Modal
-            footer={
-                <div className="flex justify-between">
-                    <Button variant="ghost" onClick={closeModal}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
-                        Ok
-                    </Button>
-                </div>
-            }
-            onClose={closeModal}
-        >
-            <div className="flex items-center justify-center my-3 gap-4">
-                <RoundedIcon background="green">
-                    <BsExclamation
-                        color={theme.colors.icons?.default?.colors || "#fff"}
-                        size={60}
-                    />
-                </RoundedIcon>
-                <H1>Confirm</H1>
-            </div>
-            <H2>Are you sure you want to delete this resume?</H2>
-            <H3 fontSize="16px" fontWeight="500">This action cannot be undone.</H3>
-        </Modal>
+const ResumePreview = React.memo(({closePreviewModal}) => {
+    return (
+      <ScrollableModal onClose={closePreviewModal} header={<Heading>Resume Preview</Heading>}>
+        <ClassicalLayout1 />
+      </ScrollableModal>
     );
-    const handleSearchQuery = useCallback((e) => {
-        const query = e.target.value;
-        setSearchQuery(query);
+  });
+  
+const Dashboard = () => {
+    const { isModalShow,closePreviewModal,
+        isPreviewShow}=useDashboard()
 
-        const filtered = resumes.filter((resume) =>
-            resume.filename.toLowerCase().includes(query.toLowerCase())
-        );
-
-        setFilteredResumes(filtered);
-        setCurrentPage(1);
-    }, [resumes]);
-
-    const handleSort = useCallback((e) => {
-        const sortOrder = e.target.value;
-
-        const sorted = [...resumes].sort((a, b) => {
-            const dateA = new Date(a.createdAt);
-            const dateB = new Date(b.createdAt);
-
-            return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
-        });
-
-        setFilteredResumes(sorted);
-        setCurrentPage(1);
-    }, [resumes]);
-
-
-
-    //implementing pagination
-
-
-    const calculatePages = useCallback(() => {
-        const totalResumes =
-            filteredResumes.length > 0 ? filteredResumes.length : resumes.length;
-
-        const totalPages = Math.ceil(totalResumes / itemsPerPage);
-
-        const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
-
-
-        setPages(pages)
-    }, [resumes, filteredResumes, itemsPerPage]);
-
-
-    useEffect(() => {
-        calculatePages()
-
-    }, [calculatePages])
-
-
-    //handling page changes
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-
-        const source = searchQuery || filteredResumes.length > 0 ? filteredResumes : resumes;
-
-        const firstIndex = itemsPerPage * (page - 1);
-        const lastIndex = firstIndex + itemsPerPage;
-
-        const pageResumes = source.slice(firstIndex, lastIndex);
-        setCurrentPageResume(pageResumes);
-    };
-
-
-    //loading on page change
-    useEffect(() => {
-        handlePageChange(currentPage);
-    }, [currentPage, resumes, filteredResumes]);
-
-
-
-
-    //pages
-
-    const PaginationPages = React.memo(() => {
-        return (
-            <div className="flex justify-center items-center content-center gap-3 mt-5">
-                {
-                    pages.map((_, index) => (
-                        <Button key={index} variant={index + 1 == currentPage ? "primary" : "outline"} onClick={() => handlePageChange(index + 1)}>{index + 1}</Button>
-                    ))
-                }
-            </div>
-        )
-    })
-
-
-    const ResumeRow = React.memo(({ resume, index }) => {
-        return (
-            <StyledRow key={index} isEven={index % 2 === 0}>
-                <StyledTD scope="row">{index + 1}</StyledTD>
-                <StyledTD>{resume.filename}</StyledTD>
-                <StyledTD>
-                    {new Date(resume.createdAt).toLocaleString()}
-                </StyledTD>
-                <StyledTD>
-                    <div className="flex items-center justify-center gap-2">
-                        <ToolTip text="Download">
-                            <Button>
-                                <BiDownload />
-                            </Button>
-                        </ToolTip>
-                        <ToolTip text="Edit">
-                            <Button variant="outline" onClick={() => handleEdit(resume.id)}>
-                                <BiEdit />
-                            </Button>
-                        </ToolTip>
-                        <ToolTip text="Delete">
-                            <Button variant="danger" onClick={() => confirmDelete(resume.id)}>
-                                <FiDelete />
-                            </Button>
-                        </ToolTip>
-                    </div>
-                </StyledTD>
-            </StyledRow>
-        )
-    })
     return (
         <>
             <Hspace />
-            <div className="px-6">
-                <H1 color={theme.colors.text}>All Your Resumes</H1>
-                <UtilityHolder>
-                    <Button onClick={handleCreate} className="my-4">
-                        + Create New Resume
-                    </Button>
-                    <SearchBox type="text"
-                        value={searchQuery}
-                        name="search"
-                        onChange={handleSearchQuery}
-                        placeholder="Search Here..."></SearchBox>
-                    <SortSelect onChange={handleSort}>
-                        <option>Sort By</option>
-                        <option value="asc">Ascending</option>
-                        <option value="dsce">Descending</option>
-                    </SortSelect>
-                </UtilityHolder>
+            <DashboardHeader   />
 
+            <ResumeTable  />
 
+            <Pagination />
+       
+            {isModalShow && <DeleteModal/>}
+            {isPreviewShow && <ResumePreview closePreviewModal={closePreviewModal} />}
 
-                <div className="mt-5 overflow-x-auto">
-                    <table
-                        className="w-full border-collapse rounded-lg overflow-hidden"
-                        style={{ border: `1px solid ${theme.colors.border}` }}
-                    >
-                        <thead
-                            style={{
-                                backgroundColor: theme.colors.tableHeaderBg,
-                                color: theme.colors.tableHeaderText,
-                            }}
-                        >
-                            <tr>
-                                <StyledTh>#</StyledTh>
-                                <StyledTh>Resume</StyledTh>
-                                <StyledTh>Last Edited</StyledTh>
-                                <StyledTh>Actions</StyledTh>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                //if there is filtered resume show it otherwise all resume
-                                currentPageresume.map((resume, index) => (
-                                    <ResumeRow key={index} resume={resume} index={index} />
-                                ))
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-                {/* pagination pages */}
-                <PaginationPages />
-            </div>
-            {/* showing conformation modal before deleting  */}
-            {isModalShow && renderDeleteModal()}
         </>
     );
 };

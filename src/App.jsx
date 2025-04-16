@@ -15,6 +15,8 @@ import { DividerWithStarBorder } from './components/Divider/TransparentDividers'
 import Modal from './components/Modal'
 import LayoutProvider from './provider/layoutProvider'
 import GlobalStyle from './theme/global_styles'
+import { Route, Routes } from 'react-router-dom'
+import NotFound from './pages/NotFoound'
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
           <MyRoutes></MyRoutes>
         </Container>
         <Footer />
+       
       </LayoutProvider>
     </>
   )

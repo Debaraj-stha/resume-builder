@@ -10,21 +10,27 @@ import GenerateResume from "../pages/GenerateResume";
 import LayoutOnly from "./LayouotOnly";
 import ClassicalLayouts from "../pages/ClassicalLayouts";
 import Dashboard from "../pages/Dashboard";
+import NotFound from "../pages/NotFoound";
+import DashboardProvider from "../provider/DashboardProvider";
 const MyRoutes = () => {
     return (
         <Routes>
             <Route index path="/" element={<Home></Home>}></Route>
-            <Route path="/dashboard" element={<Dashboard/>}></Route>
-            <Route path="/templates" element={<LayoutOnly />}>
+            <Route exact path="/dashboard" element={
+                <DashboardProvider>
+                    <Dashboard />
+                </DashboardProvider>}></Route>
+            <Route exact path="/templates" element={<LayoutOnly />}>
                 <Route index element={<Templates />} />
-                <Route path="classical" element={<ClassicalLayouts/>} />
-                <Route path="modern" element={<h1>modern layout</h1>} />
+                <Route exact path="classical" element={<ClassicalLayouts />} />
+                <Route exact path="modern" element={<h1>modern layout</h1>} />
             </Route>
+            <Route exact path="/contact" element={<Contact />}></Route>
+            <Route exact path="/privacy" element={<Privacy />}></Route>
+            <Route exact path="/about" element={<About />}></Route>
+            <Route exact path="/build-resume" element={<GenerateResume />}></Route>
+            <Route path="*" element={<NotFound />}></Route>
 
-            <Route path="/contact" element={<Contact />}></Route>
-            <Route path="/privacy" element={<Privacy />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route path="/build-resume" element={<GenerateResume />}></Route>
 
         </Routes>
     )

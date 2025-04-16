@@ -13,7 +13,7 @@ const Title=({title})=>{
 const ClassicalLayout1 = (props) => {
 
     return (
-        <div className="mx-2 w-full  max-w-full">
+        <div className="w-full  max-w-full">
         <ResumeWrapper>
 
             {/* header section */}

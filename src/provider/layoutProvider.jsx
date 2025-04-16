@@ -1,6 +1,6 @@
 import { useContext,createContext  } from "react";
 export const LayoutContext=createContext(null)
-export const useTemplete=()=>useContext(LayoutContext)
+export const useLayout=()=>useContext(LayoutContext)
 
 const LayoutProvider=({children})=>{
     const values={}

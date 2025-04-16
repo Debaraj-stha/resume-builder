@@ -15,7 +15,7 @@ export const H1 = styled.h1.withConfig({
       font-family: ${(props) => props.fontFamily || "system-ui, Avenir, Helvetica, Arial, sans-serif"};
       font-size: ${(props) => props.fontSize || "30px"};
       color:${(props) => props.color || "black"};
-      text-align:${(props) => props.textAlign || "center"};
+      text-align:${(props) => props.textAlign || "center"};F
     `;
 
 export const SectionContent = styled.div`

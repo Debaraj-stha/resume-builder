@@ -21,17 +21,17 @@ const StyledIconButton = styled(Button).withConfig({
     color: ${({ theme, variant="primary" }) => theme.colors.button[variant].hoverText};
   }
 `;
-const IconButton = React.memo(({ children }) => {
+const IconButton = React.memo(({ children ,onClick}) => {
   const theme = useTheme();
   const iconStyle = theme.colors.icons["default"]
   return (
-    <StyledIconButton backgroundColor={iconStyle.bg} hover={iconStyle.hover} color={iconStyle.color}>
+    <StyledIconButton backgroundColor={iconStyle.bg} hover={iconStyle.hover} color={iconStyle.color} onClick={onClick}>
       {children}
     </StyledIconButton>
   )
 })
 
-const TextIconButton = React.memo(({ icon, text, id = "all_templates", variant = "outline" }) => {
+const TextIconButton = React.memo(({ icon, text, onClick, id = "all_templates", variant = "outline" }) => {
   const theme = useTheme();
   const iconStyle = theme.colors.icons[id];
 
@@ -41,6 +41,7 @@ const TextIconButton = React.memo(({ icon, text, id = "all_templates", variant =
       backgroundColor={iconStyle?.bg}
       hover={iconStyle?.hover}
       color={iconStyle?.color}
+      onClick={onclick}
     >
       <IconHolder backgroundColor={`${iconStyle.iconBg}`} padding="10px" borderRadius="10px">
         {icon}
