@@ -1,7 +1,32 @@
-import React from "react";
-const About=()=>{
-    return(
-        <h1>About</h1>
-    )
-}
-export default About
+import React from 'react';
+import styled from 'styled-components';
+import { Hspace } from "../components/CustomComponents";
+
+import CTACard from '../components/CTACard';
+import FeatureCards from '../components/FeatureCard';
+import MissionVisionCard from '../components/MissionVisionCard';
+import Teamscard from '../components/TeamsCard';
+import IntroCard from '../components/IntroCard';
+
+
+const Wrapper = styled.section`
+  font-family: 'Poppins', sans-serif;
+  color: ${({ theme }) => theme.colors.card.text};
+`;
+
+
+
+const About = () => {
+    return (
+        <Wrapper>
+            <Hspace />
+            <IntroCard />
+            <MissionVisionCard />
+            <FeatureCards />
+            <Teamscard />
+            <CTACard />
+        </Wrapper>
+    );
+};
+
+export default About;

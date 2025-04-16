@@ -23,7 +23,7 @@ export const StyledNavLink = styled(Link).withConfig({
 
 
 export const Button = styled.button`
-  display:flex;
+  display:${({display})=>display||"block"};
   justify-content:space-between;
   align-items:center;
   gap:10px;
@@ -45,5 +45,159 @@ export const Button = styled.button`
     color: ${({ theme }) => theme.colors.button.disabled.text};
     border-color: ${({ theme }) => theme.colors.button.disabled.border};
     cursor: not-allowed;
+  }
+`;
+
+export const CTA = styled.section`
+background-color: ${({ theme }) => theme.colors.card.background};
+text-align: center;
+padding: 4rem 1.5rem;
+border: 1px solid ${({ theme }) => theme.colors.card.border};
+  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
+`;
+
+export const CTAButton = styled.button`
+background: ${({ theme }) => theme.colors.card.background};
+font-weight: 600;
+padding: 0.75rem 2rem;
+border-radius: 6px;
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+margin-top: 1.5rem;
+cursor: pointer;
+transition: background 0.3s;
+
+&:hover {
+  background: #edf2f7;
+  color:${({theme})=>"black"}
+}
+`;
+export const Heading = styled.h2`
+color: ${({ theme }) => theme.colors.accent};
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+export const FeatureCard = styled.div`
+  background-color: ${({ theme }) => theme.colors.card.background};
+  color: ${({ theme }) => theme.colors.card.text};
+  border: 1px solid ${({ theme }) => theme.colors.card.border};
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    background: ${({ theme }) => theme.colors.card.hoverBackground};
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+    color: ${({ theme }) => theme.colors.accent};
+  }
+
+  p {
+    margin: 0;
+  }
+`;
+export const Intro = styled.div`
+  color: ${({ theme }) => theme.colors.text};
+  padding: 4rem 1.5rem;
+  text-align: center;
+`;
+
+export const Title = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+export const Subtitle = styled.p`
+  max-width: 40rem;
+  margin: 0 auto;
+  font-size: 1.125rem;
+`;
+
+export const TwoColumn = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+`;
+
+
+
+export const Text = styled.p`
+  line-height: 1.6;
+`;
+
+export const Features = styled.section`
+  padding: 4rem 1.5rem;
+  text-align: center;
+`;
+
+export const FeatureGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+`;
+
+
+
+export const Team = styled.section`
+  padding: 4rem 1.5rem;
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+`;
+
+export const TeamGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+`;
+
+export const TeamMember = styled.div`
+  background-color: ${({ theme }) => theme.colors.card.background};
+  color: ${({ theme }) => theme.colors.card.text};
+  border-radius: 12px;
+  padding: 1.5rem;
+border: 1px solid ${({ theme }) => theme.colors.card.border};
+  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    background: ${({ theme }) => theme.colors.card.hoverBackground};
+  }
+
+  h4 {
+    margin: 1rem 0 0.25rem;
+    color: ${({ theme }) => theme.colors.accent};
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+`;
+
+export const Avatar = styled.div`
+  width: 80px;
+  height: 80px;
+  background-color: ${({ theme }) => theme.colors.accent + '20'};
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;

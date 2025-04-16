@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Hspace } from "../components/CustomComponents";
+import { CTA, CTAButton, Heading, Hspace, Subtitle } from "../components/CustomComponents";
 import Feature from "../components/Features";
 import UserThought from "../components/UserThought";
 import styled, { keyframes } from "styled-components";
 import "../css/home.css"
+import CTACard from "../components/CTACard";
+import FeatureCards from "../components/FeatureCard";
 
 const TypingAnimation=keyframes`
         from {
@@ -14,7 +16,7 @@ const TypingAnimation=keyframes`
         }
 `
 const TextWrapper = styled.div`
-  color: blue;
+  color: ${({theme})=>theme.colors.accent||"black"};
   font-weight: 800;
   font-size: 45px;
   letter-spacing: 3px;
@@ -63,33 +65,27 @@ const Home = () => {
 
         <div className="m-auto">
             <Hspace />
-            <section className="bg-blue-50 py-20 px-4">
+            <section className="py-20 px-4">
                 <div className="max-w-4xl mx-auto text-center">
                     <TextWrapper>
                     <Span>
                         Build Your Professional CV in Minutes
                     </Span>
                     </TextWrapper>
-                    <p className="text-lg text-gray-700">
+                    <Subtitle>
                         Easy to use, customizable templates. Download your resume instantly.
-                    </p>
-                    <button onClick={getStarted} className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    </Subtitle>
+                    <CTAButton onClick={getStarted}>
                         Get Started
-                    </button>
+                    </CTAButton>
                 </div>
             </section>
             {/* features of cv builder */}
-           <Feature></Feature>
+           <FeatureCards/>
            {/* user thought  to this site */}
-           <UserThought></UserThought>
+           <UserThought/>
          
-            <section className="py-16 bg-blue-600 text-white text-center px-4">
-                <h2 className="text-3xl font-bold mb-4">Start Building Your CV Now</h2>
-                <p className="mb-6">Join thousands of professionals. It's free and takes less than 5 minutes.</p>
-                <button onClick={createCv} className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition">
-                    Create My CV
-                </button>
-            </section>
+           <CTACard/>
 
         </div>
     )

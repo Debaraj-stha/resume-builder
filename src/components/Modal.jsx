@@ -1,10 +1,25 @@
 import React from "react";
 import { CgClose } from "react-icons/cg";
+import styled, { keyframes } from "styled-components";
+const scaleUp = keyframes`
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+const Card = styled.div`
+  animation: ${scaleUp} 0.3s ease-out forwards;
+  transform-origin: center;
+`;
 
-const Modal = ({ children, onClose, header, footer }) => {
+const Modal = React.memo(({ children, onClose, header, footer }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md relative">
+      <Card className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md relative">
         {/* Header */}
         <div className="mb-4 flex justify-between items-center border-b pb-2">
           <div className="text-lg font-semibold">{header}</div>
@@ -27,9 +42,9 @@ const Modal = ({ children, onClose, header, footer }) => {
             {footer}
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
-};
+});
 
 export default Modal;

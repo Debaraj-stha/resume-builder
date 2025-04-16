@@ -43,7 +43,7 @@ const ToolTipBox = styled.div.withConfig({
 
 
 
-const ToolTip = ({ children, text, backgroundColor, color,padding }) => {
+const ToolTip = React.memo(({ children, text, backgroundColor, color, padding }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -58,12 +58,12 @@ const ToolTip = ({ children, text, backgroundColor, color,padding }) => {
         backgroundColor={backgroundColor}
         color={color}
         padding={padding}
-        
+
       >
         {text}
       </ToolTipBox>
     </ToolTipWrapper>
   );
-};
+});
 
 export default ToolTip;

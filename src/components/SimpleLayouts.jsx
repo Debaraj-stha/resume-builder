@@ -11,6 +11,7 @@ import { useTheme } from "styled-components";
 import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
+import { layoutDescription } from "../sttaic-data/layout_description";
 const SimpleLayouts = () => {
     const theme = useTheme()
     return (
@@ -18,17 +19,14 @@ const SimpleLayouts = () => {
             <Hspace></Hspace>
             <TemplatesdescriptionCard title={templateDescription.simple.title} description={templateDescription.simple.description}></TemplatesdescriptionCard>
             <div className="grid grid-cols-1  overflow-hidden gap-4" id="simple">
-                <LayoutCard>
+            <LayoutCard>
                     <ClassicalLayout1 />
-                    <LayoutDescriptionCard title={"Ivy League"} descriptionm={`The Harvard template, updated for the 21st century, boasts a sleek design that is well-received by
-                            recruiters and an improved structure for better performance in applicant tracking systems.`} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
 
                 </LayoutCard>
                 <LayoutCard>
                     <ClassicalLayout2 />
-                    <LayoutDescriptionCard title={"Ivy League"} descriptionm={`The Timeline resume template is designed to showcase the progress of your career in an organized manner.
-                            It's perfect for experienced professionals looking to make a lasting impression.`} />
-
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
             </div>
             <div className="py-2">

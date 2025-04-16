@@ -9,11 +9,12 @@ import About from "../pages/About";
 import GenerateResume from "../pages/GenerateResume";
 import LayoutOnly from "./LayouotOnly";
 import ClassicalLayouts from "../pages/ClassicalLayouts";
+import Dashboard from "../pages/Dashboard";
 const MyRoutes = () => {
     return (
         <Routes>
             <Route index path="/" element={<Home></Home>}></Route>
-            <Route path="/dashboard" element={<h1>Dashboard</h1>}></Route>
+            <Route path="/dashboard" element={<Dashboard/>}></Route>
             <Route path="/templates" element={<LayoutOnly />}>
                 <Route index element={<Templates />} />
                 <Route path="classical" element={<ClassicalLayouts/>} />

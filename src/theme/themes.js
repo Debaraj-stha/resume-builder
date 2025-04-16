@@ -10,6 +10,14 @@ export const lightTheme = {
     border: "#e5e7eb",             // gray-200
     bannerText: "#ec4899",
     bannerHoverText: "#be185d",
+    tableHeaderBg: "#ddd",       // gray-100
+    tableHeaderText: "#1f2937",     // gray-800
+    tableRowAltBg: "#f9fafb",       // gray-50
+    tableHoverBg: "#ddd",      // light gray hover
+  
+    tableRowEvenBg: "#ffffff",       // white
+    tableRowOddBg: "#f9fafb",        // gray-50
+    tableRowHoverBg: "#e0f2fe",      // light blue
     icons: {
       default: {
         bg: "#f3f4f6",                // gray-100
@@ -89,7 +97,16 @@ export const lightTheme = {
         text: "#9ca3af",
         border: "#e5e7eb",
       }
+    },
+    card: {
+      background: "#ffffff",         // same as overall background, or optionally:
+      // background: "#f9fafb",     // a subtle off-white if you want a soft card feel
+      text: "#111827",               // for high contrast text
+      border: "#e5e7eb",             // soft gray border
+      hoverBackground: "#f3f4f6",    // light hover effect
+      shadow: "rgba(0, 0, 0, 0.05)", // optional box shadow
     }
+    
   }
 };
 
@@ -105,6 +122,13 @@ export const darkTheme = {
     border: "#374151",             // gray-700
     bannerText: "#f472b6",
     bannerHoverText: "#ec4899",
+    tableHeaderBg: "#374151",       // gray-700
+    tableHeaderText: "#f3f4f6",     // gray-100
+    tableRowAltBg: "#1f2937",       // gray-800
+    tableHoverBg: "#4b5563",        // gray-600
+    tableRowEvenBg: "#0f172a",      // slate-900
+    tableRowOddBg: "#1e293b",       // slate-800
+    tableRowHoverBg: "#334155",     // slate-700
     button: {
         // gray-500
         primary: {
@@ -186,48 +210,13 @@ export const darkTheme = {
         hover: "rgba(255, 206, 86, 0.7)"
       }
     },
-    button: {
-      primary: {
-        bg: "#3b82f6",          // blue-500
-        text: "#ffffff",
-        hoverBg: "#2563eb",     // blue-600
-        hoverText: "#ffffff",
-        border: "#3b82f6",
-      },
-      secondary: {
-        bg: "#374151",          // gray-700
-        text: "#f3f4f6",
-        hoverBg: "#4b5563",     // gray-600
-        hoverText: "#ffffff",
-        border: "#4b5563",
-      },
-      outline: {
-        bg: "transparent",
-        text: "#93c5fd",        // blue-300
-        hoverBg: "#1e3a8a",     // blue-900
-        hoverText: "#ffffff",
-        border: "#60a5fa",      // blue-400
-      },
-      danger: {
-        bg: "#ef4444",          // red-500
-        text: "#ffffff",
-        hoverBg: "#dc2626",     // red-600
-        hoverText: "#ffffff",
-        border: "#ef4444",
-      },
-      ghost: {
-        bg: "transparent",
-        text: "#9ca3af",
-        hoverBg: "#1f2937",
-        hoverText: "#ffffff",
-        border: "transparent",
-      },
-      disabled: {
-        bg: "#374151",
-        text: "#6b7280",
-        border: "#374151",
-      }
+    card: {
+      background: "#1f2937",         // dark gray (navBackground)
+      text: "#ffffff",               // high contrast white
+      border: "#374151",             // subtle border
+      hoverBackground: "#374151",    // slightly lighter on hover
+      shadow: "rgba(0, 0, 0, 0.2)",  // optional soft shadow for lift
     }
-  
+    
   }
 };

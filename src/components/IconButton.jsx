@@ -10,19 +10,28 @@ const StyledIconButton = styled(Button).withConfig({
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: ${({ theme, backgroundColor, variant }) =>
+  background-color: ${({ theme, backgroundColor, variant="primary" }) =>
     backgroundColor || theme.colors.button[variant].bg};
-  color: ${({ theme, color, variant }) =>
+  color: ${({ theme, color, variant ="primary"}) =>
     color || theme.colors.button[variant].text};
 
   &:hover {
-    background-color: ${({ theme, hover, variant }) =>
-      hover || theme.colors.button[variant].hoverBg};
-    color: ${({ theme, variant }) => theme.colors.button[variant].hoverText};
+    background-color: ${({ theme, hover, variant="primary" }) =>
+    hover || theme.colors.button[variant].hoverBg};
+    color: ${({ theme, variant="primary" }) => theme.colors.button[variant].hoverText};
   }
 `;
+const IconButton = React.memo(({ children }) => {
+  const theme = useTheme();
+  const iconStyle = theme.colors.icons["default"]
+  return (
+    <StyledIconButton backgroundColor={iconStyle.bg} hover={iconStyle.hover} color={iconStyle.color}>
+      {children}
+    </StyledIconButton>
+  )
+})
 
-const TextIconButton = ({ icon, text, id="all_templates", variant = "outline" }) => {
+const TextIconButton = React.memo(({ icon, text, id = "all_templates", variant = "outline" }) => {
   const theme = useTheme();
   const iconStyle = theme.colors.icons[id];
 
@@ -33,12 +42,13 @@ const TextIconButton = ({ icon, text, id="all_templates", variant = "outline" })
       hover={iconStyle?.hover}
       color={iconStyle?.color}
     >
-    <IconHolder backgroundColor={`${iconStyle.iconBg}`} padding="10px" borderRadius="10px">
+      <IconHolder backgroundColor={`${iconStyle.iconBg}`} padding="10px" borderRadius="10px">
         {icon}
       </IconHolder>
       <span className="text-md  text-black">{text}</span>
     </StyledIconButton>
   );
-};
+});
 
 export default TextIconButton;
+export  {IconButton}
