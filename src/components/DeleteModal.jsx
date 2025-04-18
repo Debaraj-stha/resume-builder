@@ -1,13 +1,11 @@
 // DeleteModal.js
 import React from "react";
 import Modal from "../components/Modal";
-import { Button, H1, H2, H3 } from "../components/CustomComponents";
+import {  H1, H2, H3 } from "../components/CustomComponents";
 import RoundedIcon from "../components/RoundedIcon";
-import { BsExclamation } from "react-icons/bs";
 import { useDashboard } from "../provider/DashboardProvider";
 import ModalFooter from "./ModalFooter";
-import { GiConfirmed, GiConfrontation } from "react-icons/gi";
-import { FcOk } from "react-icons/fc";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const DeleteModal = () => {
     const { theme, handleDelete, closeModal } = useDashboard()
@@ -20,7 +18,7 @@ const DeleteModal = () => {
         >
             <div className="flex items-center justify-center my-3 gap-4">
                 <RoundedIcon background="green">
-                    <FcOk
+                    <FaDeleteLeft
                         color={theme.colors.icons?.default?.colors || "#fff"}
                         size={60}
                     />

@@ -7,6 +7,7 @@ import { FaMapMarker } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import * as z from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
+import Container from "../components/Container";
 
 
 
@@ -100,7 +101,8 @@ const ContactPage = () => {
     };
 
     return (
-        <PageWrapper>
+     <Container>
+         <PageWrapper>
             <Heading>Contact Us</Heading>
             <ContactGrid>
                 {/* Contact Form */}
@@ -131,6 +133,7 @@ const ContactPage = () => {
                 </InfoSection>
             </ContactGrid>
         </PageWrapper>
+     </Container>
     );
 };
 

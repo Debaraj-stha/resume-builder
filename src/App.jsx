@@ -20,15 +20,13 @@ import NotFound from './pages/NotFoound'
 
 function App() {
   return (
-    <>       
-    <GlobalStyle />
+    <>
+      <GlobalStyle />
       <LayoutProvider>
         <Header></Header>
-        <Container>
-          <MyRoutes></MyRoutes>
-        </Container>
+        <MyRoutes></MyRoutes>
         <Footer />
-       
+
       </LayoutProvider>
     </>
   )

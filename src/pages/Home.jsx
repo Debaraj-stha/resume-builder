@@ -6,6 +6,7 @@ import styled, { keyframes, useTheme } from "styled-components";
 import "../css/home.css"
 import CTACard from "../components/CTACard";
 import FeatureCards from "../components/FeatureCard";
+import Container from "../components/Container";
 
 const TypingAnimation = keyframes`
         from {
@@ -76,6 +77,7 @@ const Home = () => {
     }
     const theme=useTheme()
     return (
+        <Container>
 
         <div className="m-auto">
             <Hspace />
@@ -102,6 +104,7 @@ const Home = () => {
             <CTACard />
 
         </div>
+        </Container>
     )
 }
 export default Home

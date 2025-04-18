@@ -1,17 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import Login from "./Login";
+import { Route, Routes } from "react-router-dom"
+
 import Home from "../pages/Home";
 import Templates from "../pages/Templates";
 import Contact from "../pages/Contact";
 import Privacy from "../pages/Privacy";
 import About from "../pages/About";
 import GenerateResume from "../pages/GenerateResume";
-import LayoutOnly from "./LayouotOnly";
+
 import ClassicalLayouts from "../pages/ClassicalLayouts";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFoound";
 import DashboardProvider from "../provider/DashboardProvider";
+import LayoutWrapper from "./LayoutWrapper";
 const MyRoutes = () => {
     return (
         <Routes>
@@ -20,7 +21,7 @@ const MyRoutes = () => {
                 <DashboardProvider>
                     <Dashboard />
                 </DashboardProvider>}></Route>
-            <Route exact path="/templates" element={<LayoutOnly />}>
+            <Route exact path="/templates" element={<LayoutWrapper />}>
                 <Route index element={<Templates />} />
                 <Route exact path="classical" element={<ClassicalLayouts />} />
                 <Route exact path="modern" element={<h1>modern layout</h1>} />
@@ -28,7 +29,7 @@ const MyRoutes = () => {
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>
             <Route exact path="/about" element={<About />}></Route>
-            <Route exact path="/build-resume" element={<GenerateResume />}></Route>
+            <Route exact path="/build-resume/:layout-type/:layout_id" element={<GenerateResume />}></Route>
             <Route path="*" element={<NotFound />}></Route>
 
 

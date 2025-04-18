@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Heading, Hspace } from "../components/CustomComponents";
 import { privacyPolicies } from "../sttaic-data/privacy-policies";
+import Container from "../components/Container";
 
 const PageWrapper = styled.section`
   padding: 4rem 2rem;
@@ -23,7 +24,7 @@ const Paragraph = styled.p`
 
 const PrivacyPage = () => {
     return (
-        <>
+        <Container>
             <Hspace />
             <PageWrapper>
                 <Heading>Privacy Policy</Heading>
@@ -43,12 +44,8 @@ const PrivacyPage = () => {
                 </div>
 
 
-
-
-
-
             </PageWrapper>
-        </>
+        </Container>
 
     );
 };

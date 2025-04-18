@@ -7,6 +7,7 @@ import FeatureCards from '../components/FeatureCard';
 import MissionVisionCard from '../components/MissionVisionCard';
 import Teamscard from '../components/TeamsCard';
 import IntroCard from '../components/IntroCard';
+import Container from '../components/Container';
 
 
 const Wrapper = styled.section`
@@ -18,7 +19,8 @@ const Wrapper = styled.section`
 
 const About = () => {
     return (
-        <Wrapper>
+      <Container>
+          <Wrapper>
             <Hspace />
             <IntroCard />
             <MissionVisionCard />
@@ -26,6 +28,7 @@ const About = () => {
             <Teamscard />
             <CTACard />
         </Wrapper>
+      </Container>
     );
 };
 

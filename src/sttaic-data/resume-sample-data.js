@@ -98,13 +98,15 @@ export  const sumary=`Lorem ipsum dolor sit amet consectetur adipisicing elit. V
                         totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
                         voluptatibus qui quae ut ratione. Beatae in recusandae earum! Distinctio!`
 
-
 export const personalDetails={
-    name:"Jhon Doe",
+    name:"Manish Jha",
     address:"Dharan,Nepal",
     phone:"+9779812111121",
     email:"example@gmail.com",
-    linkedin:"https://linkedin.com/jhone",
+    urls:[
+    "https://linkedin.com/jhone",
+    "https://github.com/jhone"
+],
     profession:"Business Data Analyst,Software Engineer",
     github:"https://github.com/jhon"
 

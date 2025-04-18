@@ -229,3 +229,17 @@ export const H3=styled.h3`
 color:${({theme})=>theme.colors.text||"black"};
 font-size:18px;
 `
+export const Input = styled.input`
+  width: 100%;
+  height: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin:5px;
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.colors.border};
+  }
+`;

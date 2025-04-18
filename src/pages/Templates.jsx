@@ -6,44 +6,45 @@ import ClassicalLayouts from "../components/ClassicalLayouts";
 import ModernLayouts from "../components/ModernLayouts";
 import SimpleLayouts from "../components/SimpleLayouts";
 import CreativeLayouts from "../components/CreativeLayouts";
+import Container from "../components/Container";
 
 
 const Templates = () => {
-    useEffect(()=>{
-        const gridItems=document.querySelectorAll(".templates")
+    useEffect(() => {
+        const gridItems = document.querySelectorAll(".templates")
         const handleScroll = () => {
             gridItems.forEach((item) => {
-              const boundingRect = item.getBoundingClientRect().top;
-              if (boundingRect < window.innerHeight - 100) {
-                  item.classList.add("animate");
+                const boundingRect = item.getBoundingClientRect().top;
+                if (boundingRect < window.innerHeight - 100) {
+                    item.classList.add("animate");
                 }
             });
-          };
-        
-          handleScroll(); // run once on mount
-          window.addEventListener("scroll", handleScroll);       
-          return () => window.removeEventListener("scroll", handleScroll);
-    },[])
+        };
+
+        handleScroll(); // run once on mount
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [])
     return (
-        <>
+        <Container>
+
             <Hspace></Hspace>
             <div className="items-center max-w-7xl mx-auto px-4">
                 {/* link */}
-                <InPageLayoutLinks/>
+                <InPageLayoutLinks />
                 {/* all resume section */}
-                <AllLayouts/>
+                <AllLayouts />
                 {/* classical resume templates */}
-               <ClassicalLayouts></ClassicalLayouts>
+                {/* <ClassicalLayouts></ClassicalLayouts> */}
                 {/* modern resume templates */}
-               <ModernLayouts></ModernLayouts>
+                {/* <ModernLayouts></ModernLayouts> */}
                 {/* simple resume templates */}
-                <SimpleLayouts></SimpleLayouts>
+                {/* <SimpleLayouts></SimpleLayouts> */}
                 {/* creative resume templates */}
-                <CreativeLayouts></CreativeLayouts>
-                
-            </div>
+                {/* <CreativeLayouts></CreativeLayouts> */}
 
-        </>
+            </div>
+        </Container>
     )
 }
 export default Templates

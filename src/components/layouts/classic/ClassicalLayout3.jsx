@@ -2,7 +2,6 @@ import React,{} from "react"
 import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
 import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
-import { personalDetails, sumary ,achievements,educations,experiences} from "../../../sttaic-data/resume-sample-data";
 import { ExperienceCard,SkillCard,EducationCard,AcheivementCard, ResumeHeader } from "../cards";
 import style from "./style/layout3_style.json"
 import common from "./style/common.json"
@@ -11,7 +10,10 @@ const Title=({title})=>{
     return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}>{title}</H1>
 
 }
-const ClassicalLayout3=()=>{
+const ClassicalLayout3=(props)=>{
+    const {
+        personalDetails, educations, sumary, experiences, achievements
+    } = props
     return(
           <div className="mx-2 w-full max-w-full">
                <ResumeWrapper>

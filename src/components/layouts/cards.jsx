@@ -55,7 +55,9 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                     <Ul>
                         <Li>{personalDetails.phone}</Li>
                         <Li>{personalDetails.email}</Li>
-                        <Li>{personalDetails.linkedin}/</Li>
+                        {personalDetails.urls.map((u,index)=>(
+                            <Li key={index}>{u.value}</Li>
+                        ))}
                     </Ul>
                     <P textAlign={style.ResumeHeader.address.textAlign}>{personalDetails.address}</P>
                 </>
@@ -66,7 +68,8 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
 
 }
 export const ExperienceCard = ({ experience, layout_no }) => {
-    const { companyName, position, aboutCompany, achievements } = experience
+    
+    const { companyName, position, aboutCompany,acheivements } = experience
     switch (layout_no) {
         case "2":
             return (
@@ -95,11 +98,11 @@ export const ExperienceCard = ({ experience, layout_no }) => {
 
                     <P>{aboutCompany}</P>
                     <Ul>
-                        {
+                        {/* {
                             achievements.map((achievement, index) => (
                                 <Li key={index}>{achievement}</Li>
                             ))
-                        }
+                        } */}
                     </Ul>
                 </div>
             )
@@ -137,8 +140,8 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                 <P>{aboutCompany}</P>
                 <Ul display={style.experienceCard.Ul.display}>
                     {
-                        achievements.map((achievement, index) => (
-                            <Li key={index}>{achievement}</Li>
+                        acheivements.map((achievement, index) => (
+                            <Li key={index}>{achievement.value}</Li>
                         ))
                     }
                 </Ul>
@@ -147,7 +150,7 @@ export const ExperienceCard = ({ experience, layout_no }) => {
 
 }
 export const EducationCard = ({ education, layout_no }) => {
-    const { university, degree, start_finish } = education
+    const { university, degree, start_complete } = education
     switch (layout_no) {
         case "2":
             return (
@@ -173,7 +176,7 @@ export const EducationCard = ({ education, layout_no }) => {
                         <P>{degree}</P>
                     </div>
                     <div className={style3.EducationCard.secondDiv.className.join(" ")}>
-                        <P textAlign={style3.EducationCard.secondDiv.p}>{start_finish}</P>
+                        <P textAlign={style3.EducationCard.secondDiv.p}>{start_complete}</P>
                     </div>
                 </div>
 
@@ -186,7 +189,7 @@ export const EducationCard = ({ education, layout_no }) => {
                         <P>{degree}</P>
                     </div>
                     <div className={style.educationCard.div.second.className.join(" ")}>
-                        <P textAlign={style.educationCard.p.textAlign}>{start_finish}</P>
+                        <P textAlign={style.educationCard.p.textAlign}>{start_complete}</P>
                     </div>
                 </div>
 
@@ -197,10 +200,11 @@ export const EducationCard = ({ education, layout_no }) => {
 
 }
 export const AcheivementCard = ({ my_acheivement }) => {
-    const { achievement, field, date } = my_acheivement
+    const { acheivement, field, date } = my_acheivement
+
     return (
         <div>
-            <H3 textAlign={style.AcheivementCard.h3.textAlign}>{achievement}</H3>
+            <H3 textAlign={style.AcheivementCard.h3.textAlign}>{acheivement}</H3>
             <P>{field} {date}</P>
         </div>
     )
@@ -226,7 +230,7 @@ const ClassicalSkillcardCase3 = () => {
         </div>
     )
 }
-export const SkillCard = ({ layout_no }) => {
+export const SkillCard = ({skills, layout_no }) => {
 
     switch (layout_no) {
         case "2":
@@ -244,18 +248,11 @@ export const SkillCard = ({ layout_no }) => {
             return <ClassicalSkillcardCase3 />
 
         default:
-            const [skillItems, setSkillItem] = useState([])
-            useEffect(() => {
-                let items = []
-                skills.forEach((skill) => {
-                    items.push(skill.items)
-                })
-                setSkillItem(items)
-            }, [])
+            
 
             return (
                 <div>
-                    <P>{skillItems.join(",")}</P>
+                    <P>{skills}</P>
                 </div>
             )
 

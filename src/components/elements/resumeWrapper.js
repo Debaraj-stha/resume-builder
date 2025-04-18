@@ -12,3 +12,8 @@ export const ResumeWrapper = styled.div`
     box-shadow: none;
   }
 `;
+
+export const LayoutWrapperWithBorder=styled.div`
+border:1px solid ${({theme})=>theme.colors.border};
+min-height:297mm;
+`

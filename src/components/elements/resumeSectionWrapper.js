@@ -101,3 +101,17 @@ display:flex;
 justify-content:space-between;
 gap:10px;
 `
+
+export const Textarea = styled.textarea`
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  resize: vertical;
+  &:focus {
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.colors.border};
+  }
+`;
+

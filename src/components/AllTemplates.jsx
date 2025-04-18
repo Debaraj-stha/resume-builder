@@ -13,8 +13,12 @@ import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import { layoutDescription } from "../sttaic-data/layout_description";
+import { achievements, educations, experiences, personalDetails, sumary } from "../sttaic-data/resume-sample-data";
 
 const AllLayouts = () => {
+    const data = {
+        personalDetails, educations, sumary, experiences, achievements
+    }
     const theme = useTheme()
     return (
         <>
@@ -22,12 +26,16 @@ const AllLayouts = () => {
             <TemplatesdescriptionCard title={templateDescription.all.title} description={templateDescription.all.description}></TemplatesdescriptionCard>
             <div className="grid grid-cols-1  gap-4 overflow-hidden" id="all-templates">
                 <LayoutCard>
-                    <ClassicalLayout1 />
+                    <ClassicalLayout1 {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
 
                 </LayoutCard>
                 <LayoutCard>
-                    <ClassicalLayout2 />
+                    <ClassicalLayout2  {...data} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
+                </LayoutCard>
+                <LayoutCard>
+                    <ClassicalLayout3  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
 

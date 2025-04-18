@@ -1,14 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { H1, H2, H3 } from "../components/elements/resumeSectionWrapper";
-import styled, { useTheme } from "styled-components";
-import { resumes as initialResumes } from "../sttaic-data/resumes";
-import { Button, Heading, Hspace } from "../components/CustomComponents";
-import { BiDownload, BiEdit } from "react-icons/bi";
-import { FiDelete } from "react-icons/fi";
-import ToolTip from "../components/Tooltip";
-import Modal from "../components/Modal";
-import { BsExclamation, BsEye } from "react-icons/bs";
-import RoundedIcon from "../components/RoundedIcon";
+import React from "react";
+import { Heading, Hspace } from "../components/CustomComponents";
 import ClassicalLayout1 from "../components/layouts/classic/ClassicalLayout1";
 import ScrollableModal from "../components/ScrollableModal";
 import DashboardHeader from "../components/DashboardHeader";
@@ -16,35 +7,37 @@ import ResumeTable from "../components/ResumeTable";
 import Pagination from "../components/Pagination";
 import DeleteModal from "../components/DeleteModal";
 import { useDashboard } from "../provider/DashboardProvider";
-import ErrorModal from "../components/ErrorModal";
+import Container from "../components/Container";
 
 
-const ResumePreview = React.memo(({closePreviewModal}) => {
-    return (
-      <ScrollableModal onClose={closePreviewModal} header={<Heading>Resume Preview</Heading>}>
-        <ClassicalLayout1 />
-      </ScrollableModal>
-    );
-  });
-  
+
+const ResumePreview = React.memo(({ closePreviewModal }) => {
+  return (
+    <ScrollableModal onClose={closePreviewModal} header={<Heading>Resume Preview</Heading>}>
+      <ClassicalLayout1 />
+    </ScrollableModal>
+  );
+});
+
 const Dashboard = () => {
-    const { isModalShow,closePreviewModal,
-        isPreviewShow}=useDashboard()
+  const { isModalShow, closePreviewModal,
+    isPreviewShow } = useDashboard()
 
-    return (
-        <>
-            <Hspace />
-            <DashboardHeader   />
+  return (
+    <Container>
+      <Hspace />{/*add vertical space because navbar is fixed nad its content is overlapped with navbar*/}
+      {/* toots to add,search and sort resumes */}
+      <DashboardHeader />
+      {/* resumes table */}
+      <ResumeTable />
+      {/* pagination buttons */}
+      <Pagination />
 
-            <ResumeTable  />
-
-            <Pagination />
-       
-            {isModalShow && <DeleteModal/>}
-            {isPreviewShow && <ResumePreview closePreviewModal={closePreviewModal} />}
-
-        </>
-    );
+      {isModalShow && <DeleteModal />} {/*show delete modal on button click based on state*/}
+      {/* show preview of resume */}
+      {isPreviewShow && <ResumePreview closePreviewModal={closePreviewModal} />}
+    </Container>
+  );
 };
 
 export default Dashboard;
