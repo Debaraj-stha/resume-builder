@@ -3,7 +3,7 @@ import DynamicAcheivementCard from "../DynamicAcheivementCard";
 import DynamicEducationCard from "../DynamicEducationCard";
 import DynamicExperienceSection from "../DynamicExperienceSection";
 import HeaderSection from "../HeaderSection";
-import DynamicSkillCard from "../SkilllCard";
+import DynamicSkillCard, { SkillItems } from "../SkilllCard";
 import SummarySection from "../SummarySection";
 
 export const layout1SeactionData = [
@@ -17,8 +17,8 @@ export const layout1SeactionData = [
   },
   {
     key: "summary",
-    content: () =>(
-      <><SummarySection/></>
+    content: () => (
+      <><SummarySection /></>
     )
   },
   {
@@ -35,7 +35,7 @@ export const layout1SeactionData = [
     content: () => (
       <>
         <p>Education</p>
-        <DynamicEducationCard name="education" />
+        <DynamicEducationCard name="educations" />
       </>
     ),
   },
@@ -50,6 +50,82 @@ export const layout1SeactionData = [
   },
   {
     key: "skills",
-    content: () => <DynamicSkillCard name="skills" />,
+    content: () => <SkillItems name="skills[0].items" />,
   },
 ];
+export const layout2sectionData = [
+  {
+    key: "header",
+    content: () => (
+      <>
+        <HeaderSection />
+      </>
+    ),
+  },
+  {
+    key: "summary",
+    content: () => (
+      <><SummarySection /></>
+    )
+  },
+  {
+    key: "experience",
+    content: () => (
+      <>
+        <p>Experience</p>
+        <DynamicExperienceSection name="experiences" />
+      </>
+    ),
+  },
+  {
+    key: "education",
+    content: () => (
+      <>
+        <p>Education</p>
+        <DynamicEducationCard name="educations" />
+      </>
+    ),
+  },
+  {
+    key: "skills",
+    content: () => <SkillItems name="skills[0].items" />,
+  },
+];
+export const layout3SectionData = [
+  {
+    key: "header",
+    content: () => (
+      <>
+        <HeaderSection />
+      </>
+    ),
+  },
+  {
+    key: "summary",
+    content: () => (
+      <><SummarySection /></>
+    )
+  },
+  {
+    key: "experience",
+    content: () => (
+      <>
+        <p>Experience</p>
+        <DynamicExperienceSection name="experiences" />
+      </>
+    ),
+  },
+  {
+    key: "education",
+    content: () => (
+      <>
+        <p>Education</p>
+        <DynamicEducationCard name="educations" />
+      </>
+    ),
+  },
+  {
+    key: "skills",
+    content: () => <DynamicSkillCard name="skills" />,
+  },
+]

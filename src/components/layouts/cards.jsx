@@ -69,7 +69,7 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
 }
 export const ExperienceCard = ({ experience, layout_no }) => {
     
-    const { companyName, position, aboutCompany,acheivements } = experience
+    const { companyName, position, aboutCompany,achievements } = experience
     switch (layout_no) {
         case "2":
             return (
@@ -120,7 +120,7 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                 <Ul>
                     {
                         achievements.map((achievement, index) => (
-                            <Li key={index}>{achievement}</Li>
+                            <Li key={index}>{achievement.value}</Li>
                         ))
                     }
                 </Ul>
@@ -138,13 +138,13 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                     <P>2020-2023</P>
                 </InnerContentWrapper>
                 <P>{aboutCompany}</P>
-                <Ul display={style.experienceCard.Ul.display}>
+                {/* <Ul display={style.experienceCard.Ul.display}>
                     {
                         acheivements.map((achievement, index) => (
                             <Li key={index}>{achievement.value}</Li>
                         ))
                     }
-                </Ul>
+                </Ul> */}
             </div>
     }
 
@@ -163,7 +163,7 @@ export const EducationCard = ({ education, layout_no }) => {
                         <IconHolder>
                             <BiCalendar></BiCalendar>
                         </IconHolder>
-                        <P textAlign={style2.educationCard.p.textAlign}>{start_finish}</P>
+                        <P textAlign={style2.educationCard.p.textAlign}>{start_complete}</P>
                     </FlexCard>
                 </div>
 
@@ -216,7 +216,7 @@ const ClassicalSkillcardCase3 = () => {
             {
                 skills.map((skill, index) => (
                     <SkillCardWrapper key={index}>
-                        <P>{skill.category} : </P>
+                        <P>{skill.field} : </P>
                         <SkillCardItemsWrapper key={index} className="">
                             {
                                 skill.items.map((item, i) => (
@@ -231,11 +231,12 @@ const ClassicalSkillcardCase3 = () => {
     )
 }
 export const SkillCard = ({skills, layout_no }) => {
-
+    console.log("skills",skills)
     switch (layout_no) {
         case "2":
             return (
                 <div className={style2.SkillCard.div.className.join(" ")}>
+                    <p>skills</p>
                     {skills.map((skill, index) =>
                         skill.items.map((item, i) => (
                             <P key={`${index}-${i}`} className={style2.SkillCard.p.className.join | (" ")}>{item}</P>
@@ -252,7 +253,14 @@ export const SkillCard = ({skills, layout_no }) => {
 
             return (
                 <div>
-                    <P>{skills}</P>
+                    <P>
+                     
+                         {
+                            skills.map((skill,index)=>(
+                                <span key={index}>{skill.items.join(" ")}</span>
+                            ))
+                        }
+                    </P>
                 </div>
             )
 

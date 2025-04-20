@@ -4,8 +4,8 @@ export const experiences = [
         "position": "Business Data Analyst",
         "aboutCompany": "TechVision Analytics is a mid-sized firm that provides AI-driven business intelligence solutions to e-commerce and retail clients.",
         "achievements": [
-            "Identified and reported key insights that led to a 15% increase in customer retention.",
-            "Built automated dashboards using Power BI and SQL to visualize business metrics.",
+           { value:"Identified and reported key insights that led to a 15% increase in customer retention."},
+           {value: "Built automated dashboards using Power BI and SQL to visualize business metrics."},
         
         ]
     },
@@ -14,9 +14,9 @@ export const experiences = [
         "position": "Software Engineer",
         "aboutCompany": "InnoSoft Systems is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
         "achievements": [
-            "Built reusable React components that improved UI development speed by 40%.",
-            "Refactored backend APIs in Node.js, improving response time by 30%.",
-            "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle.",
+           {value: "Built reusable React components that improved UI development speed by 40%."},
+           {value: "Refactored backend APIs in Node.js, improving response time by 30%."},
+           {value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle."},
         ]
     },
     // {
@@ -36,17 +36,17 @@ export const educations = [
     {
         university: "Massachusetts Institute of Technology (MIT)",
         degree: "Bachelor of Science in Computer Science",
-        start_finish: "2014 - 2018"
+        start_complete: "2014 - 2018"
     },
     {
         university: "Stanford University",
         degree: "Master of Science in Data Science",
-        start_finish: "2018 - 2020"
+        start_complete: "2018 - 2020"
     },
     // {
     //     university: "Harvard Business School",
     //     degree: "Certificate in Business Analytics",
-    //     start_finish: "2021 - 2022"
+    //     start_complete: "2021 - 2022"
     // }
 ];
 export const achievements = [
@@ -68,31 +68,31 @@ export const achievements = [
 ];
 export const skills = [
     {
-        category: "Programming Languages",
+        field: "Programming Languages",
         items: ["JavaScript", "Python", "SQL", "Java"]
     },
     {
-        category: "Frameworks & Libraries",
+        field: "Frameworks & Libraries",
         items: ["React", "Node.js"]
     },
     {
-        category: "Databases",
+        field: "Databases",
         items: ["MongoDB", "MySQL", "Firebase"]
     },
     {
-        category: "Tools & Platforms",
+        field: "Tools & Platforms",
         items: ["Git", "Docker", "Jira", "AWS"]
     },
     {
-        category: "Data Analysis & Visualization",
+        field: "Data Analysis & Visualization",
         items: ["Power BI", "Tableau"]
     },
     // {
-    //     category: "Soft Skills",
+    //     field: "Soft Skills",
     //     items: ["Problem Solving", "Team Collaboration", "Communication", "Agile Methodology"]
     // }
 ];
-export  const sumary=`Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
+export  const summary=`Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
                         totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
                         totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi

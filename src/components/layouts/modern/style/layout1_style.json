@@ -1,0 +1,66 @@
+{
+    "Title": {
+        "fontSize": "25px",
+        "fontWeight": "500",
+        "className": [
+            "pb-1",
+            "my-6"
+        ]
+    },
+    "ResumeHeader": {
+        "name": {
+            "fontSize": "40px",
+            "fontWeight": "700"
+        },
+        "profession": {
+            "fontWeight": "500",
+            "fontSize": "25px"
+        },
+        "address": {
+            "textAlign": "center"
+        }
+    },
+    "experienceCard": {
+        "div": {
+            "className": [
+                "text-left",
+                "pb-4"
+            ]
+        },
+        "Ul": {
+            "display": "block"
+        }
+    },
+    "educationCard": {
+        "div": {
+            "outer": {
+                "className": [
+                    "grid",
+                    "grid-cols-2",
+                    "gap-2"
+                ]
+            },
+            "first": {
+                "className": [
+                    "text-left"
+                ]
+            },
+            "second": {
+                "className": [
+                    "text-right"
+                ]
+            }
+        },
+        "h3": {
+            "textAlign": "left"
+        },
+        "p":{
+            "textAlign":"right"
+        }
+    },
+    "AcheivementCard":{
+        "h3":{
+            "textAlign":"left"
+        }
+    }
+}

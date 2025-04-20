@@ -3,7 +3,7 @@ import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
 import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
 import { ExperienceCard,SkillCard,EducationCard,AcheivementCard, ResumeHeader } from "../cards";
-import style from "../classic/style/layout2_style.json"
+import style from "./style/layout2_style.json"
 import common from "./style/common.json"
 const Title=({title})=>{
     return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className.join(" ")}>{title}</H1>
@@ -11,7 +11,7 @@ const Title=({title})=>{
 
 const ClassicalLayout2 = (props) => {
     const {
-        personalDetails, educations, sumary, experiences, achievements
+        personalDetails, educations, sumary, experiences, achievements,skills
     } = props
 
     return (
@@ -78,7 +78,7 @@ const ClassicalLayout2 = (props) => {
                 <Title title="Skills"></Title>
                 <TransparentLine></TransparentLine>
                 <SectionContent>
-                    <SkillCard layout_no="2"></SkillCard>
+                    <SkillCard layout_no="2" skills={skills}></SkillCard>
                 </SectionContent>
             </Section>
 

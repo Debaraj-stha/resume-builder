@@ -29,7 +29,7 @@ const MyRoutes = () => {
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>
             <Route exact path="/about" element={<About />}></Route>
-            <Route exact path="/build-resume/:layout-type/:layout_id" element={<GenerateResume />}></Route>
+            <Route exact path="/build-resume/:layout_type/:layout_id" element={<GenerateResume />}></Route>
             <Route path="*" element={<NotFound />}></Route>
 
 

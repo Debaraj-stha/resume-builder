@@ -8,35 +8,67 @@ const DynamicSkillCard = ({ name }) => {
   const { control, register } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name, // This refers to the `skills` field in the form state
+    name, // 'skills'
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <p className="font-semibold text-lg">Skills</p>
-      {fields.length > 0 ? (
-        fields.map((field, index) => (
-          <div key={field.id} className="flex items-center gap-4">
+
+      {fields.map((field, index) => (
+        <div key={field.id} className="border p-4 rounded-lg space-y-2">
+          <div className="flex items-center gap-4">
             <Input
-              placeholder={`Skill #${index + 1}`}
-              {...register(`${name}[${index}]`)}
+              placeholder="Field (e.g. Frontend, Backend, Database)"
+              {...register(`${name}[${index}].field`)}
             />
             <Button variant="danger" onClick={() => remove(index)}>
               <FiDelete />
             </Button>
           </div>
-        ))
-      ) : (
-        <p className="text-sm text-gray-400">No skills added yet.</p>
-      )}
+
+          <SkillItems name={`${name}[${index}].items`} />
+        </div>
+      ))}
+
       <Button
-        type="button" 
-        onClick={() => append("")}
+        type="button"
+        onClick={() => append({ field: "", items: [""] })}
       >
         <CgAdd className="mr-1" />
+        Add Field
+      </Button>
+    </div>
+  );
+};
+
+const SkillItems = ({ name }) => {
+  const { control, register } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name, // items inside skills[i]
+  });
+
+  return (
+    <div className="space-y-2">
+      {fields.map((item, i) => (
+        <div key={item.id} className="flex items-center gap-2">
+          <Input
+            placeholder={`Skill #${i + 1}`}
+            {...register(`${name}[${i}]`)}
+          />
+          <Button variant="danger" onClick={() => remove(i)}>
+            <FiDelete />
+          </Button>
+        </div>
+      ))}
+      <Button type="button" onClick={() => append("")}>
+        <CgAdd className="mr-1" />
+        Add Skill
       </Button>
     </div>
   );
 };
 
 export default DynamicSkillCard;
+export {SkillItems}

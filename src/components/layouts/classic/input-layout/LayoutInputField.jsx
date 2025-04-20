@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
 import { LayoutWrapperWithBorder, ResumeWrapper } from "../../../elements/resumeWrapper";
 import { Section } from "../../../elements/resumeSectionWrapper";
 import { useParams } from "react-router-dom";
 import { fetchSectionData } from "./section-data/fetch-section-data";
+import { useLayout } from "../../../../provider/layoutProvider";
+import { useFormContext } from "react-hook-form";
+
 
 
 
@@ -22,6 +24,7 @@ const LayoutInputField = () => {
 
 
 
+
   useEffect(() => {
     // If the component has already been measured, return early to avoid unnecessary re-execution.
     if (measured) return;
@@ -34,9 +37,9 @@ const LayoutInputField = () => {
       let currentGroup = [];
       // Track the total height of the sections on the current page.
       let currentHeight = 0;
-
       // Iterate over the references to each section (stored in `sectionRefs`).
       sectionRefs.current.forEach((ref, idx) => {
+        
         // If the section reference is valid and has a height, process it.
         if (ref && ref.offsetHeight) {
           const sectionHeight = ref.offsetHeight; // Get the height of the current section.
@@ -68,12 +71,19 @@ const LayoutInputField = () => {
 
     // Use `setTimeout` to delay the execution of the `groupSectionsIntoPages` function,
     // allowing the DOM to render first. This ensures that section heights are properly calculated.
-    setTimeout(groupSectionsIntoPages, 100); // Delay allows DOM to render.
+    setTimeout(()=>{
+      groupSectionsIntoPages()
+      
+    }, 1500); // Delay allows DOM to render.
   }, [measured]); // Dependency array: re-run effect if `measured` changes (only happens once after initial measurement).
+const {handleSubmit}=useFormContext()
+const onSubmit=(data)=>{
+  console.log(data)
+}
 
   return (
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <LayoutWrapperWithBorder>
           {/* Hidden measurement rendering */}
           {/* This code snippet is part of the layout logic used to measure the heights of the sections

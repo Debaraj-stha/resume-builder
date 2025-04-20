@@ -11,7 +11,7 @@ import { useTheme } from "styled-components";
 const Navbar = () => {
   const theme=useTheme()
   return (
-    <div className="header shadow p-2 flex justify-between items-center w-fullfixed top-0 left-0 z-50"style={{color:theme.colors.text,background:theme.colors.navBackground}}>
+    <div className="header shadow p-4 flex justify-between items-center w-fullfixed top-0 left-0 z-50"style={{color:theme.colors.text,background:theme.colors.navBackground}}>
       {/* Left Section: Resume Builder Banner */}
       <div className="flex-1 text-left">
         <StyledNavLink isBanner={true}  to="/" className="transition-all text-lg font-bold">

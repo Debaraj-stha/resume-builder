@@ -8,6 +8,7 @@ const LayoutProvider = ({ children }) => {
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(true);
 
+
   const methods = useForm({
     defaultValues: {
       personalDetails: {
@@ -24,15 +25,16 @@ const LayoutProvider = ({ children }) => {
           companyName: "",
           position: "",
           aboutCompany: "",
-          acheivements:[{value:""}]
-         
+          acheivements: [{ value: "" }]
+
         },
       ],
       acheivements: [{ acheivement: "", field: "", date: "" }],
-      skills: [""],
+      skills: [{field:"basic",items:[""]}],
     },
   });
-  
+
+ 
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,6 +42,9 @@ const LayoutProvider = ({ children }) => {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
+
+
 
   const values = { theme, isLoading };
   return (

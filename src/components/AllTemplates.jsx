@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Hspace } from "./CustomComponents";
 import { templateDescription } from "../sttaic-data/template_description";
 import ClassicalLayout1 from "./layouts/classic/ClassicalLayout1";
-import ClassicalLayout2 from "./layouts/classic/classicalLayout2";
+import ClassicalLayout2 from "./layouts/classic/ClassicalLayout2";
 import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
 import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import { iconsColors } from "../sttaic-data/icons-colors";
@@ -13,11 +13,11 @@ import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import { layoutDescription } from "../sttaic-data/layout_description";
-import { achievements, educations, experiences, personalDetails, sumary } from "../sttaic-data/resume-sample-data";
+import { achievements, educations, experiences, personalDetails, skills, summary } from "../sttaic-data/resume-sample-data";
 
 const AllLayouts = () => {
     const data = {
-        personalDetails, educations, sumary, experiences, achievements
+        personalDetails, educations, summary, experiences, achievements,skills
     }
     const theme = useTheme()
     return (
@@ -28,7 +28,6 @@ const AllLayouts = () => {
                 <LayoutCard>
                     <ClassicalLayout1 {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
-
                 </LayoutCard>
                 <LayoutCard>
                     <ClassicalLayout2  {...data} />

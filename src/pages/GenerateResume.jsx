@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import {H1, Hspace} from "../components/CustomComponents"
 
-import { useLayout } from "../provider/layoutProvider";
+import LayoutProvider, { useLayout } from "../provider/layoutProvider";
 import LayoutInputField from "../components/layouts/classic/input-layout/LayoutInputField";
 import LayoutPreview from "../components/layouts/classic/input-layout/LayoutPreview";
 const MainWrapper=styled.section`
