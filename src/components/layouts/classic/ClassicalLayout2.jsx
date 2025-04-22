@@ -1,15 +1,9 @@
-import React,{ useRef } from "react"
-import { TransparentLine } from "../../Divider/TransparentDividers";
-import { ResumeWrapper } from "../../elements/resumeWrapper";
-import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
-import { ExperienceCard,SkillCard,EducationCard,AcheivementCard, ResumeHeader } from "../cards";
-import style from "./style/layout2_style.json"
-import common from "./style/common.json"
+import React, { useRef,useEffect,useState,useLayoutEffect } from "react"
 import { useFormContext } from "react-hook-form";
 import getLayout2OutputSectionData from "./resume-output/layout2-output";
-export const Title=({title})=>{
-    return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className.join(" ")}>{title}</H1>
-}
+import { useLayout } from "../../../provider/layoutProvider";
+import LayoutUi from "../layoutUI";
+
 
 const ClassicalLayout2 = (props) => {
   const sectionRefs = useRef([])
@@ -36,21 +30,24 @@ const ClassicalLayout2 = (props) => {
     skills: skills
   }
   const sectionData = getLayout2OutputSectionData(key_val)
-  return (
-    <div className="w-full max-w-full">
-      <ResumeWrapper>
-        {
-          sectionData.map((section, index) => {
-            const SectionContent = section.content(key_val[section.key]);
-            return (
-              <Section key={index} ref={(el) => (sectionRefs.current[index] = el)} marginTop={section.key !== "header" ? common.Section.marginTop : 0}>
-                {SectionContent}
-              </Section>
-            );
-          })
-        }
+  const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
+  const shouldMeasureHeight = props.shouldMeasureHeight || false;
+  const [pages, setPages] = useState([])
 
-      </ResumeWrapper>
+  useLayoutEffect(() => {
+    if (shouldMeasureHeight && !measured) {
+      groupSectionsIntoPages(sectionRefs, setMeasured, setPages)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (shouldMeasureHeight) {
+      setMeasured(false); // force pagination re-run
+    }
+  }, [sectionData.length]);
+  return (
+    <div className="w-full max-w-full" ref={ref}>
+      <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={2} />
     </div>
   );
 };

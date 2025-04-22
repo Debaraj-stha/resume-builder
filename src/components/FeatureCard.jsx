@@ -1,5 +1,5 @@
 
-import { features } from "../sttaic-data/feature-data"
+import { features } from "../static-data/feature-data"
 import { FeatureCard, FeatureGrid, Features, Heading, } from "./CustomComponents"
 
 const FeatureCards = () => {

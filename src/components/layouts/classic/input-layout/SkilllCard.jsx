@@ -13,10 +13,9 @@ const DynamicSkillCard = ({ name }) => {
 
   return (
     <div className="space-y-6">
-      <p className="font-semibold text-lg">Skills</p>
 
       {fields.map((field, index) => (
-        <div key={field.id} className="border p-4 rounded-lg space-y-2">
+        <div key={field.id} className="p-4 rounded-lg space-y-2">
           <div className="flex items-center gap-4">
             <Input
               placeholder="Field (e.g. Frontend, Backend, Database)"
@@ -33,6 +32,7 @@ const DynamicSkillCard = ({ name }) => {
 
       <Button
         type="button"
+        display="flex"
         onClick={() => append({ field: "", items: [""] })}
       >
         <CgAdd className="mr-1" />
@@ -62,7 +62,8 @@ const SkillItems = ({ name }) => {
           </Button>
         </div>
       ))}
-      <Button type="button" onClick={() => append("")}>
+      <Button type="button"  display="flex" margin="10px 0"
+      onClick={() => append("")}>
         <CgAdd className="mr-1" />
         Add Skill
       </Button>

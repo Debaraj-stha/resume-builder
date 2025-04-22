@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { InnerContentWrapper, P, H1, H2, H3, Li, FlexCard, IconHolder, Ul, SkillCardWrapper, SkillCardItemsWrapper } from "../elements/resumeSectionWrapper"
-import { skills } from "../../sttaic-data/resume-sample-data"
+import { skills } from "../../static-data/resume-sample-data"
 import { BiCalendar, BiMobile } from "react-icons/bi"
 import { FaMarker } from "react-icons/fa"
 import { HiLocationMarker } from "react-icons/hi"
@@ -9,6 +9,7 @@ import { LiaLinkedin } from "react-icons/lia"
 import style from "./classic/style/layout1_style.json"
 import style2 from "./classic/style/layout2_style.json"
 import style3 from "./classic/style/layout3_style.json"
+import { BsGithub, BsGlobe } from "react-icons/bs"
 
 const GenerateLi = ({ icon, text }) => {
     return (
@@ -16,12 +17,17 @@ const GenerateLi = ({ icon, text }) => {
             <IconHolder>
                 {icon}
             </IconHolder>
-            {text}</Li>
+            <span>
+                {text}
+            </span>
+        </Li>
     )
 }
 export const ResumeHeader = ({ personalDetails, layout_no }) => {
+    console.log("layout_no", layout_no)
+    // console.log("personalDetails", personalDetails)
     switch (layout_no) {
-        case "2":
+        case 2:
             return (
                 <>
                     <H1 fontSize={style2.ResumeHeader.name.fontSize} fontWeight={style2.ResumeHeader.name.fontWeight} textAlign={style2.ResumeHeader.name.textAlign}>{personalDetails.name}</H1>
@@ -29,17 +35,36 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                     <Ul justifyContent={style2.ResumeHeader.ul.justifyContent} listStyle={style2.ResumeHeader.ul.listStyle}>
                         <GenerateLi icon={<BiMobile color="blue"></BiMobile>} text={personalDetails.phone}></GenerateLi>
                         <GenerateLi icon={<MdEmail color="blue"></MdEmail>} text={personalDetails.email}></GenerateLi>
-                        <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi>
+
+                        {personalDetails.urls.map((u, index) => {
+                            if (u.includes("linkedin")) {
+                                return (
+                                    <GenerateLi key={index} icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={u}></GenerateLi>
+                                )
+                            }
+                            else if (u.includes("github")) {
+                                return (
+                                    <GenerateLi key={index} icon={<BsGithub color="blue"></BsGithub>} text={u}></GenerateLi>
+                                )
+                            }
+                            else {
+                                return (
+                                    <GenerateLi key={index} icon={<BsGlobe color="blue"></BsGlobe>} text={u}></GenerateLi>
+                                )
+                            }
+                        }
+                        )}
+                        {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
                     </Ul>
                     <P className={style2.ResumeHeader.p.className.join(" ")}>{personalDetails.address}</P>
                 </>
             )
-        case "3":
+        case 3:
             return (
                 <>
                     <H1 fontSize={style3.ResumeHeader.name.fontSize} fontWeight={style2.ResumeHeader.name.fontWeight} fontFamily={style3.ResumeHeader.name.fontFamily} >{personalDetails.name}</H1>
                     <H1 fontWeight={style3.ResumeHeader.profession.fontWeight} fontSize={style3.ResumeHeader.profession.fontSize} color={style3.ResumeHeader.profession.color} fontFamily={style3.ResumeHeader.profession.fontFamily}>{personalDetails.profession}</H1>
-                    <Ul>
+                    <Ul display="flex" listStyle={style2.ResumeHeader.ul.listStyle}>
                         <Li>{personalDetails.phone}</Li>
                         <Li>{personalDetails.email}</Li>
                         <Li>{personalDetails.github}/</Li>
@@ -56,7 +81,7 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                         <Li>{personalDetails.phone}</Li>
                         <Li>{personalDetails.email}</Li>
                         {personalDetails.urls.map((u, index) => (
-                            <Li key={index}>{u.value}</Li>
+                            <Li key={index}>{u}</Li>
                         ))}
                     </Ul>
                     <P textAlign={style.ResumeHeader.address.textAlign}>{personalDetails.address}</P>
@@ -69,9 +94,9 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
 }
 export const ExperienceCard = ({ experience, layout_no }) => {
     // achievements
-    const { companyName, position, aboutCompany, achievements,location,startDate,endDate}=experience
+    const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
     switch (layout_no) {
-        case "2":
+        case 2:
             return (
                 <div className={style2.experienceCard.div.className.join(" ")}>
                     <InnerContentWrapper>
@@ -97,16 +122,16 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                     </InnerContentWrapper>
 
                     <P>{aboutCompany}</P>
-                    <Ul>
+                    <Ul display={style2.experienceCard.ul.display} listStylePosition="outside">
                         {
                             achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement}</Li>
+                                <Li key={index}>{achievement.value}</Li>
                             ))
                         }
                     </Ul>
                 </div>
             )
-        case "3":
+        case 3:
             return <div className={style3.experienceCard.div.className.join(" ")}>
                 <InnerContentWrapper>
                     <H2 color={style3.experienceCard.h2.color}>{companyName}</H2>
@@ -117,9 +142,9 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                     <P>{startDate}-{endDate}</P>
                 </InnerContentWrapper>
                 <P>{aboutCompany}</P>
-                <Ul>
+                <Ul display={style.experienceCard.Ul.display} listStylePosition="outside">
                     {
-                       achievements.map((achievement, index) => (
+                        achievements.map((achievement, index) => (
                             <Li key={index}>{achievement.value}</Li>
                         ))
                     }
@@ -138,7 +163,7 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                     <P>{startDate}-{endDate}</P>
                 </InnerContentWrapper>
                 <P>{aboutCompany}</P>
-                <Ul display={style.experienceCard.Ul.display}>
+                <Ul display={style.experienceCard.Ul.display} listStylePosition="outside">
                     {
                         achievements.map((achievement, index) => {
 
@@ -157,9 +182,9 @@ export const ExperienceCard = ({ experience, layout_no }) => {
 }
 export const EducationCard = ({ education, layout_no }) => {
     const { university, degree, start_complete } = education
-    
+
     switch (layout_no) {
-        case "2":
+        case 2:
             return (
                 <div>
                     <div className={style2.educationCard.innerDiv.className.join(" ")}>
@@ -175,7 +200,7 @@ export const EducationCard = ({ education, layout_no }) => {
                 </div>
 
             )
-        case "3":
+        case 3:
             return (
                 <div className={style3.EducationCard.outerDiv.className.join(" ")}>
                     <div className={style3.EducationCard.firstDiv.className.join(" ")}>
@@ -208,7 +233,7 @@ export const EducationCard = ({ education, layout_no }) => {
 }
 export const AcheivementCard = ({ my_acheivement }) => {
     const { acheivement, field, date } = my_acheivement
-    
+
 
     return (
         <div>
@@ -218,34 +243,29 @@ export const AcheivementCard = ({ my_acheivement }) => {
     )
 }
 
-const ClassicalSkillcardCase3 = () => {
+const ClassicalSkillcardCase3 = ({ skills }) => {
     return (
         <div>
-            {
-                skills.map((skill, index) => (
-                    <SkillCardWrapper key={index}>
-                        <P>{skill.field} : </P>
-                        <SkillCardItemsWrapper key={index} className="">
-                            {
-                                skill.items.map((item, i) => (
-                                    <P key={i}>{item}</P>
-                                ))
-                            }
-                        </SkillCardItemsWrapper>
-                    </SkillCardWrapper>
-                ))
-            }
+            {skills.map((skill, index) => (
+                <SkillCardWrapper key={index}>
+                    <P>{skill.field}:</P>
+                    <SkillCardItemsWrapper className="">
+                        {skill.items.map((item, i) => (
+                            <P key={i}>{item}</P>
+                        ))}
+                    </SkillCardItemsWrapper>
+                </SkillCardWrapper>
+            ))}
         </div>
-    )
-}
+    );
+};
+
 export const SkillCard = ({ skills, layout_no }) => {
-   
-console.log("skills", skills)
+
     switch (layout_no) {
-        case "2":
+        case 2:
             return (
                 <div className={style2.SkillCard.div.className.join(" ")}>
-                    <p>skills</p>
                     {skills.map((skill, index) =>
                         skill.items.map((item, i) => (
                             <P key={`${index}-${i}`} className={style2.SkillCard.p.className.join | (" ")}>{item}</P>
@@ -254,8 +274,8 @@ console.log("skills", skills)
                 </div>
 
             )
-        case "3":
-            return <ClassicalSkillcardCase3 />
+        case 3:
+            return <ClassicalSkillcardCase3 skills={skills} />
 
         default:
 

@@ -234,13 +234,28 @@ export const Input = styled.input`
   width: 100%;
   height: 100%;
   padding: 10px 15px;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
   font-size: 1rem;
   margin:5px;
-
+  color: ${({ theme }) => theme.colors.text};
+  transition: all 0.3s ease;
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.border};
+    border: 1px solid ${({ theme }) => theme.colors.accent};
   }
 `;
+export const Paragraph=styled.p`
+color:${({theme})=>theme.colors.accent||"black"};
+font-size:15px;
+margin:10px 0;
+font-weight:600;
+font-family:"Poppins",sans-serif;
+`
+
+export const DynamicInputSectionWrapper=styled.div`
+border:1px solid ${({theme})=>theme.colors.border};
+margin:${({margin})=>margin||"15px 0"};
+padding:${({padding})=>padding||"5px"};
+border-radius:10px;
+`

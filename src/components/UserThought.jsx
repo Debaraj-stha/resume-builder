@@ -1,5 +1,5 @@
 import React,{} from "react";
-import { thoughts } from "../sttaic-data/user-thoughts";
+import { thoughts } from "../static-data/user-thoughts";
 import styled,{keyframes} from "styled-components";
 import { Avatar, CTAButton, FeatureCard, Heading } from "./CustomComponents";
 //only 50% because we  have duplicates data

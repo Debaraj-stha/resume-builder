@@ -19,7 +19,7 @@ export const H1 = styled.h1.withConfig({
     `;
 
 export const SectionContent = styled.div`
-    padding-top:${(props) => props.paddingTop || "10px"};
+    padding-top:${(props) => props.paddingTop || "0px"};
     `
 export const H2 = styled.h2`
     font-weight:${(props) => props.fontWeight || "bold"};
@@ -43,11 +43,25 @@ export const Ul = styled.ul.withConfig({
     align-items: ${(props) => props.alignItems || "center"};
     justify-content: ${(props) => props.justifyContent || "center"};
     font-weight: ${(props) => props.fontWeight || "normal"};
-    gap: ${(props) => props.gap || "30px"};
-    list-style-position:${(props)=>props.listStylePosition||"inside"};
+    gap: ${(props) => props.gap || "10px"};
+    list-style-position:${(props)=>"inside"};
     margin:${(props) => props.margin || "10px 0 0 0"};
     padding:${(props) => props.padding || "0"};
   `;
+  export const Li = styled.li.withConfig({
+    shouldForwardProp: (props) => !["alignItems", "justifyContent"].includes(props)
+})`
+    font-weight:${(props) => props.fontWeight || "normal"};
+    font-size:${(props) => props.fontSize || "12px"};
+    display:${(props) => props.display || "list-item"};
+    justify-content:${(props) => props.justifyContent || "start"};
+    align-items:${(props) => props.alignItems || "start"};
+    color:${(props) => props.color || "#444"};
+    position:relative;
+    // padding-left: 10px;
+   
+  }
+    `
 
 // flex list-disc  items-center content-center justify-center gap-5 font-normal
 
@@ -59,16 +73,7 @@ export const P = styled.p.withConfig({
     text-align:${(props) => props.textAlign || "left"};
     color:${(props) => props.color || "#444"};
     `
-export const Li = styled.li.withConfig({
-    shouldForwardProp: (props) => !["alignItems", "justifyContent"].includes(props)
-})`
-    font-weight:${(props) => props.fontWeight || "normal"};
-    font-size:${(props) => props.fontSize || "12px"};
-    display:${(props) => props.display || "bloxk"};
-    justify-content:${(props) => props.justifyContent || "start"};
-    align-items:${(props) => props.alignItems || "start"};
-    color:${(props) => props.color || "#444"};
-    `
+
 export const InnerContentWrapper = styled.div.withConfig({
     shouldForwardProp: (props) => !["justifyContent"].includes(props)
 })`
@@ -106,14 +111,17 @@ gap:10px;
 
 export const Textarea = styled.textarea`
   width: 100%;
+  height: 100%;
   padding: 10px 15px;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
   font-size: 1rem;
-  resize: vertical;
+  margin:5px 0;
+  color: ${({ theme }) => theme.colors.text};
+  transition: all 0.3s ease;
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.border};
+    border: 1px solid ${({ theme }) => theme.colors.accent};
   }
 `;
 

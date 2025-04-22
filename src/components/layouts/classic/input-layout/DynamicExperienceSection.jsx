@@ -11,10 +11,10 @@ import { useLayout } from "../../../../provider/layoutProvider";
 
 const FieldGroup = styled.div`
   padding: 1rem;
-  border: 1px solid #ddd;
+  // border: 1px solid #ddd;
   margin-bottom: 1.5rem;
   border-radius: 10px;
-  background-color: #fafafa;
+  // background-color: #fafafa;
 `;
 
 const DynamicExperienceSection = ({ name }) => {
@@ -45,6 +45,7 @@ const DynamicExperienceSection = ({ name }) => {
             <Button
               type="button"
               variant="danger"
+              margin="10px 0"
               onClick={() => {
                 remove(outerIndex)
                 setMeasured(false)

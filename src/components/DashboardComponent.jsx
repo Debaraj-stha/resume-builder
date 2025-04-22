@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { H1, H2, H3 } from "../components/elements/resumeSectionWrapper";
 import styled, { useTheme } from "styled-components";
-import { resumes as initialResumes } from "../sttaic-data/resumes";
+import { resumes as initialResumes } from "../static-data/resumes";
 import { Button, Heading, Hspace } from "../components/CustomComponents";
 import Modal from "../components/Modal";
 import { BsExclamation } from "react-icons/bs";

@@ -8,7 +8,7 @@ import {
   personalDetails,
   summary,
   skills,
-} from "../../sttaic-data/resume-sample-data";
+} from "../../static-data/resume-sample-data";
 
 const LayoutByType = () => {
   const { layout_id, layout_type } = useParams();

@@ -23,6 +23,7 @@ const{setMeasured}=useLayout()
           />
           <Button
             type="button"
+            variant="danger"
             onClick={() =>{
               remove(index);
               setMeasured(false)
@@ -34,21 +35,17 @@ const{setMeasured}=useLayout()
         </div>
       ))}
 
-      <button
+      <Button
         type="button"
+   
+        margin="10px 0"
         onClick={() =>{ append({ value: "" })
         setMeasured(false)
         }}
-        style={{
-          padding: "0.4rem 1rem",
-          borderRadius: "5px",
-          background: "#eee",
-          border: "none",
-          cursor: "pointer",
-        }}
+       
       >
         + Add Experience
-      </button>
+      </Button>
     </div>
   );
 };

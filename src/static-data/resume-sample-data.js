@@ -7,7 +7,10 @@ export const experiences = [
             { value: "Identified and reported key insights that led to a 15% increase in customer retention." },
             { value: "Built automated dashboards using Power BI and SQL to visualize business metrics." },
 
-        ]
+        ],
+        location:"Dharan",
+        "startDate" :"2022",
+        "endDate":"2023"
     },
     // {
     //     "companyName": "InnoSoft Systems",
@@ -17,7 +20,10 @@ export const experiences = [
     //         { value: "Built reusable React components that improved UI development speed by 40%." },
     //         { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
     //         { value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle." },
-    //     ]
+    //     ],
+    // location:"Dharan",
+    // "startDate" :"2022",
+    // "endDate":"2023"
     // },
     {
         "companyName": "NexaEdge Solutions",
@@ -29,7 +35,10 @@ export const experiences = [
             { value: "Designed custom SQL queries to support ad-hoc analysis for operations and finance teams." }
 
 
-        ]
+        ],
+        location:"Dharan",
+        "startDate" :"2022",
+        "endDate":"2023"
     }
 ]
 
@@ -52,17 +61,17 @@ export const educations = [
 ];
 export const achievements = [
     {
-        achievement: "Reduced data processing time by 40% through optimized SQL queries and ETL pipelines",
+        acheivement: "Reduced data processing time by 40% through optimized SQL queries and ETL pipelines",
         field: "Data Analytics",
         date: "June 2022"
     },
     {
-        achievement: "Developed a microservices-based architecture for a SaaS platform serving 10k+ users",
+        acheivement: "Developed a microservices-based architecture for a SaaS platform serving 10k+ users",
         field: "Software Engineering",
         date: "October 2023"
     },
     // {
-    //     achievement: "Presented predictive modeling insights at a national data science conference",
+    //     acheivement: "Presented predictive modeling insights at a national data science conference",
     //     field: "Machine Learning",
     //     date: "March 2024"
     // }

@@ -35,8 +35,8 @@ const LayoutInputField = () => {
 
     <form onSubmit={handleSubmit(onSubmit)}>
       <LayoutWrapperWithBorder>
-        <div>
-        <H1>Input Your Details</H1>
+        <div className="my-6">
+          <H1>Input Your Details</H1>
         </div>
         <ResumeInputFieldWrapper>
           {sectionData.map((section, i) => {

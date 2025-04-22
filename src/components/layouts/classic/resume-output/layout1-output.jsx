@@ -2,18 +2,12 @@ import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import { Title } from "../../../Title";
 import {
-
     ResumeHeader,
     SkillCard,
 } from "../../cards";
 import style from "../style/layout1_style.json";
-
 import { generateAchievementsSections, generateExperienceSections, generateEducationSections } from "./helper";
-
-
-
 const getLayout1OutputSectionData = (data) => {
-
     const {
         personalDetails = {},
         summary = "",
@@ -22,11 +16,10 @@ const getLayout1OutputSectionData = (data) => {
         achievements = [],
         skills = [],
     } = data;
-
     return [
         {
             key: "personalDetails",
-            content: () => <ResumeHeader personalDetails={personalDetails} />,
+            content: () => <ResumeHeader personalDetails={personalDetails} layout_no={1} />,
         },
         {
             key: "summary",
@@ -40,17 +33,17 @@ const getLayout1OutputSectionData = (data) => {
                 </>
             ),
         },
-        ...generateExperienceSections(experiences, {
+        ...generateExperienceSections(experiences, 1, {
             className: style.Title.className,
             fontSize: style.Title.fontSize,
             fontWeight: style.Title.fontWeight
         }),
-        ...generateEducationSections(educations, {
+        ...generateEducationSections(educations, 1, {
             className: style.Title.className,
             fontSize: style.Title.fontSize,
             fontWeight: style.Title.fontWeight
         }),
-        ...generateAchievementsSections(achievements, {
+        ...generateAchievementsSections(achievements, 1, {
             className: style.Title.className,
             fontSize: style.Title.fontSize,
             fontWeight: style.Title.fontWeight
@@ -64,7 +57,7 @@ const getLayout1OutputSectionData = (data) => {
                     <Title title="Skills" className={style.Title.className} fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} />
                     <TransparentLine />
                     <SectionContent>
-                        <SkillCard skills={skills} />
+                        <SkillCard skills={skills} layout_no={1} />
                     </SectionContent>
                 </>
             ),

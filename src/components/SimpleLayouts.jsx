@@ -1,17 +1,17 @@
 import React from "react";
-import { templateDescription } from "../sttaic-data/template_description";
+import { templateDescription } from "../static-data/template_description";
 import ClassicalLayout1 from "./layouts/classic/ClassicalLayout1";
 import ClassicalLayout2 from "./layouts/classic/ClassicalLayout2";
 import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
 import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import { Hspace } from "./CustomComponents";
-import { iconsColors } from "../sttaic-data/icons-colors";
+import { iconsColors } from "../static-data/icons-colors";
 import { FaSearchPlus } from "react-icons/fa";
 import { useTheme } from "styled-components";
 import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
-import { layoutDescription } from "../sttaic-data/layout_description";
+import { layoutDescription } from "../static-data/layout_description";
 const SimpleLayouts = () => {
     const theme = useTheme()
     return (

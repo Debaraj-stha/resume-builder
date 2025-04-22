@@ -1,5 +1,5 @@
 import React from "react";
-import { features } from "../sttaic-data/feature-data";
+import { features } from "../static-data/feature-data";
 
 const FeatureCard = ({feature}) => {
     

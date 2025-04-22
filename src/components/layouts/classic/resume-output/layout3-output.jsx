@@ -1,11 +1,11 @@
+import { ResumeHeader, SkillCard } from "../../cards";
+import { generateEducationSections, generateExperienceSections } from "./helper";
+import style from "../style/layout3_style.json"
+import { Title } from "../../../Title";
 import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
-import { ResumeHeader, SkillCard } from "../../cards";
-import style from "../style/layout2_style.json"
-import { generateEducationSections, generateExperienceSections } from "./helper";
-
-const getLayout2OutputSectionData = (data) => {
+const getLayout3OutputSection = (data) => {
+    console.log("called layout 3")
     const {
         personalDetails = {},
         summary = "",
@@ -13,6 +13,7 @@ const getLayout2OutputSectionData = (data) => {
         educations = [],
         skills = [],
     } = data;
+
     return [
         {
             key: "personalDetails",
@@ -20,7 +21,7 @@ const getLayout2OutputSectionData = (data) => {
 
                 return (
 
-                    <ResumeHeader personalDetails={personalDetails} layout_no={2} />
+                    <ResumeHeader personalDetails={personalDetails} layout_no={3} />
                 )
             }
         },
@@ -29,7 +30,7 @@ const getLayout2OutputSectionData = (data) => {
             content: () => {
                 return (
                     <>
-                        <Title className={style.Title.className} fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight}
+                        <Title fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}
                             title="Summary" />
                         <TransparentLine />
                         <SectionContent>
@@ -40,12 +41,12 @@ const getLayout2OutputSectionData = (data) => {
             }
 
         },
-        ...generateExperienceSections(experiences,2, {
+        ...generateExperienceSections(experiences, 3, {
             className: style.Title.className,
             fontSize: style.Title.fontSize,
             fontWeight: style.Title.fontWeight
         }),
-        ...generateEducationSections(educations,2, {
+        ...generateEducationSections(educations, 3, {
             className: style.Title.className,
             fontSize: style.Title.fontSize,
             fontWeight: style.Title.fontWeight
@@ -54,16 +55,19 @@ const getLayout2OutputSectionData = (data) => {
             key: "skills",
             content: () => (
                 <>
-                    <Title title="Skills" className={style.Title.className} fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight}
+                    <Title title="Skills" fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}
                     />
                     <TransparentLine />
                     <SectionContent>
-                        <SkillCard skills={skills} layout_no={2} />
+                        <SkillCard skills={skills} layout_no={3} />
                     </SectionContent>
                 </>
             )
         }
 
     ]
+
+
+
 }
-export default getLayout2OutputSectionData;
+export default getLayout3OutputSection

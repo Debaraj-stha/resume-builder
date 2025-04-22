@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Heading, Hspace } from "../components/CustomComponents";
-import { privacyPolicies } from "../sttaic-data/privacy-policies";
+import { privacyPolicies } from "../static-data/privacy-policies";
 import Container from "../components/Container";
 
 const PageWrapper = styled.section`

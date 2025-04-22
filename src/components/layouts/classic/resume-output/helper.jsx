@@ -5,7 +5,7 @@ import { SectionContent } from "../../../elements/resumeSectionWrapper";
 import { AcheivementCard, EducationCard, ExperienceCard } from "../../cards";
 import style from "../style/layout1_style.json";
 // Helper to generate experience sections
-const generateExperienceSections = (experiences,titleStyle)=>
+const generateExperienceSections = (experiences,layout_no=1,titleStyle)=>
     experiences.map((experience, index) => ({
         key: `experience_${index}`,
         id: `experience_${index}`,
@@ -18,13 +18,13 @@ const generateExperienceSections = (experiences,titleStyle)=>
                     </>
                 )}
                 <SectionContent>
-                    <ExperienceCard experience={experience} />
+                    <ExperienceCard experience={experience} layout_no={layout_no} />
                 </SectionContent>
             </>
         ),
     }));
 
-const generateEducationSections = (educations,titleStyle)=>
+const generateEducationSections = (educations,layout_no=1,titleStyle)=>
     educations.map((education, index) => ({
         key: `education_${index}`,
         id: `education_${index}`,
@@ -37,13 +37,13 @@ const generateEducationSections = (educations,titleStyle)=>
                     </>
                 )}
                 <SectionContent>
-                    <EducationCard education={education} />
+                    <EducationCard education={education} layout_no={layout_no}/>
                 </SectionContent>
             </>
         ),
     }));
 
-const generateAchievementsSections = (achievements,titleStyle)=>
+const generateAchievementsSections = (achievements,layout_no=1,titleStyle)=>
      achievements.map((achievement, index) => ({
         key: `achievement_${index}`,
         id: `achievement_${index}`,
@@ -56,7 +56,7 @@ const generateAchievementsSections = (achievements,titleStyle)=>
                     </>
                 )}
                 <SectionContent>
-                    <AcheivementCard my_acheivement={achievement} />
+                    <AcheivementCard my_acheivement={achievement} layout_no={layout_no}/>
                 </SectionContent>
             </>
         ),

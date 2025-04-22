@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import { useTheme } from "styled-components";
-import { resumes as initialResumes}   from "../sttaic-data/resumes";
+import { resumes as initialResumes}   from "../static-data/resumes";
 const DashboardContext = createContext()
 
 const DashboardProvider = ({ children }) => {

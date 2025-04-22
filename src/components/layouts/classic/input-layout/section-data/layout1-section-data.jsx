@@ -1,11 +1,11 @@
-import { Textarea } from "../../../../elements/resumeSectionWrapper";
+
+import { DynamicInputSectionWrapper, Paragraph } from "../../../../CustomComponents";
 import DynamicAcheivementCard from "../DynamicAcheivementCard";
 import DynamicEducationCard from "../DynamicEducationCard";
 import DynamicExperienceSection from "../DynamicExperienceSection";
 import HeaderSection from "../HeaderSection";
 import DynamicSkillCard, { SkillItems } from "../SkilllCard";
 import SummarySection from "../SummarySection";
-
 export const layout1SeactionData = [
   {
     key: "header",
@@ -25,8 +25,10 @@ export const layout1SeactionData = [
     key: "experience",
     content: () => (
       <>
-        <p>Experience</p>
-        <DynamicExperienceSection name="experiences" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Experience</Paragraph>
+          <DynamicExperienceSection name="experiences" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
@@ -34,8 +36,10 @@ export const layout1SeactionData = [
     key: "education",
     content: () => (
       <>
-        <p>Education</p>
-        <DynamicEducationCard name="educations"/>
+        <DynamicInputSectionWrapper>
+          <Paragraph>Education</Paragraph>
+          <DynamicEducationCard name="educations" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
@@ -43,14 +47,23 @@ export const layout1SeactionData = [
     key: "achievement",
     content: () => (
       <>
-        <p>Achievement</p>
-        <DynamicAcheivementCard name="acheivements" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Achievement</Paragraph>
+          <DynamicAcheivementCard name="acheivements" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
   {
     key: "skills",
-    content: () => <SkillItems name="skills[0].items" />,
+    content: () => (
+      <>
+        <DynamicInputSectionWrapper>
+          <Paragraph>Skills</Paragraph>
+          <SkillItems name="skills[0].items" />,
+        </DynamicInputSectionWrapper>
+      </>
+    )
   },
 ];
 export const layout2sectionData = [
@@ -72,8 +85,10 @@ export const layout2sectionData = [
     key: "experience",
     content: () => (
       <>
-        <p>Experience</p>
-        <DynamicExperienceSection name="experiences" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Experience</Paragraph>
+          <DynamicExperienceSection name="experiences" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
@@ -81,14 +96,23 @@ export const layout2sectionData = [
     key: "education",
     content: () => (
       <>
-        <p>Education</p>
-        <DynamicEducationCard name="educations" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Education</Paragraph>
+          <DynamicEducationCard name="educations" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
   {
     key: "skills",
-    content: () => <SkillItems name="skills" />,
+    content: () => (
+      <>
+        <DynamicInputSectionWrapper>
+          <Paragraph>Skills</Paragraph>
+          <SkillItems name="skills[0].items" />
+        </DynamicInputSectionWrapper>
+      </>
+    ),
   },
 ];
 export const layout3SectionData = [
@@ -110,8 +134,11 @@ export const layout3SectionData = [
     key: "experience",
     content: () => (
       <>
-        <p>Experience</p>
-        <DynamicExperienceSection name="experiences" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Experience</Paragraph>
+          <DynamicExperienceSection name="experiences" />
+        </DynamicInputSectionWrapper>
+
       </>
     ),
   },
@@ -119,13 +146,22 @@ export const layout3SectionData = [
     key: "education",
     content: () => (
       <>
-        <p>Education</p>
-        <DynamicEducationCard name="educations" />
+        <DynamicInputSectionWrapper>
+          <Paragraph>Education</Paragraph>
+          <DynamicEducationCard name="educations" />
+        </DynamicInputSectionWrapper>
       </>
     ),
   },
   {
     key: "skills",
-    content: () => <DynamicSkillCard name="skills" />,
+    content: () => (
+      <>
+        <DynamicInputSectionWrapper>
+          <Paragraph>Skills</Paragraph>
+          <DynamicSkillCard name="skills" />
+        </DynamicInputSectionWrapper>
+      </>
+    )
   },
 ]

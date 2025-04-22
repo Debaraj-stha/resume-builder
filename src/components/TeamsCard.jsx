@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Heading, Team, TeamGrid, TeamMember } from "./CustomComponents";
-import { members } from "../sttaic-data/team-members";
+import { members } from "../static-data/team-members";
 const Teamscard=()=>{
     return(
         <Team>
