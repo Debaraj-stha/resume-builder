@@ -35,7 +35,7 @@ export const layout1SeactionData = [
     content: () => (
       <>
         <p>Education</p>
-        <DynamicEducationCard name="educations" />
+        <DynamicEducationCard name="educations"/>
       </>
     ),
   },
@@ -88,7 +88,7 @@ export const layout2sectionData = [
   },
   {
     key: "skills",
-    content: () => <SkillItems name="skills[0].items" />,
+    content: () => <SkillItems name="skills" />,
   },
 ];
 export const layout3SectionData = [

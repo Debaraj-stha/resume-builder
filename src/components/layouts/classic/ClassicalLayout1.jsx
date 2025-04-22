@@ -1,19 +1,13 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
-import { Section, P, H1, SectionContent } from "../../elements/resumeSectionWrapper";
-import {
-  ExperienceCard,
-  SkillCard,
-  EducationCard,
-  AcheivementCard,
-  ResumeHeader
-} from "../cards";
+import { Section, H1 } from "../../elements/resumeSectionWrapper";
 import style from "./style/layout1_style.json";
 import common from "./style/common.json";
+import getLayout1OutputSectionData from "./resume-output/layout1-output";
+import { useLayout } from "../../../provider/layoutProvider";
 
-const Title = ({ title }) => (
+export const Title = ({ title }) => (
   <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}>
     {title}
   </H1>
@@ -32,72 +26,86 @@ const ClassicalLayout1 = (props) => {
   const educations = props.educations || liveDetails.educations;
   const summary = props.summary || liveDetails.summary;
   const experiences = props.experiences || liveDetails.experiences;
-  const achievements = props.achievements || liveDetails.acheivements;
-  const skills = props.skills||liveDetails.skills;
+  const achievements = props.achievements || liveDetails.achievements
+  const skills = props.skills || liveDetails.skills;
+
+  const key_val = {
+    personalDetails: personalDetails,
+    educations: educations,
+    summary: summary,
+    experiences: experiences,
+    achievements: achievements,
+    skills: skills
+  }
+  const sectionData = getLayout1OutputSectionData(key_val)
+  const shouldMeasureHeight = props.shouldMeasureHeight || false;
+  const { measured, setMeasured, groupSectionsIntoPages,ref } = useLayout()
+  const sectionRefs = useRef([])
+  const [pages, setPages] = useState([])
+
+  useEffect(() => {
+    if (shouldMeasureHeight) {
+      setMeasured(false); // force pagination re-run
+    }
+  }, [sectionData.length]); 
+  
+
+
 
   return (
-    <div className="w-full max-w-full">
-      <ResumeWrapper>
+    <div className="w-full max-w-full" ref={ref}>
+  
+        {pages.length > 0
+          ? pages.map((group, pageIndex) => (
+            <ResumeWrapper key={pageIndex}>
+              {group.map((sectionIndex) => {
+                const section = sectionData[sectionIndex];
+                const SectionContent = section.content(key_val[section.key]);
 
-        {/* Header */}
-        <Section>
-          <ResumeHeader personalDetails={personalDetails} />
-        </Section>
+                const isExperienceSection = section.key?.startsWith("experience_");
+                const isFirstExperience = isExperienceSection && section.key === "experience_0";
 
-        {/* Summary */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Summary" />
-          <TransparentLine />
-          <SectionContent>
-            <P>{summary}</P>
-          </SectionContent>
-        </Section>
+                const applyMarginTop =
+                  section.key !== "personalDetails" &&
+                  (!isExperienceSection || isFirstExperience);
 
-        {/* Experience */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Experience" />
-          <TransparentLine />
-          <SectionContent>
-            {(experiences || []).map((experience, index) => (
-              <ExperienceCard key={index} experience={experience} />
-            ))}
-          </SectionContent>
-        </Section>
+                return (
+                  <Section
+                    key={section.id || section.key || pageIndex}
+                    ref={(el) => (sectionRefs.current[sectionIndex] = el)}
+                    marginTop={applyMarginTop ? common.Section.marginTop : 0}
+                  >
+                    {SectionContent}
+                  </Section>
+                );
+              })}
+            </ResumeWrapper>
+          ))
+          : (
+            // Fallback render before measuring happens
+            <ResumeWrapper>
+              {sectionData.map((section, index) => {
+                const SectionContent = section.content(key_val[section.key]);
 
-        {/* Education */}
-        <Section>
-          <Title title="Education" />
-          <TransparentLine />
-          <SectionContent>
-            {(educations || []).map((education, index) => (
-              <EducationCard key={index} education={education} />
-            ))}
-          </SectionContent>
-        </Section>
+                const isExperienceSection = section.key?.startsWith("experience_");
+                const isFirstExperience = isExperienceSection && section.key === "experience_0";
 
-        {/* Achievements */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Achievements" />
-          <TransparentLine />
-          <SectionContent>
-            <div className="grid grid-cols-2 gap-2">
-              {(achievements || []).map((achievement, index) => (
-                <AcheivementCard key={index} my_acheivement={achievement} />
-              ))}
-            </div>
-          </SectionContent>
-        </Section>
+                const applyMarginTop =
+                  section.key !== "personalDetails" &&
+                  (!isExperienceSection || isFirstExperience);
 
-        {/* Skills */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Skills" />
-          <TransparentLine />
-          <SectionContent>
-            <SkillCard skills={skills} />
-          </SectionContent>
-        </Section>
-
-      </ResumeWrapper>
+                return (
+                  <Section
+                    key={section.id || section.key || index}
+                    ref={(el) => (sectionRefs.current[index] = el)}
+                    marginTop={applyMarginTop ? common.Section.marginTop : 0}
+                  >
+                    {SectionContent}
+                  </Section>
+                );
+              })}
+            </ResumeWrapper>
+          )}
     </div>
   );
 };

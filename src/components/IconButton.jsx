@@ -41,8 +41,8 @@ const TextIconButton = React.memo(({ icon, text, onClick, id = "all_templates", 
       backgroundColor={iconStyle?.bg}
       hover={iconStyle?.hover}
       color={iconStyle?.color}
-      onClick={onclick}
-      style={{border:"none"}}
+      onClick={onClick}
+     
     >
       <IconHolder backgroundColor={`${iconStyle.iconBg}`} padding="10px" borderRadius="10px">
         {icon}

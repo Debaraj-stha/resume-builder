@@ -3,6 +3,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { Button, Input } from "../../../CustomComponents";
 import { FiDelete } from "react-icons/fi";
 import { CgAdd } from "react-icons/cg";
+import { useLayout } from "../../../../provider/layoutProvider";
 
 const DynamicEducationCard = ({ name }) => {
   const { control, register } = useFormContext();
@@ -10,7 +11,8 @@ const DynamicEducationCard = ({ name }) => {
     control,
     name,
   });
-
+  const { setMeasured } = useLayout()
+  // educations: [{ university: "", degree: "", start_complete: "" }],
   return (
     <div>
       {fields.length > 0 ? (
@@ -35,12 +37,14 @@ const DynamicEducationCard = ({ name }) => {
               <div className="flex justify-start gap-5 mt-2">
                 <Button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
                     append({
                       university: "",
                       degree: "",
                       start_complete: "",
                     })
+                    setMeasured(false)
+                  }
                   }
                 >
                   <CgAdd />
@@ -48,7 +52,7 @@ const DynamicEducationCard = ({ name }) => {
                 <Button
                   type="button"
                   variant="danger"
-                  onClick={() => remove(index)}
+                  onClick={() => { remove(index); setMeasured(false) }}
                 >
                   <FiDelete />
                 </Button>
@@ -60,8 +64,10 @@ const DynamicEducationCard = ({ name }) => {
         <div>
           <Button
             type="button"
-            onClick={() =>
+            onClick={() => {
               append({ university: "", degree: "", start_complete: "" })
+              setMeasured(false)
+            }
             }
           >
             <CgAdd />

@@ -8,6 +8,7 @@ import MissionVisionCard from '../components/MissionVisionCard';
 import Teamscard from '../components/TeamsCard';
 import IntroCard from '../components/IntroCard';
 import Container from '../components/Container';
+import NumberOfResumeCreation from '../components/NumberOfResumeCreation';
 
 
 const Wrapper = styled.section`
@@ -27,6 +28,7 @@ const About = () => {
             <FeatureCards />
             <Teamscard />
             <CTACard />
+            <NumberOfResumeCreation/>
         </Wrapper>
       </Container>
     );

@@ -4,32 +4,33 @@ export const experiences = [
         "position": "Business Data Analyst",
         "aboutCompany": "TechVision Analytics is a mid-sized firm that provides AI-driven business intelligence solutions to e-commerce and retail clients.",
         "achievements": [
-           { value:"Identified and reported key insights that led to a 15% increase in customer retention."},
-           {value: "Built automated dashboards using Power BI and SQL to visualize business metrics."},
-        
-        ]
-    },
-    {
-        "companyName": "InnoSoft Systems",
-        "position": "Software Engineer",
-        "aboutCompany": "InnoSoft Systems is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
-        "achievements": [
-           {value: "Built reusable React components that improved UI development speed by 40%."},
-           {value: "Refactored backend APIs in Node.js, improving response time by 30%."},
-           {value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle."},
+            { value: "Identified and reported key insights that led to a 15% increase in customer retention." },
+            { value: "Built automated dashboards using Power BI and SQL to visualize business metrics." },
+
         ]
     },
     // {
-    //     "companyName": "NexaEdge Solutions",
-    //     "position": "Business Data Analyst",
-    //     "aboutCompany": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics and supply chain optimization.",
+    //     "companyName": "InnoSoft Systems",
+    //     "position": "Software Engineer",
+    //     "aboutCompany": "InnoSoft Systems is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
     //     "achievements": [
-    //         "Conducted cost-efficiency analysis that saved the company $200K annually in operations.",
-    //         "Created predictive models in Python to forecast shipment delays with 85% accuracy.",
-    //         "Designed custom SQL queries to support ad-hoc analysis for operations and finance teams.",
-            
+    //         { value: "Built reusable React components that improved UI development speed by 40%." },
+    //         { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
+    //         { value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle." },
     //     ]
-    // }
+    // },
+    {
+        "companyName": "NexaEdge Solutions",
+        "position": "Business Data Analyst",
+        "aboutCompany": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics and supply chain optimization.",
+        "achievements": [
+            { value: "Conducted cost-efficiency analysis that saved the company $200K annually in operations." },
+            { value: "Created predictive models in Python to forecast shipment delays with 85% accuracy." },
+            { value: "Designed custom SQL queries to support ad-hoc analysis for operations and finance teams." }
+
+
+        ]
+    }
 ]
 
 export const educations = [
@@ -92,22 +93,22 @@ export const skills = [
     //     items: ["Problem Solving", "Team Collaboration", "Communication", "Agile Methodology"]
     // }
 ];
-export  const summary=`Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
+export const summary = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
                         totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
                         totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
                         voluptatibus qui quae ut ratione. Beatae in recusandae earum! Distinctio!`
 
-export const personalDetails={
-    name:"Manish Jha",
-    address:"Dharan,Nepal",
-    phone:"+9779812111121",
-    email:"example@gmail.com",
-    urls:[
-    "https://linkedin.com/jhone",
-    "https://github.com/jhone"
-],
-    profession:"Business Data Analyst,Software Engineer",
-    github:"https://github.com/jhon"
+export const personalDetails = {
+    name: "Manish Jha",
+    address: "Dharan,Nepal",
+    phone: "+9779812111121",
+    email: "example@gmail.com",
+    urls: [
+        "https://linkedin.com/jhone",
+        "https://github.com/jhone"
+    ],
+    profession: "Business Data Analyst,Software Engineer",
+
 
 }

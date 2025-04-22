@@ -3,14 +3,15 @@ import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FiDelete } from "react-icons/fi";
 import { Textarea } from "../../../elements/resumeSectionWrapper";
-
+import { useLayout } from "../../../../provider/layoutProvider";
+import { Button, Input } from "../../../CustomComponents";
 const ExperienceList = ({ name }) => {
   const{control,register}=useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
     name,
   });
-
+const{setMeasured}=useLayout()
   return (
     <div>
       {fields.map((field, index) => (
@@ -20,19 +21,24 @@ const ExperienceList = ({ name }) => {
             rows={2}
             {...register(`${name}[${index}].value`)}
           />
-          <button
+          <Button
             type="button"
-            onClick={() => remove(index)}
+            onClick={() =>{
+              remove(index);
+              setMeasured(false)
+            }}
             style={{ position: "absolute", right: 0 }}
           >
             <FiDelete />
-          </button>
+          </Button>
         </div>
       ))}
 
       <button
         type="button"
-        onClick={() => append({ value: "" })}
+        onClick={() =>{ append({ value: "" })
+        setMeasured(false)
+        }}
         style={{
           padding: "0.4rem 1rem",
           borderRadius: "5px",

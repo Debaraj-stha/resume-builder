@@ -55,7 +55,7 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                     <Ul>
                         <Li>{personalDetails.phone}</Li>
                         <Li>{personalDetails.email}</Li>
-                        {personalDetails.urls.map((u,index)=>(
+                        {personalDetails.urls.map((u, index) => (
                             <Li key={index}>{u.value}</Li>
                         ))}
                     </Ul>
@@ -68,8 +68,8 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
 
 }
 export const ExperienceCard = ({ experience, layout_no }) => {
-    
-    const { companyName, position, aboutCompany,achievements } = experience
+    // achievements
+    const { companyName, position, aboutCompany, achievements,location,startDate,endDate}=experience
     switch (layout_no) {
         case "2":
             return (
@@ -86,23 +86,23 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                             <IconHolder>
                                 <BiCalendar></BiCalendar>
                             </IconHolder>
-                            <P>2023-present</P>
+                            <P>{startDate}-{endDate}</P>
                         </FlexCard>
                         <FlexCard>
                             <IconHolder>
                                 <HiLocationMarker></HiLocationMarker>
                             </IconHolder>
-                            <P>Binartnagar-6,Morang</P>
+                            <P>{location}</P>
                         </FlexCard>
                     </InnerContentWrapper>
 
                     <P>{aboutCompany}</P>
                     <Ul>
-                        {/* {
+                        {
                             achievements.map((achievement, index) => (
                                 <Li key={index}>{achievement}</Li>
                             ))
-                        } */}
+                        }
                     </Ul>
                 </div>
             )
@@ -110,16 +110,16 @@ export const ExperienceCard = ({ experience, layout_no }) => {
             return <div className={style3.experienceCard.div.className.join(" ")}>
                 <InnerContentWrapper>
                     <H2 color={style3.experienceCard.h2.color}>{companyName}</H2>
-                    <H3>Dharan</H3>
+                    <H3>{location}</H3>
                 </InnerContentWrapper>
                 <InnerContentWrapper>
                     <H3>{position}</H3>
-                    <P>2020-2023</P>
+                    <P>{startDate}-{endDate}</P>
                 </InnerContentWrapper>
                 <P>{aboutCompany}</P>
                 <Ul>
                     {
-                        achievements.map((achievement, index) => (
+                       achievements.map((achievement, index) => (
                             <Li key={index}>{achievement.value}</Li>
                         ))
                     }
@@ -131,26 +131,33 @@ export const ExperienceCard = ({ experience, layout_no }) => {
             return <div className="text-left pb-4">
                 <InnerContentWrapper>
                     <H2>{companyName}</H2>
-                    <H3>Dharan</H3>
+                    <H3>{location}</H3>
                 </InnerContentWrapper>
                 <InnerContentWrapper>
                     <H3>{position}</H3>
-                    <P>2020-2023</P>
+                    <P>{startDate}-{endDate}</P>
                 </InnerContentWrapper>
                 <P>{aboutCompany}</P>
-                {/* <Ul display={style.experienceCard.Ul.display}>
+                <Ul display={style.experienceCard.Ul.display}>
                     {
-                        acheivements.map((achievement, index) => (
-                            <Li key={index}>{achievement.value}</Li>
-                        ))
+                        achievements.map((achievement, index) => {
+
+                            return (
+
+                                <Li key={index}>{achievement.value}</Li>
+
+                            )
+                        })
+
                     }
-                </Ul> */}
+                </Ul>
             </div>
     }
 
 }
 export const EducationCard = ({ education, layout_no }) => {
     const { university, degree, start_complete } = education
+    
     switch (layout_no) {
         case "2":
             return (
@@ -201,6 +208,7 @@ export const EducationCard = ({ education, layout_no }) => {
 }
 export const AcheivementCard = ({ my_acheivement }) => {
     const { acheivement, field, date } = my_acheivement
+    
 
     return (
         <div>
@@ -230,8 +238,9 @@ const ClassicalSkillcardCase3 = () => {
         </div>
     )
 }
-export const SkillCard = ({skills, layout_no }) => {
-    console.log("skills",skills)
+export const SkillCard = ({ skills, layout_no }) => {
+   
+console.log("skills", skills)
     switch (layout_no) {
         case "2":
             return (
@@ -249,14 +258,14 @@ export const SkillCard = ({skills, layout_no }) => {
             return <ClassicalSkillcardCase3 />
 
         default:
-            
+
 
             return (
                 <div>
                     <P>
-                     
-                         {
-                            skills.map((skill,index)=>(
+
+                        {
+                            skills.map((skill, index) => (
                                 <span key={index}>{skill.items.join(" ")}</span>
                             ))
                         }

@@ -4,6 +4,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { FiDelete } from "react-icons/fi";
 import { Input } from "../../../CustomComponents"; // Assuming Input component is used
+import { useLayout } from "../../../../provider/layoutProvider";
 
 const Wrapper = styled.div`
   margin-bottom: 1.5rem;
@@ -39,6 +40,7 @@ const DynamicFieldArray = ({ name, placeholder }) => {
     control,
     name,
   });
+  const { measured, setMeasured } = useLayout();
 
   return (
     <Wrapper>
@@ -52,7 +54,11 @@ const DynamicFieldArray = ({ name, placeholder }) => {
             <ButtonIcon type="button" onClick={() => append({ value: "" })}>
               <CgAdd />
             </ButtonIcon>
-            <ButtonIcon background="red" type="button" onClick={() => remove(index)}>
+            <ButtonIcon background="red" type="button" onClick={() => {
+              remove(index);
+              setMeasured(false)
+            }
+            }>
               <FiDelete />
             </ButtonIcon>
           </Row>
@@ -60,7 +66,7 @@ const DynamicFieldArray = ({ name, placeholder }) => {
       ) : (
         <EmptyRow>
           <span>No {placeholder.toLowerCase()} added</span>
-          <ButtonIcon type="button" onClick={() => append({ value: "" })}>
+          <ButtonIcon type="button" onClick={() => { append({ value: "" }); setMeasured(false) }}>
             <CgAdd />
           </ButtonIcon>
         </EmptyRow>

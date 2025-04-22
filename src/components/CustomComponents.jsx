@@ -36,6 +36,7 @@ export const Button = styled.button.withConfig({
   border-radius: 0.375rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  margin:${({margin})=>margin||"10px"};
 
   &:hover {
     background-color: ${({ theme, variant = 'primary' }) => theme.colors.button[variant].hoverBg};

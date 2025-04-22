@@ -45,6 +45,8 @@ export const Ul = styled.ul.withConfig({
     font-weight: ${(props) => props.fontWeight || "normal"};
     gap: ${(props) => props.gap || "30px"};
     list-style-position:${(props)=>props.listStylePosition||"inside"};
+    margin:${(props) => props.margin || "10px 0 0 0"};
+    padding:${(props) => props.padding || "0"};
   `;
 
 // flex list-disc  items-center content-center justify-center gap-5 font-normal
