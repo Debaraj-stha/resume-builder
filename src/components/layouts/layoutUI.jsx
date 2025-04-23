@@ -1,9 +1,10 @@
-
+import { memo } from "react";
 import common from "./classic/style/common.json";
 
 import { ResumeWrapper } from "../elements/resumeWrapper";
 import { Section } from "../elements/resumeSectionWrapper";
 import useDynamicLayoutSections from "./loadResumeLayput";
+
 
 
 const shoulApplyMargin = (section) => {
@@ -18,20 +19,24 @@ const shoulApplyMargin = (section) => {
     const isCertificateSection=section.key?.startsWith("certipicate_")
     const isFirstCertificate=isCertificateSection && section.key==="certipicate_0"
 
+
     const applyMarginTop =
-        section.key !== "personalDetails" &&
+        section.key !== "personalDetails" && 
         (
             (isExperienceSection && isFirstExperience) ||
             (isEducationSection && isFirstEducation) ||
             (isAchievementSection && isFirstAchievement) ||
-            (isCertificateSection && isFirstCertificate)
+            (isCertificateSection && isFirstCertificate) ||
+            section.key==="skills" ||
+            section.key==="personalDetails"
         );
 
     return applyMarginTop;
 };
 
 
-const LayoutUi = ({ pages, layoutId, key_val, sectionRefs }) => {
+
+const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs }) => {
     const sectionData = useDynamicLayoutSections(layoutId, key_val);
     return (
         pages.length > 0 ? (
@@ -73,6 +78,6 @@ const LayoutUi = ({ pages, layoutId, key_val, sectionRefs }) => {
             </ResumeWrapper>
         )
     );
-};
+});
 
 export default LayoutUi;

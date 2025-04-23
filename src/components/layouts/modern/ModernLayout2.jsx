@@ -1,4 +1,4 @@
-import React,{} from "react"
+import React,{ memo } from "react"
 import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
 import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
@@ -10,7 +10,7 @@ const Title=({title})=>{
     return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className.join(" ")}>{title}</H1>
 }
 
-const ModernLayout2 = (props) => {
+const ModernLayout2 = memo((props) => {
    const {
        watch
      } = useFormContext();
@@ -101,5 +101,5 @@ const ModernLayout2 = (props) => {
         
         </div>
     )
-}
+})
 export default ModernLayout2

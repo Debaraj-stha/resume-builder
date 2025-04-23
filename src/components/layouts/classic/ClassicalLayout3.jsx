@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react"
+import React, { useLayoutEffect, useRef, useState, useEffect, memo } from "react"
 import "../css/google-fonts.css"
 import getLayout3OutputSection from "./resume-output/layout3-output";
 import { useFormContext } from "react-hook-form";
 import { useLayout } from "../../../provider/layoutProvider";
 import LayoutUi from "../layoutUI";
 
-const ClassicalLayout3 = (props) => {
+const ClassicalLayout3 = memo((props) => {
     const sectionRefs = useRef([])
     const {
         watch
@@ -51,5 +51,5 @@ const ClassicalLayout3 = (props) => {
             <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={3} />
         </div>
     )
-}
+})
 export default ClassicalLayout3

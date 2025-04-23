@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useFormContext } from "react-hook-form";
 import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
@@ -19,7 +19,7 @@ const Title = ({ title }) => (
   </H1>
 );
 
-const ModernLayout1 = (props) => {
+const ModernLayout1 = memo((props) => {
   const {
     watch
   } = useFormContext();
@@ -101,6 +101,6 @@ const ModernLayout1 = (props) => {
       </ResumeWrapper>
     </div>
   );
-};
+});
 
 export default ModernLayout1;

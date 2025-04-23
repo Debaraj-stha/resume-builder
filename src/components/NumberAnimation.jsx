@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const NumberDisplay = styled.h1`
@@ -13,7 +13,7 @@ const NumberDisplay = styled.h1`
   }
 `;
 
-const AnimateNumber = ({ target = 200, duration = 3000 }) => {
+const AnimateNumber = memo(({ target = 200, duration = 3000 }) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -38,6 +38,6 @@ const AnimateNumber = ({ target = 200, duration = 3000 }) => {
     }, [target, duration]);
 
     return <NumberDisplay>{count}</NumberDisplay>;
-};
+});
 
 export default AnimateNumber;

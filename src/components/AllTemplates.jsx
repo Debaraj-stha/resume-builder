@@ -13,12 +13,14 @@ import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import { layoutDescription } from "../static-data/layout_description";
-import { achievements, educations, experiences, personalDetails, skills, summary,certificates } from "../static-data/resume-sample-data";
+import { achievements, educations, experiences, personalDetails, skills, summary, certificates } from "../static-data/resume-sample-data";
 import ClassicalLayout4 from "./layouts/classic/ClassicalLayout4";
+import ClassicalLayout5 from "./layouts/classic/ClassicalLayout5";
+import ClassicalLayout6 from "./layouts/classic/ClassicalLayout6";
 
 const AllLayouts = () => {
     const data = {
-        personalDetails, educations, summary, experiences, achievements,skills,certificates
+        personalDetails, educations, summary, experiences, achievements, skills, certificates
     }
     const theme = useTheme()
     return (
@@ -26,11 +28,16 @@ const AllLayouts = () => {
             <Hspace></Hspace>
             <TemplatesdescriptionCard title={templateDescription.all.title} description={templateDescription.all.description}></TemplatesdescriptionCard>
             <div className="grid grid-cols-1  gap-4 overflow-hidden" id="all-templates">
-                <LayoutCard>
+                {/* <LayoutCard>
                     <ClassicalLayout1 {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
-                </LayoutCard>
-                <LayoutCard>
+                </LayoutCard> */}
+                {/* <LayoutCard>
+                    <ClassicalLayout5 {...data} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
+                </LayoutCard> */}
+
+                {/* <LayoutCard>
                     <ClassicalLayout2  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
@@ -38,10 +45,16 @@ const AllLayouts = () => {
                     <ClassicalLayout3  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
+               
                  <LayoutCard>
                     <ClassicalLayout4  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
+                </LayoutCard>  */}
+                <LayoutCard>
+                    <ClassicalLayout6  {...data} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
+
 
             </div>
             <div className="py-2">

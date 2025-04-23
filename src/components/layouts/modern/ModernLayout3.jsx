@@ -1,4 +1,4 @@
-import React,{} from "react"
+import React,{ memo } from "react"
 import { TransparentLine } from "../../Divider/TransparentDividers";
 import { ResumeWrapper } from "../../elements/resumeWrapper";
 import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
@@ -9,9 +9,8 @@ import "../css/classic-layout3.css"
 import { useFormContext } from "react-hook-form";
 const Title=({title})=>{
     return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}>{title}</H1>
-
 }
-const ModernLayout3=(props)=>{
+const ModernLayout3=memo((props)=>{
       const {
         watch
       } = useFormContext();
@@ -99,5 +98,5 @@ const ModernLayout3=(props)=>{
                
                </div>
     )
-}
+})
 export default ModernLayout3

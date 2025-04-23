@@ -1,11 +1,14 @@
 import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import getLayout1OutputSectionData from "./resume-output/layout1-output";
+
 import { useLayout } from "../../../provider/layoutProvider";
 import LayoutUi from "../layoutUI";
+import "../css/google-fonts.css"
+import getlayout6OutputSection from "./resume-output/layout6-output";
 
 
-const ClassicalLayout1 = memo((props) => {
+
+const ClassicalLayout6 = memo((props) => {
   const {
     watch
   } = useFormContext();
@@ -20,6 +23,7 @@ const ClassicalLayout1 = memo((props) => {
   const experiences = props.experiences || liveDetails.experiences;
   const achievements = props.achievements || liveDetails.achievements
   const skills = props.skills || liveDetails.skills;
+  const certificates=props.certificates
 
   const key_val = {
     personalDetails: personalDetails,
@@ -27,9 +31,10 @@ const ClassicalLayout1 = memo((props) => {
     summary: summary,
     experiences: experiences,
     achievements: achievements,
-    skills: skills
+    skills: skills,
+    certificates:certificates
   }
-  const sectionData = getLayout1OutputSectionData(key_val)
+  const sectionData = getlayout6OutputSection(key_val)
   const shouldMeasureHeight = props.shouldMeasureHeight || false;
   const { measured, setMeasured, groupSectionsIntoPages,ref } = useLayout()
   const sectionRefs = useRef([])
@@ -51,9 +56,9 @@ const ClassicalLayout1 = memo((props) => {
 
   return (
     <div className="w-full max-w-full" ref={ref}>
-      <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={1} />
+      <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={6} />
     </div>
   );
 });
 
-export default ClassicalLayout1;
+export default ClassicalLayout6;

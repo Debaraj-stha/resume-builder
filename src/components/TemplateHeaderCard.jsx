@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { H1,P } from "./elements/resumeSectionWrapper";
 import { useTheme } from "styled-components";
-const TemplatesdescriptionCard=({title,description})=>{
+const TemplatesdescriptionCard=memo(({title,description})=>{
     const theme=useTheme()//use usetheme hook from styled components
     return(
         <div>
@@ -11,5 +11,5 @@ const TemplatesdescriptionCard=({title,description})=>{
         </P>
     </div>
     )
-}
+})
 export default TemplatesdescriptionCard

@@ -1,16 +1,21 @@
-import React, { } from "react"
+import {memo } from "react"
 import { InnerContentWrapper, P, H1, H2, H3, Li, FlexCard, IconHolder, Ul, SkillCardWrapper, SkillCardItemsWrapper } from "../elements/resumeSectionWrapper"
-
-import { BiCalendar, BiMobile } from "react-icons/bi"
-import { FaMapMarker, FaMarker } from "react-icons/fa"
-import { HiLocationMarker } from "react-icons/hi"
-import { MdEmail } from "react-icons/md"
-import { LiaLinkedin, LiaLinkSolid } from "react-icons/lia"
+import { LiaLinkedin, LiaLinkSolid, LiaMarkerSolid } from "react-icons/lia"
 import style from "./classic/style/layout1_style.json"
 import style2 from "./classic/style/layout2_style.json"
 import style3 from "./classic/style/layout3_style.json"
-import { BsGithub, BsGlobe } from "react-icons/bs"
+
 import { FlexBox, GridBox, BorderBox, VerticalPinSeparator } from "../CustomComponents"
+
+// React Icons
+import { BiCalendar, BiMobile } from "react-icons/bi";
+import { FaMapMarker, FaMarker } from "react-icons/fa";
+import { HiLocationMarker } from "react-icons/hi";
+import { MdEmail } from "react-icons/md";
+import { LiaLinkedin, LiaLinkSolid, LiaMarkerSolid } from "react-icons/lia";
+import { BsGithub, BsGlobe } from "react-icons/bs";
+import { CgCalendar } from "react-icons/cg";
+
 
 
 const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
@@ -25,8 +30,9 @@ const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
         </Li>
     )
 }
-export const ResumeHeader = ({ personalDetails, layout_no }) => {
-    console.log("layout_no", layout_no)
+
+export const ResumeHeader = memo(({ personalDetails, layout_no }) => {
+    console.log("layout_no resume header", layout_no)
     // console.log("personalDetails", personalDetails)
     switch (layout_no) {
         case 2:
@@ -87,7 +93,37 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                     </Ul>
                     <div className="flex items-center">
                         <FaMapMarker></FaMapMarker>
-                        <span className="semi-bold">Dharan Sunsari,Nepal</span>
+                        <span className="semi-bold">{personalDetails.address}</span>
+                    </div>
+                </>
+            )
+        case 5:
+            return (
+                <>
+                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight="800" textAlign="left"
+                        fontFamily="Suranna"
+                    >{personalDetails.name}</H1>
+                    <Ul justifyContent="start">
+                        <Li display="block" fontWeight="bold">{personalDetails.phone}</Li>
+                        <Li display="block" fontWeight="bold">{personalDetails.email}</Li>
+                        <Li display="block" fontWeight="bold">{personalDetails.urls[0]}/</Li>
+                        <Li display="block" fontWeight="bold">{personalDetails.address}/</Li>
+                    </Ul>
+
+                </>
+            )
+        case 6:
+            return (
+                <>
+                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight={style.ResumeHeader.name.fontWeight} textAlign="left" fontFamily="Lato">{personalDetails.name}</H1>
+                    <Ul justifyContent="space-between" margin="0">
+                        <GenerateLi icon={<BiMobile color="black"></BiMobile>} text={personalDetails.phone} fontWeight="bold"></GenerateLi>
+                        <GenerateLi icon={<MdEmail color="black"></MdEmail>} text={personalDetails.email} fontWeight="bold"></GenerateLi>
+                        <GenerateLi icon={<LiaLinkSolid color="black"></LiaLinkSolid>} text={personalDetails.urls[0]} fontWeight="bold"></GenerateLi>
+                    </Ul>
+                    <div className="flex items-center">
+                        <FaMapMarker></FaMapMarker>
+                        <span className="semi-bold">{personalDetails.address}</span>
                     </div>
                 </>
             )
@@ -110,8 +146,8 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
 
     }
 
-}
-export const ExperienceCard = ({ experience, layout_no }) => {
+})
+export const ExperienceCard = memo(({ experience, layout_no }) => {
     // achievements
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
     switch (layout_no) {
@@ -193,6 +229,56 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                 </FlexBox>
             )
 
+        case 5:
+            return (
+                <div>
+                    <div className="flex justify-between">
+                        <div>
+                            <H2 textAlign="left" fontSize="15px">{position}</H2>
+                            <P fontFamily="Open Sans" fontSize="14px">{companyName}</P>
+                        </div>
+                        <div>
+                            <H3 fontWeight="500" fontFamily="Open Sans" textAlign="left">{location}</H3>
+                            <P fontFamily="Open Sans" fontSize="14px">{startDate}-{endDate}</P>
+                        </div>
+                    </div>
+                    <P fontFamily="Open Sans" fontSize="14px">{aboutCompany}</P>
+                    <Ul display="block">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index}>{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
+                </div>
+            )
+        case 6:
+            return (
+                <div>
+                    <div>
+                        <H3 textAlign="left">{position}</H3>
+                        <P>{companyName}</P>
+                    </div>
+                    <div className="flex gap-5">
+                        <div className="flex gap-2 items-center content-center">
+                            <BiCalendar />
+                            <P>{startDate}-{endDate}</P>
+                        </div>
+                        <div className="flex gap-2 items-center content-center">
+                            <HiLocationMarker />
+                            <P>{location}</P>
+                        </div>
+                    </div>
+                    <Ul display="block">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index}>{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
+                </div>
+            )
+
 
         default:
             return <div className="text-left pb-4">
@@ -221,8 +307,8 @@ export const ExperienceCard = ({ experience, layout_no }) => {
             </div>
     }
 
-}
-export const EducationCard = ({ education, layout_no }) => {
+})
+export const EducationCard = memo(({ education, layout_no }) => {
     const { university, degree, start_complete } = education
 
     switch (layout_no) {
@@ -271,6 +357,29 @@ export const EducationCard = ({ education, layout_no }) => {
                     </div>
                 </FlexBox>
             )
+        case 5:
+            return (
+                <div className="flex justify-between">
+                    <div className="">
+                        <H2 textAlign="left" fontSize="15px">{degree}</H2>
+                        <P fontFamily="Open Sans" fontSize="14px">{university}</P>
+                    </div>
+                    <div>
+                        <P fontFamily="Open Sans" fontSize="14px">{start_complete}</P>
+                    </div>
+                </div>
+            )
+        case 6:
+            return (
+                <div>
+                    <H3 textAlign="left" >{degree}</H3>
+                    <H3 fontWeight="500" textAlign="left">{university}</H3>
+                    <div className="flex gap-2 items-center content-center">
+                        <CgCalendar></CgCalendar>
+                        <span>{start_complete}</span>
+                    </div>
+                </div>
+            )
         default:
             return (
                 <div className={style.educationCard.div.outer.className.join(" ")}>
@@ -288,18 +397,27 @@ export const EducationCard = ({ education, layout_no }) => {
     }
 
 
-}
-export const AcheivementCard = ({ my_acheivement }) => {
+})
+export const AcheivementCard = memo(({ my_acheivement, layout_no }) => {
     const { acheivement, field, date } = my_acheivement
+    switch (layout_no) {
+        case 5:
+            return (
+                <div>
+                    <H2 textAlign={style.AcheivementCard.h3.textAlign} fontSize="15px">{acheivement}</H2>
+                    <P fontFamily="Open Sans" fontSize="14px">{field} {date}</P>
+                </div>
+            )
+        default:
+            return (
+                <div>
+                    <H3 textAlign={style.AcheivementCard.h3.textAlign}>{acheivement}</H3>
+                    <P>{field} {date}</P>
+                </div>
+            )
+    }
 
-
-    return (
-        <div>
-            <H3 textAlign={style.AcheivementCard.h3.textAlign}>{acheivement}</H3>
-            <P>{field} {date}</P>
-        </div>
-    )
-}
+})
 
 const ClassicalSkillcardCase3 = ({ skills }) => {
     return (
@@ -317,8 +435,25 @@ const ClassicalSkillcardCase3 = ({ skills }) => {
         </div>
     );
 };
+const BuildFlexSkillCard = ({ skills }) => {
+    const flatSkills = skills.map(skill => skill.items).flat().slice(0, 8)
+    //flat skills items and only get 8 skills
+    return (
+        <GridBox>
+            {
+                flatSkills.map((item, index) => {
+                    return (
+                        <BorderBox key={`${index}`}>
+                            <P fontWeight="600" className={style2.SkillCard.p.className.join | (" ")}>{item}</P>
+                        </BorderBox>
+                    )
+                })
+            }
+        </GridBox>
+    )
+}
 
-export const SkillCard = ({ skills, layout_no }) => {
+export const SkillCard = memo(({ skills, layout_no }) => {
 
     switch (layout_no) {
         case 2:
@@ -335,21 +470,25 @@ export const SkillCard = ({ skills, layout_no }) => {
         case 3:
             return <ClassicalSkillcardCase3 skills={skills} />
         case 4:
-            const flatSkills = skills.map(skill => skill.items).flat().slice(0, 8)
-            //flat skills items and only get 8 skills
+            return <BuildFlexSkillCard skills={skills} />
+
+        case 5:
             return (
-                <GridBox>
-                    {
-                        flatSkills.map((item, index) => {
-                            return (
-                                <BorderBox key={`${index}`}>
-                                    <P  fontWeight="600" className={style2.SkillCard.p.className.join | (" ")}>{item}</P>
-                                </BorderBox>
-                            )
-                        })
-                    }
-                </GridBox>
+                <div>
+                    <P fontFamily="Open Sans" fontSize="14px" fontWeight="500">
+
+                        {
+                            skills.map((skill, index) => (
+                                <span key={index}>{skill.items.join(",")}</span>
+                            ))
+                        }
+                    </P>
+                </div>
             )
+        case 6:
+
+            return <BuildFlexSkillCard skills={skills} />
+
 
         default:
 
@@ -360,7 +499,7 @@ export const SkillCard = ({ skills, layout_no }) => {
 
                         {
                             skills.map((skill, index) => (
-                                <span key={index}>{skill.items.join(" ")}</span>
+                                <span key={index}>{skill.items.join(",")}</span>
                             ))
                         }
                     </P>
@@ -370,26 +509,40 @@ export const SkillCard = ({ skills, layout_no }) => {
     }
 
 
-}
+})
 
-export const CertificationCard = ({ certificate, layout_no }) => {
+export const CertificationCard = memo(({ certificate, layout_no }) => {
 
     switch (layout_no) {
-        case 4:
-            return (
-            <div>
-                <div style={{ flex: "2" }}>
-                    <H3 textAlign="left">{certificate.certificate}</H3>
-                </div>
-                <div style={{ flex: "7" }}>
 
-                    <P fontWeight="500">{certificate.subject}</P>
-                    <P fontWeight="400" fontSize="14px">{certificate.date}</P>
+        case 5:
+            return (
+                <div>
+                    <div style={{ flex: "2" }}>
+                        <H2 textAlign="left" fontSize="15px">{certificate.certificate}</H2>
+                    </div>
+                    <div style={{ flex: "7" }}>
+
+                        <P fontWeight="500">{certificate.subject}</P>
+                        <P fontWeight="400" fontSize="14px">{certificate.date}</P>
+                    </div>
                 </div>
-            </div>
             )
+
         default:
-            return <h1>Default certificatin card</h1>
+
+            return (
+                <div>
+                    <div style={{ flex: "2" }}>
+                        <H3 textAlign="left" fontWeight="500">{certificate.certificate}</H3>
+                    </div>
+                    <div style={{ flex: "7" }}>
+
+                        <P fontWeight="500">{certificate.subject}</P>
+                        <P fontWeight="400" fontSize="14px">{certificate.date}</P>
+                    </div>
+                </div>
+            )
     }
 
-}
+})

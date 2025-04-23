@@ -23,9 +23,12 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         break;
       case 4:
         layoutModule = await import("./classic/resume-output/layout4-output"); // Lazy load layout 4
+        break
+      case 5:
+        layoutModule=await import("./classic/resume-output/layout5-output")
         break;
       default:
-        layoutModule = null; // Handle unknown layoutId
+        layoutModule = await import("./classic/resume-output/layout6-output")
     }
 
     // If module is loaded and component is still mounted, update the sections state

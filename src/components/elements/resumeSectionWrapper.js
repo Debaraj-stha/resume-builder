@@ -21,16 +21,21 @@ export const H1 = styled.h1.withConfig({
 export const SectionContent = styled.div`
     padding-top:${(props) => props.paddingTop || "0px"};
     `
-export const H2 = styled.h2`
+export const H2 = styled.h2.withConfig({
+    shouldForwardProp:(props)=>!["fontFamily","textAlign"].includes(props)
+})`
     font-weight:${(props) => props.fontWeight || "bold"};
     font-size:${(props) => props.fontSize || "18px"};
     color:${(props) => props.color || "black"};
+    font-family:${({fontFamily})=>fontFamily};
+    text-align:${({textAlign})=>textAlign||"left"};
     
     `
 export const H3 = styled.h3.withConfig({
     shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
 })`
     font-weight:${(props) => props.fontWeight || "600"};
+    font-family:${({fontFamily})=>fontFamily};
     font-size:${(props) => props.fontSize || "15px"};
     text-align:${(props) => props.textAlign || "center"};
      color:${(props) => props.color || "black"};

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 const Line = styled.div`
-width:90%;
+width:100%;
 max-width:100%;
 position:relative;
 background:linear-gradient(to right,transparent,${(props) => props.backgroundColor || "black"},${(props) => props.backgroundColor || "black"},transparent);
@@ -55,14 +55,14 @@ const DashedLine = styled(Line)`
 const DoubleLine = styled.div`
   height: 6px;
   position: relative;
-  width: 90%;
-
+  width: 100%;
   &::before,
   &::after {
     content: "";
     position: absolute;
     height: 2px;
     width: 100%;
+    left:0;
     background: ${(props) => props.color || "black"};
   }
 

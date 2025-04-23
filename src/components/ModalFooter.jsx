@@ -1,6 +1,7 @@
+import { memo } from "react"
 import { Button } from "./CustomComponents"
 
-const ModalFooter = ({ onOk, onClose, shouldShowcancel = true }) => {
+const ModalFooter = memo(({ onOk, onClose, shouldShowcancel = true }) => {
     return (
         <div className="flex justify-between">
             {
@@ -19,5 +20,5 @@ const ModalFooter = ({ onOk, onClose, shouldShowcancel = true }) => {
 
         </div>
     )
-}
+})
 export default ModalFooter

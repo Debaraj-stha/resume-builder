@@ -1,6 +1,6 @@
 import React from "react";
 import { Title } from "../../../Title"
-import { TransparentLine } from "../../../Divider/TransparentDividers";
+import { DoubleLineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
 import { SectionContent } from "../../../elements/resumeSectionWrapper";
 import { AcheivementCard, CertificationCard, EducationCard, ExperienceCard } from "../../cards";
 import style from "../style/layout1_style.json";
@@ -11,26 +11,50 @@ export const IncludeSeparator = ({ layout_no }) =>
 
 
 // Helper to generate experience sections
-const generateExperienceSections = (experiences, layout_no = 1, titleStyle) =>
-    experiences.map((experience, index) => ({
-        key: `experience_${index}`,
-        id: `experience_${index}`,
-        content: () => (
-            <>
-                {index === 0 && (
+const generateExperienceSections = (experiences, layout_no = 1, titleStyle) => {
+    switch (layout_no) {
+        case 6:
+            return experiences.map((experience, index) => ({
+                key: `experience_${index}`,
+                id: `experience_${index}`,
+                content: () => (
                     <>
-                        <Title title="EXPERIENCES" {...titleStyle} />
-                        <IncludeSeparator layout_no={layout_no} />
+                        {index === 0 && (
+                            <>
+                                <Title title="EXPERIENCES" {...titleStyle} />
+                                <DoubleLineDivider layout_no={layout_no} />
+                            </>
+                        )}
+                        <SectionContent>
+                            <ExperienceCard experience={experience} layout_no={layout_no} />
+                        </SectionContent>
                     </>
-                )}
-                <SectionContent>
-                    <ExperienceCard experience={experience} layout_no={layout_no} />
-                </SectionContent>
-            </>
-        ),
-    }));
+                ),
+            }));
+        default:
+            return experiences.map((experience, index) => ({
+                key: `experience_${index}`,
+                id: `experience_${index}`,
+                content: () => (
+                    <>
+                        {index === 0 && (
+                            <>
+                                <Title title="EXPERIENCES" {...titleStyle} />
+                                <IncludeSeparator />
+                            </>
+                        )}
+                        <SectionContent>
+                            <ExperienceCard experience={experience} layout_no={layout_no} />
+                        </SectionContent>
+                    </>
+                ),
+            }));
+    }
+}
+
 
 const generateEducationSections = (educations, layout_no = 1, titleStyle) => {
+
     switch (layout_no) {
         case 4:
 
@@ -48,6 +72,25 @@ const generateEducationSections = (educations, layout_no = 1, titleStyle) => {
                     </>
                 ),
             })]
+        case 6:
+            const groupedEducations = []
+            for (let i = 0; i < educations.length; i++) {
+                groupedEducations.push(educations.slice(i, i + 2))
+            }
+            return groupedEducations.map((group, index) => ({
+                key: `education_${index}`,
+                content: () => (
+                    <>
+                        <SectionContent>
+                            <GridPairBox>
+                                {group.map((education, subIndex) => (
+                                    <EducationCard key={`education_${index}_${subIndex}`} education={education} layout_no={layout_no} />
+                                ))}
+                            </GridPairBox>
+                        </SectionContent>
+                    </>
+                )
+            }))
         default:
             return educations.map((education, index) => ({
                 key: `education_${index}`,
@@ -75,14 +118,13 @@ const generateEducationSections = (educations, layout_no = 1, titleStyle) => {
 
 
 const generateAchievementsSections = (achievements, layout_no = 1, titleStyle) => {
+    const groupedAcheivements = [];
+    // Group achievements into pairs
+    for (let i = 0; i < achievements.length; i += 2) {
+        groupedAcheivements.push(achievements.slice(i, i + 2));
+    }
     switch (layout_no) {
         case 4:
-            const groupedAcheivements = [];
-            // Group achievements into pairs
-            for (let i = 0; i < achievements.length; i += 2) {
-                groupedAcheivements.push(achievements.slice(i, i + 2));
-            }
-
             return groupedAcheivements.map((group, index) => ({
                 key: `achievement_${index}`,
                 id: `achievement_${index}`,
@@ -95,7 +137,7 @@ const generateAchievementsSections = (achievements, layout_no = 1, titleStyle) =
                             </>
                         )}
                         <SectionContent>
-                           <GridPairBox>
+                            <GridPairBox>
                                 {group.map((achievement, subIndex) => (
                                     <AcheivementCard key={`achievement_${index}_${subIndex}`} my_acheivement={achievement} layout_no={layout_no} />
                                 ))}
@@ -104,6 +146,30 @@ const generateAchievementsSections = (achievements, layout_no = 1, titleStyle) =
                     </>
                 ),
             }))
+
+        case 5:
+            return groupedAcheivements.map((group, index) => ({
+                key: `achievement_${index}`,
+                id: `achievement_${index}`,
+                content: () => (
+                    <>
+                        {index === 0 && (
+                            <>
+                                <Title title="KEY ACHEIVEMENTS" {...titleStyle} />
+                                <IncludeSeparator layout_no={layout_no} />
+                            </>
+                        )}
+                        <SectionContent>
+                            <GridPairBox>
+                                {group.map((achievement, subIndex) => (
+                                    <AcheivementCard key={`achievement_${index}_${subIndex}`} my_acheivement={achievement} layout_no={layout_no} />
+                                ))}
+                            </GridPairBox>
+                        </SectionContent>
+                    </>
+                ),
+            }))
+
         default:
             return achievements.map((achievement, index) => ({
                 key: `achievement_${index}`,
@@ -125,14 +191,12 @@ const generateAchievementsSections = (achievements, layout_no = 1, titleStyle) =
     }
 }
 const generateCertipicates = (certipicates, layout_no, titleStyle) => {
-    console.log("Certificates", certipicates)
+    const groupedCertipicates = []
+    for (let i = 0; i < certipicates.length; i++) {
+        groupedCertipicates.push(certipicates.slice(i, i + 2))
+    }
     switch (layout_no) {
-        case 4:
-            console.log("layout 4 certi")
-            const groupedCertipicates = []
-            for (let i = 0; i < certipicates.length; i++) {
-                groupedCertipicates.push(certipicates.slice(i, i + 2))
-            }
+        case 5:
             return groupedCertipicates.map((group, index) => ({
                 key: `certipicate_${index}`,
                 content: () => (
@@ -146,7 +210,7 @@ const generateCertipicates = (certipicates, layout_no, titleStyle) => {
 
                         }
                         <SectionContent>
-                           <GridPairBox>
+                            <GridPairBox>
                                 {group.map((certificate, subIndex) => (
                                     <CertificationCard key={`certificate-${index}_${subIndex}`} certificate={certificate} layout_no={layout_no} />
                                 ))}
@@ -156,6 +220,37 @@ const generateCertipicates = (certipicates, layout_no, titleStyle) => {
                 )
             }
             ))
+        default:
+            return groupedCertipicates.map((group, index) => ({
+                key: `certipicate_${index}`,
+                content: () => (
+                    <>
+                        {
+                            index == 0 && (
+                                <>
+                                    <Title title="CERTIPICATIONS" {...titleStyle} />
+                                    {
+
+                                        layout_no == 4 ? (<TransparentLine />) : (<DoubleLineDivider />)
+
+                                    }
+                                </>
+                            )
+
+                        }
+
+                        <SectionContent>
+                            <GridPairBox>
+                                {group.map((certificate, subIndex) => (
+                                    <CertificationCard key={`certificate-${index}_${subIndex}`} certificate={certificate} layout_no={layout_no} />
+                                ))}
+                            </GridPairBox>
+                        </SectionContent>
+                    </>
+                )
+            }
+            ))
+
     }
 }
 

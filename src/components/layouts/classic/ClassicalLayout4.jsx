@@ -1,12 +1,13 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import getLayout1OutputSectionData from "./resume-output/layout1-output";
+
 import { useLayout } from "../../../provider/layoutProvider";
 import LayoutUi from "../layoutUI";
 import "../css/google-fonts.css"
+import getLayout4OutputSection from "./resume-output/layout4-output";
 
 
-const ClassicalLayout4 = (props) => {
+const ClassicalLayout4 = memo((props) => {
   const {
     watch
   } = useFormContext();
@@ -32,7 +33,7 @@ const ClassicalLayout4 = (props) => {
     skills: skills,
     certificates:certificates
   }
-  const sectionData = getLayout1OutputSectionData(key_val)
+  const sectionData = getLayout4OutputSection(key_val)
   const shouldMeasureHeight = props.shouldMeasureHeight || false;
   const { measured, setMeasured, groupSectionsIntoPages,ref } = useLayout()
   const sectionRefs = useRef([])
@@ -57,6 +58,6 @@ const ClassicalLayout4 = (props) => {
       <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={4} />
     </div>
   );
-};
+});
 
 export default ClassicalLayout4;

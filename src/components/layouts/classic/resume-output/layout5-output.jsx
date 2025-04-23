@@ -4,8 +4,8 @@ import style from "../style/layout3_style.json"
 import { Title } from "../../../Title";
 import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-const getLayout4OutputSection = (data) => {
-    
+const getlayout5OutputSection = (data) => {
+   
     const {
         personalDetails = {},
         experiences = [],
@@ -17,9 +17,9 @@ const getLayout4OutputSection = (data) => {
     const textStyle = {
         className: style.Title.className,
         fontSize: style.Title.fontSize,
-        fontWeight: "700",
-        fontFamily: "Lato, sans-serif",
-        textAlign: "left"
+        fontFamily: "Suranna",
+        textAlign: "left",
+        fontWeight:"600"
     }
     return [
         {
@@ -27,27 +27,28 @@ const getLayout4OutputSection = (data) => {
             content: () => {
 
                 return (
-                    <ResumeHeader personalDetails={personalDetails} layout_no={4} />
+
+                    <ResumeHeader personalDetails={personalDetails} layout_no={5} />
                 )
             }
         },
-        ...generateAchievementsSections(achievements, 4,textStyle),
-        ...generateEducationSections(educations, 4,textStyle),
-        ...generateExperienceSections(experiences, 4, textStyle),
+        ...generateAchievementsSections(achievements, 5,textStyle),
+        ...generateEducationSections(educations, 5,textStyle),
+        ...generateExperienceSections(experiences, 5, textStyle),
 
         {
             key: "skills",
             content: () => (
                 <>
-                    <Title title="TECHNICAL SKILLS"  {...textStyle}              />
-                   <IncludeSeparator layout_no={4}/>
+                    <Title title="TECH STACK"  {...textStyle}              />
+                   <IncludeSeparator layout_no={5}/>
                     <SectionContent>
-                        <SkillCard skills={skills} layout_no={4} />
+                        <SkillCard skills={skills} layout_no={5} />
                     </SectionContent>
                 </>
             )
         },
-        ...generateCertipicates(certificates,4,textStyle)
+        ...generateCertipicates(certificates,5,textStyle)
       
 
     ]
@@ -55,4 +56,4 @@ const getLayout4OutputSection = (data) => {
 
 
 }
-export default getLayout4OutputSection
+export default getlayout5OutputSection
