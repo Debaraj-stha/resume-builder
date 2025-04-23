@@ -13,11 +13,12 @@ import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import { layoutDescription } from "../static-data/layout_description";
-import { achievements, educations, experiences, personalDetails, skills, summary } from "../static-data/resume-sample-data";
+import { achievements, educations, experiences, personalDetails, skills, summary,certificates } from "../static-data/resume-sample-data";
+import ClassicalLayout4 from "./layouts/classic/ClassicalLayout4";
 
 const AllLayouts = () => {
     const data = {
-        personalDetails, educations, summary, experiences, achievements,skills
+        personalDetails, educations, summary, experiences, achievements,skills,certificates
     }
     const theme = useTheme()
     return (
@@ -35,6 +36,10 @@ const AllLayouts = () => {
                 </LayoutCard>
                 <LayoutCard>
                     <ClassicalLayout3  {...data} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
+                </LayoutCard>
+                 <LayoutCard>
+                    <ClassicalLayout4  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
 

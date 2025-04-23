@@ -121,3 +121,16 @@ export const personalDetails = {
 
 
 }
+export const certificates = [
+    {
+      certificate: "Frontend Developer Certificate",
+      subject: "React & JavaScript",
+      date: "2023-11-15"
+    },
+    {
+      certificate: "Backend Developer Certificate",
+      subject: "Node.js & MongoDB",
+      date: "2024-03-01"
+    }
+  ];
+  

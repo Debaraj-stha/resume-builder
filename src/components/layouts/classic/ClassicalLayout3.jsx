@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from "react"
-import "../css/classic-layout3.css"
+import "../css/google-fonts.css"
 import getLayout3OutputSection from "./resume-output/layout3-output";
 import { useFormContext } from "react-hook-form";
 import { useLayout } from "../../../provider/layoutProvider";

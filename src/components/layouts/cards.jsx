@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react"
+import React, { } from "react"
 import { InnerContentWrapper, P, H1, H2, H3, Li, FlexCard, IconHolder, Ul, SkillCardWrapper, SkillCardItemsWrapper } from "../elements/resumeSectionWrapper"
-import { skills } from "../../static-data/resume-sample-data"
+
 import { BiCalendar, BiMobile } from "react-icons/bi"
-import { FaMarker } from "react-icons/fa"
+import { FaMapMarker, FaMarker } from "react-icons/fa"
 import { HiLocationMarker } from "react-icons/hi"
 import { MdEmail } from "react-icons/md"
-import { LiaLinkedin } from "react-icons/lia"
+import { LiaLinkedin, LiaLinkSolid } from "react-icons/lia"
 import style from "./classic/style/layout1_style.json"
 import style2 from "./classic/style/layout2_style.json"
 import style3 from "./classic/style/layout3_style.json"
 import { BsGithub, BsGlobe } from "react-icons/bs"
+import { FlexBox, GridBox, BorderBox, VerticalPinSeparator } from "../CustomComponents"
 
-const GenerateLi = ({ icon, text }) => {
+
+const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
     return (
         <Li display={style2.ResumeHeader.li.display} justifyContent={style2.ResumeHeader.li.justifyContent} alignItems={style2.ResumeHeader.li.alignItems} >
             <IconHolder>
                 {icon}
             </IconHolder>
-            <span>
+            <span style={{ fontWeight: fontWeight }}>
                 {text}
             </span>
         </Li>
@@ -72,6 +74,23 @@ export const ResumeHeader = ({ personalDetails, layout_no }) => {
                     <P textAlign={style.ResumeHeader.address.textAlign}>{personalDetails.address}</P>
                 </>
             )
+        case 4:
+            return (
+                <>
+                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight={style.ResumeHeader.name.fontWeight} textAlign="left"
+                        fontFamily="Montserrat, sans-serif"
+                    >{personalDetails.name}</H1>
+                    <Ul justifyContent="space-between">
+                        <GenerateLi icon={<BiMobile color="blue"></BiMobile>} text={personalDetails.phone} fontWeight="bold"></GenerateLi>
+                        <GenerateLi icon={<MdEmail color="blue"></MdEmail>} text={personalDetails.email} fontWeight="bold"></GenerateLi>
+                        <GenerateLi icon={<LiaLinkSolid color="blue"></LiaLinkSolid>} text={personalDetails.urls[0]} fontWeight="bold"></GenerateLi>
+                    </Ul>
+                    <div className="flex items-center">
+                        <FaMapMarker></FaMapMarker>
+                        <span className="semi-bold">Dharan Sunsari,Nepal</span>
+                    </div>
+                </>
+            )
         default:
             return (
                 <>
@@ -107,18 +126,18 @@ export const ExperienceCard = ({ experience, layout_no }) => {
 
                     </InnerContentWrapper>
                     <InnerContentWrapper justifyContent={style2.experienceCard.InnerContentWrapper.justifyContent}>
-                        <FlexCard margin={style2.experienceCard.FlexCard.margin}>
+                        <FlexBox margin={style2.experienceCard.FlexCard.margin}>
                             <IconHolder>
                                 <BiCalendar></BiCalendar>
                             </IconHolder>
                             <P>{startDate}-{endDate}</P>
-                        </FlexCard>
-                        <FlexCard>
+                        </FlexBox>
+                        <FlexBox>
                             <IconHolder>
                                 <HiLocationMarker></HiLocationMarker>
                             </IconHolder>
                             <P>{location}</P>
-                        </FlexCard>
+                        </FlexBox>
                     </InnerContentWrapper>
 
                     <P>{aboutCompany}</P>
@@ -150,6 +169,29 @@ export const ExperienceCard = ({ experience, layout_no }) => {
                     }
                 </Ul>
             </div>
+        case 4:
+            return (
+                <FlexBox gap="20px">
+                    <div style={{ flex: "2" }}>
+                        <H3 textAlign="left">{startDate} - {endDate}</H3>
+                        <P>{location}</P>
+                    </div>
+                    <div style={{ flex: "1" }}>
+                        <VerticalPinSeparator />
+                    </div>
+                    <div style={{ flex: "7" }}>
+                        <P fontWeight="600" fontFamily="Open sans">{position}</P>
+                        <P fontWeight="500">{aboutCompany}</P>
+                        <Ul display={style.experienceCard.Ul.display} listStyle="none" textAlign="left" padding="0 0 0 10px">
+                            {
+                                achievements.map((achievement, index) => (
+                                    <Li key={index}>{achievement.value}</Li>
+                                ))
+                            }
+                        </Ul>
+                    </div>
+                </FlexBox>
+            )
 
 
         default:
@@ -191,12 +233,12 @@ export const EducationCard = ({ education, layout_no }) => {
                         <H3 textAlign={style2.educationCard.innerDiv.h3.textAlign}>{degree}</H3>
                         <P color={style2.educationCard.innerDiv.p.color} fontWeight={style2.educationCard.innerDiv.p.fontWeight}>{university}</P>
                     </div>
-                    <FlexCard>
+                    <FlexBox>
                         <IconHolder>
                             <BiCalendar></BiCalendar>
                         </IconHolder>
                         <P textAlign={style2.educationCard.p.textAlign}>{start_complete}</P>
-                    </FlexCard>
+                    </FlexBox>
                 </div>
 
             )
@@ -212,6 +254,22 @@ export const EducationCard = ({ education, layout_no }) => {
                     </div>
                 </div>
 
+            )
+        case 4:
+            return (
+                <FlexBox gap="20px">
+                    <div style={{ flex: "2" }}>
+                        <H3 textAlign="left">{start_complete}</H3>
+                    </div>
+                    <div style={{ flex: "1" }}>
+                        <VerticalPinSeparator />
+                    </div>
+                    <div style={{ flex: "7" }}>
+                        <P fontWeight="600" fontFamily="Open sans">{degree}</P>
+                        <P fontWeight="500">{university}</P>
+                        <P fontWeight="400" fontSize="14px">GPA 3.8</P>
+                    </div>
+                </FlexBox>
             )
         default:
             return (
@@ -276,6 +334,22 @@ export const SkillCard = ({ skills, layout_no }) => {
             )
         case 3:
             return <ClassicalSkillcardCase3 skills={skills} />
+        case 4:
+            const flatSkills = skills.map(skill => skill.items).flat().slice(0, 8)
+            //flat skills items and only get 8 skills
+            return (
+                <GridBox>
+                    {
+                        flatSkills.map((item, index) => {
+                            return (
+                                <BorderBox key={`${index}`}>
+                                    <P  fontWeight="600" className={style2.SkillCard.p.className.join | (" ")}>{item}</P>
+                                </BorderBox>
+                            )
+                        })
+                    }
+                </GridBox>
+            )
 
         default:
 
@@ -295,5 +369,27 @@ export const SkillCard = ({ skills, layout_no }) => {
 
     }
 
+
+}
+
+export const CertificationCard = ({ certificate, layout_no }) => {
+
+    switch (layout_no) {
+        case 4:
+            return (
+            <div>
+                <div style={{ flex: "2" }}>
+                    <H3 textAlign="left">{certificate.certificate}</H3>
+                </div>
+                <div style={{ flex: "7" }}>
+
+                    <P fontWeight="500">{certificate.subject}</P>
+                    <P fontWeight="400" fontSize="14px">{certificate.date}</P>
+                </div>
+            </div>
+            )
+        default:
+            return <h1>Default certificatin card</h1>
+    }
 
 }

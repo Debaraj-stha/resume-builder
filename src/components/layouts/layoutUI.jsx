@@ -15,13 +15,16 @@ const shoulApplyMargin = (section) => {
 
     const isAchievementSection = section.key?.startsWith("achievement_");
     const isFirstAchievement = isAchievementSection && section.key === "achievement_0";
+    const isCertificateSection=section.key?.startsWith("certipicate_")
+    const isFirstCertificate=isCertificateSection && section.key==="certipicate_0"
 
     const applyMarginTop =
         section.key !== "personalDetails" &&
         (
             (isExperienceSection && isFirstExperience) ||
             (isEducationSection && isFirstEducation) ||
-            (isAchievementSection && isFirstAchievement)
+            (isAchievementSection && isFirstAchievement) ||
+            (isCertificateSection && isFirstCertificate)
         );
 
     return applyMarginTop;

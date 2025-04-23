@@ -259,3 +259,50 @@ margin:${({margin})=>margin||"15px 0"};
 padding:${({padding})=>padding||"5px"};
 border-radius:10px;
 `
+export const VerticalPinSeparator=styled.div`
+background:black;
+width:1px;
+height:100%;
+position:relative;
+&:before{
+content:"";
+position:absolute;
+top:0;
+left:-4px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:black;
+}
+`
+
+export const FlexBox=styled.div`
+display:flex;
+gap:${({gap})=>gap||"10px"};
+align-items:${({alignItems})=>alignItems||"normal"};
+margin:${({margin})=>margin||"10px 0 0 0"};
+`
+export const GridBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;       // allows items to break to the next line
+  gap: 10px;             // spacing between items
+
+`;
+
+export const BorderBox = styled.div`
+border-bottom:3px solid #dfcbcb;
+border-radius:1px;
+padding:0 5px 0 0;
+`;
+
+export const GridPairBox=styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* gap-5 = 20px */
+  /* Responsive: change to row on medium screens and up */
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+
+`

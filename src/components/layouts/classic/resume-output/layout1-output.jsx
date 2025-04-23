@@ -16,6 +16,14 @@ const getLayout1OutputSectionData = (data) => {
         achievements = [],
         skills = [],
     } = data;
+    const textStyle = {
+        className: style.Title.className,
+        fontSize: style.Title.fontSize,
+        fontWeight: style.Title.fontWeight
+    }
+
+
+
     return [
         {
             key: "personalDetails",
@@ -33,21 +41,9 @@ const getLayout1OutputSectionData = (data) => {
                 </>
             ),
         },
-        ...generateExperienceSections(experiences, 1, {
-            className: style.Title.className,
-            fontSize: style.Title.fontSize,
-            fontWeight: style.Title.fontWeight
-        }),
-        ...generateEducationSections(educations, 1, {
-            className: style.Title.className,
-            fontSize: style.Title.fontSize,
-            fontWeight: style.Title.fontWeight
-        }),
-        ...generateAchievementsSections(achievements, 1, {
-            className: style.Title.className,
-            fontSize: style.Title.fontSize,
-            fontWeight: style.Title.fontWeight
-        }),
+        ...generateExperienceSections(experiences, 1, textStyle),
+        ...generateEducationSections(educations, 1, textStyle),
+        ...generateAchievementsSections(achievements, 1, textStyle),
 
         {
             key: "skills",

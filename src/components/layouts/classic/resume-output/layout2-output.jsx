@@ -13,6 +13,11 @@ const getLayout2OutputSectionData = (data) => {
         educations = [],
         skills = [],
     } = data;
+    const textStyle = {
+        className: style.Title.className,
+        fontSize: style.Title.fontSize,
+        fontWeight: style.Title.fontWeight
+    }
     return [
         {
             key: "personalDetails",
@@ -40,16 +45,8 @@ const getLayout2OutputSectionData = (data) => {
             }
 
         },
-        ...generateExperienceSections(experiences,2, {
-            className: style.Title.className,
-            fontSize: style.Title.fontSize,
-            fontWeight: style.Title.fontWeight
-        }),
-        ...generateEducationSections(educations,2, {
-            className: style.Title.className,
-            fontSize: style.Title.fontSize,
-            fontWeight: style.Title.fontWeight
-        }),
+        ...generateExperienceSections(experiences, 2, textStyle),
+        ...generateEducationSections(educations, 2, textStyle),
         {
             key: "skills",
             content: () => (

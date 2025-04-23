@@ -21,6 +21,9 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
       case 3:
         layoutModule = await import("./classic/resume-output/layout3-output"); // Lazy load layout 3
         break;
+      case 4:
+        layoutModule = await import("./classic/resume-output/layout4-output"); // Lazy load layout 4
+        break;
       default:
         layoutModule = null; // Handle unknown layoutId
     }

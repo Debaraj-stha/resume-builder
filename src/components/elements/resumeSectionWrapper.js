@@ -36,7 +36,7 @@ export const H3 = styled.h3.withConfig({
      color:${(props) => props.color || "black"};
     `
 export const Ul = styled.ul.withConfig({
-    shouldForwardProp: (props) => !["alignItems", "justifyContent", "listStyle","listStylePosition"].includes(props)
+    shouldForwardProp: (props) => !["alignItems", "justifyContent", "listStyle","listStylePosition","textAlign"].includes(props)
 })`
     display: ${(props) => props.display || "flex"};
     list-style: ${(props) => props.listStyle || "disc"};
@@ -47,6 +47,7 @@ export const Ul = styled.ul.withConfig({
     list-style-position:${(props)=>"inside"};
     margin:${(props) => props.margin || "10px 0 0 0"};
     padding:${(props) => props.padding || "0"};
+    text-align:${({textAlign})=>textAlign||"left"}
   `;
   export const Li = styled.li.withConfig({
     shouldForwardProp: (props) => !["alignItems", "justifyContent"].includes(props)
@@ -88,7 +89,8 @@ export const FlexCard = styled.div.withConfig({
 display:flex;
 justify-content:${(props) => props.justifyContent || "start"};
 margin:${(props) => props.margin || "0 5px 0 0"};
-align-items:center;
+gap:${(props) => props.gap || "10px"};
+// align-items:center;
 `
 export const IconHolder = styled.div.withConfig({
     shouldForwardProp: (props) => !["backgroundColor", "borderRadius","shouldBoxShadow"].includes(props)
