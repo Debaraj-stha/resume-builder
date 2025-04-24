@@ -1,5 +1,5 @@
 import { memo } from "react"
-import { H2, H3, IconHolder, P } from "../../elements/resumeSectionWrapper"
+import { H1, H2, H3, IconHolder, P } from "../../elements/resumeSectionWrapper"
 import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
 import { CgCalendar } from "react-icons/cg"
@@ -9,7 +9,7 @@ import style2 from "../classic/style/layout2_style.json"
 import style3 from "../classic/style/layout3_style.json"
 import { layout_type_map } from "../../../constant"
 
-const generateClassicalEducationCard=({education,layout_no})=>{
+const generateClassicalEducationCard = ({ education, layout_no }) => {
     const { university, degree, start_complete } = education
 
     switch (layout_no) {
@@ -97,26 +97,38 @@ const generateClassicalEducationCard=({education,layout_no})=>{
 
     }
 }
-const  generateModernEducationCard=({education,layout_no})=>{
-    const{degree,university,start_complete}=education
-    switch(layout_no){
+const generateModernEducationCard = ({ education, layout_no }) => {
+    const { degree, university, start_complete } = education
+    switch (layout_no) {
         case 1:
-            return(
+            return (
                 <div>
                     <H2 color="white" fontSize="18px">{degree}</H2>
                     <P color="#eee3e3">{university}</P>
                     <P color="#eee3e3">{start_complete}</P>
                 </div>
             )
+        case 2:
+            return (
+                <>
+                    <H2 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left" fontWeight="normal" fontSize="18px" >{degree}</H2>
+                    <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left"fontSize="16px">{university}</H2>
+                    <div className="flex gap-2 items-center content-center">
+                        <BiCalendar />
+                        <P>{start_complete}</P>
+                    </div>
+
+                </>
+            )
 
     }
 }
- const EducationCard = memo(({ education, layout_no,layout_type="classical" }) => {
-    if(layout_type===layout_type_map.CLASSICAL){
-        return generateClassicalEducationCard({education,layout_no})
+const EducationCard = memo(({ education, layout_no, layout_type = "classical" }) => {
+    if (layout_type === layout_type_map.CLASSICAL) {
+        return generateClassicalEducationCard({ education, layout_no })
     }
-    if(layout_type===layout_type_map.MODERN){
-        return generateModernEducationCard({education,layout_no})
+    if (layout_type === layout_type_map.MODERN) {
+        return generateModernEducationCard({ education, layout_no })
     }
 
 })

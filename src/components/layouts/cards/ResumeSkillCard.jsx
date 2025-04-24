@@ -112,6 +112,23 @@ const buildModernSkillsCard = ({ skills, layout_no }) => {
                     </div>
                 ))
             )
+            case 2:
+                return(
+                   skills.slice(0,3).map((skill,index)=>(
+                    <div key={index}>
+                         <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left">{skill.field}</H2>
+                         <FlexBox margin="0">
+                            {
+                                skill.items.map((item,i)=>(
+                                   <BorderBox color="#ccc">
+                                     <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="normal" textAlign="left" fontSize="16px">{item}</H2>
+                                   </BorderBox>
+                                ))
+                            }
+                         </FlexBox>
+                    </div>
+                   ))
+                )
         default:
             return <h1>default skill</h1>
     }

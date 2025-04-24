@@ -1,6 +1,6 @@
 import { memo } from "react"
 
-import { IconHolder, Li, P, Ul, H1, H3 } from "../../elements/resumeSectionWrapper"
+import { IconHolder, Li, P, Ul, H1, H3, H2 } from "../../elements/resumeSectionWrapper"
 //styles
 import style from "../classic/style/layout1_style.json"
 import style2 from "../classic/style/layout2_style.json"
@@ -11,6 +11,7 @@ import { MdEmail } from "react-icons/md"
 import { LiaLinkedin, LiaLinkSolid, LiaMapMarkerSolid } from "react-icons/lia"
 import { BsGithub, BsGlobe } from "react-icons/bs"
 import { layout_type_map } from "../../../constant"
+import { Avatar, FlexBox } from "../../CustomComponents"
 
 // LiaLinkSolid
 const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
@@ -156,11 +157,34 @@ const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
                     <H1 fontWeight="600" fontFamily="Lato, sans-serif" textAlign="left">{name}</H1>
                     <H3 color="blue" textAlign="left" fontWeight="500">{profession}</H3>
                     <Ul justifyContent="start" margin="0">
-                        <GenerateContactList personalDetails={personalDetails} urls={[urls[0]]} color="black"/>
+                        <GenerateContactList personalDetails={personalDetails} urls={[urls[0]]} color="black" />
                     </Ul>
                     <AddressWithMarker address={address} />
                 </>
             )
+        case 2:
+            return (
+                <>
+                   <FlexBox>
+                    <div>
+                    <H1 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left">{name}</H1>
+                    <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
+                    <Ul justifyContent="start">
+                        <GenerateContactList color="black" personalDetails={personalDetails} />
+                    </Ul>
+                    </div>
+                    <div>
+                        <Avatar>
+                            <img src={`${profile}`} alt="image"></img>
+                        </Avatar>
+                    </div>
+                   </FlexBox>
+                </>
+            )
+
+        /*
+
+        */
         default:
             return <h1>Default resume header</h1>
     }

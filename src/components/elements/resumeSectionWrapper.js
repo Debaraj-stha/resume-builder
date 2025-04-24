@@ -146,13 +146,13 @@ export const Textarea = styled.textarea`
 `;
 
 export const LeftColumn = styled.div`
-  flex: 3;
+  flex: ${({flex})=>flex||"3"};
   background-color:${({backgroundColor})=>backgroundColor||"#fff"};
-  padding:40px 20px 40px 40px;
+  padding:${({padding})=>padding||"40px 20px 40px 40px"};
 `;
 export const RightColumn = styled.div`
-  flex: 2;
+    flex: ${({flex})=>flex||"2"};
   background-color:${({backgroundColor})=>backgroundColor||"#1c2a45"};
   color: #fff;
-  padding:20px 40px 20px 20px;
+  padding:${({padding})=>padding||"20px 40px 20px 20px"};
 `;

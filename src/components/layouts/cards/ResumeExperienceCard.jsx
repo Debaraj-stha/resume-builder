@@ -172,18 +172,18 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
             console.log("case 1")
             return (
                 <>
-                    <FlexBox justifyContent="space-between"margin="0">
-                        <H3  textAlign="left" fontWeight="500" fontFamily="Lato" fontSize="17px">{position}</H3>
+                    <FlexBox justifyContent="space-between" margin="0">
+                        <H3 textAlign="left" fontWeight="500" fontFamily="Lato" fontSize="17px">{position}</H3>
                         <P>{startDate}-{endDate}</P>
                     </FlexBox>
-                    <FlexBox justifyContent="space-between"margin="0" >
+                    <FlexBox justifyContent="space-between" margin="0" >
                         <H3 color="blue" textAlign="left" fontWeight="600">{companyName}</H3>
                         <P>{location}</P>
                     </FlexBox>
                     <P>{aboutCompany}</P>
                     <Ul display="block">
                         {
-                            achievements.map((achievement,index)=>(
+                            achievements.map((achievement, index) => (
                                 <Li key={index}>{achievement.value}</Li>
                             ))
                         }
@@ -193,7 +193,22 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
         default:
             return (
                 <>
-                    <H2>{ }</H2>
+                    <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{position}</H2>
+                    <FlexBox justifyContent="space-between" margin="0" alignItems="center">
+                        <H2 color="#4bdd97" fontSize="16px" fontWeight="normal">{companyName}</H2>
+                        <FlexBox margin="0" alignItems="center">
+                            <BiCalendar />
+                            <P>{startDate}-{endDate}</P>
+                        </FlexBox>
+                    </FlexBox>
+                    <P>{aboutCompany}</P>
+                    <Ul display="block">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index}>{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
                 </>
             )
     }

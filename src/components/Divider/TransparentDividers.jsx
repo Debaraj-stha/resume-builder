@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-const Line = styled.div`
+export const LineDivider=styled.div`
+background:${({backgroundColor})=>backgroundColor||"black"};
+width:100%;
+position:relative;
+height:${({height})=>height||"2px"};
+`
+export const Line = styled.div`
 width:100%;
 max-width:100%;
 position:relative;

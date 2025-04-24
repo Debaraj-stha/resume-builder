@@ -43,8 +43,6 @@ padding:20px 0px;
 
 export const FlexResumeWrapper = styled(ResumeWrapper)`
   display: flex;
-  border: 1px solid #ccc;
-  font-family: 'Segoe UI', sans-serif;
   padding:0;
 `;
 

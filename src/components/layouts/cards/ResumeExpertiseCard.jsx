@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { H3 } from "../../elements/resumeSectionWrapper";
+import { H2, H3 } from "../../elements/resumeSectionWrapper";
 
 const ExpertiseWrapper = styled.div`
 // //   margin-bottom: 1rem;
@@ -13,7 +13,7 @@ export const RangeInput = styled.input.attrs({ type: "range" })`
   appearance: none;
   height: 6px;
   border-radius: 5px;
-  background: linear-gradient(to right, #4caf50 0%, #4caf50 ${props => props.value}%, #ccc ${props => props.value}%, #ccc 100%);
+  background: linear-gradient(to right, ${({color})=>color||"#4caf50"} 0%, ${({color})=>color||"#4caf50"} ${props => props.value}%, #ccc ${props => props.value}%, #ccc 100%);
   outline: none;
   transition: background 450ms ease-in;
 
@@ -22,7 +22,7 @@ export const RangeInput = styled.input.attrs({ type: "range" })`
     width: 14px;
     height: 14px;
     background: #fff;
-    border: 2px solid #4caf50;
+    border: 2px solid ${({color})=>color||"#4caf50"};
     border-radius: 50%;
     cursor: pointer;
   }
@@ -31,7 +31,7 @@ export const RangeInput = styled.input.attrs({ type: "range" })`
     width: 14px;
     height: 14px;
     background: #fff;
-    border: 2px solid #4caf50;
+    border: 2px solid ${({color})=>color||"#4caf50"};
     border-radius: 50%;
     cursor: pointer;
   }
@@ -50,7 +50,12 @@ const ExpertiseCard = ({ expertise, layout_no }) => {
         </ExpertiseWrapper>
       );
     default:
-      return <h1>default expertise</h1>;
+      return (
+        <ExpertiseWrapper>
+          <H2 color="#4bdd97" fontSize="16px" fontWeight="normal">{expertise.tech}</H2>
+          <RangeInput value={expertise.value} onChange={handleCHange} color="#4bdd97"/>
+        </ExpertiseWrapper>
+      )
   }
 };
 

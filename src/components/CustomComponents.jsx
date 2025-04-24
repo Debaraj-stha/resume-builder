@@ -283,7 +283,8 @@ display:flex;
 gap:${({gap})=>gap||"10px"};
 align-items:${({alignItems})=>alignItems||"normal"};
 margin:${({margin})=>margin||"10px 0 0 0"};
-justify-content:${({justifyContent})=>justifyContent||"start"}
+justify-content:${({justifyContent})=>justifyContent||"start"};
+align-content: center;
 `
 export const GridBox = styled.div`
   display: flex;
@@ -293,7 +294,7 @@ export const GridBox = styled.div`
 `;
 
 export const BorderBox = styled.div`
-border-bottom:3px solid #dfcbcb;
+border-bottom:3px solid ${({color})=>color||"#dfcbcb"};
 border-radius:1px;
 padding:0 5px 0 0;
 `;

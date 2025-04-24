@@ -159,5 +159,30 @@ export const certificates = [
     { language: "English", proficiency: PROFICIENCY.PROFICIENT },
     { language: "Nepali", proficiency: PROFICIENCY.NATIVE },
   ];
+  export const openSourceWork = [
+    {
+      projectName: "React Hook Form",
+      role: "Contributor",
+      description: "Improved TypeScript types and wrote unit tests for custom hooks. Opened multiple PRs to enhance developer experience.",
+      technologies: ["TypeScript", "React", "Jest", "Open Source"],
+      link: "https://github.com/react-hook-form/react-hook-form/pull/1234",
+      date: "2024-09"
+    },
+    {
+      projectName: "FreeCodeCamp",
+      role: "Documentation Contributor",
+      description: "Contributed to improving JavaScript curriculum documentation and resolved multiple grammatical and formatting issues.",
+      technologies: ["Markdown", "GitHub", "JavaScript"],
+      link: "https://github.com/freeCodeCamp/freeCodeCamp/pull/5678",
+      date: "2023-11"
+    },
+    {
+      projectName: "Node.js",
+      role: "Issue Triage & Feedback",
+      description: "Provided detailed feedback on open issues and tested bug fixes related to event loop and asynchronous operations.",
+      technologies: ["Node.js", "JavaScript", "GitHub"],
+      link: "https://github.com/nodejs/node/issues/9876",
+      date: "2024-01"
+    }
+  ];
   
-

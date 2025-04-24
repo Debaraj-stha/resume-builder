@@ -4,10 +4,12 @@ import common from "./classic/style/common.json";
 import { FlexResumeWrapper, ModernResumeWrapper, ResumeWrapper } from "../elements/resumeWrapper";
 import { LeftColumn, RightColumn, Section } from "../elements/resumeSectionWrapper";
 import useDynamicLayoutSections from "./loadResumeLayput";
+import getModernLayout1 from "./layoutui/modernLayout1";
+import getModernLayout2 from "./layoutui/modernLayout2";
 
 
 
-const shoulApplyMargin = (section) => {
+export const shoulApplyMargin = (section) => {
     const isExperienceSection = section.key?.startsWith("experience_");
     const isFirstExperience = isExperienceSection && section.key === "experience_0";
 
@@ -33,18 +35,12 @@ const shoulApplyMargin = (section) => {
 
     return applyMarginTop;
 };
-const applyFlex = (sectionIndex) => {
-    if (sectionIndex == 0) {
-        return "4"
-    }
-    return sectionIndex % 2 == 0 ? "1" : "3"
-}
+
 
 
 const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "classical" }) => {
     const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
-    const leftColum = []
-    const rightColumn = []
+
     const layout_type_map = {
         1: "classical",
         2: "modern",
@@ -94,94 +90,17 @@ const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "c
                 )
             );
         case layout_type_map[2]:
-            console.log("modern")
-            return (
-                pages.length > 0 ? (
-                    pages.map((group, pageIndex) => (
-                        <ModernResumeWrapper key={pageIndex}>
-                            <FlexResumeWrapper>
-                                {group.map((sectionIndex) => {
-                                    const section = sectionData[sectionIndex];
-
-                                    leftColum.push(section.key)
-                                    rightColumn.push(section.key)
-                                    if (sectionIndex != 0) {
-                                        if (sectionIndex % 2 == 0) {
-                                            rightColumn.push(section.key)
-                                        }
-                                        else {
-
-                                            leftColum.push(section.key)
-
-                                        }
-                                    }
-                                    console.log("setion index", sectionIndex, "sectionkey", section.key)
-                                    console.log("left cxolun", leftColum, "rightcolumn", rightColumn)
-                                    if (!section) return null;
-                                    const SectionContent = section.content(key_val?.[section.key]);
-                                    const applyMarginTop = shoulApplyMargin(section);
-
-                                    return (
-                                        <Section
-                                            key={section.id || section.key || pageIndex}
-                                            flex={applyFlex(sectionIndex)}
-                                            ref={(el) => (sectionRefs.current[sectionIndex] = el)}
-                                            marginTop={applyMarginTop ? common.Section.marginTop : 0}
-                                        >
-                                            {SectionContent}
-                                        </Section>
-                                    );
-                                })}
-                            </FlexResumeWrapper>
-                        </ModernResumeWrapper>
-                    ))
-                ) : (
-                
-                        <FlexResumeWrapper>
-                            {sectionData.map((section, index) => {
-                                const SectionContent = section.content(key_val?.[section.key]);
-                                const applyMarginTop = shoulApplyMargin(section);
-                                const content = <Section
-                                    key={section.id || section.key || index}
-                                    ref={(el) => (sectionRefs.current[index] = el)}
-                                    marginTop={index==0 ? 0 :"20px"}
-                                >
-                                    {SectionContent}
-                                </Section>
-                                if (index == 0) {
-                                    leftColum.push(content)
-                                    rightColumn.push(<Section marginTop="100px"></Section>)
-                                }
-                                if (index != 0) {
-                                    if (index % 2 == 0) {
-                                        rightColumn.push(content)
-                                    }
-                                    else {
-
-                                        leftColum.push(content)
-
-                                    }
-                                }
-
-                            })}
-                            {
-                                <>
-                                    <LeftColumn>
-                                        {...leftColum}
-                                    </LeftColumn>
-                                    <RightColumn>
-                                        {...rightColumn}
-                                    </RightColumn>
-                                </>
-                            }
-                        </FlexResumeWrapper>
-
-                   
-                )
-            );
-            break
+            switch(layoutId){
+                case 1:
+                    return getModernLayout1({pages,layoutId,key_val,layout_type,sectionRefs})
+                case 2:
+                    return getModernLayout2({pages,layoutId,key_val,layout_type,sectionRefs})
+                    
+            }
+          
+            
         default:
-            console.log("defgald")
+            console.log("default")
     }
 
 });
