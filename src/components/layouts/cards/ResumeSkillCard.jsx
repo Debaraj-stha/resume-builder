@@ -120,7 +120,7 @@ const buildModernSkillsCard = ({ skills, layout_no }) => {
                          <FlexBox margin="0">
                             {
                                 skill.items.map((item,i)=>(
-                                   <BorderBox color="#ccc">
+                                   <BorderBox color="#ccc" key={`${index}-${i}`}>
                                      <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="normal" textAlign="left" fontSize="16px">{item}</H2>
                                    </BorderBox>
                                 ))
@@ -128,6 +128,21 @@ const buildModernSkillsCard = ({ skills, layout_no }) => {
                          </FlexBox>
                     </div>
                    ))
+                )
+            case 3:
+                return(
+                    <FlexBox margin="0" flexWrap="wrap">
+                        {
+                            skills.map((skill,index)=>(
+                                skill.items.map((item,i)=>(
+                                    <BorderBox key={`${index}-${i}`} color="#ccc" width="2px" >
+                                        <H3 fontWeight="500">{item}</H3>
+                                    </BorderBox>
+                                ))
+                            ))
+                        }
+
+                    </FlexBox>
                 )
         default:
             return <h1>default skill</h1>

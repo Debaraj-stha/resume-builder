@@ -277,7 +277,7 @@ background:black;
 `
 
 export const FlexBox=styled.div.withConfig({
-  shouldForwardProp:(props)=>!["justifyContent"].includes(props)
+  shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap"].includes(props)
 })`
 display:flex;
 gap:${({gap})=>gap||"10px"};
@@ -285,6 +285,8 @@ align-items:${({alignItems})=>alignItems||"normal"};
 margin:${({margin})=>margin||"10px 0 0 0"};
 justify-content:${({justifyContent})=>justifyContent||"start"};
 align-content: center;
+// flex-wrap: wrap;
+flex-wrap:${({flexWrap})=>flexWrap||"no-wrap"};
 `
 export const GridBox = styled.div`
   display: flex;
@@ -294,7 +296,7 @@ export const GridBox = styled.div`
 `;
 
 export const BorderBox = styled.div`
-border-bottom:3px solid ${({color})=>color||"#dfcbcb"};
+border-bottom:${({width})=>width||"3px"} solid ${({color})=>color||"#dfcbcb"};
 border-radius:1px;
 padding:0 5px 0 0;
 `;

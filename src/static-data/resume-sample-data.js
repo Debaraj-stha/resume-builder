@@ -46,12 +46,14 @@ export const educations = [
     {
         university: "Massachusetts Institute of Technology (MIT)",
         degree: "Bachelor of Science in Computer Science",
-        start_complete: "2014 - 2018"
+        start_complete: "2014 - 2018",
+        address:"Nepal,Kathmandu"
     },
     {
         university: "Stanford University",
         degree: "Master of Science in Data Science",
-        start_complete: "2018 - 2020"
+        start_complete: "2018 - 2020",
+        address:"Nepal,Kathmandu"
     },
     // {
     //     university: "Harvard Business School",
@@ -183,6 +185,41 @@ export const certificates = [
       technologies: ["Node.js", "JavaScript", "GitHub"],
       link: "https://github.com/nodejs/node/issues/9876",
       date: "2024-01"
+    }
+  ];
+  
+  export const strengths = [
+    {
+      title: "Problem Solving",
+      description: "Able to analyze complex problems, break them down into smaller tasks, and devise efficient solutions under tight deadlines."
+    },
+    {
+      title: "Communication",
+      description: "Strong verbal and written communication skills, with the ability to convey technical concepts to non-technical stakeholders."
+    },
+    {
+      title: "Team Collaboration",
+      description: "Works well in team settings, promotes shared success, and actively contributes to group discussions and goals."
+    },
+    {
+      title: "Adaptability",
+      description: "Quick to learn new technologies and adjust to changing environments or requirements."
+    },
+    {
+      title: "Time Management",
+      description: "Efficiently balances multiple projects while meeting tight deadlines with quality work."
+    },
+    {
+      title: "Attention to Detail",
+      description: "Thorough and precise in code writing, documentation, and UI/UX implementation to minimize errors and maximize performance."
+    },
+    {
+      title: "Leadership",
+      description: "Experience leading projects and mentoring junior developers to foster a productive, growth-focused environment."
+    },
+    {
+      title: "Creativity",
+      description: "Innovative thinker who often introduces unique and effective ways to solve UI/UX or system architecture challenges."
     }
   ];
   

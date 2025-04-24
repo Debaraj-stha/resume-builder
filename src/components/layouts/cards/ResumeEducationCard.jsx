@@ -8,6 +8,7 @@ import style from "../classic/style/layout1_style.json"
 import style2 from "../classic/style/layout2_style.json"
 import style3 from "../classic/style/layout3_style.json"
 import { layout_type_map } from "../../../constant"
+import { LiaMapMarkerSolid } from "react-icons/lia"
 
 const generateClassicalEducationCard = ({ education, layout_no }) => {
     const { university, degree, start_complete } = education
@@ -98,7 +99,7 @@ const generateClassicalEducationCard = ({ education, layout_no }) => {
     }
 }
 const generateModernEducationCard = ({ education, layout_no }) => {
-    const { degree, university, start_complete } = education
+    const { degree, university, start_complete, address } = education
     switch (layout_no) {
         case 1:
             return (
@@ -112,10 +113,26 @@ const generateModernEducationCard = ({ education, layout_no }) => {
             return (
                 <>
                     <H2 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left" fontWeight="normal" fontSize="18px" >{degree}</H2>
-                    <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left"fontSize="16px">{university}</H2>
+                    <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left" fontSize="16px">{university}</H2>
                     <div className="flex gap-2 items-center content-center">
                         <BiCalendar />
                         <P>{start_complete}</P>
+                    </div>
+
+                </>
+            )
+
+        case 3:
+            return (
+                <>
+                    <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >{degree}</H2>
+                    <P color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="600" fontSize="14px"
+                     >{university}</P>
+                    <div className="flex gap-2 items-center content-center">
+                        <BiCalendar />
+                        <P fontSize="14px">{start_complete}</P>
+                        <LiaMapMarkerSolid />
+                        <P fontSize="14px">{address}</P>
                     </div>
 
                 </>

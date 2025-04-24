@@ -53,10 +53,10 @@ const GenerateContactList = ({ personalDetails, urls, color = "blue" }) => (
         {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
     </>
 )
-const AddressWithMarker = ({ address, fontWeight = "500" }) => (
+const AddressWithMarker = ({ address, fontWeight = "500" ,color="black",size=18,fontSize="15px"}) => (
     <div className="flex items-center">
-        <LiaMapMarkerSolid />
-        <span style={{ fontWeight: fontWeight }}>{address}</span>
+        <LiaMapMarkerSolid color={color} size={size}/>
+        <P  fontWeight={ fontWeight}>{address}</P>
     </div>
 )
 const generateClassicResumeHeader = ({ personalDetails, layout_no }) => {
@@ -181,6 +181,19 @@ const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
                    </FlexBox>
                 </>
             )
+        case 3:
+        
+            return(
+                <>
+                 <H1 fontFamily="'Roboto',sans-serif" color="#0f0771" textAlign="left" fontWeight="500">{name}</H1>
+                    <H2 color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
+                    <Ul justifyContent="start">
+                        <GenerateContactList color="#0259ff" personalDetails={personalDetails} />
+                    </Ul>
+                    <AddressWithMarker address={address} color="#0259ff" fontSize="14px"/>
+
+                </>
+            )
 
         /*
 
@@ -191,7 +204,7 @@ const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
 
 }
 const ResumeHeader = memo(({ personalDetails, layout_no, layout_type = "classical" }) => {
-    console.log("layout_no resume header", layout_no)
+    console.log("layout_no resume header", "layout_no",layout_no)
 
 
     if (layout_type === layout_type_map.CLASSICAL) {

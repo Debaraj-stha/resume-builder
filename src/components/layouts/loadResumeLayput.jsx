@@ -16,6 +16,9 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
       case 2:
         layoutModule=await import("./modern/layout-output/layout2-output")
         break
+        case 3:
+          layoutModule=await import("./modern/layout-output/layout-3-output")
+          break
     }
     if(layoutModule && isMounted){
       const output=layoutModule.default(resumeData)

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-export const LineDivider=styled.div`
+export const LineDivider=styled.div.withConfig({
+  shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
+})`
 background:${({backgroundColor})=>backgroundColor||"black"};
 width:100%;
 position:relative;

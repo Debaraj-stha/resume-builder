@@ -145,12 +145,16 @@ export const Textarea = styled.textarea`
   }
 `;
 
-export const LeftColumn = styled.div`
+export const LeftColumn = styled.div.withConfig({
+  shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
+})`
   flex: ${({flex})=>flex||"3"};
   background-color:${({backgroundColor})=>backgroundColor||"#fff"};
   padding:${({padding})=>padding||"40px 20px 40px 40px"};
 `;
-export const RightColumn = styled.div`
+export const RightColumn = styled.div.withConfig({
+  shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
+})`
     flex: ${({flex})=>flex||"2"};
   background-color:${({backgroundColor})=>backgroundColor||"#1c2a45"};
   color: #fff;

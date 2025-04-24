@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { FlexBox,  } from "../../CustomComponents"
-import { H3 } from "../../elements/resumeSectionWrapper"
+import { H2, H3 } from "../../elements/resumeSectionWrapper"
 import styled from "styled-components";
 
 const LanguageWrapper = styled.div`
@@ -18,7 +18,7 @@ const ProgressBarContainer = styled.div`
 const ProgressBar = styled.div`
   height: 100%;
   width: ${({ percent }) => percent}%;
-  background: #4caf50;
+  background: ${({color})=>color||"#4caf50"};
   transition: width 0.3s ease;
 `;
 
@@ -42,15 +42,28 @@ const getProficiencyPercent = (level) => {
 
 
 
-const LanguageCard = ({ language }) => {
+const LanguageCard = ({ language,layout_no }) => {
     const percent = getProficiencyPercent(language.proficiency);
-    return (
-      <LanguageWrapper>
-        <H3 textAlign="left" color="white">{language.language}</H3>
-        <ProgressBarContainer>
-          <ProgressBar percent={percent} />
-        </ProgressBarContainer>
-      </LanguageWrapper>
-    );
+    switch(layout_no){
+      case 3:
+        return(
+          <LanguageWrapper>
+            <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >{language.language}</H2>
+            <ProgressBarContainer>
+              <ProgressBar percent={percent} color="#0f0771"/>
+            </ProgressBarContainer>
+          </LanguageWrapper>
+        )
+      default:
+        return (
+          <LanguageWrapper>
+            <H2 textAlign="left" color="white">{language.language}</H2>
+            <ProgressBarContainer>
+              <ProgressBar percent={percent} />
+            </ProgressBarContainer>
+          </LanguageWrapper>
+        );
+    }
+  
   };
 export default LanguageCard

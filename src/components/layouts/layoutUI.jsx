@@ -6,6 +6,7 @@ import { LeftColumn, RightColumn, Section } from "../elements/resumeSectionWrapp
 import useDynamicLayoutSections from "./loadResumeLayput";
 import getModernLayout1 from "./layoutui/modernLayout1";
 import getModernLayout2 from "./layoutui/modernLayout2";
+import getModernLayout3 from "./layoutui/modern-layout3";
 
 
 
@@ -95,6 +96,8 @@ const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "c
                     return getModernLayout1({pages,layoutId,key_val,layout_type,sectionRefs})
                 case 2:
                     return getModernLayout2({pages,layoutId,key_val,layout_type,sectionRefs})
+                case 3:
+                    return  getModernLayout3({pages,layoutId,key_val,layout_type,sectionRefs})
                     
             }
           

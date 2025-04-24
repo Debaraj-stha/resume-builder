@@ -4,6 +4,7 @@ import { H2, H3, IconHolder, InnerContentWrapper, Li, P, Ul } from "../../elemen
 import { FlexBox } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
 import { HiLocationMarker } from "react-icons/hi"
+import { LiaMapMarkerSolid } from "react-icons/lia"
 
 const generateClassicalResumeExperienceCard = ({ experience, layout_no }) => {
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
@@ -188,6 +189,30 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
                             ))
                         }
                     </Ul>
+                </>
+            )
+        case 3:
+            return (
+                <>
+                    <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >
+                        {position}</H2>
+                    <P color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="600" fontSize="14px"
+                    >{companyName}</P>
+                    <FlexBox margin="0" alignItems="center">
+                        <BiCalendar/>
+                        <P fontSize="14px" fontFamily="Roboto">{startDate}-{endDate}</P>
+                        <LiaMapMarkerSolid/>
+                        <P fontSize="14px" fontFamily="Roboto">{location}</P>
+                    </FlexBox>
+                    <P fontSize="14px" fontFamily="Roboto">{aboutCompany}</P>
+                    <Ul display="block">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index}>{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
+                    {/* 0f0771 */}
                 </>
             )
         default:

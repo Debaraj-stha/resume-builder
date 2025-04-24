@@ -1,18 +1,11 @@
 import React,{ memo, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { TransparentLine } from "../../Divider/TransparentDividers";
-import { ResumeWrapper } from "../../elements/resumeWrapper";
-import { Section,P,H1,Li,SectionContent, Ul } from "../../elements/resumeSectionWrapper";
 
-import style from "../classic/style/layout2_style.json"
-import common from "./style/common.json"
 import { useFormContext } from "react-hook-form";
 import LayoutUi from "../layoutUI";
 import { certificates, industryExpertise, languages, openSourceWork } from "../../../static-data/resume-sample-data";
 import getModernLayout2OutputSectionData from "./layout-output/layout2-output";
 import { useLayout } from "../../../provider/layoutProvider";
-const Title=({title})=>{
-    return  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className.join(" ")}>{title}</H1>
-}
+
 
 const ModernLayout2 = memo((props) => {
    const {
@@ -41,7 +34,7 @@ const ModernLayout2 = memo((props) => {
          certificates,
          openSourceWork
        }  
-       const sectionData = getModernLayout2OutputSectionData(key_val)
+       const sectionData = getModernLayout2OutputSectionData(key_val,2)
        const shouldMeasureHeight = props.shouldMeasureHeight || false;
        const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
          const sectionRefs = useRef([])

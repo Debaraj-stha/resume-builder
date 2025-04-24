@@ -5,15 +5,8 @@ import { H1, H2, P } from "../../elements/resumeSectionWrapper"
 import { LiaLinkSolid } from "react-icons/lia"
 
 const generateModernOpenSourceWorkCard = ({ works, layout_no }) => {
-    const { projectName, role } = works
     switch (layout_no) {
         case 2:
-            // projectName: "Node.js",
-            // role: "Issue Triage & Feedback",
-            // description: "Provided detailed feedback on open issues and tested bug fixes related to event loop and asynchronous operations.",
-            // technologies: ["Node.js", "JavaScript", "GitHub"],
-            // link: "https://github.com/nodejs/node/issues/9876",
-            // date: "2024-01
             return (
                 <>
                     <div>
@@ -22,7 +15,7 @@ const generateModernOpenSourceWorkCard = ({ works, layout_no }) => {
                                 const { projectName, role, description, link, technologies, date } = work
                                 return (
                                     <div key={index}>
-                                        <H2 H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{projectName}</H2>
+                                        <H2  color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{projectName}</H2>
                                         <FlexBox margin="0" alignItems="center" gap="5px">
                                             <BiCalendar />
                                             <P>{date}</P>
