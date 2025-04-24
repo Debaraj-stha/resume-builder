@@ -2,10 +2,13 @@ import React from "react";
 import { Title } from "../../../Title"
 import { DoubleLineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
 import { SectionContent } from "../../../elements/resumeSectionWrapper";
-import { AcheivementCard, CertificationCard, EducationCard, ExperienceCard } from "../../cards";
+
 import style from "../style/layout1_style.json";
 import { GridPairBox } from "../../../CustomComponents";
-
+import  ExperienceCard  from "../../cards/ResumeExperienceCard";
+import CertificationCard from "../../cards/ResumeCertificationCard"
+import EducationCard from "../../cards/ResumeEducationCard"
+import AcheivementCard from  "../../cards/ResumeAchievementCard"
 export const IncludeSeparator = ({ layout_no }) =>
     (layout_no === 1 || layout_no === 2 || layout_no === 3 || layout_no === 6) ? <TransparentLine /> : null;
 

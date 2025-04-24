@@ -113,6 +113,7 @@ export const personalDetails = {
     address: "Dharan,Nepal",
     phone: "+9779812111121",
     email: "example@gmail.com",
+    profile:"https://cdn-icons-png.flaticon.com/512/194/194931.png",
     urls: [
         "https://linkedin.com/jhone",
         "https://github.com/jhone"
@@ -133,4 +134,30 @@ export const certificates = [
       date: "2024-03-01"
     }
   ];
+  export const industryExpertise=[
+    {
+        tech:"Photoshop",
+        value:"70"
+    },
+    {
+        tech:"Java",
+        value:"90"
+    },
+    {
+        tech:"SQL",
+        value:"60"
+    }
+  ]
+  const PROFICIENCY = {
+    BEGINNER: "Beginner",
+    INTERMEDIATE: "Intermediate",
+    PROFICIENT: "Proficient",
+    NATIVE: "Native",
+  };
   
+  export const languages = [
+    { language: "English", proficiency: PROFICIENCY.PROFICIENT },
+    { language: "Nepali", proficiency: PROFICIENCY.NATIVE },
+  ];
+  
+

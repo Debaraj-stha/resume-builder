@@ -1,4 +1,5 @@
-import { ResumeHeader, SkillCard } from "../../cards";
+import SkillCard from "../../cards/ResumeSkillCard"
+import ResumeHeader from "../../cards/ResumeHeader";
 import { generateEducationSections, generateExperienceSections } from "./helper";
 import style from "../style/layout3_style.json"
 import { Title } from "../../../Title";

@@ -1,23 +1,18 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { TransparentLine } from "../../Divider/TransparentDividers";
-import { ResumeWrapper } from "../../elements/resumeWrapper";
-import { Section, P, H1, SectionContent } from "../../elements/resumeSectionWrapper";
-import {
-  ExperienceCard,
-  SkillCard,
-  EducationCard,
-  AcheivementCard,
-  ResumeHeader
-} from "../cards";
+import { FlexResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
+import { Section, P, H1, SectionContent, FlexSection, LeftColumn, RightColumn } from "../../elements/resumeSectionWrapper";
+
 import style from "./style/layout1_style.json";
 import common from "./style/common.json";
+import getModernLayout1OutputSectionData from "./layout-output/layout-1-output";
+import { useLayout } from "../../../provider/layoutProvider";
+import LayoutUi from "../layoutUI";
+import { Title } from "../../Title";
+import { certificates, industryExpertise, languages } from "../../../static-data/resume-sample-data";
 
-const Title = ({ title }) => (
-  <H1 fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight} className={style.Title.className}>
-    {title}
-  </H1>
-);
+
 
 const ModernLayout1 = memo((props) => {
   const {
@@ -33,72 +28,40 @@ const ModernLayout1 = memo((props) => {
   const summary = props.summary || liveDetails.summary;
   const experiences = props.experiences || liveDetails.experiences;
   const achievements = props.achievements || liveDetails.acheivements;
-  const skills = props.skills||liveDetails.skills;
+  const skills = props.skills || liveDetails.skills;
+  // const industryExpertise=industryExpertise
+  const key_val = {
+    personalDetails,
+    educations,
+    summary,
+    experiences,
+    achievements,
+    skills,
+    industryExpertise,
+    languages,
+    certificates
+  }
+
+  const sectionData = getModernLayout1OutputSectionData(key_val)
+  const shouldMeasureHeight = props.shouldMeasureHeight || false;
+  const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
+  const sectionRefs = useRef([])
+  const [pages, setPages] = useState([])
+  useLayoutEffect(() => {
+    if (shouldMeasureHeight && !measured) {
+      groupSectionsIntoPages(sectionRefs, setMeasured, setPages)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (shouldMeasureHeight) {
+      setMeasured(false); // force pagination re-run
+    }
+  }, [sectionData.length]);
 
   return (
     <div className="w-full max-w-full">
-      <ResumeWrapper>
-        <H1>Modern 1</H1>
-
-        {/* Header */}
-        <Section>
-          <ResumeHeader personalDetails={personalDetails} />
-        </Section>
-
-        {/* Summary */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Summary" />
-          <TransparentLine />
-          <SectionContent>
-            <P>{summary}</P>
-          </SectionContent>
-        </Section>
-
-        {/* Experience */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Experience" />
-          <TransparentLine />
-          <SectionContent>
-            {(experiences || []).map((experience, index) => (
-              <ExperienceCard key={index} experience={experience} />
-            ))}
-          </SectionContent>
-        </Section>
-
-        {/* Education */}
-        <Section>
-          <Title title="Education" />
-          <TransparentLine />
-          <SectionContent>
-            {(educations || []).map((education, index) => (
-              <EducationCard key={index} education={education} />
-            ))}
-          </SectionContent>
-        </Section>
-
-        {/* Achievements */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Achievements" />
-          <TransparentLine />
-          <SectionContent>
-            <div className="grid grid-cols-2 gap-2">
-              {(achievements || []).map((achievement, index) => (
-                <AcheivementCard key={index} my_acheivement={achievement} />
-              ))}
-            </div>
-          </SectionContent>
-        </Section>
-
-        {/* Skills */}
-        <Section marginTop={common.Section.marginTop}>
-          <Title title="Skills" />
-          <TransparentLine />
-          <SectionContent>
-            <SkillCard skills={skills} />
-          </SectionContent>
-        </Section>
-
-      </ResumeWrapper>
+      <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={1} layout_type="modern" />
     </div>
   );
 });

@@ -1,7 +1,8 @@
 import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import { Title } from "../../../Title";
-import { ResumeHeader, SkillCard } from "../../cards";
+import SkillCard from "../../cards/ResumeSkillCard"
+import ResumeHeader from "../../cards/ResumeHeader";
 import style from "../style/layout2_style.json"
 import { generateEducationSections, generateExperienceSections } from "./helper";
 

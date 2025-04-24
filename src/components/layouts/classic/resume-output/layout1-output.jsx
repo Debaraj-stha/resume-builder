@@ -1,11 +1,10 @@
 import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import { Title } from "../../../Title";
-import {
-    ResumeHeader,
-    SkillCard,
-} from "../../cards";
+
+import ResumeHeader from "../../cards/ResumeHeader";
 import style from "../style/layout1_style.json";
+import SkillCard from "../../cards/ResumeSkillCard";
 import { generateAchievementsSections, generateExperienceSections, generateEducationSections } from "./helper";
 const getLayout1OutputSectionData = (data) => {
     const {

@@ -6,7 +6,20 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
   // Initialize state to hold the output sections from the layout file
   //function to load modern layout sections
   const [sections, setSections] = useState([]);
-  const loadModernLayout = async (isMounted) => { }
+  const loadModernLayout = async (isMounted) => { 
+    console.log("called modern load layout")
+    let layoutModule;
+    switch(layoutId){
+      case 1:
+        layoutModule=await import("./modern/layout-output/layout-1-output")
+        break
+    }
+    if(layoutModule && isMounted){
+      const output=layoutModule.default(resumeData)
+      setSections(output)
+    }
+
+  }
   // Function to load classical layout sections
   const loadClassicLayout = async (isMounted) => {
     let layoutModule;

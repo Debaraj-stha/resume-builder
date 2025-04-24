@@ -12,6 +12,9 @@ export const ResumeWrapper = styled.div`
     box-shadow: none;
   }
 `;
+export const ModernResumeWrapper=styled(ResumeWrapper)`
+padding:${({padding})=>padding||"20px 0 20px 20px"};
+`
 export const ResumeInputFieldWrapper=styled.div`
  width: 210mm;
   padding: 20mm;
@@ -36,3 +39,13 @@ border:1px solid ${({theme})=>theme.colors.border};
 min-height:297mm;
 padding:20px 0px;
 `
+
+
+export const FlexResumeWrapper = styled(ResumeWrapper)`
+  display: flex;
+  border: 1px solid #ccc;
+  font-family: 'Segoe UI', sans-serif;
+  padding:0;
+`;
+
+

@@ -276,11 +276,14 @@ background:black;
 }
 `
 
-export const FlexBox=styled.div`
+export const FlexBox=styled.div.withConfig({
+  shouldForwardProp:(props)=>!["justifyContent"].includes(props)
+})`
 display:flex;
 gap:${({gap})=>gap||"10px"};
 align-items:${({alignItems})=>alignItems||"normal"};
 margin:${({margin})=>margin||"10px 0 0 0"};
+justify-content:${({justifyContent})=>justifyContent||"start"}
 `
 export const GridBox = styled.div`
   display: flex;

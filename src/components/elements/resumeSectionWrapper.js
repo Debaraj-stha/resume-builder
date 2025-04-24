@@ -1,13 +1,25 @@
 import styled from "styled-components";
 export const Section = styled.section.withConfig({
-    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
-})`
-    color:black;
-    text-align:${(props) => props.textAlign || "center"};
-    font-weight:${(props) => props.fontWeight || "500"};
-    padding:${(props) => props.padding || "0"};
-    margin-top:${(props) => props.marginTop || "0"};
-    `
+    shouldForwardProp: (props) => !['marginTop', 'textAlign', 'flex'].includes(props)
+  })`
+    color: black;
+    text-align: ${(props) => props.textAlign || 'center'};
+    font-weight: ${(props) => props.fontWeight || '500'};
+    padding: ${(props) => props.padding || '0'};
+    margin-top: ${(props) => props.marginTop || '0'};
+    box-sizing: border-box;
+  `;
+
+
+
+  export const FlexSection = styled.div`
+    flex-grow: ${({ flex }) => flex || 1}; /* Default to flex-grow: 1 if no flex prop is provided */
+  
+    padding: 10px; 
+    margin-bottom: 10px; 
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+  `;
+
 export const H1 = styled.h1.withConfig({
     shouldForwardProp: (props) => !["textAlign"].includes(props)
 })`
@@ -45,6 +57,7 @@ export const Ul = styled.ul.withConfig({
 })`
     display: ${(props) => props.display || "flex"};
     list-style: ${(props) => props.listStyle || "disc"};
+    flex-wrap:wrap;
     align-items: ${(props) => props.alignItems || "center"};
     justify-content: ${(props) => props.justifyContent || "center"};
     font-weight: ${(props) => props.fontWeight || "normal"};
@@ -132,3 +145,14 @@ export const Textarea = styled.textarea`
   }
 `;
 
+export const LeftColumn = styled.div`
+  flex: 3;
+  background-color:${({backgroundColor})=>backgroundColor||"#fff"};
+  padding:40px 20px 40px 40px;
+`;
+export const RightColumn = styled.div`
+  flex: 2;
+  background-color:${({backgroundColor})=>backgroundColor||"#1c2a45"};
+  color: #fff;
+  padding:20px 40px 20px 20px;
+`;
