@@ -30,14 +30,14 @@ export const RangeInput = styled.input.attrs({ type: "range" })`
   &::-moz-range-thumb {
     width: 14px;
     height: 14px;
-    background: #fff;
+    background: ${({color})=>color||"#fff"};
     border: 2px solid ${({color})=>color||"#4caf50"};
     border-radius: 50%;
     cursor: pointer;
   }
 `;
 
-const ExpertiseCard = ({ expertise, layout_no }) => {
+const ExpertiseCard = ({ expertise, layout_no ,layout_type,style}) => {
     const handleCHange=(e)=>{
 
     }
@@ -49,6 +49,13 @@ const ExpertiseCard = ({ expertise, layout_no }) => {
           <RangeInput value={expertise.value} onChange={handleCHange}/>
         </ExpertiseWrapper>
       );
+      case 4:
+        return(
+          <>
+          <H2 style={{...style.sectionSubHeader ,padding:"0",margin:"0"}}>{expertise.tech}</H2>
+          <RangeInput value={expertise.value} onChange={handleCHange} color={style.h1.color}/>
+          </>
+        )
     default:
       return (
         <ExpertiseWrapper>

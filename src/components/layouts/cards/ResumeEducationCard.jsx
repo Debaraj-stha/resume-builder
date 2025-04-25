@@ -98,7 +98,7 @@ const generateClassicalEducationCard = ({ education, layout_no }) => {
 
     }
 }
-const generateModernEducationCard = ({ education, layout_no }) => {
+const generateModernEducationCard = ({ education, layout_no,style }) => {
     const { degree, university, start_complete, address } = education
     switch (layout_no) {
         case 1:
@@ -127,7 +127,7 @@ const generateModernEducationCard = ({ education, layout_no }) => {
                 <>
                     <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >{degree}</H2>
                     <P color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="600" fontSize="14px"
-                     >{university}</P>
+                    >{university}</P>
                     <div className="flex gap-2 items-center content-center">
                         <BiCalendar />
                         <P fontSize="14px">{start_complete}</P>
@@ -137,15 +137,33 @@ const generateModernEducationCard = ({ education, layout_no }) => {
 
                 </>
             )
+        case 4:
+            return (
+                <>
+                    <H2 style={{ ...style.h2 }}>{degree}</H2>
+                    <H3 style={{ ...style.h3, color: style.primaryColor }} textAlign="left" >{university}</H3>
+                    <FlexBox margin="0" flexWrap="wrap">
+                        <FlexBox margin="0">
+                            <CgCalendar />
+                            <P style={{ ...style.p }}>{start_complete}</P>
+                        </FlexBox>
+
+                        <FlexBox margin="0">
+                            <LiaMapMarkerSolid />
+                            <P style={{ ...style.p }}>{address}</P>
+                        </FlexBox>
+                    </FlexBox>
+                </>
+            )
 
     }
 }
-const EducationCard = memo(({ education, layout_no, layout_type = "classical" }) => {
+const EducationCard = memo(({ education, layout_no, layout_type = "classical",style }) => {
     if (layout_type === layout_type_map.CLASSICAL) {
         return generateClassicalEducationCard({ education, layout_no })
     }
     if (layout_type === layout_type_map.MODERN) {
-        return generateModernEducationCard({ education, layout_no })
+        return generateModernEducationCard({ education, layout_no ,style})
     }
 
 })

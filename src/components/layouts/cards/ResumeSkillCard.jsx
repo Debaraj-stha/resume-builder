@@ -95,7 +95,7 @@ const buildClassicalSkillCard = ({ skills, layout_no }) => {
     }
 
 }
-const buildModernSkillsCard = ({ skills, layout_no }) => {
+const buildModernSkillsCard = ({ skills, layout_no,style }) => {
     switch (layout_no) {
         case 1:
             return (
@@ -144,17 +144,32 @@ const buildModernSkillsCard = ({ skills, layout_no }) => {
 
                     </FlexBox>
                 )
+
+            case 4:
+                return(
+                    <FlexBox flexWrap="wrap">
+                        {
+                            skills.slice(0,3).map((skill,index)=>(
+                                skill.items.map((item,i)=>(
+                                    <BorderBox key={`${index}-${i}`} color="#b1a0a0" padding="6px" width="2px">
+                                        <H3 style={{...style.h3}}>{item}</H3>
+                                    </BorderBox>
+                                ))
+                            ))
+                        }
+                    </FlexBox>
+                )
         default:
             return <h1>default skill</h1>
     }
 }
 
-const SkillCard = memo(({ skills, layout_no, layout_type }) => {
+const SkillCard = memo(({ skills, layout_no, layout_type,style }) => {
     if (layout_type === layout_type_map.CLASSICAL) {
         return buildClassicalSkillCard({ skills, layout_no })
     }
     if (layout_type === layout_type_map.MODERN) {
-        return buildModernSkillsCard({ skills, layout_no })
+        return buildModernSkillsCard({ skills, layout_no,style })
     }
 
 })

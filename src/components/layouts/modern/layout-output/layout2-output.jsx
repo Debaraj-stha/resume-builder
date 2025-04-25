@@ -27,7 +27,7 @@ const getModernLayout2OutputSectionData = (data,layout_id) => {
         openSourceWork
     } = data;
 
-console.log("layout id calex",layout_id)
+console.log("get section data of layout",layout_id)
     const textStyle = {
         className: style.Title.className,
         fontSize: "20px",
@@ -49,7 +49,7 @@ console.log("layout id calex",layout_id)
                 <Title title="SKILLS" {...textStyle}/>
                 <LineDivider backgroundColor={textStyle.color} height="3px"/>
                 <SectionContent>
-                    <SkillCard layout_no={layout_id} layout_type="modern" skills={skills} ></SkillCard>
+                    <SkillCard layout_no={2} layout_type="modern" skills={skills} ></SkillCard>
                 </SectionContent>
                 </>
             )
@@ -76,7 +76,7 @@ console.log("layout id calex",layout_id)
                         <div className="grid grid-cols-1 gap-3">
                             {
                                 industryExpertise.slice(0,2).map((expertise, index) => (
-                                    <ExpertiseCard key={index} expertise={expertise} layout_no={layout_id} />
+                                    <ExpertiseCard key={index} expertise={expertise} layout_no={2} />
                                 ))
                             }
                         </div>
@@ -93,7 +93,7 @@ console.log("layout id calex",layout_id)
                 <SectionContent>
                         {
                             experiences.map((experience, index) => (
-                                <ExperienceCard key={index} experience={experience} layout_no={layout_id} layout_type={"modern"} />
+                                <ExperienceCard key={index} experience={experience} layout_no={2} layout_type={"modern"} />
                             ))
                         }
                 </SectionContent>
@@ -109,7 +109,7 @@ console.log("layout id calex",layout_id)
                     <SectionContent>
                         {
                             educations.map((education, index) => (
-                                <EducationCard key={index} education={education} layout_no={layout_id} layout_type={"modern"} />
+                                <EducationCard key={index} education={education} layout_no={2} layout_type={"modern"} />
                             ))
                         }
                     </SectionContent>
@@ -123,7 +123,7 @@ console.log("layout id calex",layout_id)
                 <Title title="OPEN SOURCE WORK" {...textStyle}  />
                 <LineDivider backgroundColor={textStyle.color} height="3px"/>
                 <SectionContent>
-                    <OpenSourceWorkCard works={openSourceWork} layout_no={layout_id} layout_type={"modern"}/>
+                    <OpenSourceWorkCard works={openSourceWork} layout_no={2} layout_type={"modern"}/>
                 </SectionContent>
                 </>
             )

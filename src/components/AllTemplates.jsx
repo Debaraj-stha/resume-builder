@@ -20,6 +20,7 @@ import ClassicalLayout6 from "./layouts/classic/ClassicalLayout6";
 import ModernLayout1 from "./layouts/modern/ModernLayout1";
 import ModernLayout2 from "./layouts/modern/ModernLayout2";
 import ModernLayout3 from "./layouts/modern/ModernLayout3";
+import ModernLayout4 from "./layouts/modern/layout-4/layout";
 
 const AllLayouts = () => {
     const data = {
@@ -57,14 +58,14 @@ const AllLayouts = () => {
                     <ClassicalLayout6  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard> */}
-                  <LayoutCard>
+                  {/* <LayoutCard>
                     <ModernLayout3  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard>
-                {/* <LayoutCard>
-                    <ModernLayout2  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard> */}
+                <LayoutCard>
+                    <ModernLayout4  {...data} />
+                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
+                </LayoutCard>
 
 
             </div>

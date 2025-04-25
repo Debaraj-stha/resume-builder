@@ -7,6 +7,7 @@ import useDynamicLayoutSections from "./loadResumeLayput";
 import getModernLayout1 from "./layoutui/modernLayout1";
 import getModernLayout2 from "./layoutui/modernLayout2";
 import getModernLayout3 from "./layoutui/modern-layout3";
+import getModernLayout4 from "./layoutui/modern-layout-4";
 
 
 
@@ -98,6 +99,8 @@ const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "c
                     return getModernLayout2({pages,layoutId,key_val,layout_type,sectionRefs})
                 case 3:
                     return  getModernLayout3({pages,layoutId,key_val,layout_type,sectionRefs})
+                case 4:
+                    return getModernLayout4({pages,layoutId,key_val,layout_type,sectionRefs})
                     
             }
           

@@ -296,9 +296,9 @@ export const GridBox = styled.div`
 `;
 
 export const BorderBox = styled.div`
-border-bottom:${({width})=>width||"3px"} solid ${({color})=>color||"#dfcbcb"};
+border:${({width})=>width||"3px"} solid ${({color})=>color||"transparent transparent #dfcbcb transparent"};
 border-radius:1px;
-padding:0 5px 0 0;
+padding:${({padding})=>padding||"0 5px 0 0"};
 `;
 
 export const GridPairBox=styled.div`

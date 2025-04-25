@@ -148,7 +148,7 @@ const generateClassicResumeHeader = ({ personalDetails, layout_no }) => {
     }
 }
 
-const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
+const generateModernResumeHeader = ({ personalDetails, layout_no,style }) => {
     const { urls, name, phone, email, profession, address, profile } = personalDetails
     switch (layout_no) {
         case 1:
@@ -194,6 +194,16 @@ const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
 
                 </>
             )
+        case 4:
+            return(
+                <>
+                <H1 style={{...style.nameStyle}} textAlign="left">{name}</H1>
+                <H3 style={{...style.subSection}} textAlign="left">{profession}</H3>
+                <Ul justifyContent="start">
+                <GenerateContactList personalDetails={personalDetails} urls={[personalDetails.urls[0]]} color={style.p.color}/>
+                </Ul>
+                </>
+            )
 
         /*
 
@@ -203,7 +213,7 @@ const generateModernResumeHeader = ({ personalDetails, layout_no }) => {
     }
 
 }
-const ResumeHeader = memo(({ personalDetails, layout_no, layout_type = "classical" }) => {
+const ResumeHeader = memo(({ personalDetails, layout_no,style, layout_type = "classical" }) => {
     console.log("layout_no resume header", "layout_no",layout_no)
 
 
@@ -211,7 +221,7 @@ const ResumeHeader = memo(({ personalDetails, layout_no, layout_type = "classica
         return generateClassicResumeHeader({ personalDetails, layout_no })
     }
     if (layout_type == layout_type_map.MODERN) {
-        return generateModernResumeHeader({ personalDetails, layout_no })
+        return generateModernResumeHeader({ personalDetails, layout_no,style })
     }
 
 

@@ -3,7 +3,7 @@ import { H2, H3, P } from "../../elements/resumeSectionWrapper"
 //styles
 import style from "../classic/style/layout1_style.json"
 import { layout_type_map } from "../../../constant"
-import { BiCheck, BiCheckSquare } from "react-icons/bi"
+import { BiCheck, BiCheckSquare, BiMedal } from "react-icons/bi"
 import { FlexBox } from "../../CustomComponents"
 
 
@@ -27,7 +27,7 @@ const generateClassicAchievementCard = ({ my_acheivement, layout_no }) => {
     }
 }
 
-const generateModernAchievementCard = ({ my_acheivement, layout_no }) => {
+const generateModernAchievementCard = ({ my_acheivement, layout_no,style}) => {
     const { acheivement, field, date } = my_acheivement
     switch (layout_no) {
         case 1:
@@ -46,6 +46,21 @@ const generateModernAchievementCard = ({ my_acheivement, layout_no }) => {
                     </FlexBox>
                 </div>
             )
+        case 4:
+            return(
+                <>
+                <FlexBox margin="0">
+                    <div className="pt-4">
+                        <BiMedal color={style.iconColor}/>
+                    </div>
+                    <div>
+                        <H3 style={{...style.h3}} textAlign="left">{acheivement}</H3>
+                        <P style={{...style.p}}>{field} {date}</P>
+                    </div>
+
+                </FlexBox>
+                </>
+            )
         default:
             return (
                 <div>
@@ -55,12 +70,12 @@ const generateModernAchievementCard = ({ my_acheivement, layout_no }) => {
             )
     }
 }
-const AcheivementCard = memo(({ my_acheivement, layout_no, layout_type = "classical" }) => {
+const AcheivementCard = memo(({ my_acheivement, layout_no, style, layout_type = "classical" }) => {
     if (layout_type === layout_type_map.CLASSICAL) {
         return generateClassicAchievementCard({ my_acheivement, layout_no })
     }
     if (layout_type === layout_type_map.MODERN) {
-        return generateModernAchievementCard({ my_acheivement, layout_no })
+        return generateModernAchievementCard({ my_acheivement, layout_no,style })
     }
 
 })

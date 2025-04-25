@@ -222,4 +222,21 @@ export const certificates = [
       description: "Innovative thinker who often introduces unique and effective ways to solve UI/UX or system architecture challenges."
     }
   ];
+  export const passions = [
+    "Open Source Contribution",
+    "UI/UX Design",
+    "Clean Code and Refactoring",
+    "Machine Learning and AI",
+    "Design Systems",
+    "Developer Communities",
+    "Building Scalable Web Apps",
+    "Creative Writing",
+    "Tech Blogging",
+    "Mentoring Junior Developers",
+    "Ethical Hacking",
+    "Automation and Scripting",
+    "Web Accessibility",
+    "Startup Culture",
+    "Gamification in Tech",
+  ];
   

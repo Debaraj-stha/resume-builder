@@ -5,6 +5,7 @@ import { FlexBox } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
 import { HiLocationMarker } from "react-icons/hi"
 import { LiaMapMarkerSolid } from "react-icons/lia"
+import { CgCalendar } from "react-icons/cg"
 
 const generateClassicalResumeExperienceCard = ({ experience, layout_no }) => {
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
@@ -166,7 +167,7 @@ const generateClassicalResumeExperienceCard = ({ experience, layout_no }) => {
     }
 
 }
-const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
+const generateModernResumeExperienceCard = ({ experience, layout_no, style }) => {
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
     switch (layout_no) {
         case 1:
@@ -199,9 +200,9 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
                     <P color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="600" fontSize="14px"
                     >{companyName}</P>
                     <FlexBox margin="0" alignItems="center">
-                        <BiCalendar/>
+                        <BiCalendar />
                         <P fontSize="14px" fontFamily="Roboto">{startDate}-{endDate}</P>
-                        <LiaMapMarkerSolid/>
+                        <LiaMapMarkerSolid />
                         <P fontSize="14px" fontFamily="Roboto">{location}</P>
                     </FlexBox>
                     <P fontSize="14px" fontFamily="Roboto">{aboutCompany}</P>
@@ -213,6 +214,36 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
                         }
                     </Ul>
                     {/* 0f0771 */}
+                </>
+            )
+
+        case 4:
+            return (
+                <>
+                    <H2 style={{ ...style.h2 }}>{position}</H2>
+
+
+                    <H3 style={{ ...style.h3, color: style.primaryColor }} textAlign="left" >{companyName}</H3>
+                    <FlexBox margin="0" flexWrap="wrap">
+                        <FlexBox margin="0">
+                            <CgCalendar />
+                            <P style={{ ...style.p }}>{startDate}-{endDate}</P>
+                        </FlexBox>
+
+                        <FlexBox margin="0">
+                            <LiaMapMarkerSolid />
+                            <P style={{ ...style.p }}>{location}</P>
+                        </FlexBox>
+                    </FlexBox>
+                    <P style={{...style.p}}>{aboutCompany}</P>
+                    <Ul display="block" margin="0">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index} display="block">{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
+
                 </>
             )
         default:
@@ -240,7 +271,7 @@ const generateModernResumeExperienceCard = ({ experience, layout_no }) => {
 
 }
 
-const ExperienceCard = memo(({ experience, layout_no, layout_type = "classical" }) => {
+const ExperienceCard = memo(({ experience, layout_no, layout_type = "classical", style }) => {
 
     // achievements
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
@@ -248,7 +279,7 @@ const ExperienceCard = memo(({ experience, layout_no, layout_type = "classical" 
         return generateClassicalResumeExperienceCard({ experience, layout_no })
     }
     if (layout_type === layout_type_map.MODERN) {
-        return generateModernResumeExperienceCard({ experience, layout_no })
+        return generateModernResumeExperienceCard({ experience, layout_no, style })
     }
 
 })
