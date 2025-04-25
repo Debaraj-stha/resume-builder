@@ -56,6 +56,13 @@ const ExpertiseCard = ({ expertise, layout_no ,layout_type,style}) => {
           <RangeInput value={expertise.value} onChange={handleCHange} color={style.h1.color}/>
           </>
         )
+      case 5:
+        return(
+          <>
+           <h2 style={{...style.sectionSubHeader,padding:"0",margin:"0"}}>{expertise.tech}</h2>
+           <RangeInput value={expertise.value} onChange={handleCHange} color={style.sectionSubHeader.color}/>
+          </>
+        )
     default:
       return (
         <ExpertiseWrapper>

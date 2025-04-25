@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { H2, H3, P } from "../../elements/resumeSectionWrapper"
 //styles
-import style from "../classic/style/layout1_style.json"
+import style  from "../classic/style/layout1_style.json"
 import { layout_type_map } from "../../../constant"
 import { BiCheck, BiCheckSquare, BiMedal } from "react-icons/bi"
 import { FlexBox } from "../../CustomComponents"
@@ -27,7 +27,7 @@ const generateClassicAchievementCard = ({ my_acheivement, layout_no }) => {
     }
 }
 
-const generateModernAchievementCard = ({ my_acheivement, layout_no,style}) => {
+const generateModernAchievementCard = ({ my_acheivement, layout_no,styles}) => {
     const { acheivement, field, date } = my_acheivement
     switch (layout_no) {
         case 1:
@@ -51,15 +51,22 @@ const generateModernAchievementCard = ({ my_acheivement, layout_no,style}) => {
                 <>
                 <FlexBox margin="0">
                     <div className="pt-4">
-                        <BiMedal color={style.iconColor}/>
+                        <BiMedal color={styles.iconColor}/>
                     </div>
                     <div>
-                        <H3 style={{...style.h3}} textAlign="left">{acheivement}</H3>
-                        <P style={{...style.p}}>{field} {date}</P>
+                        <H3 style={{...styles.h3}} textAlign="left">{acheivement}</H3>
+                        <P style={{...styles.p}}>{field} {date}</P>
                     </div>
 
                 </FlexBox>
                 </>
+            )
+        case 5:
+            return(
+                <div>
+                    <h2 style={{...styles.h2}}>{acheivement}</h2>
+                    <P style={{...styles.p}}>{field} {date}</P>
+                </div>
             )
         default:
             return (
@@ -75,7 +82,7 @@ const AcheivementCard = memo(({ my_acheivement, layout_no, style, layout_type = 
         return generateClassicAchievementCard({ my_acheivement, layout_no })
     }
     if (layout_type === layout_type_map.MODERN) {
-        return generateModernAchievementCard({ my_acheivement, layout_no,style })
+        return generateModernAchievementCard({ my_acheivement, layout_no,styles:style })
     }
 
 })

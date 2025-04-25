@@ -20,11 +20,11 @@ const classicalLayoutById = (layoutId) => {
 const modernLayoutById = (layoutId) => {
   switch (layoutId) {
     case 1:
-      return lazy(() => import("./modern/ModernLayout1"));
+      return lazy(() => import("./modern/layout-1/layout"));
     case 2:
-      return lazy(() => import("./modern/ModernLayout2"));
+      return lazy(() => import("./modern/layout-2/layout"));
     case 3:
-      return lazy(() => import("./modern/ModernLayout3"));
+      return lazy(() => import("./modern/layout-3/layout"));
     default:
       return () => <h1>Default Modern Layout</h1>;
   }

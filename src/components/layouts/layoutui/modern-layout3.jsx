@@ -10,6 +10,7 @@ const getModernLayout3 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
       key_val,
       leftFlex: "3",
       rightFlex: "2",
+      layout_no:layoutId
       
     });
   };

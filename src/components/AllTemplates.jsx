@@ -7,20 +7,17 @@ import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
 import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import { iconsColors } from "../static-data/icons-colors";
 import { FaSearchPlus } from "react-icons/fa";
-import ClassicalLayout3 from "./layouts/classic/ClassicalLayout3";
+
 import { useTheme } from "styled-components";
 import TextIconButton from "./IconButton";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import { layoutDescription } from "../static-data/layout_description";
 import { achievements, educations, experiences, personalDetails, skills, summary, certificates } from "../static-data/resume-sample-data";
-import ClassicalLayout4 from "./layouts/classic/ClassicalLayout4";
-import ClassicalLayout5 from "./layouts/classic/ClassicalLayout5";
-import ClassicalLayout6 from "./layouts/classic/ClassicalLayout6";
-import ModernLayout1 from "./layouts/modern/ModernLayout1";
-import ModernLayout2 from "./layouts/modern/ModernLayout2";
-import ModernLayout3 from "./layouts/modern/ModernLayout3";
-import ModernLayout4 from "./layouts/modern/layout-4/layout";
+
+import ModernLayout3 from "./layouts/modern/layout-3/layout";
+import ModernLayout2 from "./layouts/modern/layout-2/layout";
+import ModernLayout1 from "./layouts/modern/layout-1/layout";
 
 const AllLayouts = () => {
     const data = {
@@ -59,11 +56,11 @@ const AllLayouts = () => {
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard> */}
                   {/* <LayoutCard>
-                    <ModernLayout3  {...data} />
+                    <ModernLayout1  {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard> */}
                 <LayoutCard>
-                    <ModernLayout4  {...data} />
+                    <ModernLayout1 {...data} />
                     <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
                 </LayoutCard>
 

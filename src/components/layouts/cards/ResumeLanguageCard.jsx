@@ -42,7 +42,7 @@ const getProficiencyPercent = (level) => {
 
 
 
-const LanguageCard = ({ language,layout_no }) => {
+const LanguageCard = ({ language,layout_no,style }) => {
     const percent = getProficiencyPercent(language.proficiency);
     switch(layout_no){
       case 3:
@@ -54,12 +54,13 @@ const LanguageCard = ({ language,layout_no }) => {
             </ProgressBarContainer>
           </LanguageWrapper>
         )
+        
       default:
         return (
           <LanguageWrapper>
-            <H2 textAlign="left" color="white">{language.language}</H2>
+            <h2 style={{...style.h2}}>{language.language}</h2>
             <ProgressBarContainer>
-              <ProgressBar percent={percent} />
+              <ProgressBar percent={percent} color={style.color} />
             </ProgressBarContainer>
           </LanguageWrapper>
         );

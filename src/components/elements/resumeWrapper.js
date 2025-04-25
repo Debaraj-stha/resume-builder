@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ResumeWrapper = styled.div`
   width: 210mm;
   height: 297mm;
-  padding: 20mm;
+  padding:${({padding})=>padding||"20mm"};
   background: white;
   margin:10px auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

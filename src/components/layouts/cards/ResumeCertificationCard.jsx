@@ -41,35 +41,30 @@ const buildClassicalCertificationCard = ({ certificate, layout_no }) => {
     }
 }
 
-const buildModernCertificateCard = ({ certificate, layout_no }) => {
-    switch (layout_no) {
-        case 1:
-            return(
+const buildModernCertificateCard = ({ certificate, layout_no, style }) => {
+            return (
                 <div>
                     <div style={{ flex: "2" }}>
-                        <H3 textAlign="left" fontWeight="600" fontSize="15px" >{certificate.certificate}</H3>
+                        <h3 style={{ ...style.h3 }}>{certificate.certificate}</h3>
                     </div>
                     <div style={{ flex: "7" }}>
 
-                        <P fontWeight="500" color="#514848">{certificate.subject}</P>
-                        <P fontWeight="400" fontSize="14px"color="#514848">{certificate.date}</P>
+                        <P style={{ ...style.p }}>{certificate.subject}</P>
+                        <P style={{ ...style.p }}>{certificate.date}</P>
                     </div>
                 </div>
             )
-        default:
-            return <h1>default certificate card</h1>
         
-    }
 }
 
-const CertificationCard = memo(({ certificate, layout_no,layout_type="classical" }) => {
-    if(layout_type===layout_type_map.CLASSICAL){
-        return buildClassicalCertificationCard({certificate,layout_no})
+const CertificationCard = memo(({ certificate, layout_no, layout_type = "classical",style }) => {
+    if (layout_type === layout_type_map.CLASSICAL) {
+        return buildClassicalCertificationCard({ certificate, layout_no })
     }
-    if(layout_type===layout_type_map.MODERN){
-        return buildModernCertificateCard({certificate,layout_no})
+    if (layout_type === layout_type_map.MODERN) {
+        return buildModernCertificateCard({ certificate, layout_no ,style})
     }
-    
+
 
 })
 export default CertificationCard

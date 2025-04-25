@@ -1,10 +1,10 @@
 
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
+
 import ResumeHeader from "../../cards/ResumeHeader";
 
 import { generateAchievementsSections, generateEducationSections, generateExperienceSections } from "../../classic/resume-output/helper";
-import style from "../style/layout1_style.json";
+import { layout_1_style as style } from "../layout-1/style"
 import ExperienceCard from "../../cards/ResumeExperienceCard";
 import EducationCard from "../../cards/ResumeEducationCard";
 import AcheivementCard from "../../cards/ResumeAchievementCard";
@@ -13,6 +13,7 @@ import { GridPairBox } from "../../../CustomComponents";
 import ExpertiseCard from "../../cards/ResumeExpertiseCard";
 import LanguageCard from "../../cards/ResumeLanguageCard";
 import CertificationCard from "../../cards/ResumeCertificationCard";
+import { generateTitle } from "./layout5-output";
 const getModernLayout1OutputSectionData = (data) => {
     const {
         personalDetails = {},
@@ -25,15 +26,6 @@ const getModernLayout1OutputSectionData = (data) => {
         certificates = []
     } = data;
 
-
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: style.Title.fontSize,
-        fontWeight: "500",
-        fontFamily: "Lato, sans-serif",
-        textAlign: "left",
-        color: "black"
-    }
 
 
 
@@ -49,11 +41,24 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "experience",
             content: () => (
                 <>
-                    <Title title="EXPERIENCES" {...textStyle} />
+                    {
+
+                        generateTitle({ title: "experience", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         {
                             experiences.map((experience, index) => (
-                                <ExperienceCard key={index} experience={experience} layout_no={1} layout_type={"modern"} />
+                                <ExperienceCard key={index} experience={experience} layout_no={5}
+
+                                    style={{
+                                        h2: style.h2,
+                                        h3: style.h3,
+                                        primaryColor: style.primaryColor,
+                                        p: style.p,
+                                        header: style.sectionHeader,
+                                        subSection: style.sectionSubHeader
+                                    }}
+                                    layout_type={"modern"} />
                             ))
                         }
                     </SectionContent>
@@ -64,11 +69,21 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "education",
             content: () => (
                 <>
-                    <Title title="EDUCATIONS" {...textStyle} color="white" />
+                    {
+
+                        generateTitle({ title: "education", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         {
                             educations.map((education, index) => (
-                                <EducationCard key={index} education={education} layout_no={1} layout_type={"modern"} />
+                                <EducationCard key={index} education={education} layout_no={5}
+                                    style={{
+                                        h2: style.h2,
+                                        h3: style.h3,
+                                        primaryColor: style.primaryColor,
+                                        p: style.p
+                                    }}
+                                    layout_type={"modern"} />
                             ))
                         }
                     </SectionContent>
@@ -79,12 +94,16 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "industry_expertise",
             content: () => (
                 <>
-                    <Title title="INDUSTRY EXPERTISE" {...textStyle} />
+                    {
+
+                        generateTitle({ title: "industry expertise", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         <div className="grid grid-cols-2 gap-3">
                             {
-                                industryExpertise.slice(0,2).map((expertise, index) => (
-                                    <ExpertiseCard key={index} expertise={expertise} layout_no={1} />
+                                industryExpertise.slice(0, 2).map((expertise, index) => (
+                                    <ExpertiseCard key={index} expertise={expertise} layout_no={5} style={{ sectionSubHeader: style.sectionSubHeader }}
+                                    />
                                 ))
                             }
                         </div>
@@ -97,11 +116,23 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "achievements",
             content: () => (
                 <>
-                    <Title title="ACHIEVEMENTS" {...textStyle} color="white" />
+                    {
+
+                        generateTitle({ title: "achievements", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         {
                             achievements.map((achievement, index) => (
-                                <AcheivementCard key={index} my_acheivement={achievement} layout_no={1} layout_type={"modern"} />
+                                <AcheivementCard key={index} my_acheivement={achievement} layout_no={5}
+
+                                    style={
+                                        {
+                                            iconColor: style.primaryColor,
+                                            h2: style.h2,
+                                            p: style.p
+                                        }
+                                    }
+                                    layout_type={"modern"} />
                             ))
                         }
                     </SectionContent>
@@ -113,10 +144,21 @@ const getModernLayout1OutputSectionData = (data) => {
             id: "skills",
             content: () => (
                 <>
-                    <Title title="SKILLS" {...textStyle} />
+                    {
+
+                        generateTitle({ title: "skills", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
 
                     <SectionContent>
-                        <SkillCard skills={skills.slice(0, 2)} layout_no={1} layout_type={"modern"} />
+                        <SkillCard skills={skills.slice(0, 2)} layout_no={5} layout_type={"modern"}
+                        style={{
+                                                    header: style.sectionHeader,
+                                                    h1: style.h1,
+                                                    h2: style.h2,
+                                                    h3: style.h3
+                                                }}
+                        
+                        />
                     </SectionContent>
                 </>
             ),
@@ -125,11 +167,17 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "language",
             content: () => (
                 <>
-                    <Title title="LANGUAGE" {...textStyle} color="white" />
+                    {
+
+                        generateTitle({ title: "languages", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         {
-                            languages.map((language,index)=>(
-                                <LanguageCard key={index} language={language} layout_no={1}  />
+                            languages.map((language, index) => (
+                                <LanguageCard key={index} language={language} layout_no={5} style={{
+                                    h2: style.h2,
+                                    color: style.accentColor
+                                }} />
                             ))
                         }
                     </SectionContent>
@@ -140,11 +188,19 @@ const getModernLayout1OutputSectionData = (data) => {
             key: "certificates",
             content: () => (
                 <>
-                    <Title title="CERTIFICATIONS" {...textStyle}  />
+                    {
+
+                        generateTitle({ title: "certificates", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
                     <SectionContent>
                         {
                             certificates.map((certificate, index) => (
-                                <CertificationCard key={index} certificate={certificate} layout_no={1} layout_type={"modern"} />
+                                <CertificationCard key={index} certificate={certificate} layout_no={5} layout_type={"modern"}
+                                style={{
+                                    p:style.p,
+                                    h3:style.h3
+                                }}
+                                />
                             ))
                         }
                     </SectionContent>

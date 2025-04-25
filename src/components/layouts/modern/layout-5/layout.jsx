@@ -11,7 +11,7 @@ import LayoutUi from "../../layoutUI";
 
 
 
-const ModernLayout4 = memo((props) => {
+const ModernLayout5 = memo((props) => {
    const {
        watch
      } = useFormContext();
@@ -37,10 +37,11 @@ const ModernLayout4 = memo((props) => {
          openSourceWork,
          achievements,
          industryExpertise,
-         passions
+         passions,
+         certificates
          
        }  
-       const layout_no=4
+       const layout_no=5
        const sectionData = getModernLayout4OutputSectionData(key_val,layout_no)
        const shouldMeasureHeight = props.shouldMeasureHeight || false;
        const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
@@ -64,4 +65,4 @@ const ModernLayout4 = memo((props) => {
         </div>
     )
 })
-export default ModernLayout4
+export default ModernLayout5

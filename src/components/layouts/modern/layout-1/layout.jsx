@@ -1,16 +1,15 @@
+
 import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { TransparentLine } from "../../Divider/TransparentDividers";
-import { FlexResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
-import { Section, P, H1, SectionContent, FlexSection, LeftColumn, RightColumn } from "../../elements/resumeSectionWrapper";
 
-import style from "./style/layout1_style.json";
-import common from "./style/common.json";
-import getModernLayout1OutputSectionData from "./layout-output/layout-1-output";
-import { useLayout } from "../../../provider/layoutProvider";
-import LayoutUi from "../layoutUI";
-import { Title } from "../../Title";
-import { certificates, industryExpertise, languages } from "../../../static-data/resume-sample-data";
+
+
+
+import getModernLayout1OutputSectionData from "../layout-output/layout-1-output";
+import { useLayout } from "../../../../provider/layoutProvider";
+
+import { certificates, industryExpertise, languages } from "../../../../static-data/resume-sample-data";
+import LayoutUi from "../../layoutUI";
 
 
 

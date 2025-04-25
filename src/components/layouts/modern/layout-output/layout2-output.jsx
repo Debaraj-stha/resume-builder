@@ -1,10 +1,10 @@
 
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
+
 import ResumeHeader from "../../cards/ResumeHeader";
 
 import { generateAchievementsSections, generateEducationSections, generateExperienceSections } from "../../classic/resume-output/helper";
-import style from "../style/layout1_style.json";
+
 import ExperienceCard from "../../cards/ResumeExperienceCard";
 import EducationCard from "../../cards/ResumeEducationCard";
 import AcheivementCard from "../../cards/ResumeAchievementCard";
@@ -12,8 +12,10 @@ import SkillCard from "../../cards/ResumeSkillCard";
 import { GridPairBox } from "../../../CustomComponents";
 import ExpertiseCard from "../../cards/ResumeExpertiseCard";
 import OpenSourceWorkCard from "../../cards/ResumeOpenSourceWorkCard";
-import {  LineDivider } from "../../../Divider/TransparentDividers";
-const getModernLayout2OutputSectionData = (data,layout_id) => {
+import { LineDivider } from "../../../Divider/TransparentDividers";
+import { generateTitle } from "./layout5-output";
+import { layout_2_style as style } from "../layout-2/style"
+const getModernLayout2OutputSectionData = (data, layout_id) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -23,60 +25,70 @@ const getModernLayout2OutputSectionData = (data,layout_id) => {
         industryExpertise = [],
         languages = [],
         certificates = [],
-        summary="",
+        summary = "",
         openSourceWork
     } = data;
 
-console.log("get section data of layout",layout_id)
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: "20px",
-        fontWeight: "500",
-        fontFamily: "'Raleway', sans-serif",
-        textAlign: "left",
-        color: "#717171"
-    }
 
     return [
         {
             key: "personalDetails",
-            content: () => <ResumeHeader personalDetails={personalDetails} layout_no={2} layout_type="modern" />,
+            content: () => <ResumeHeader personalDetails={personalDetails} layout_no={2} layout_type="modern"
+                style={{ nameStyle: style.nameStyle, subSection: style.sectionSubHeader, p: style.p }}
+            />,
         },
         {
-            key:"skills",
-            content:()=>(
+            key: "skills",
+            content: () => (
                 <>
-                <Title title="SKILLS" {...textStyle}/>
-                <LineDivider backgroundColor={textStyle.color} height="3px"/>
-                <SectionContent>
-                    <SkillCard layout_no={2} layout_type="modern" skills={skills} ></SkillCard>
-                </SectionContent>
+                    {
+                        generateTitle({ title: "skils", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
+                    <LineDivider height="3px" />
+                    <SectionContent>
+                        <SkillCard layout_no={5} layout_type="modern" skills={skills}
+                            style={{
+                                header: style.sectionHeader,
+                                h1: style.h1,
+                                h2: style.h2,
+                                h3: style.h3
+                            }}
+                        ></SkillCard>
+                    </SectionContent>
                 </>
             )
         },
         {
-            key:"summary",
-            content:()=>(
+            key: "summary",
+            content: () => (
                 <>
-                <Title title="SUMMARY" {...textStyle}/>
-                <LineDivider backgroundColor={textStyle.color} height="3px"/>
-                <SectionContent>
-                    <P>{summary}</P>
-                </SectionContent>
+                    {
+                        generateTitle({ title: "Summary", style: { ...style.sectionHeader, textAlign: "left" } })
+
+                    }
+                    <LineDivider height="3px" />
+                    <SectionContent>
+                        <P>{summary}</P>
+                    </SectionContent>
                 </>
             )
         },
         {
-            key:"experties",
-            content:()=>(
+            key: "experties",
+            content: () => (
                 <>
-                 <Title title="INDUSTRY EXPERTISE" {...textStyle} />
-                 <LineDivider backgroundColor={textStyle.color} height="3px"/>
+                    {
+                        generateTitle({ title: "expertise", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
+                    <LineDivider height="3px" />
                     <SectionContent>
                         <div className="grid grid-cols-1 gap-3">
                             {
-                                industryExpertise.slice(0,2).map((expertise, index) => (
-                                    <ExpertiseCard key={index} expertise={expertise} layout_no={2} />
+                                industryExpertise.slice(0, 2).map((expertise, index) => (
+                                    <ExpertiseCard key={index} expertise={expertise} layout_no={5}
+                                        style={{ sectionSubHeader: style.sectionSubHeader }}
+
+                                    />
                                 ))
                             }
                         </div>
@@ -85,31 +97,24 @@ console.log("get section data of layout",layout_id)
             )
         },
         {
-            key:"experience",
-            content:()=>(
-                <>
-                <Title title="EXPERIENCE" {...textStyle}/>
-                <LineDivider backgroundColor={textStyle.color} height="3px"/>
-                <SectionContent>
-                        {
-                            experiences.map((experience, index) => (
-                                <ExperienceCard key={index} experience={experience} layout_no={2} layout_type={"modern"} />
-                            ))
-                        }
-                </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "education",
+            key: "experience",
             content: () => (
                 <>
-                    <Title title="EDUCATIONS" {...textStyle}  />
-                    <LineDivider backgroundColor={textStyle.color} height="3px"/>
+                    {
+                        generateTitle({ title: "experience", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
+                    <LineDivider height="3px" />
                     <SectionContent>
                         {
-                            educations.map((education, index) => (
-                                <EducationCard key={index} education={education} layout_no={2} layout_type={"modern"} />
+                            experiences.map((experience, index) => (
+                                <ExperienceCard key={index} experience={experience} layout_no={5}
+                                    style={{
+                                        h2: style.h2,
+                                        h3: style.h3,
+                                        primaryColor: style.primaryColor,
+                                        p: style.p
+                                    }}
+                                    layout_type={"modern"} />
                             ))
                         }
                     </SectionContent>
@@ -117,14 +122,46 @@ console.log("get section data of layout",layout_id)
             )
         },
         {
-            key:"open_source_work",
-            content:()=>(
+            key: "education",
+            content: () => (
                 <>
-                <Title title="OPEN SOURCE WORK" {...textStyle}  />
-                <LineDivider backgroundColor={textStyle.color} height="3px"/>
-                <SectionContent>
-                    <OpenSourceWorkCard works={openSourceWork} layout_no={2} layout_type={"modern"}/>
-                </SectionContent>
+                    {
+                        generateTitle({ title: "education", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
+                    <LineDivider height="3px" />
+                    <SectionContent>
+                        {
+                            educations.map((education, index) => (
+                                <EducationCard key={index} education={education} layout_no={2}
+
+                                    style={{
+                                        h2: style.h2,
+                                        h3: style.h3,
+                                        primaryColor: style.primaryColor,
+                                        p: style.p
+                                    }}
+                                    layout_type={"modern"} />
+                            ))
+                        }
+                    </SectionContent>
+                </>
+            )
+        },
+        {
+            key: "open_source_work",
+            content: () => (
+                <>
+                    {
+                        generateTitle({ title: "open source work", style: { ...style.sectionHeader, textAlign: "left" } })
+                    }
+                    <LineDivider height="3px" />
+                    <SectionContent>
+                        <OpenSourceWorkCard works={openSourceWork} layout_no={2} layout_type={"modern"} style={{
+                            h2: style.h2,
+
+                            p: style.p
+                        }} />
+                    </SectionContent>
                 </>
             )
         }

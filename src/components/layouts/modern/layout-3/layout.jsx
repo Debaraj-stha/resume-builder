@@ -1,13 +1,15 @@
 import React,{ memo, useEffect, useLayoutEffect, useRef, useState } from "react"
 
 import { useFormContext } from "react-hook-form";
-import LayoutUi from "../layoutUI";
-import { certificates, industryExpertise, languages, openSourceWork } from "../../../static-data/resume-sample-data";
-import getModernLayout2OutputSectionData from "./layout-output/layout2-output";
-import { useLayout } from "../../../provider/layoutProvider";
+import LayoutUi from "../../layoutUI";
+import { certificates, industryExpertise, languages, openSourceWork, strengths } from "../../../../static-data/resume-sample-data";
+
+import { useLayout } from "../../../../provider/layoutProvider";
+import getModernLayout3OutputSectionData from "../layout-output/layout-3-output";
 
 
-const ModernLayout2 = memo((props) => {
+
+const ModernLayout3 = memo((props) => {
    const {
        watch
      } = useFormContext();
@@ -27,14 +29,13 @@ const ModernLayout2 = memo((props) => {
          educations,
          summary,
          experiences,
-         achievements,
          skills,
-         industryExpertise,
+         strengths,
          languages,
-         certificates,
-         openSourceWork
-       }  
-       const sectionData = getModernLayout2OutputSectionData(key_val,2)
+         
+       } 
+       const layout_id=3
+       const sectionData = getModernLayout3OutputSectionData(key_val,3)
        const shouldMeasureHeight = props.shouldMeasureHeight || false;
        const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
          const sectionRefs = useRef([])
@@ -53,8 +54,8 @@ const ModernLayout2 = memo((props) => {
 
     return (
         <div className="mx-2 w-full max-w-full">
-                <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={2} layout_type="modern" />
+                <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={layout_id} layout_type="modern" />
         </div>
     )
 })
-export default ModernLayout2
+export default ModernLayout3

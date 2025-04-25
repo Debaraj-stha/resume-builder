@@ -155,6 +155,13 @@ const generateModernEducationCard = ({ education, layout_no,style }) => {
                     </FlexBox>
                 </>
             )
+        case 5:
+            return(
+                <>
+                <h3 style={{...style.h3}}>{degree}</h3>
+                <h2 style={{...style.h2}}>{university}</h2>
+                </>
+            )
 
     }
 }

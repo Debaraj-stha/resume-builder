@@ -159,6 +159,22 @@ const buildModernSkillsCard = ({ skills, layout_no,style }) => {
                         }
                     </FlexBox>
                 )
+                case 5:
+                    return(
+                        <>
+                        <FlexBox flexWrap="wrap">
+                        {
+                            skills.slice(0,3).map((skill,index)=>(
+                                skill.items.map((item,i)=>(
+                                    <BorderBox key={`${index}-${i}`} color="#cec9c9" padding="6px" width="2px">
+                                        <H3 style={{...style.header,margin:"0", padding:"0"}}>{item}</H3>
+                                    </BorderBox>
+                                ))
+                            ))
+                        }
+                    </FlexBox>
+                        </>
+                    )
         default:
             return <h1>default skill</h1>
     }

@@ -115,7 +115,10 @@ export const personalDetails = {
     address: "Dharan,Nepal",
     phone: "+9779812111121",
     email: "example@gmail.com",
-    profile:"https://cdn-icons-png.flaticon.com/512/194/194931.png",
+    profile:[
+      "https://cdn-icons-png.flaticon.com/512/194/194931.png",
+      "https://images.unsplash.com/photo-1568316280532-71d1baad0986?q=80&w=2063&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    ],
     urls: [
         "https://linkedin.com/jhone",
         "https://github.com/jhone"

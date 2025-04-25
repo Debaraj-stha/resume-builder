@@ -6,26 +6,33 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
   // Initialize state to hold the output sections from the layout file
   //function to load modern layout sections
   const [sections, setSections] = useState([]);
-  const loadModernLayout = async (isMounted) => { 
+  const loadModernLayout = async (isMounted) => {
     console.log("called modern load layout")
     let layoutModule;
-    switch(layoutId){
+    switch (layoutId) {
       case 1:
-        layoutModule=await import("./modern/layout-output/layout-1-output")
+        layoutModule = await import("./modern/layout-output/layout-1-output")
         break
       case 2:
-        layoutModule=await import("./modern/layout-output/layout2-output")
+        layoutModule = await import("./modern/layout-output/layout2-output")
         break
-        case 3:
-          layoutModule=await import("./modern/layout-output/layout-3-output")
-          break
-        case 4:
-          console.log("loading moderl layout 4")
-          layoutModule=await import("./modern/layout-output/layout4-output")
-          break
+      case 3:
+        layoutModule = await import("./modern/layout-output/layout-3-output")
+        break
+      case 4:
+        console.log("loading moderl layout 4")
+        layoutModule = await import("./modern/layout-output/layout4-output")
+        break
+
+      case 5:
+        layoutModule=await import("./modern/layout-output/layout5-output")
+        break
+      case 6:
+        layoutModule=await import("./modern/layout-output/layout6-output")
+        break
     }
-    if(layoutModule && isMounted){
-      const output=layoutModule.default(resumeData)
+    if (layoutModule && isMounted) {
+      const output = layoutModule.default(resumeData,layoutId)
       setSections(output)
     }
 
@@ -48,7 +55,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         layoutModule = await import("./classic/resume-output/layout4-output"); // Lazy load layout 4
         break
       case 5:
-        layoutModule=await import("./classic/resume-output/layout5-output")
+        layoutModule = await import("./classic/resume-output/layout5-output")
         break;
       default:
         layoutModule = await import("./classic/resume-output/layout6-output")
@@ -56,7 +63,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
 
     // If module is loaded and component is still mounted, update the sections state
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData); // Call the default exported function with resume data
+      const output = layoutModule.default(resumeData,layoutId); // Call the default exported function with resume data
       setSections(output); // Set the resulting sections
     }
 

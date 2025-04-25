@@ -33,7 +33,7 @@ const getModernLayout4OutputSectionData = (data, layout_id) => {
         passions
     } = data;
 
-    console.log("get section data of layout", layout_id, data)
+    
     const textStyle = {
         className: style.Title.className,
         fontSize: "20px",
@@ -174,7 +174,7 @@ const getModernLayout4OutputSectionData = (data, layout_id) => {
                     <SectionContent>
                         <FlexBox flexWrap="wrap" margin="0">
                             {
-                                passions.slice(0, 2).map((passion, index) => (
+                                passions.slice(0, 1).map((passion, index) => (
                                     <PassionCard key={index} passion={passion} layout_no={4} layout_type="modern" style={{ h2: Layout_4_style.h2 }} />
                                 ))
                             }

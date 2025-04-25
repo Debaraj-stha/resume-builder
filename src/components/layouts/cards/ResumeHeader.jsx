@@ -12,15 +12,21 @@ import { LiaLinkedin, LiaLinkSolid, LiaMapMarkerSolid } from "react-icons/lia"
 import { BsGithub, BsGlobe } from "react-icons/bs"
 import { layout_type_map } from "../../../constant"
 import { Avatar, FlexBox } from "../../CustomComponents"
+import styled from "styled-components"
+
+const RectangularContainer = styled.div`
+width:${({ width }) => width || "70px"};
+height:${({ height }) => height || "70px"};
+`
 
 // LiaLinkSolid
-const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
+const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black" }) => {
     return (
         <Li display={style2.ResumeHeader.li.display} justifyContent={style2.ResumeHeader.li.justifyContent} alignItems={style2.ResumeHeader.li.alignItems} >
             <IconHolder>
                 {icon}
             </IconHolder>
-            <span style={{ fontWeight: fontWeight }}>
+            <span style={{ fontWeight: fontWeight, color: color }}>
                 {text}
             </span>
         </Li>
@@ -29,17 +35,17 @@ const GenerateLi = ({ icon, text, fontWeight = "normal" }) => {
 const GenerateWebsiteURL = ({ urls, color }) => urls.map((u, index) => {
     if (u.includes("linkedin")) {
         return (
-            <GenerateLi key={index} icon={<LiaLinkedin color={color}></LiaLinkedin>} text={u}></GenerateLi>
+            <GenerateLi key={index} icon={<LiaLinkedin color={color}></LiaLinkedin>} text={u} color={color}></GenerateLi>
         )
     }
     else if (u.includes("github")) {
         return (
-            <GenerateLi key={index} icon={<BsGithub color={color}></BsGithub>} text={u}></GenerateLi>
+            <GenerateLi key={index} icon={<BsGithub color={color}></BsGithub>} text={u} color={color}></GenerateLi>
         )
     }
     else {
         return (
-            <GenerateLi key={index} icon={<BsGlobe color={color}></BsGlobe>} text={u}></GenerateLi>
+            <GenerateLi key={index} icon={<BsGlobe color={color}></BsGlobe>} text={u} color={color}></GenerateLi>
         )
     }
 }
@@ -47,16 +53,16 @@ const GenerateWebsiteURL = ({ urls, color }) => urls.map((u, index) => {
 
 const GenerateContactList = ({ personalDetails, urls, color = "blue" }) => (
     <>
-        <GenerateLi icon={<BiMobile color={color}></BiMobile>} text={personalDetails.phone}></GenerateLi>
-        <GenerateLi icon={<MdEmail color={color}></MdEmail>} text={personalDetails.email}></GenerateLi>
+        <GenerateLi icon={<BiMobile color={color}></BiMobile>} text={personalDetails.phone} color={color}></GenerateLi>
+        <GenerateLi icon={<MdEmail color={color}></MdEmail>} text={personalDetails.email} color={color}></GenerateLi>
         <GenerateWebsiteURL urls={urls || personalDetails.urls} color={color} />
         {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
     </>
 )
-const AddressWithMarker = ({ address, fontWeight = "500" ,color="black",size=18,fontSize="15px"}) => (
+const AddressWithMarker = ({ address, fontWeight = "500", color = "black", size = 18, fontSize = "15px" }) => (
     <div className="flex items-center">
-        <LiaMapMarkerSolid color={color} size={size}/>
-        <P  fontWeight={ fontWeight}>{address}</P>
+        <LiaMapMarkerSolid color={color} size={size} />
+        <P fontWeight={fontWeight} color={color}>{address}</P>
     </div>
 )
 const generateClassicResumeHeader = ({ personalDetails, layout_no }) => {
@@ -148,7 +154,7 @@ const generateClassicResumeHeader = ({ personalDetails, layout_no }) => {
     }
 }
 
-const generateModernResumeHeader = ({ personalDetails, layout_no,style }) => {
+const generateModernResumeHeader = ({ personalDetails, layout_no, style, applyPadding }) => {
     const { urls, name, phone, email, profession, address, profile } = personalDetails
     switch (layout_no) {
         case 1:
@@ -165,43 +171,68 @@ const generateModernResumeHeader = ({ personalDetails, layout_no,style }) => {
         case 2:
             return (
                 <>
-                   <FlexBox>
-                    <div>
-                    <H1 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left">{name}</H1>
-                    <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
-                    <Ul justifyContent="start">
-                        <GenerateContactList color="black" personalDetails={personalDetails} />
-                    </Ul>
-                    </div>
-                    <div>
-                        <Avatar>
-                            <img src={`${profile}`} alt="image"></img>
-                        </Avatar>
-                    </div>
-                   </FlexBox>
+                    <FlexBox>
+                        <div>
+                            <H1 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left">{name}</H1>
+                            <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
+                            <Ul justifyContent="start">
+                                <GenerateContactList color="black" personalDetails={personalDetails} />
+                            </Ul>
+                        </div>
+                        <div>
+                            <Avatar>
+                                <img src={`${profile[0]}`} alt="image"></img>
+                            </Avatar>
+                        </div>
+                    </FlexBox>
                 </>
             )
         case 3:
-        
-            return(
+
+            return (
                 <>
-                 <H1 fontFamily="'Roboto',sans-serif" color="#0f0771" textAlign="left" fontWeight="500">{name}</H1>
+                    <H1 fontFamily="'Roboto',sans-serif" color="#0f0771" textAlign="left" fontWeight="500">{name}</H1>
                     <H2 color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
                     <Ul justifyContent="start">
                         <GenerateContactList color="#0259ff" personalDetails={personalDetails} />
                     </Ul>
-                    <AddressWithMarker address={address} color="#0259ff" fontSize="14px"/>
+                    <AddressWithMarker address={address} color="#0259ff" fontSize="14px" />
 
                 </>
             )
         case 4:
-            return(
+            return (
                 <>
-                <H1 style={{...style.nameStyle}} textAlign="left">{name}</H1>
-                <H3 style={{...style.subSection}} textAlign="left">{profession}</H3>
-                <Ul justifyContent="start">
-                <GenerateContactList personalDetails={personalDetails} urls={[personalDetails.urls[0]]} color={style.p.color}/>
-                </Ul>
+                    <H1 style={{ ...style.nameStyle }} textAlign="left">{name}</H1>
+                    <H3 style={{ ...style.subSection }} textAlign="left">{profession}</H3>
+                    <Ul justifyContent="start">
+                        <GenerateContactList personalDetails={personalDetails} urls={[personalDetails.urls[0]]} color={style.p.color} />
+                    </Ul>
+                </>
+            )
+        case 5:
+            return (
+                <>
+                    <div style={{ backgroundColor: style.headerBackground }}>
+                        <FlexBox margin="0" padding={applyPadding ? "20mm 20mm 10mm" : "0"}>
+                            <div>
+                                <H1 style={{ ...style.nameStyle }} textAlign="left">{name}</H1>
+                                <H3 style={{ ...style.h3 }} textAlign="left">{profession}</H3>
+                                <Ul justifyContent="start" margin="0">
+                                    <GenerateContactList personalDetails={personalDetails} color={style.p.color} />
+                                </Ul>
+                                <AddressWithMarker address={address} color={style.p.color} fontSize="14px" />
+                            </div>
+                            {
+                                applyPadding ? (
+                                    <RectangularContainer width="90px" height="90px">
+                                        <img src={`${profile[1]}`} alt="image"></img>
+                                    </RectangularContainer>
+                                ) : null
+                            }
+
+                        </FlexBox>
+                    </div>
                 </>
             )
 
@@ -213,17 +244,17 @@ const generateModernResumeHeader = ({ personalDetails, layout_no,style }) => {
     }
 
 }
-const ResumeHeader = memo(({ personalDetails, layout_no,style, layout_type = "classical" }) => {
-    console.log("layout_no resume header", "layout_no",layout_no)
+const ResumeHeader = ({ personalDetails, layout_no, style, layout_type = "classical", applyPadding = true }) => {
+
 
 
     if (layout_type === layout_type_map.CLASSICAL) {
         return generateClassicResumeHeader({ personalDetails, layout_no })
     }
     if (layout_type == layout_type_map.MODERN) {
-        return generateModernResumeHeader({ personalDetails, layout_no,style })
+        return generateModernResumeHeader({ personalDetails, layout_no, style, applyPadding })
     }
 
 
-})
+}
 export default ResumeHeader

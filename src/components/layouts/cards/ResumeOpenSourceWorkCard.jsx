@@ -4,7 +4,7 @@ import { FlexBox } from "../../CustomComponents"
 import { H1, H2, P } from "../../elements/resumeSectionWrapper"
 import { LiaLinkSolid } from "react-icons/lia"
 
-const generateModernOpenSourceWorkCard = ({ works, layout_no }) => {
+const generateModernOpenSourceWorkCard = ({ works, layout_no,style }) => {
     switch (layout_no) {
         case 2:
             return (
@@ -15,16 +15,16 @@ const generateModernOpenSourceWorkCard = ({ works, layout_no }) => {
                                 const { projectName, role, description, link, technologies, date } = work
                                 return (
                                     <div key={index}>
-                                        <H2  color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{projectName}</H2>
+                                        <h2 style={{...style.h2,textAlign:"left"}}>{projectName}</h2>
                                         <FlexBox margin="0" alignItems="center" gap="5px">
                                             <BiCalendar />
-                                            <P>{date}</P>
+                                            <P style={{...style.p}}>{date}</P>
                                         </FlexBox>
                                         <FlexBox  margin="0" alignItems="center" gap="5px">
                                             <LiaLinkSolid/>
-                                            <P  fontSize="12px">{link}</P>
+                                            <P   style={{...style.p}}>{link}</P>
                                         </FlexBox>
-                                        <P fontSize="12px">{description}</P>
+                                        <P  style={{...style.p}}>{description}</P>
                                     </div>
                                 )
                             })

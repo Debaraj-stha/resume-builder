@@ -286,7 +286,10 @@ margin:${({margin})=>margin||"10px 0 0 0"};
 justify-content:${({justifyContent})=>justifyContent||"start"};
 align-content: center;
 // flex-wrap: wrap;
+padding:${({padding})=>padding||"0"};
 flex-wrap:${({flexWrap})=>flexWrap||"no-wrap"};
+
+
 `
 export const GridBox = styled.div`
   display: flex;
