@@ -1,7 +1,6 @@
 import React from "react";
 import { templateDescription } from "../static-data/template_description";
-import ClassicalLayout1 from "./layouts/classic/ClassicalLayout1";
-import ClassicalLayout2 from "./layouts/classic/ClassicalLayout2";
+
 import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
 import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import { Hspace } from "./CustomComponents";
@@ -12,8 +11,8 @@ import { useTheme } from "styled-components";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
 import LayoutCard from "./LayoutCard";
 import { layoutDescription } from "../static-data/layout_description";
-
-
+import ClassicalLayout1 from "../components/layouts/classic/layout-1/layout"
+import ClassicalLayout2 from "../components/layouts/classic/layout-2/layout"
 const CreativeLayouts = () => {
     const theme = useTheme()
     return (

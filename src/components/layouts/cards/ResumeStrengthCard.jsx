@@ -38,10 +38,28 @@ const generateModernStrengthCard=({strengths,layout_no,style})=>{
     }
 
 }
+
+const generateSimpleStrengthCard=({strengths,layout_no,style})=>{
+    return(
+        <>
+        {
+            strengths.slice(0,3).map((strength,index)=>(
+                <div key={index} className="text-left">
+                    <h2 style={{...style.h2}}>{strength.title}</h2>
+                    <p style={{...style.p}}>{strength.description}</p>
+                </div>
+            ))
+        }
+        </>
+    )
+}
 const StrengthCard=({strengths,layout_no,layout_type="modern",style})=>{
-    console.log("strength layout no",layout_no)
-    if(layout_type===layout_type_map.MODERN){
-        return generateModernStrengthCard({strengths,layout_no,style})
-    }
+
+    // if(layout_type===layout_type_map.MODERN){
+    //     return generateModernStrengthCard({strengths,layout_no,style})
+    // }
+    // if(layout_type===layout_type_map.SIMPLE){
+    //     return generateSimpleStrengthCard({strengths,layout_no,style})
+    // }
 }
 export default StrengthCard

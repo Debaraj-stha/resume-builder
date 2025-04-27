@@ -1,177 +1,99 @@
-
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
-import ResumeHeader from "../../cards/ResumeHeader";
-
-import { generateAchievementsSections, generateEducationSections, generateExperienceSections } from "../../classic/resume-output/helper";
-;
-import ExperienceCard from "../../cards/ResumeExperienceCard";
-import EducationCard from "../../cards/ResumeEducationCard";
-import AcheivementCard from "../../cards/ResumeAchievementCard";
-import SkillCard from "../../cards/ResumeSkillCard";
-import { FlexBox, GridPairBox } from "../../../CustomComponents";
-import ExpertiseCard from "../../cards/ResumeExpertiseCard";
-import OpenSourceWorkCard from "../../cards/ResumeOpenSourceWorkCard";
 import { LineDivider } from "../../../Divider/TransparentDividers";
-
-import PassionCard from "../../cards/ResumePassionCard";
 import { layout_5_style as style } from "../layout-5/style";
-import StrengthCard from "../../cards/ResumeStrengthCard";
 
-const Divider = () => <LineDivider height="3px" backgroundColor="#999" />
-export const generateTitle = ({ title, style }) => (
-    <h1 style={{ ...style }}>{title}</h1>
-)
+import generateStrength from "../../section-data/strength_section_data";
+import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
+import generateSkill from "../../section-data/skill_section_data";
+import generateEducation from "../../section-data/education_secion_data";
+import generateExperience from "../../section-data/experience_section_data";
+import generateProfileDetails from "../../section-data/profile_details";
 
-const getModernLayout5OutputSectionData = (data, layout_id) => {
+const getModernLayout5OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
         experiences = [],
         educations = [],
-        achievements = [],
         skills = [],
         industryExpertise = [],
-        languages = [],
-        certificates = [],
-        summary = "",
-        openSourceWork,
-        passions,
         strengths
     } = data;
 
 
-
-
+    const divider = <LineDivider height="3px" backgroundColor="#999" />
+    const layout_type = layout_type_map.MODERN
     return [
-        {
-            key: "personalDetails",
-            content: () => <ResumeHeader personalDetails={personalDetails} layout_no={5}
-                layout_type="modern"
-                style={{
-                    nameStyle: style.nameStyle,
-                    h2: style.h2,
-                    p: style.p, headerBackground: style.headerBackground,
-                    textColor: style.headerTextColor
-                }} />,
-        },
-        {
-            key: "experience",
-            content: () => (
-                <>
-                    {
-                        generateTitle({ title: "professional experiences", style: { ...style.sectionHeader, textAlign: "left" } })
+        generateProfileDetails({
+            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
+            shouldIncludeImage: true,
+            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 
+        }),
+        generateExperience({
+            experiences,
+            layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                header: style.sectionHeader,
+                subSection: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader
+            }
+        }),
+        generateEducation({
+            educations,
+            layout_no: layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionHeader: style.sectionHeader
+            }
 
-                    }
-                    <gene />
-                    <Divider />
-                    <SectionContent>
-                        {
-                            experiences.map((experience, index) => (
-                                <ExperienceCard key={index} experience={experience} layout_no={5} layout_type={"modern"}
+        }),
+        generateSkill({
+            skills,
+            divider,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h1: style.h1,
+                h2: style.h2,
+                h3: style.h3
+            },
+            layout_no: layout_no,
+            layout_type: layout_type_map.SIMPLE,
+            titleHeader: "technical experiences"
 
-                                    style={{
-                                        h2: style.h2,
-                                        h3: style.h3,
-                                        primaryColor: style.primaryColor,
-                                        p: style.p,
-                                        header: style.sectionHeader,
-                                        subSection: style.sectionSubHeader
-                                    }}
-                                />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
+        }),
+        generateIndustryExpertise({
+            industryExpertise,
+            layout_no,
+            layout_type: layout_type,
+            style: {
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            sectionHeader: "expertise"
+        }),
+        generateStrength({
+            strengths,
+            layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                sectionHeader: style.sectionHeader,
+                h2: style.h2,
+                p: style.p
+            }
 
-        {
-            key: "education",
-            content: () => (
-                <>
-                    {
-                        generateTitle({ title: "Education", style: { ...style.sectionHeader, textAlign: "left" } })
-                    }
-                    <Divider />
-                    <SectionContent>
-                        {
-                            educations.map((education, index) => (
-                                <EducationCard key={index} education={education} layout_no={5} layout_type={"modern"}
-
-                                    style={{
-                                        h2: style.h2,
-                                        h3: style.h3,
-                                        primaryColor: style.primaryColor,
-                                        p: style.p,
-                                        header: style.sectionHeader,
-                                        subSection: style.sectionSubHeader
-                                    }}
-                                />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "skills",
-            content: () => (
-                <>
-                    {
-                        generateTitle({ title: "techincal experiences", style: { ...style.sectionHeader, textAlign: "left" } })
-                    }
-                    <Divider />
-                    <SectionContent>
-                        <SkillCard layout_no={5} layout_type="modern" skills={skills} style={{
-                            header: style.sectionHeader,
-                            h1: style.h1,
-                            h2: style.h2,
-                            h3: style.h3
-                        }} ></SkillCard>
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "experties",
-            content: () => (
-                <>
-                    {
-                        generateTitle({ title: "industry experiences", style: { ...style.sectionHeader, textAlign: "left" } })
-                    }
-                    <Divider />
-                    <SectionContent>
-                        {
-                            industryExpertise.map((expertise, index) => (
-                                <ExpertiseCard key={index} expertise={expertise} layout_no={5} layout_type="modern" style={{ color: style.accentColor, sectionSubHeader: style.sectionHeader }} />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "strengths",
-            content: () => (
-                <>
-                    {
-                        generateTitle({ title: "strengths", style: { ...style.sectionHeader, textAlign: "left" } })
-                    }
-                    <Divider />
-                    <SectionContent>
-
-                        <StrengthCard layout_no={5} layout_type="modern" style={{h2:style.h2,p:style.p}} strengths={strengths} />
-
-                    </SectionContent>
-                </>
-            )
-        },
-
-
+        }),
     ]
-
-
-
 }
 export default getModernLayout5OutputSectionData

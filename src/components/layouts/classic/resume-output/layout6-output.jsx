@@ -1,12 +1,15 @@
 
 import ResumeHeader from "../../cards/ResumeHeader";
 import SkillCard from "../../cards/ResumeSkillCard"
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "./helper";
-import style from "../style/layout3_style.json"
-import { Title } from "../../../Title";
+import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
+import {layout_6_style as style} from "../layout-6/style"
+
 import { DoubleLineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-const getlayout6OutputSection = (data) => {
+import generateSkill from "../../section-data/skill_section_data";
+import generateSummary from "../../section-data/summary";
+import generateProfileDetails from "../../section-data/profile_details";
+const getlayout6OutputSection = (data, layout_no) => {
 
     const {
         personalDetails = {},
@@ -17,56 +20,39 @@ const getlayout6OutputSection = (data) => {
         certificates = [],
         summary = ""
     } = data;
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: "20px",
-        fontFamily: "Lato",
-        textAlign: "left",
-        fontWeight:"bold"
-        
-    }
+ 
     return [
-        {
-            key: "personalDetails",
-            content: () => {
+        generateProfileDetails({
+            personalDetails: personalDetails , layout_no: layout_no,
+            shouldIncludeImage: true,
+            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 
-                return (
-
-                    <ResumeHeader personalDetails={personalDetails} layout_no={6} />
-                )
-            }
-        },
-        {
-            key: "summary",
-            content: () => {
-                return (
-                    <>
-                        <Title fontFamily={"Lato"} {...textStyle}
-                            title="SUMMARY OF QUALIFICATION" />
-                        <DoubleLineDivider />
-                        <SectionContent>
-                            <P>{summary}</P>
-                        </SectionContent>
-                    </>
-                )
+        }),
+        generateSummary({
+            summary,
+            style: {
+                sectionHeader: style.sectionHeader,
+                p: style.p
             },
-        },
-        ...generateExperienceSections(experiences, 6, textStyle),
-        ...generateEducationSections(educations, 6, textStyle),
-  ...generateCertipicates(certificates,6,textStyle),
-        {
-            key: "skills",
-            content: () => (
-                <>
-                    <Title title="TECHNICAL SKILLS"  {...textStyle} />
-                    <IncludeSeparator layout_no={6} />
-                    <SectionContent>
-                        <SkillCard skills={skills} layout_no={6} />
-                    </SectionContent>
-                </>
-            )
-        },
-      
+            divider: <IncludeSeparator layout_no={layout_no} />,
+        }),
+        ...generateExperienceSections({experiences, layout_no}),
+        ...generateEducationSections({educations, layout_no}),
+        ...generateCertipicates({certificates, layout_no}),
+        generateSkill({
+            skills,
+            divider: <IncludeSeparator layout_no={layout_no} />,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h1: style.h1,
+                h2: style.h2,
+                h3: style.h3
+            },
+            layout_no: layout_no,
+            titleHeader: "technical skills"
+        }),
+
 
 
     ]

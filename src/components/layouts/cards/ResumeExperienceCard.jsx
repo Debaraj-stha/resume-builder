@@ -1,14 +1,12 @@
 import { memo } from "react"
 import { layout_type_map } from "../../../constant"
 import { H2, H3, IconHolder, InnerContentWrapper, Li, P, Ul } from "../../elements/resumeSectionWrapper"
-import { FlexBox } from "../../CustomComponents"
+import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
 import { HiLocationMarker } from "react-icons/hi"
 import { LiaMapMarkerSolid } from "react-icons/lia"
 import { CgCalendar } from "react-icons/cg"
-import style from "../classic/style/layout1_style.json"
-import style2 from "../classic/style/layout2_style.json"
-import style3 from "../classic/style/layout3_style.json"
+
 
 const generateClassicalResumeExperienceCard = ({ experience, layout_no }) => {
     const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
@@ -253,8 +251,8 @@ const generateModernResumeExperienceCard = ({ experience, layout_no, style }) =>
         case 5:
             return (
                 <>
-                    <h3 style={{ ...style.h3 ,textAlign:"left"}} >{position}</h3>
-                    <h2 style={{ ...style.h2,textAlign:"left" }}  >{companyName}</h2>
+                    <h3 style={{ ...style.h3, textAlign: "left" }} >{position}</h3>
+                    <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
                     <FlexBox margin="0" flexWrap="wrap">
                         <FlexBox margin="0">
                             <CgCalendar />
@@ -300,17 +298,118 @@ const generateModernResumeExperienceCard = ({ experience, layout_no, style }) =>
     }
 
 }
+const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, props }) => {
+    console.log("simple experience car calldl")
+    const { position, startDate, endDate, companyName, aboutCompany, location, achievements } = experience
+    const { applyFlex, includeDateAndAddress } = props
 
-const ExperienceCard = memo(({ experience, layout_no,  style,layout_type = "classical", }) => {
+    if(layout_no===6){
+                    return (
+                        <FlexBox gap="20px">
+                            <div style={{ flex: "2" }}>
+                                <h3 style={{...style.h3}}>{startDate}-{endDate}</h3>
+                                <h2 style={{...style.h2}}>{location}</h2>
+
+                            </div>
+                            <div style={{ flex: "1" }}>
+                                <VerticalPinSeparator />
+                            </div>
+                            <div style={{ flex: "7" }}>
+                                <h2 style={{...style.h2}}>{position}</h2>
+                                <h3 style={{...style.h3}}>{companyName}</h3>
+                                <p style={{...style.p}}>{aboutCompany}</p>
+                                
+                                    {
+                                       <Ul display="block">
+                                       {
+                                           achievements.map((achievement, index) => (
+                                               <Li key={index}>{achievement.value}</Li>
+                                           ))
+                                       }
+                                   </Ul> 
+                                    }
+                                
+                            </div>
+                        </FlexBox>
+                    )
+    }
+    return (
+        <>
+            <h3 style={{ ...style.h3 }} >{position}</h3>
+            {
+                (!applyFlex && includeDateAndAddress) ? (
+                    <FlexBox margin="0" justifyContent="space-between">
+                        <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
+                        <FlexBox margin="0" alignItems="center">
+                            <CgCalendar />
+                            <P style={{ ...style.p }}>{startDate}-{endDate}</P>
+                        </FlexBox>
+                    </FlexBox>
+                )
+                    :
+                    (
+                        <>
+                            <FlexBox margin="0" justifyContent="space-between">
+                                <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
+                                <div>
+                                    <P style={{ ...style.p }}>{location}</P>
+                                    <P style={{ ...style.p }}>{startDate}-{endDate}</P>
+                                </div>
+                            </FlexBox>
+                        </>
+                    )
+            }
+            {/* <FlexBox margin="0" flexWrap="wrap">
+                
+
+                <FlexBox margin="0">
+                    <LiaMapMarkerSolid />
+                    <P style={{ ...style.p }}>{location}</P>
+                </FlexBox>
+            </FlexBox> */}
+            {
+                !applyFlex && (
+                    <>
+                        <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
+                        <FlexBox margin="0" alignItems="center">
+                            <FlexBox margin="0" alignItems="center">
+                                <LiaMapMarkerSolid />
+                                <p>{location}</p>
+                            </FlexBox>
+                            <FlexBox margin="0" alignItems="center">
+                                <CgCalendar />
+                                <p>{startDate}-{endDate}</p>
+                            </FlexBox>
+                        </FlexBox>
+                    </>
+                )
+            }
+            <P style={{ ...style.p }}>{aboutCompany}</P>
+            <Ul display="block" margin="0">
+                {
+                    achievements.map((achievement, index) => (
+                        <Li key={index}>{achievement.value}</Li>
+                    ))
+                }
+            </Ul>
+        </>
+    )
+}
+
+
+const ExperienceCard = memo(({ experience, layout_no, style, layout_type = "classical", ...props }) => {
 
     // achievements
-    const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return generateClassicalResumeExperienceCard({ experience, layout_no })
-    }
-    if (layout_type === layout_type_map.MODERN) {
-        return generateModernResumeExperienceCard({ experience, layout_no, style })
-    }
+    // const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
+    // if (layout_type === layout_type_map.CLASSICAL) {
+    //     return generateClassicalResumeExperienceCard({ experience, layout_no })
+    // }
+    // if (layout_type === layout_type_map.MODERN) {
+    //     return generateModernResumeExperienceCard({ experience, layout_no, style })
+    // }
+    // if (layout_type === layout_type_map.SIMPLE) {
+        return generateSimpleResumeExperienceCard({ experience, layout_no, style, props })
+    // }
 
 })
 export default ExperienceCard

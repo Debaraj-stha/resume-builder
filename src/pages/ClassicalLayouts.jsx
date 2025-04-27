@@ -1,5 +1,6 @@
 import React from "react";
-import ClassicalLayout3 from "../components/layouts/classic/ClassicalLayout3";
+import ClassicalLayout1 from "../components/layouts/classic/layout-1/layout"
+import ClassicalLayout2 from "../components/layouts/classic/layout-2/layout"
 import { Hspace } from "../components/CustomComponents";
 import Container from "../components/Container";
 const ClassicalLayouts = () => {
@@ -7,7 +8,7 @@ const ClassicalLayouts = () => {
         <Container>
             <div className="m-auto">
                 <Hspace />
-                <ClassicalLayout3></ClassicalLayout3>
+                <ClassicalLayout1/>
             </div>
         </Container>
 

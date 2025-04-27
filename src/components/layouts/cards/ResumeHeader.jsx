@@ -1,10 +1,7 @@
 import { memo } from "react"
 
 import { IconHolder, Li, P, Ul, H1, H3, H2 } from "../../elements/resumeSectionWrapper"
-//styles
-import style from "../classic/style/layout1_style.json"
-import style2 from "../classic/style/layout2_style.json"
-import style3 from "../classic/style/layout3_style.json"
+
 //icons
 import { BiMobile } from "react-icons/bi"
 import { MdEmail } from "react-icons/md"
@@ -20,9 +17,9 @@ height:${({ height }) => height || "70px"};
 `
 
 // LiaLinkSolid
-const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black" }) => {
+const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black",style }) => {
     return (
-        <Li display={style2.ResumeHeader.li.display} justifyContent={style2.ResumeHeader.li.justifyContent} alignItems={style2.ResumeHeader.li.alignItems} >
+        <Li {...style}>
             <IconHolder>
                 {icon}
             </IconHolder>
@@ -32,30 +29,47 @@ const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black" }) => {
         </Li>
     )
 }
-const GenerateWebsiteURL = ({ urls, color }) => urls.map((u, index) => {
+const GenerateWebsiteURL = ({ urls, color,style
+
+ }) => urls.map((u, index) => {
     if (u.includes("linkedin")) {
         return (
-            <GenerateLi key={index} icon={<LiaLinkedin color={color}></LiaLinkedin>} text={u} color={color}></GenerateLi>
+            <GenerateLi 
+            style={style}
+            key={index} icon={<LiaLinkedin color={color}></LiaLinkedin>} text={u} color={color}></GenerateLi>
         )
     }
     else if (u.includes("github")) {
         return (
-            <GenerateLi key={index} icon={<BsGithub color={color}></BsGithub>} text={u} color={color}></GenerateLi>
+            <GenerateLi 
+            style={style}
+            key={index} icon={<BsGithub color={color}></BsGithub>} text={u} color={color}></GenerateLi>
         )
     }
     else {
         return (
-            <GenerateLi key={index} icon={<BsGlobe color={color}></BsGlobe>} text={u} color={color}></GenerateLi>
+            <GenerateLi
+            style={style}
+            key={index} icon={<BsGlobe color={color}></BsGlobe>} text={u} color={color}></GenerateLi>
         )
     }
 }
 )
 
-const GenerateContactList = ({ personalDetails, urls, color = "blue" }) => (
+const GenerateContactList = ({ personalDetails, urls, color = "blue",
+    style
+ }) => (
     <>
-        <GenerateLi icon={<BiMobile color={color}></BiMobile>} text={personalDetails.phone} color={color}></GenerateLi>
-        <GenerateLi icon={<MdEmail color={color}></MdEmail>} text={personalDetails.email} color={color}></GenerateLi>
-        <GenerateWebsiteURL urls={urls || personalDetails.urls} color={color} />
+        <GenerateLi
+        style={style}
+        icon={<BiMobile color={color}></BiMobile>} text={personalDetails.phone} color={color}></GenerateLi>
+        <GenerateLi 
+        
+        style={style}
+        icon={<MdEmail color={color}></MdEmail>} text={personalDetails.email} color={color}></GenerateLi>
+        <GenerateWebsiteURL 
+        style={style}
+        urls={urls || personalDetails.urls} color={color} />
         {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
     </>
 )
@@ -65,196 +79,44 @@ const AddressWithMarker = ({ address, fontWeight = "500", color = "black", size 
         <P fontWeight={fontWeight} color={color}>{address}</P>
     </div>
 )
-const generateClassicResumeHeader = ({ personalDetails, layout_no }) => {
-    switch (layout_no) {
-        case 2:
-            return (
-                <>
-                    <H1 fontSize={style2.ResumeHeader.name.fontSize} fontWeight={style2.ResumeHeader.name.fontWeight} textAlign={style2.ResumeHeader.name.textAlign}>{personalDetails.name}</H1>
-                    <H1 fontWeight={style2.ResumeHeader.profession.fontWeight} fontSize={style2.ResumeHeader.profession.fontSize} color={style2.ResumeHeader.profession.color} textAlign={style2.ResumeHeader.profession.textAlign}>{personalDetails.profession}</H1>
-                    <Ul justifyContent={style2.ResumeHeader.ul.justifyContent} listStyle={style2.ResumeHeader.ul.listStyle}>
-                        <GenerateContactList personalDetails={personalDetails} />
-                        {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
-                    </Ul>
-                    <P className={style2.ResumeHeader.p.className.join(" ")}>{personalDetails.address}</P>
-                </>
-            )
-        case 3:
-            return (
-                <>
-                    <H1 fontSize={style3.ResumeHeader.name.fontSize} fontWeight={style2.ResumeHeader.name.fontWeight} fontFamily={style3.ResumeHeader.name.fontFamily} >{personalDetails.name}</H1>
-                    <H1 fontWeight={style3.ResumeHeader.profession.fontWeight} fontSize={style3.ResumeHeader.profession.fontSize} color={style3.ResumeHeader.profession.color} fontFamily={style3.ResumeHeader.profession.fontFamily}>{personalDetails.profession}</H1>
-                    <Ul display="flex" listStyle={style2.ResumeHeader.ul.listStyle}>
-                        <Li>{personalDetails.phone}</Li>
-                        <Li>{personalDetails.email}</Li>
-                        <Li>{personalDetails.github}/</Li>
-                    </Ul>
-                    <P textAlign={style.ResumeHeader.address.textAlign}>{personalDetails.address}</P>
-                </>
-            )
-        case 4:
-            return (
-                <>
-                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight={style.ResumeHeader.name.fontWeight} textAlign="left"
-                        fontFamily="Montserrat, sans-serif"
-                    >{personalDetails.name}</H1>
-                    <Ul justifyContent="space-between">
-                        <GenerateLi icon={<BiMobile color="blue"></BiMobile>} text={personalDetails.phone} fontWeight="bold"></GenerateLi>
-                        <GenerateLi icon={<MdEmail color="blue"></MdEmail>} text={personalDetails.email} fontWeight="bold"></GenerateLi>
-                        <GenerateLi icon={<LiaLinkSolid color="blue"></LiaLinkSolid>} text={personalDetails.urls[0]} fontWeight="bold"></GenerateLi>
-                    </Ul>
 
-                </>
-            )
-        case 5:
-            return (
-                <>
-                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight="800" textAlign="left"
-                        fontFamily="Suranna"
-                    >{personalDetails.name}</H1>
-                    <Ul justifyContent="start">
-                        <Li display="block" fontWeight="bold">{personalDetails.phone}</Li>
-                        <Li display="block" fontWeight="bold">{personalDetails.email}</Li>
-                        <Li display="block" fontWeight="bold">{personalDetails.urls[0]}/</Li>
-                        <Li display="block" fontWeight="bold">{personalDetails.address}/</Li>
-                    </Ul>
+const generateContactListWithoutIcon = ({ contactInfos }) => (
 
-                </>
-            )
-        case 6:
-            return (
-                <>
-                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight={style.ResumeHeader.name.fontWeight} textAlign="left" fontFamily="Lato">{personalDetails.name}</H1>
-                    <Ul justifyContent="space-between" margin="0">
-                        <GenerateLi icon={<BiMobile color="black"></BiMobile>} text={personalDetails.phone} fontWeight="bold"></GenerateLi>
-                        <GenerateLi icon={<MdEmail color="black"></MdEmail>} text={personalDetails.email} fontWeight="bold"></GenerateLi>
-                        <GenerateLi icon={<LiaLinkSolid color="black"></LiaLinkSolid>} text={personalDetails.urls[0]} fontWeight="bold"></GenerateLi>
-                    </Ul>
-                    <AddressWithMarker />
-                </>
-            )
-        default:
-            console.log("hit default resume card")
-            return (
-                <>
-                    <H1 fontSize={style.ResumeHeader.name.fontSize} fontWeight={style.ResumeHeader.name.fontWeight}>{personalDetails.name}</H1>
-                    <H1 fontWeight={style.ResumeHeader.profession.fontWeight} fontSize={style.ResumeHeader.profession.fontSize}>{personalDetails.profession}</H1>
-                    <Ul>
-                        <Li>{personalDetails.phone}</Li>
-                        <Li>{personalDetails.email}</Li>
-                        {personalDetails.urls.map((u, index) => (
-                            <Li key={index}>{u}</Li>
-                        ))}
-                    </Ul>
-                    <P textAlign={style.ResumeHeader.address.textAlign}>{personalDetails.address}</P>
-                </>
+    contactInfos.map((contact, index) => (
+        <Li key={index}>{contact}</Li>
+    ))
 
-            )
+)
+const generateResumeHeader = ({ personalDetails, layout_no, shouldIncludeImage, style, shouldIncludeIcon }) => {
+    const { name, address, profile, urls, profession, email, phone } = personalDetails
+console.log(shouldIncludeIcon,shouldIncludeImage)
+    return (
+        <div>
+            {/* {
+                shouldIncludeImage && (<Avatar><img src={`${profile[1]}`} alt="image"></img></Avatar>)
+            } */}
+            <h1 style={{ ...style?.nameStyle }}>{name}</h1>
+            <h2 style={{ ...style?.h2 }}>{profession}</h2>
+            <Ul margin="0"  {...style.ul}>
 
-    }
-}
-
-const generateModernResumeHeader = ({ personalDetails, layout_no, style, applyPadding }) => {
-    const { urls, name, phone, email, profession, address, profile } = personalDetails
-    switch (layout_no) {
-        case 1:
-            return (
-                <>
-                    <H1 fontWeight="600" fontFamily="Lato, sans-serif" textAlign="left">{name}</H1>
-                    <H3 color="blue" textAlign="left" fontWeight="500">{profession}</H3>
-                    <Ul justifyContent="start" margin="0">
-                        <GenerateContactList personalDetails={personalDetails} urls={[urls[0]]} color="black" />
-                    </Ul>
-                    <AddressWithMarker address={address} />
-                </>
-            )
-        case 2:
-            return (
-                <>
-                    <FlexBox>
-                        <div>
-                            <H1 fontFamily="'Raleway', sans-serif" color="#044627" textAlign="left">{name}</H1>
-                            <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
-                            <Ul justifyContent="start">
-                                <GenerateContactList color="black" personalDetails={personalDetails} />
-                            </Ul>
-                        </div>
-                        <div>
-                            <Avatar>
-                                <img src={`${profile[0]}`} alt="image"></img>
-                            </Avatar>
-                        </div>
-                    </FlexBox>
-                </>
-            )
-        case 3:
-
-            return (
-                <>
-                    <H1 fontFamily="'Roboto',sans-serif" color="#0f0771" textAlign="left" fontWeight="500">{name}</H1>
-                    <H2 color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="500" textAlign="left">{profession}</H2>
-                    <Ul justifyContent="start">
-                        <GenerateContactList color="#0259ff" personalDetails={personalDetails} />
-                    </Ul>
-                    <AddressWithMarker address={address} color="#0259ff" fontSize="14px" />
-
-                </>
-            )
-        case 4:
-            return (
-                <>
-                    <H1 style={{ ...style.nameStyle }} textAlign="left">{name}</H1>
-                    <H3 style={{ ...style.subSection }} textAlign="left">{profession}</H3>
-                    <Ul justifyContent="start">
-                        <GenerateContactList personalDetails={personalDetails} urls={[personalDetails.urls[0]]} color={style.p.color} />
-                    </Ul>
-                </>
-            )
-        case 5:
-            return (
-                <>
-                    <div style={{ backgroundColor: style.headerBackground }}>
-                        <FlexBox margin="0" padding={applyPadding ? "20mm 20mm 10mm" : "0"}>
-                            <div>
-                                <H1 style={{ ...style.nameStyle }} textAlign="left">{name}</H1>
-                                <H3 style={{ ...style.h3 }} textAlign="left">{profession}</H3>
-                                <Ul justifyContent="start" margin="0">
-                                    <GenerateContactList personalDetails={personalDetails} color={style.p.color} />
-                                </Ul>
-                                <AddressWithMarker address={address} color={style.p.color} fontSize="14px" />
-                            </div>
-                            {
-                                applyPadding ? (
-                                    <RectangularContainer width="90px" height="90px">
-                                        <img src={`${profile[1]}`} alt="image"></img>
-                                    </RectangularContainer>
-                                ) : null
-                            }
-
-                        </FlexBox>
-                    </div>
-                </>
-            )
-
-        /*
-
-        */
-        default:
-            return <h1>Default resume header</h1>
-    }
+                {
+                    shouldIncludeIcon ? <GenerateContactList personalDetails={personalDetails} color={style.p.color}
+                    style={style?.li_style}
+                    /> :
+                        generateContactListWithoutIcon({ contactInfos: [phone, email, ...urls, address] })}
+            </Ul>
+            {
+                shouldIncludeIcon  &&  <AddressWithMarker address={address} color={style.p.color} fontSize={style.p.fontSize} />
+            }
+            
+        </div>
+    )
 
 }
-const ResumeHeader = ({ personalDetails, layout_no, style, layout_type = "classical", applyPadding = true }) => {
 
-
-
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return generateClassicResumeHeader({ personalDetails, layout_no })
-    }
-    if (layout_type == layout_type_map.MODERN) {
-        return generateModernResumeHeader({ personalDetails, layout_no, style, applyPadding })
-    }
-
+const ResumeHeader = ({ personalDetails, layout_no, style, layout_type = "classical", ...props})=>{
+    console.log("props",props)
+    return generateResumeHeader({personalDetails,layout_no,style,...props})
 
 }
 export default ResumeHeader

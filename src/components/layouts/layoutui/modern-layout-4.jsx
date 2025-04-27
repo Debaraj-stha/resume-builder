@@ -13,8 +13,6 @@ const getModernLayout4 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
       layout_no:layoutId
      
     });
-  
-  
 };
 
 export default getModernLayout4;

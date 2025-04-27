@@ -1,75 +1,67 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Hspace } from "./CustomComponents";
 import { templateDescription } from "../static-data/template_description";
-import ClassicalLayout1 from "./layouts/classic/ClassicalLayout1";
-import ClassicalLayout2 from "./layouts/classic/ClassicalLayout2";
-import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
-import TemplatesdescriptionCard from "./TemplateHeaderCard";
-import { iconsColors } from "../static-data/icons-colors";
-import { FaSearchPlus } from "react-icons/fa";
+import { layoutDescription } from "../static-data/layout_description";
 
-import { useTheme } from "styled-components";
-import TextIconButton from "./IconButton";
+import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import LayoutCard from "./LayoutCard";
 import LayoutDescriptionCard from "./LayoutDescriptionCard";
-import { layoutDescription } from "../static-data/layout_description";
+import TextIconButton from "./IconButton";
+
+import { FaSearchPlus } from "react-icons/fa";
+import { useTheme } from "styled-components";
+
+// Sample resume data
 import { achievements, educations, experiences, personalDetails, skills, summary, certificates } from "../static-data/resume-sample-data";
 
-import ModernLayout3 from "./layouts/modern/layout-3/layout";
-import ModernLayout2 from "./layouts/modern/layout-2/layout";
-import ModernLayout1 from "./layouts/modern/layout-1/layout";
+// Classical Layout Components
+import ClassicalLayout1 from "./layouts/classic/layout-1/layout";
+import ClassicalLayout2 from "./layouts/classic/layout-2/layout";
+import ClassicalLayout3 from "./layouts/classic/layout-3/layout";
+import ClassicalLayout4 from "./layouts/classic/layout-4/layout";
+import ClassicalLayout5 from "./layouts/classic/layout-5/layout";
+import ClassicalLayout6 from "./layouts/classic/layout-6/layout";
+
+const layoutComponents = [
+  { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
+  // { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout3, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
+  // { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
+];
 
 const AllLayouts = () => {
-    const data = {
-        personalDetails, educations, summary, experiences, achievements, skills, certificates
-    }
-    const theme = useTheme()
-    return (
-        <>
-            <Hspace></Hspace>
-            <TemplatesdescriptionCard title={templateDescription.all.title} description={templateDescription.all.description}></TemplatesdescriptionCard>
-            <div className="grid grid-cols-1  gap-4 overflow-hidden" id="all-templates">
-                {/* <LayoutCard>
-                    <ClassicalLayout1 {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
-                </LayoutCard> */}
-                {/* <LayoutCard>
-                    <ClassicalLayout5 {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[0])} descriptionm={layoutDescription[0]["Ivy League"]} />
-                </LayoutCard> */}
+  const theme = useTheme();
+  const data = { personalDetails, educations, summary, experiences, achievements, skills, certificates };
 
-                {/* <LayoutCard>
-                    <ClassicalLayout2  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard>
-                <LayoutCard>
-                    <ClassicalLayout3  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard>
-               
-                 <LayoutCard>
-                    <ClassicalLayout4  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard>  */}
-                {/* <LayoutCard>
-                    <ClassicalLayout6  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard> */}
-                  {/* <LayoutCard>
-                    <ModernLayout1  {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard> */}
-                <LayoutCard>
-                    <ModernLayout1 {...data} />
-                    <LayoutDescriptionCard title={Object.keys(layoutDescription[1])} descriptionm={layoutDescription[1]["Timeline"]} />
-                </LayoutCard>
+  return (
+    <>
+      <Hspace />
+      <TemplatesdescriptionCard
+        title={templateDescription.all.title}
+        description={templateDescription.all.description}
+      />
+      <div className="grid grid-cols-1 gap-4 overflow-hidden" id="all-templates">
+        {layoutComponents.map(({ Component, titleKey, descriptionIndex }, idx) => (
+          <LayoutCard key={`layout_card_${idx}`}>
+            <Component {...data} />
+            <LayoutDescriptionCard
+              title={Object.keys(layoutDescription[descriptionIndex])}
+              descriptionm={layoutDescription[descriptionIndex][titleKey]}
+            />
+          </LayoutCard>
+        ))}
+      </div>
+      <div className="py-2">
+        <TextIconButton
+          icon={<FaSearchPlus color={theme.colors.icons.all_templates.color} />}
+          text={"Explore More Layouts"}
+          id={"all_templates"}
+        />
+      </div>
+    </>
+  );
+};
 
-
-            </div>
-            <div className="py-2">
-                <TextIconButton icon={<FaSearchPlus color={`${theme.colors.icons.all_templates.color}`} />} text={"Explore More Layouts"} id={"all_templates"} />
-            </div>
-        </>
-    )
-}
-export default AllLayouts
+export default AllLayouts;

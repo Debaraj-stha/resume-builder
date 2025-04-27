@@ -161,3 +161,9 @@ export const RightColumn = styled.div.withConfig({
   padding:${({padding})=>padding||"20px 40px 20px 20px"};
   min-height:297mm;
 `;
+
+export const GridWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px; 
+`;

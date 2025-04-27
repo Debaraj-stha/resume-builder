@@ -1,8 +1,10 @@
 // Import React hooks for state management and side effects
 import { useState, useEffect } from "react";
+import { layout_type_map } from "../../constant";
 
 // Custom hook to dynamically import and render layout sections based on layoutId
 const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical") => {
+  console.log("use dyamic", layout_type)
   // Initialize state to hold the output sections from the layout file
   //function to load modern layout sections
   const [sections, setSections] = useState([]);
@@ -25,14 +27,14 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         break
 
       case 5:
-        layoutModule=await import("./modern/layout-output/layout5-output")
+        layoutModule = await import("./modern/layout-output/layout5-output")
         break
       case 6:
-        layoutModule=await import("./modern/layout-output/layout6-output")
+        layoutModule = await import("./modern/layout-output/layout6-output")
         break
     }
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData,layoutId)
+      const output = layoutModule.default(resumeData, layoutId)
       setSections(output)
     }
 
@@ -63,13 +65,46 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
 
     // If module is loaded and component is still mounted, update the sections state
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData,layoutId); // Call the default exported function with resume data
+      const output = layoutModule.default(resumeData, layoutId); // Call the default exported function with resume data
       setSections(output); // Set the resulting sections
     }
 
   }
 
+  const loadSimpleLayout = async (isMounted) => {
+    let layoutModule
+    switch (layoutId) {
+      case 1:
+        layoutModule = await import("../layouts/simple/layout-output/layout-1-output")
+        break
+      case 2:
+        layoutModule = await import("../layouts/simple/layout-output/layout-2-output")
+        break
+      case 3:
+        layoutModule = await import("../layouts/simple/layout-output/layout-3-output")
+        break
+      case 4:
+        layoutModule = await import("../layouts/simple/layout-output/layout-4-output")
+        break
+      case 5:
+        layoutModule = await import("../layouts/simple/layout-output/layout-5-output")
+        break
+      case 6:
+        layoutModule = await import("../layouts/simple/layout-output/layout-6-output")
+        break
+      default:
+        layoutModule = null
+        console.log("loading default simple layout")
+    }
+    if (layoutModule && isMounted) {
+      const output = layoutModule.default(resumeData, layoutId)
+      setSections(output)
+    }
+  }
 
+  const loadCreativeLayout = async (isMounted) => {
+
+  }
   // useEffect runs whenever layoutId or resumeData changes
   useEffect(() => {
     // Flag to prevent setting state if component is unmounted before async function finishes
@@ -77,9 +112,18 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
 
     // Async function to dynamically load the appropriate layout module
     const load = async () => {
-      if (layout_type === "modern") {
+      if (layout_type === layout_type_map.MODERN) {
         await loadModernLayout(isMounted);
-      } else {
+      }
+      else if (layout_type === layout_type_map.SIMPLE) {
+        await loadSimpleLayout(isMounted)
+      }
+      else if (layout_type === layout_type_map.CREATIVE) {
+        await loadCreativeLayout(isMounted)
+      }
+
+
+      else {
         await loadClassicLayout(isMounted);
       }
     };

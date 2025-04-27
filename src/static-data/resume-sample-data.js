@@ -12,19 +12,19 @@ export const experiences = [
         "startDate" :"2022",
         "endDate":"2023"
     },
-    // {
-    //     "companyName": "InnoSoft Systems",
-    //     "position": "Software Engineer",
-    //     "aboutCompany": "InnoSoft Systems is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
-    //     "achievements": [
-    //         { value: "Built reusable React components that improved UI development speed by 40%." },
-    //         { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
-    //         { value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle." },
-    //     ],
-    // location:"Dharan",
-    // "startDate" :"2022",
-    // "endDate":"2023"
-    // },
+    {
+        "companyName": "InfoTech company ",
+        "position": "Software Engineer",
+        "aboutCompany": "InfoTech company is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
+        "achievements": [
+            { value: "Built reusable React components that improved UI development speed by 40%." },
+            { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
+            { value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle." },
+        ],
+    "location":"Dharan",
+    "startDate" :"2022",
+    "endDate":"2023"
+    },
     {
         "companyName": "NexaEdge Solutions",
         "position": "Business Data Analyst",

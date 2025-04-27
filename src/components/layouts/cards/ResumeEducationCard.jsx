@@ -3,10 +3,7 @@ import { H1, H2, H3, IconHolder, P } from "../../elements/resumeSectionWrapper"
 import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
 import { CgCalendar } from "react-icons/cg"
-//styles
-import style from "../classic/style/layout1_style.json"
-import style2 from "../classic/style/layout2_style.json"
-import style3 from "../classic/style/layout3_style.json"
+
 import { layout_type_map } from "../../../constant"
 import { LiaMapMarkerSolid } from "react-icons/lia"
 
@@ -98,7 +95,7 @@ const generateClassicalEducationCard = ({ education, layout_no }) => {
 
     }
 }
-const generateModernEducationCard = ({ education, layout_no,style }) => {
+const generateModernEducationCard = ({ education, layout_no, style }) => {
     const { degree, university, start_complete, address } = education
     switch (layout_no) {
         case 1:
@@ -156,22 +153,75 @@ const generateModernEducationCard = ({ education, layout_no,style }) => {
                 </>
             )
         case 5:
-            return(
+            return (
                 <>
-                <h3 style={{...style.h3}}>{degree}</h3>
-                <h2 style={{...style.h2}}>{university}</h2>
+                    <h3 style={{ ...style.h3 }}>{degree}</h3>
+                    <h2 style={{ ...style.h2 }}>{university}</h2>
                 </>
             )
 
     }
 }
-const EducationCard = memo(({ education, layout_no, layout_type = "classical",style }) => {
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return generateClassicalEducationCard({ education, layout_no })
+
+const generateSimpleEducationCard = ({ education, layout_no, style, applyFlex,shouldIncludeIcon }) => {
+    const { degree, university, start_complete, address } = education
+    if(layout_no===6){
+        return (
+            <FlexBox gap="20px">
+                <div style={{ flex: "2" }}>
+                    <H3 textAlign="left">{start_complete}</H3>
+                </div>
+                <div style={{ flex: "1" }}>
+                    <VerticalPinSeparator />
+                </div>
+                <div style={{ flex: "7" }}>
+                    <P fontWeight="600" fontFamily="Open sans">{degree}</P>
+                    <P fontWeight="500">{university}</P>
+                    <P fontWeight="400" fontSize="14px">GPA 3.8</P>
+                </div>
+            </FlexBox>
+        )
     }
-    if (layout_type === layout_type_map.MODERN) {
-        return generateModernEducationCard({ education, layout_no ,style})
-    }
+    console.log("apply flex",applyFlex)
+    return (
+        <>
+            <h3 style={{ ...style.h3 }}>{degree}</h3>
+            {
+                applyFlex ? (
+                    <FlexBox margin="0" justifyContent="space-between" alignItems="center">
+                            <h2 style={{ ...style.h2 }}>{university}</h2>
+                        <FlexBox margin="0" alignItems="center">
+                           {shouldIncludeIcon && <BiCalendar />}
+                            <p style={{ ...style.p }}>{start_complete}</p>
+                        </FlexBox>
+                    </FlexBox>
+                ) :
+                    (
+                        <>
+                            <h2 style={{ ...style.h2 }}>{university}</h2>
+                            <FlexBox margin="0" alignItems="center">
+                                <BiCalendar />
+                                <p style={{ ...style.p }}>{start_complete}</p>
+                            </FlexBox>
+                        </>
+                    )
+            }
+
+        </>
+    )
+}
+const EducationCard = memo(({ education, layout_no, layout_type = "classical", style, ...props }) => {
+    const{applyFlex,shouldIncludeIcon}=props
+    console.log("should apply flex",applyFlex)
+    // if (layout_type === layout_type_map.CLASSICAL) {
+    //     return generateClassicalEducationCard({ education, layout_no })
+    // }
+    // if (layout_type === layout_type_map.MODERN) {
+    //     return generateModernEducationCard({ education, layout_no, style })
+    // }
+    // if (layout_type === layout_type_map.SIMPLE) {
+        return generateSimpleEducationCard({ education, layout_no, style, applyFlex,shouldIncludeIcon })
+    // }
 
 })
 export default EducationCard

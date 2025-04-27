@@ -1,9 +1,6 @@
 import { memo } from "react"
 import { H2, H3, P } from "../../elements/resumeSectionWrapper"
-//styles
-import style from "../classic/style/layout1_style.json"
-import style2 from "../classic/style/layout2_style.json"
-import style3 from "../classic/style/layout3_style.json"
+
 import { layout_type_map } from "../../../constant"
 
 
@@ -45,25 +42,43 @@ const buildModernCertificateCard = ({ certificate, layout_no, style }) => {
             return (
                 <div>
                     <div style={{ flex: "2" }}>
-                        <h3 style={{ ...style.h3 }}>{certificate.certificate}</h3>
+                        <h2 style={{ ...style.h2 }}>{certificate.certificate}</h2>
                     </div>
                     <div style={{ flex: "7" }}>
 
-                        <P style={{ ...style.p }}>{certificate.subject}</P>
-                        <P style={{ ...style.p }}>{certificate.date}</P>
+                        <p style={{ ...style.p }}>{certificate.subject}</p>
+                        <p style={{ ...style.p }}>{certificate.date}</p>
                     </div>
                 </div>
             )
         
 }
+const buildSimpeLayoutCertificationCArd = ({ certificate, layout_no, style }) => {
+    return (
+        <div>
+            <div style={{ flex: "2" }}>
+                <h2 style={{ ...style.h2 }}>{certificate.certificate}</h2>
+            </div>
+            <div style={{ flex: "7" }}>
+
+                <p style={{ ...style.p }}>{certificate.subject}</p>
+                <p style={{ ...style.p }}>{certificate.date}</p>
+            </div>
+        </div>
+    )
+
+}
 
 const CertificationCard = memo(({ certificate, layout_no, layout_type = "classical",style }) => {
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return buildClassicalCertificationCard({ certificate, layout_no })
-    }
-    if (layout_type === layout_type_map.MODERN) {
-        return buildModernCertificateCard({ certificate, layout_no ,style})
-    }
+    // if (layout_type === layout_type_map.CLASSICAL) {
+    //     return buildClassicalCertificationCard({ certificate, layout_no })
+    // }
+    // if (layout_type === layout_type_map.MODERN) {
+    //     return buildModernCertificateCard({ certificate, layout_no ,style})
+    // }
+    // if (layout_type === layout_type_map.SIMPLE) {
+    //     return buildSimpeLayoutCertificationCArd({ certificate, layout_no ,style})
+    // }
 
 
 })

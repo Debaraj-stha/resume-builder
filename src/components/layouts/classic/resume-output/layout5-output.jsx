@@ -1,56 +1,46 @@
 import SkillCard from "../../cards/ResumeSkillCard"
-import ResumeHeader from "../../cards/ResumeHeader";
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "./helper";
-import style from "../style/layout3_style.json"
-import { Title } from "../../../Title";
-import { TransparentLine } from "../../../Divider/TransparentDividers";
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-const getlayout5OutputSection = (data) => {
-   
+import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
+import { layout_5_style as style } from "../layout-5/style"
+
+import { SectionContent } from "../../../elements/resumeSectionWrapper";
+import generateProfileDetails from "../../section-data/profile_details";
+import generateSkill from "../../section-data/skill_section_data";
+const getlayout5OutputSection = (data, layout_no) => {
+
     const {
         personalDetails = {},
         experiences = [],
         educations = [],
         skills = [],
         achievements = [],
-        certificates=[]
+        certificates = []
     } = data;
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: style.Title.fontSize,
-        fontFamily: "Suranna",
-        textAlign: "left",
-        fontWeight:"600"
-    }
+
     return [
-        {
-            key: "personalDetails",
-            content: () => {
+        generateProfileDetails({
+            personalDetails: personalDetails , layout_no: layout_no,
+            shouldIncludeImage: true,
+            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 
-                return (
+        }),
+        ...generateAchievementsSections({achievements, layout_no}),
+        ...generateEducationSections({educations, layout_no}),
+        ...generateExperienceSections({experiences, layout_no}),
 
-                    <ResumeHeader personalDetails={personalDetails} layout_no={5} />
-                )
-            }
-        },
-        ...generateAchievementsSections(achievements, 5,textStyle),
-        ...generateEducationSections(educations, 5,textStyle),
-        ...generateExperienceSections(experiences, 5, textStyle),
+        generateSkill({
+            skills,
+            divider: <IncludeSeparator layout_no={layout_no} />,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h1: style.h1,
+                h2: style.h2,
+                h3: style.h3
+            },
+            layout_no: layout_no
+        }),
+        ...generateCertipicates({certificates, layout_no})
 
-        {
-            key: "skills",
-            content: () => (
-                <>
-                    <Title title="TECH STACK"  {...textStyle}              />
-                   <IncludeSeparator layout_no={5}/>
-                    <SectionContent>
-                        <SkillCard skills={skills} layout_no={5} />
-                    </SectionContent>
-                </>
-            )
-        },
-        ...generateCertipicates(certificates,5,textStyle)
-      
 
     ]
 

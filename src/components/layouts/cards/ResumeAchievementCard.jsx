@@ -1,10 +1,10 @@
 import { memo } from "react"
 import { H2, H3, P } from "../../elements/resumeSectionWrapper"
 //styles
-import style  from "../classic/style/layout1_style.json"
+
 import { layout_type_map } from "../../../constant"
 import { BiCheck, BiCheckSquare, BiMedal } from "react-icons/bi"
-import { FlexBox } from "../../CustomComponents"
+import { FlexBox, GridBox } from "../../CustomComponents"
 
 
 const generateClassicAchievementCard = ({ my_acheivement, layout_no }) => {
@@ -27,7 +27,7 @@ const generateClassicAchievementCard = ({ my_acheivement, layout_no }) => {
     }
 }
 
-const generateModernAchievementCard = ({ my_acheivement, layout_no,styles}) => {
+const generateModernAchievementCard = ({ my_acheivement, layout_no, styles }) => {
     const { acheivement, field, date } = my_acheivement
     switch (layout_no) {
         case 1:
@@ -47,25 +47,25 @@ const generateModernAchievementCard = ({ my_acheivement, layout_no,styles}) => {
                 </div>
             )
         case 4:
-            return(
+            return (
                 <>
-                <FlexBox margin="0">
-                    <div className="pt-4">
-                        <BiMedal color={styles.iconColor}/>
-                    </div>
-                    <div>
-                        <H3 style={{...styles.h3}} textAlign="left">{acheivement}</H3>
-                        <P style={{...styles.p}}>{field} {date}</P>
-                    </div>
+                    <FlexBox margin="0">
+                        <div className="pt-4">
+                            <BiMedal color={styles.iconColor} />
+                        </div>
+                        <div>
+                            <H3 style={{ ...styles.h3 }} textAlign="left">{acheivement}</H3>
+                            <P style={{ ...styles.p }}>{field} {date}</P>
+                        </div>
 
-                </FlexBox>
+                    </FlexBox>
                 </>
             )
         case 5:
-            return(
+            return (
                 <div>
-                    <h2 style={{...styles.h2}}>{acheivement}</h2>
-                    <P style={{...styles.p}}>{field} {date}</P>
+                    <h2 style={{ ...styles.h2 }}>{acheivement}</h2>
+                    <P style={{ ...styles.p }}>{field} {date}</P>
                 </div>
             )
         default:
@@ -77,13 +77,41 @@ const generateModernAchievementCard = ({ my_acheivement, layout_no,styles}) => {
             )
     }
 }
-const AcheivementCard = memo(({ my_acheivement, layout_no, style, layout_type = "classical" }) => {
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return generateClassicAchievementCard({ my_acheivement, layout_no })
-    }
-    if (layout_type === layout_type_map.MODERN) {
-        return generateModernAchievementCard({ my_acheivement, layout_no,styles:style })
-    }
+const generateSimpleAchievementCard = ({ my_acheivement, layout_no, style, shouldApplyGrid }) => {
+    const { acheivement, field, date } = my_acheivement
+    if (shouldApplyGrid)
+        return (
+            <>
+                <div className="grid grid-cols-2">
+                    <div>
+                        <h2 style={{ ...style.h2,textAlign:"left" }}>{acheivement}</h2>
+                        <p style={{ ...style.p }}>{field}</p>
+                    </div>
+
+                </div>
+            </>
+        )
+    return (
+        <>
+            <div>
+                <h2 style={{ ...style.h2,textAlign:"left" }}>{acheivement}</h2>
+                <p style={{ ...style.p }}>{field}</p>
+            </div>
+        </>
+    )
+}
+
+const AcheivementCard = memo(({ my_acheivement, layout_no, style, layout_type = "classical", ...props }) => {
+    const { shouldApplyGrid } = props
+    // if (layout_type === layout_type_map.CLASSICAL) {
+    //     return generateClassicAchievementCard({ my_acheivement, layout_no })
+    // }
+    // if (layout_type === layout_type_map.MODERN) {
+    //     return generateModernAchievementCard({ my_acheivement, layout_no, styles: style })
+    // }
+    // if (layout_type === layout_type_map.SIMPLE) {
+    return generateSimpleAchievementCard({ my_acheivement, layout_no, style, shouldApplyGrid })
+    // }
 
 })
 

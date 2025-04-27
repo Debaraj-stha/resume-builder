@@ -40,14 +40,13 @@ const renderLayout = ({
   } else if (layout_no === 5) {
     resumePadding = "0";
   }
-
   let leftPadding;
   let rightPadding;
-  if (layout_no === 1 || layout_no === 5) {
+  if (layout_no === 1 || layout_no === 5 ) {
     leftPadding = "10mm 10mm 20mm 20mm"
     rightPadding = "10mm 20mm  20mm 10mm "
   }
-  else if (layout_no === 6 || layout_no === 3) {
+  else if (layout_no === 6 || layout_no === 3||layout_no==2) {
     leftPadding = "0 10mm 0 0";
     rightPadding = "0 0 0 10mm "
   }

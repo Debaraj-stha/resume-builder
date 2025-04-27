@@ -1,5 +1,5 @@
 import { memo } from "react";
-import common from "./classic/style/common.json";
+
 
 
 import getModernLayout1 from "./layoutui/modernLayout1";
@@ -9,27 +9,19 @@ import getModernLayout4 from "./layoutui/modern-layout-4";
 import renderClassicalUI from "./classic/render_ui";
 import getModernLayout5 from "./layoutui/modern-layout-5";
 import getModernLayout6 from "./layoutui/modern-layout-6";
+import { layout_type_map } from "../../constant";
+import getSimpleLayout1 from "./layoutui/simple/simple-layout-1";
 
 
 
+const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "classical",shouldImplementFlex=false }) => {
+    console.log("layout type",layout_type)
 
-
-
-
-const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "classical" }) => {
-
-
-    const layout_type_map = {
-        1: "classical",
-        2: "modern",
-        3: "simple",
-        4: "creative"
-    }
     switch (layout_type) {
-        case layout_type_map[1]:
+        case layout_type_map.CLASSICAL:
             return renderClassicalUI({ pages, key_val, sectionRefs, layoutId, layout_type })
 
-        case layout_type_map[2]:
+        case layout_type_map.MODERN:
             switch (layoutId) {
                 case 1:
                     return getModernLayout1({ pages, layoutId, key_val, layout_type, sectionRefs })
@@ -44,9 +36,9 @@ const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "c
                 case 6:
                     return getModernLayout6({ pages, layoutId, key_val, layout_type, sectionRefs })
 
-
-
             }
+        case layout_type_map.SIMPLE:
+            return getSimpleLayout1({pages,layoutId,key_val,layout_type:"simple",sectionRefs,shouldImplementFlex})
 
 
         default:

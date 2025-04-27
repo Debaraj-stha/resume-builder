@@ -3,10 +3,13 @@ import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import { Title } from "../../../Title";
 import SkillCard from "../../cards/ResumeSkillCard"
 import ResumeHeader from "../../cards/ResumeHeader";
-import style from "../style/layout2_style.json"
-import { generateEducationSections, generateExperienceSections } from "./helper";
+import { layout_2_style as style } from "../layout-2/style"
+import { generateEducationSections, generateExperienceSections } from "../../helper";
+import generateProfileDetails from "../../section-data/profile_details";
+import generateSummary from "../../section-data/summary";
+import generateSkill from "../../section-data/skill_section_data";
 
-const getLayout2OutputSectionData = (data) => {
+const getLayout2OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
         summary = "",
@@ -14,53 +17,37 @@ const getLayout2OutputSectionData = (data) => {
         educations = [],
         skills = [],
     } = data;
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: style.Title.fontSize,
-        fontWeight: style.Title.fontWeight
-    }
+    const divider = <TransparentLine />
+
     return [
-        {
-            key: "personalDetails",
-            content: () => {
+        generateProfileDetails({
+            personalDetails: personalDetails , layout_no: layout_no,
+            shouldIncludeImage: true,
+            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 
-                return (
-
-                    <ResumeHeader personalDetails={personalDetails} layout_no={2} />
-                )
-            }
-        },
-        {
-            key: "summary",
-            content: () => {
-                return (
-                    <>
-                        <Title className={style.Title.className} fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight}
-                            title="Summary" />
-                        <TransparentLine />
-                        <SectionContent>
-                            <P>{summary}</P>
-                        </SectionContent>
-                    </>
-                )
-            }
-
-        },
-        ...generateExperienceSections(experiences, 2, textStyle),
-        ...generateEducationSections(educations, 2, textStyle),
-        {
-            key: "skills",
-            content: () => (
-                <>
-                    <Title title="Skills" className={style.Title.className} fontSize={style.Title.fontSize} fontWeight={style.Title.fontWeight}
-                    />
-                    <TransparentLine />
-                    <SectionContent>
-                        <SkillCard skills={skills} layout_no={2} />
-                    </SectionContent>
-                </>
-            )
-        }
+        }),
+        generateSummary({
+            summary,
+            style: {
+                sectionHeader: style.sectionHeader,
+                p: style.p
+            },
+            divider: divider
+        }),
+        ...generateExperienceSections({experiences, layout_no}),
+        ...generateEducationSections({educations, layout_no}),
+        generateSkill({
+            skills,
+            divider,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h1: style.h1,
+                h2: style.h2,
+                h3: style.h3
+            },
+            layout_no: layout_no
+        }),
 
     ]
 }

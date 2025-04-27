@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { LayoutWrapperWithBorder, ResumesWrapperDiv } from "../../../elements/resumeWrapper";
 import { Button, H1 } from "../../../CustomComponents"
-import ClassicalLayout1 from "../ClassicalLayout1";
 import LayoutByType from "../../LayoutByType";
 import { useLayout } from "../../../../provider/layoutProvider";
 import TextIconButton, { IconButton } from "../../../IconButton";

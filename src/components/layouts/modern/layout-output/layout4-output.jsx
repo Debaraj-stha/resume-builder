@@ -1,24 +1,15 @@
-
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
-import ResumeHeader from "../../cards/ResumeHeader";
-
-import { generateAchievementsSections, generateEducationSections, generateExperienceSections } from "../../classic/resume-output/helper";
-import style from "../style/layout1_style.json";
-import ExperienceCard from "../../cards/ResumeExperienceCard";
-import EducationCard from "../../cards/ResumeEducationCard";
-import AcheivementCard from "../../cards/ResumeAchievementCard";
-import SkillCard from "../../cards/ResumeSkillCard";
-import { FlexBox, GridPairBox } from "../../../CustomComponents";
-import ExpertiseCard from "../../cards/ResumeExpertiseCard";
-import OpenSourceWorkCard from "../../cards/ResumeOpenSourceWorkCard";
 import { LineDivider } from "../../../Divider/TransparentDividers";
-import { Layout_4_style } from "../layout-4/style";
-import PassionCard from "../../cards/ResumePassionCard";
+import { Layout_4_style as style } from "../layout-4/style";
+import { layout_type_map } from "../../../../constant";
+import generateEducation from "../../section-data/education_secion_data";
+import generateExperience from "../../section-data/experience_section_data";
+import generateSkill from "../../section-data/skill_section_data";
+import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
+import generatePassionSectionData from "../../section-data/passion_section_data";
 
-const Divider = () => <LineDivider height="3px" backgroundColor="#ccc8c8" />
+const divider = <LineDivider height="3px" backgroundColor="#ccc8c8" />
 
-const getModernLayout4OutputSectionData = (data, layout_id) => {
+const getModernLayout4OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -26,163 +17,105 @@ const getModernLayout4OutputSectionData = (data, layout_id) => {
         achievements = [],
         skills = [],
         industryExpertise = [],
-        languages = [],
-        certificates = [],
         summary = "",
-        openSourceWork,
         passions
     } = data;
-
-    
-    const textStyle = {
-        className: style.Title.className,
-        fontSize: "20px",
-        fontWeight: "500",
-        fontFamily: "'Raleway', sans-serif",
-        textAlign: "left",
-        color: "#717171"
-    }
-
+    const layout_type = layout_type_map.MODERN
     return [
-        {
-            key: "personalDetails",
-            content: () => <ResumeHeader personalDetails={personalDetails} layout_no={4}
-                layout_type="modern"
-                style={{ nameStyle: Layout_4_style.nameStyle, subSection: Layout_4_style.sectionSubHeader, p: Layout_4_style.p }} />,
-        },
+        generateProfileDetails({
+            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
+            shouldIncludeImage: true,
+            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 
-        {
-            key: "summary",
-            content: () => (
-                <>
-                    <Title title="SUMMARY" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        <P style={{ ...Layout_4_style.p }}>{summary}</P>
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "achievements",
-            content: () => (
-                <>
-                    <Title title="ACHIEVEMENTS" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        {
-                            achievements.map((achievement, index) => (
-                                <AcheivementCard key={index} my_acheivement={achievement}
-                                    layout_no={4}
-                                    layout_type={"modern"}
-                                    style={
-                                        {
-                                            iconColor: Layout_4_style.primaryColor,
-                                            h3: Layout_4_style.h3,
-                                            p: Layout_4_style.p
-                                        }
-                                    }
-                                />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "experience",
-            content: () => (
-                <>
-                    <Title title="EXPERIENCE" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        {
-                            experiences.map((experience, index) => (
-                                <ExperienceCard key={index} experience={experience} layout_no={4} layout_type={"modern"}
+        }),
+        generateSummary({
+            summary,
+            style: {
+                sectionHeader: style.sectionHeader,
+                p: style.p
+            },
+            divider: divider
+        }),
+        generateAchievement({
+            achievements,
+            divider,
+            layout_no,
+            layout_type: layout_type,
+            style: {
+                sectionHeader: style.sectionHeader,
+                iconColor: style.primaryColor,
+                h2: style.h2,
+                p: style.p
 
-                                    style={{
-                                        h2: Layout_4_style.h2,
-                                        h3: Layout_4_style.h3,
-                                        primaryColor: Layout_4_style.primaryColor,
-                                        p: Layout_4_style.p
-                                    }}
-                                />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "education",
-            content: () => (
-                <>
-                    <Title title="EDUCATIONS" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        {
-                            educations.map((education, index) => (
-                                <EducationCard key={index} education={education} layout_no={4} layout_type={"modern"}
+            },
+            shouldIncludeIcon: true
+        }),
+        generateExperience({
+            experiences,
+            layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                header: style.sectionHeader,
+                subSection: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader
+            }
+        }),
+        generateEducation({
+            educations,
+            layout_no: layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionHeader: style.sectionHeader
+            }
 
-                                    style={{
-                                        h2: Layout_4_style.h2,
-                                        h3: Layout_4_style.h3,
-                                        primaryColor: Layout_4_style.primaryColor,
-                                        p: Layout_4_style.p
-                                    }}
-                                />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "skills",
-            content: () => (
-                <>
-                    <Title title="SKILLS" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        <SkillCard layout_no={4} layout_type="modern" skills={skills} style={Layout_4_style} ></SkillCard>
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "experties",
-            content: () => (
-                <>
-                    <Title title="INDUSTRY EXPERTISE" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        {
-                            industryExpertise.map((expertise, index) => (
-                                <ExpertiseCard key={index} expertise={expertise} layout_no={4} layout_type="modern" style={Layout_4_style} />
-                            ))
-                        }
-                    </SectionContent>
-                </>
-            )
-        },
-        {
-            key: "passions",
-            content: () => (
-                <>
-                    <Title title="PASSIONS" {...Layout_4_style.sectionHeader} textAlign="left" />
-                    <Divider />
-                    <SectionContent>
-                        <FlexBox flexWrap="wrap" margin="0">
-                            {
-                                passions.slice(0, 1).map((passion, index) => (
-                                    <PassionCard key={index} passion={passion} layout_no={4} layout_type="modern" style={{ h2: Layout_4_style.h2 }} />
-                                ))
-                            }
-                        </FlexBox>
-                    </SectionContent>
-                </>
-            )
-        },
+        }),
+        generateSkill({
+            skills,
+            divider,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h1: style.h1,
+                h2: style.h2,
+                h3: style.h3
+            },
+            layout_no: layout_no,
+            layout_type: layout_type_map.SIMPLE,
+            titleHeader: "skills"
+
+        }),
+        generateIndustryExpertise({
+            industryExpertise,
+            layout_no,
+            layout_type:layout_type,
+            style:{
+                sectionHeader:style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            sectionHeader:"industry expertise"
+            
+        }),
+     
+        generatePassionSectionData({
+            passions,
+            layout_no,
+            layout_type:layout_type,
+            style:{
+                sectionHeader:style.sectionHeader,
+                h2:style.h2
+            },
+            divider
+        })
 
     ]
 

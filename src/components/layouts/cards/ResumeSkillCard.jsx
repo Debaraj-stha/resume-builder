@@ -1,10 +1,7 @@
 import { memo } from "react";
 import { BorderBox, FlexBox, GridBox } from "../../CustomComponents";
 import { H2, H3, P, SkillCardWrapper } from "../../elements/resumeSectionWrapper";
-//styles
-import style from "../classic/style/layout1_style.json"
-import style2 from "../classic/style/layout2_style.json"
-import style3 from "../classic/style/layout3_style.json"
+
 import { layout_type_map } from "../../../constant";
 const ClassicalSkillcardCase3 = ({ skills }) => {
     return (
@@ -95,7 +92,7 @@ const buildClassicalSkillCard = ({ skills, layout_no }) => {
     }
 
 }
-const buildModernSkillsCard = ({ skills, layout_no,style }) => {
+const buildModernSkillsCard = ({ skills, layout_no, style }) => {
     switch (layout_no) {
         case 1:
             return (
@@ -112,81 +109,119 @@ const buildModernSkillsCard = ({ skills, layout_no,style }) => {
                     </div>
                 ))
             )
-            case 2:
-                return(
-                   skills.slice(0,3).map((skill,index)=>(
+        case 2:
+            return (
+                skills.slice(0, 3).map((skill, index) => (
                     <div key={index}>
-                         <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left">{skill.field}</H2>
-                         <FlexBox margin="0">
+                        <H2 color="#4bdd97" fontFamily="'Raleway', sans-serif" fontWeight="600" textAlign="left">{skill.field}</H2>
+                        <FlexBox margin="0">
                             {
-                                skill.items.map((item,i)=>(
-                                   <BorderBox color="#ccc" key={`${index}-${i}`}>
-                                     <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="normal" textAlign="left" fontSize="16px">{item}</H2>
-                                   </BorderBox>
+                                skill.items.map((item, i) => (
+                                    <BorderBox color="#ccc" key={`${index}-${i}`}>
+                                        <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="normal" textAlign="left" fontSize="16px">{item}</H2>
+                                    </BorderBox>
                                 ))
                             }
-                         </FlexBox>
+                        </FlexBox>
                     </div>
-                   ))
-                )
-            case 3:
-                return(
-                    <FlexBox margin="0" flexWrap="wrap">
-                        {
-                            skills.map((skill,index)=>(
-                                skill.items.map((item,i)=>(
-                                    <BorderBox key={`${index}-${i}`} color="#ccc" width="2px" >
-                                        <H3 fontWeight="500">{item}</H3>
-                                    </BorderBox>
-                                ))
+                ))
+            )
+        case 3:
+            return (
+                <FlexBox margin="0" flexWrap="wrap">
+                    {
+                        skills.map((skill, index) => (
+                            skill.items.map((item, i) => (
+                                <BorderBox key={`${index}-${i}`} color="#ccc" width="2px" >
+                                    <H3 fontWeight="500">{item}</H3>
+                                </BorderBox>
                             ))
-                        }
+                        ))
+                    }
 
-                    </FlexBox>
-                )
+                </FlexBox>
+            )
 
-            case 4:
-                return(
+        case 4:
+            return (
+                <FlexBox flexWrap="wrap">
+                    {
+                        skills.slice(0, 3).map((skill, index) => (
+                            skill.items.map((item, i) => (
+                                <BorderBox key={`${index}-${i}`} color="#b1a0a0" padding="6px" width="2px">
+                                    <H3 style={{ ...style.h3 }}>{item}</H3>
+                                </BorderBox>
+                            ))
+                        ))
+                    }
+                </FlexBox>
+            )
+        case 5:
+            return (
+                <>
                     <FlexBox flexWrap="wrap">
                         {
-                            skills.slice(0,3).map((skill,index)=>(
-                                skill.items.map((item,i)=>(
-                                    <BorderBox key={`${index}-${i}`} color="#b1a0a0" padding="6px" width="2px">
-                                        <H3 style={{...style.h3}}>{item}</H3>
-                                    </BorderBox>
-                                ))
-                            ))
-                        }
-                    </FlexBox>
-                )
-                case 5:
-                    return(
-                        <>
-                        <FlexBox flexWrap="wrap">
-                        {
-                            skills.slice(0,3).map((skill,index)=>(
-                                skill.items.map((item,i)=>(
+                            skills.slice(0, 3).map((skill, index) => (
+                                skill.items.map((item, i) => (
                                     <BorderBox key={`${index}-${i}`} color="#cec9c9" padding="6px" width="2px">
-                                        <H3 style={{...style.header,margin:"0", padding:"0"}}>{item}</H3>
+                                        <H3 style={{ ...style.header, margin: "0", padding: "0" }}>{item}</H3>
                                     </BorderBox>
                                 ))
                             ))
                         }
                     </FlexBox>
-                        </>
-                    )
+                </>
+            )
         default:
             return <h1>default skill</h1>
     }
 }
 
-const SkillCard = memo(({ skills, layout_no, layout_type,style }) => {
-    if (layout_type === layout_type_map.CLASSICAL) {
-        return buildClassicalSkillCard({ skills, layout_no })
-    }
-    if (layout_type === layout_type_map.MODERN) {
-        return buildModernSkillsCard({ skills, layout_no,style })
-    }
+const buildSimpleSkillCard = ({ skills, layout_no, style ,...props}) => {
+    const{shouldIncludeField}=props
+    return (
+        <>
+            <FlexBox flexWrap="wrap">
+                {
+                    skills.map((skill, index) => (
+                        <FlexBox key={index} margin="0">
+                            {
+                                shouldIncludeField &&
+
+                                <h3 style={{ ...style.h3, margin: "0", padding: "0" }}>{skill.field}  :</h3>
+                            }
+                            {
+                                skill.items.map((item, i) => (
+
+                                    layout_no == 1 ? (
+                                        <h3 style={{ ...style.h3, margin: "0", padding: "0" }} key={`${index}-${i}`}>{item}</h3>
+                                    ) :
+                                        <BorderBox key={`${index}-${i}`}  BorderBottomColor="#555">
+                                            <h3 style={{ ...style.h3, margin: "0", padding: "0" }}>{item}</h3>
+                                        </BorderBox>
+
+                                ))
+                            }
+                        </FlexBox>
+
+                    ))
+                }
+            </FlexBox>
+        </>
+    )
+}
+
+const SkillCard = memo(({ skills, layout_no, layout_type, style,...props }) => {    // if (layout_type === layout_type_map.CLASSICAL) {
+    
+    
+    //     return buildClassicalSkillCard({ skills, layout_no })
+    // }
+    // if (layout_type === layout_type_map.MODERN) {
+    //     return buildModernSkillsCard({ skills, layout_no, style })
+    // }
+    // if (layout_type === layout_type_map.SIMPLE) {
+        return buildSimpleSkillCard({ skills, layout_no, style,...props })
+    // }
 
 })
 export default SkillCard

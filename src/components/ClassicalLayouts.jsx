@@ -1,7 +1,7 @@
 import React from "react";
 import { templateDescription } from "../static-data/template_description";
-import ClassicalLayout1 from "./layouts/classic/ClassicalLayout1";
-import ClassicalLayout2 from "./layouts/classic/ClassicalLayout2";
+import ClassicalLayout1 from "../components/layouts/classic/layout-1/layout"
+import ClassicalLayout2 from "../components/layouts/classic/layout-2/layout"
 import { H3, IconHolder, P } from "./elements/resumeSectionWrapper";
 import TemplatesdescriptionCard from "./TemplateHeaderCard";
 import { Hspace } from "./CustomComponents";

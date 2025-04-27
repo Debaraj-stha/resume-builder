@@ -298,10 +298,16 @@ export const GridBox = styled.div`
 
 `;
 
-export const BorderBox = styled.div`
-border:${({width})=>width||"3px"} solid ${({color})=>color||"transparent transparent #dfcbcb transparent"};
+export const BorderBox = styled.div.withConfig({
+  shouldForwardProp:(props)=>!["borderTopColor","borderRightColor","borderBottomColor","borderLeftColor"].includes(props)
+})`
+border:1px solid;
 border-radius:1px;
 padding:${({padding})=>padding||"0 5px 0 0"};
+border-top-color:${({borderTopColor})=>borderTopColor||"transparent"};
+border-bottom-color:${({BorderBottomColor})=>BorderBottomColor||"transparent"};
+border-left-color:${({borderLeftColor})=>borderLeftColor||"transparent"};
+border-right-color:${({borderRightColor})=>borderRightColor||"transparent"};
 `;
 
 export const GridPairBox=styled.div`
