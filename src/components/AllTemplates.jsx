@@ -24,11 +24,11 @@ import ClassicalLayout6 from "./layouts/classic/layout-6/layout";
 
 const layoutComponents = [
   { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
-  // { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
-  // { Component: ClassicalLayout3, titleKey: "Timeline", descriptionIndex: 1 },
-  // { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
-  // { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
-  // { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ClassicalLayout3, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
+  { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
 ];
 
 const AllLayouts = () => {

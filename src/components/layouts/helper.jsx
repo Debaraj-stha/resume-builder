@@ -234,7 +234,8 @@ const generateCertipicates = ({
     divider,
     shouldPair = false,
     sectionHeader = "certifications",
-    layout_type = layout_type_map.CLASSICAL
+    layout_type = layout_type_map.CLASSICAL,
+    props={}
 }
 ) => {
     const renderTitleAndDivider = (index) => (
@@ -252,10 +253,8 @@ const generateCertipicates = ({
             certificate={certificate}
             layout_no={layout_no}
             layout_type={layout_type}
-            style={{
-                h2: style?.h2,
-                color: style?.headerTextColor
-            }}
+            style={style}
+            {...props}
         />
     );
 

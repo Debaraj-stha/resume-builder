@@ -12,8 +12,8 @@ const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
 
         const isAchievementSection = section.key?.startsWith("achievement_");
         const isFirstAchievement = isAchievementSection && section.key === "achievement_0";
-        const isCertificateSection = section.key?.startsWith("certipicate_")
-        const isFirstCertificate = isCertificateSection && section.key === "certipicate_0"
+        const isCertificateSection = section.key?.startsWith("certificate_")
+        const isFirstCertificate = isCertificateSection && section.key === "certificate_0"
 
 
         const applyMarginTop =
@@ -25,7 +25,9 @@ const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
                 (isCertificateSection && isFirstCertificate) ||
                 section.key === "skills" ||
                 section.key === "personalDetails" ||
-                section.key==="summary"
+                section.key==="summary"||
+                section.key==="strengths"
+
             );
 
         return applyMarginTop;

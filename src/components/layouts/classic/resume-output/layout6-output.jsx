@@ -2,9 +2,9 @@
 import ResumeHeader from "../../cards/ResumeHeader";
 import SkillCard from "../../cards/ResumeSkillCard"
 import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
-import {layout_6_style as style} from "../layout-6/style"
+import { layout_6_style as style } from "../layout-6/style"
 
-import { DoubleLineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
+import { DoubleLineDivider, LineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import generateSkill from "../../section-data/skill_section_data";
 import generateSummary from "../../section-data/summary";
@@ -20,12 +20,25 @@ const getlayout6OutputSection = (data, layout_no) => {
         certificates = [],
         summary = ""
     } = data;
- 
+    const divider=<LineDivider/>
+
     return [
         generateProfileDetails({
-            personalDetails: personalDetails , layout_no: layout_no,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                titleStyle: style.titleStyle,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                p: style.p
+            },
+            props: {
+                shouldIncludeIcon: true,
+                applyFlex: true,
+                shouldIncludeAddress:true,
+                shouldIncludeProfession:false
+            }
 
         }),
         generateSummary({
@@ -34,13 +47,43 @@ const getlayout6OutputSection = (data, layout_no) => {
                 sectionHeader: style.sectionHeader,
                 p: style.p
             },
-            divider: <IncludeSeparator layout_no={layout_no} />,
+            titleHeader:"summary of qualification",
+            divider: divider
         }),
-        ...generateExperienceSections({experiences, layout_no}),
-        ...generateEducationSections({educations, layout_no}),
-        ...generateCertipicates({certificates, layout_no}),
+        ...generateExperienceSections({
+            experiences, layout_no, style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
+            divider
+        }),
+        ...generateEducationSections({
+            educations, layout_no, style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            divider
+        }),
+        ...generateCertipicates({
+            certificates, layout_no, style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h3: style.h3,
+                p: style.p
+            },
+            divider,
+            shouldPair:true
+        }),
         generateSkill({
-            skills,
+            skills:skills.slice(0,3),
             divider: <IncludeSeparator layout_no={layout_no} />,
             style: {
                 sectionHeader: style.sectionHeader,

@@ -1,13 +1,13 @@
 import SkillCard from "../../cards/ResumeSkillCard"
 import ResumeHeader from "../../cards/ResumeHeader";
 import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
-import {layout_4_style as style} from "../layout-4/style"
+import { layout_4_style as style } from "../layout-4/style"
 import { Title } from "../../../Title";
 import { TransparentLine } from "../../../Divider/TransparentDividers";
 import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSkill from "../../section-data/skill_section_data";
-const getLayout4OutputSection = (data,layout_no) => {
+const getLayout4OutputSection = (data, layout_no) => {
 
     const {
         personalDetails = {},
@@ -20,18 +20,72 @@ const getLayout4OutputSection = (data,layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails:  personalDetails , layout_no: layout_no,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                titleStyle: style.titleStyle,
+                profile_ul: style?.profile_ul,
+                profile_li: style?.profile_li,
+                p: style.p
+            },
+            props: {
+                shouldIncludeProfession: false,
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true
+            }
 
         }),
-        ...generateAchievementsSections({achievements, layout_no}),
-        ...generateEducationSections({educations, layout_no}),
-        ...generateExperienceSections({experiences, layout_no}),
+        ...generateAchievementsSections({
+            achievements,
+            layout_no,
+            style: {
+                sectionHeader: style.sectionHeader,
+                iconColor: style.primaryColor,
+                h2: style.h2,
+                p: style.p,
+                tagStyle: style.tagStyle
+
+            },
+            shouldPair: true,
+            props: {
+                shouldApplyGrid: false
+            },
+            sectionHeader: "key achievement"
+        }),
+        ...generateEducationSections({
+            educations, layout_no,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            props: {
+                applyVerticalDivider: true
+            }
+        }),
+        ...generateExperienceSections({
+            experiences: experiences.slice(0, 2), 
+            layout_no, 
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader
+            },
+            props: {
+                applyVerticalDivider: true
+            }
+        }),
 
         generateSkill({
-            skills,
-            divider: <IncludeSeparator layout_no={layout_no} />,
+            skills: skills.slice(0, 4),
+
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,
@@ -39,9 +93,24 @@ const getLayout4OutputSection = (data,layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no
+            layout_no: layout_no,
+            titleHeader: "technical skills",
+            props: {
+                borderBottom: true
+            }
         }),
-        ...generateCertipicates({certificates, layout_no})
+        ...generateCertipicates({
+            certificates,
+            layout_no,
+            style: {
+                sectionHeader: style.sectionHeader,
+                header: style.sectionHeader,
+                h3: style.h3,
+                p: style.p
+            },
+            shouldPair: true,
+
+        })
 
 
     ]

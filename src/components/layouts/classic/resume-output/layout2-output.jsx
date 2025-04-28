@@ -8,6 +8,7 @@ import { generateEducationSections, generateExperienceSections } from "../../hel
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
 import generateSkill from "../../section-data/skill_section_data";
+import generateStrength from "../../section-data/strength_section_data";
 
 const getLayout2OutputSectionData = (data, layout_no) => {
     const {
@@ -16,14 +17,26 @@ const getLayout2OutputSectionData = (data, layout_no) => {
         experiences = [],
         educations = [],
         skills = [],
+        strengths=[]
     } = data;
+    console.log("data",data)
     const divider = <TransparentLine />
 
     return [
         generateProfileDetails({
-            personalDetails: personalDetails , layout_no: layout_no,
+            personalDetails: {...personalDetails,urls:[personalDetails.urls[0]]}, layout_no: layout_no,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                 nameStyle: style.nameStyle, 
+                 titleStyle:style.titleStyle,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                p:style.p
+             },
+            props:{
+                shouldIncludeIcon:true,
+                shouldIncludeAddress:false
+            }
 
         }),
         generateSummary({
@@ -34,10 +47,34 @@ const getLayout2OutputSectionData = (data, layout_no) => {
             },
             divider: divider
         }),
-        ...generateExperienceSections({experiences, layout_no}),
-        ...generateEducationSections({educations, layout_no}),
+        ...generateExperienceSections({
+            experiences, layout_no,
+
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader
+            },
+            props:{
+                applyFlex:false
+            }
+        }),
+        ...generateEducationSections({
+            educations, layout_no,
+            style: {
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader:style.sectionSubHeader
+            },
+        }),
         generateSkill({
-            skills,
+            skills:skills.slice(0,2),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -46,8 +83,20 @@ const getLayout2OutputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no
+            layout_no: layout_no,
+            props:{
+            borderBox:true
+            }
         }),
+        generateStrength({
+            strengths:strengths.slice(0,2),
+            divider,
+            style:style,
+            props:{
+                grid:true,
+              
+            }
+        })
 
     ]
 }

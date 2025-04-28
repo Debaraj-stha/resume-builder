@@ -1,6 +1,6 @@
 export const layout_4_style = {
     primaryColor: "#0056d2", // Strong blue used for headers and accents
-    fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+    fontFamily: "'Roboto', sans-serif", // Clean, modern sans-serif font
     backgroundColor: "#ffffff",
     headerBackground: "#ffffff",
     textColor: "#000000",
@@ -10,9 +10,11 @@ export const layout_4_style = {
     nameStyle: {
         fontSize: "28px",
         fontWeight: "700",
-        fontFamily: "'Poppins', sans-serif",
+        fontFamily: "'Roboto', sans-serif",
         color: "#000000",
-        textTransform: "none",
+        textTransform: "uppercase",
+        textAlign:"left"
+
     },
     titleStyle: {
         fontSize: "16px",
@@ -24,9 +26,31 @@ export const layout_4_style = {
     sectionHeader: {
         fontSize: "14px",
         fontWeight: "600",
-        color: "#0056d2",
+        color: "#000",
         textTransform: "uppercase",
         width: "fit-content"
+    },
+    profile_ul: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType:"none",
+        listStylePosition:"inside"
+    },
+
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor:"#000",
+        margin:"0"
     },
 
     sectionSubHeader: {

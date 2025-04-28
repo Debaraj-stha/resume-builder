@@ -1,5 +1,5 @@
 const generateTitle = ({ title, style }) => (
-    <h1 style={{ ...style }}>{title}</h1>
+    <h2 style={{ ...style }}>{title}</h2>
 )
 
 export default generateTitle

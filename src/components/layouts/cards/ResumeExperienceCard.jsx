@@ -1,397 +1,119 @@
 import { memo } from "react"
-import { layout_type_map } from "../../../constant"
-import { H2, H3, IconHolder, InnerContentWrapper, Li, P, Ul } from "../../elements/resumeSectionWrapper"
+import { Li, P, Ul } from "../../elements/resumeSectionWrapper"
 import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
-import { BiCalendar } from "react-icons/bi"
-import { HiLocationMarker } from "react-icons/hi"
+
 import { LiaMapMarkerSolid } from "react-icons/lia"
 import { CgCalendar } from "react-icons/cg"
 
 
-const generateClassicalResumeExperienceCard = ({ experience, layout_no }) => {
-    const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
-    switch (layout_no) {
-        case 2:
-            return (
-                <div className={style2.experienceCard.div.className.join(" ")}>
-                    <InnerContentWrapper>
-                        <H2 color={style2.experienceCard.h2.color}>{position}</H2>
-                    </InnerContentWrapper>
-                    <InnerContentWrapper>
-                        <H3>{companyName}</H3>
-
-                    </InnerContentWrapper>
-                    <InnerContentWrapper justifyContent={style2.experienceCard.InnerContentWrapper.justifyContent}>
-                        <FlexBox margin={style2.experienceCard.FlexCard.margin}>
-                            <IconHolder>
-                                <BiCalendar></BiCalendar>
-                            </IconHolder>
-                            <P>{startDate}-{endDate}</P>
-                        </FlexBox>
-                        <FlexBox>
-                            <IconHolder>
-                                <HiLocationMarker></HiLocationMarker>
-                            </IconHolder>
-                            <P>{location}</P>
-                        </FlexBox>
-                    </InnerContentWrapper>
-
-                    <P>{aboutCompany}</P>
-                    <Ul display={style2.experienceCard.ul.display} listStylePosition="outside">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </div>
-            )
-        case 3:
-            return <div className={style3.experienceCard.div.className.join(" ")}>
-                <InnerContentWrapper>
-                    <H2 color={style3.experienceCard.h2.color}>{companyName}</H2>
-                    <H3>{location}</H3>
-                </InnerContentWrapper>
-                <InnerContentWrapper>
-                    <H3>{position}</H3>
-                    <P>{startDate}-{endDate}</P>
-                </InnerContentWrapper>
-                <P>{aboutCompany}</P>
-                <Ul display={style.experienceCard.Ul.display} listStylePosition="outside">
-                    {
-                        achievements.map((achievement, index) => (
-                            <Li key={index}>{achievement.value}</Li>
-                        ))
-                    }
-                </Ul>
-            </div>
-        case 4:
-            return (
-                <FlexBox gap="20px">
-                    <div style={{ flex: "2" }}>
-                        <H3 textAlign="left">{startDate} - {endDate}</H3>
-                        <P>{location}</P>
-                    </div>
-                    <div style={{ flex: "1" }}>
-                        <VerticalPinSeparator />
-                    </div>
-                    <div style={{ flex: "7" }}>
-                        <P fontWeight="600" fontFamily="Open sans">{position}</P>
-                        <P fontWeight="500">{aboutCompany}</P>
-                        <Ul display={style.experienceCard.Ul.display} listStyle="none" textAlign="left" padding="0 0 0 10px">
-                            {
-                                achievements.map((achievement, index) => (
-                                    <Li key={index}>{achievement.value}</Li>
-                                ))
-                            }
-                        </Ul>
-                    </div>
-                </FlexBox>
-            )
-
-        case 5:
-            return (
-                <div>
-                    <div className="flex justify-between">
-                        <div>
-                            <H2 textAlign="left" fontSize="15px">{position}</H2>
-                            <P fontFamily="Open Sans" fontSize="14px">{companyName}</P>
-                        </div>
-                        <div>
-                            <H3 fontWeight="500" fontFamily="Open Sans" textAlign="left">{location}</H3>
-                            <P fontFamily="Open Sans" fontSize="14px">{startDate}-{endDate}</P>
-                        </div>
-                    </div>
-                    <P fontFamily="Open Sans" fontSize="14px">{aboutCompany}</P>
-                    <Ul display="block">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </div>
-            )
-        case 6:
-            return (
-                <div>
-                    <div>
-                        <H3 textAlign="left">{position}</H3>
-                        <P>{companyName}</P>
-                    </div>
-                    <div className="flex gap-5">
-                        <div className="flex gap-2 items-center content-center">
-                            <BiCalendar />
-                            <P>{startDate}-{endDate}</P>
-                        </div>
-                        <div className="flex gap-2 items-center content-center">
-                            <HiLocationMarker />
-                            <P>{location}</P>
-                        </div>
-                    </div>
-                    <Ul display="block">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </div>
-            )
-
-
-        default:
-            return <div className="text-left pb-4">
-                <InnerContentWrapper>
-                    <H2>{companyName}</H2>
-                    <H3>{location}</H3>
-                </InnerContentWrapper>
-                <InnerContentWrapper>
-                    <H3>{position}</H3>
-                    <P>{startDate}-{endDate}</P>
-                </InnerContentWrapper>
-                <P>{aboutCompany}</P>
-                <Ul display={style.experienceCard.Ul.display} listStylePosition="outside">
-                    {
-                        achievements.map((achievement, index) => {
-
-                            return (
-
-                                <Li key={index}>{achievement.value}</Li>
-
-                            )
-                        })
-
-                    }
-                </Ul>
-            </div>
-    }
-
-}
-const generateModernResumeExperienceCard = ({ experience, layout_no, style }) => {
-    const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
-    switch (layout_no) {
-        case 1:
-            console.log("case 1")
-            return (
-                <>
-                    <FlexBox justifyContent="space-between" margin="0">
-                        <H3 textAlign="left" fontWeight="500" fontFamily="Lato" fontSize="17px">{position}</H3>
-                        <P>{startDate}-{endDate}</P>
-                    </FlexBox>
-                    <FlexBox justifyContent="space-between" margin="0" >
-                        <H3 color="blue" textAlign="left" fontWeight="600">{companyName}</H3>
-                        <P>{location}</P>
-                    </FlexBox>
-                    <P>{aboutCompany}</P>
-                    <Ul display="block">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </>
-            )
-        case 3:
-            return (
-                <>
-                    <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >
-                        {position}</H2>
-                    <P color="#0259ff" fontFamily="'Roboto', sans-serif" fontWeight="600" fontSize="14px"
-                    >{companyName}</P>
-                    <FlexBox margin="0" alignItems="center">
-                        <BiCalendar />
-                        <P fontSize="14px" fontFamily="Roboto">{startDate}-{endDate}</P>
-                        <LiaMapMarkerSolid />
-                        <P fontSize="14px" fontFamily="Roboto">{location}</P>
-                    </FlexBox>
-                    <P fontSize="14px" fontFamily="Roboto">{aboutCompany}</P>
-                    <Ul display="block">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                    {/* 0f0771 */}
-                </>
-            )
-
-        case 4:
-            return (
-                <>
-                    <H2 style={{ ...style.h2 }}>{position}</H2>
-
-
-                    <H3 style={{ ...style.h3, color: style.primaryColor }} textAlign="left" >{companyName}</H3>
-                    <FlexBox margin="0" flexWrap="wrap">
-                        <FlexBox margin="0">
-                            <CgCalendar />
-                            <P style={{ ...style.p }}>{startDate}-{endDate}</P>
-                        </FlexBox>
-
-                        <FlexBox margin="0">
-                            <LiaMapMarkerSolid />
-                            <P style={{ ...style.p }}>{location}</P>
-                        </FlexBox>
-                    </FlexBox>
-                    <P style={{ ...style.p }}>{aboutCompany}</P>
-                    <Ul display="block" margin="0">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index} display="block">{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-
-                </>
-            )
-
-        case 5:
-            return (
-                <>
-                    <h3 style={{ ...style.h3, textAlign: "left" }} >{position}</h3>
-                    <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
-                    <FlexBox margin="0" flexWrap="wrap">
-                        <FlexBox margin="0">
-                            <CgCalendar />
-                            <P style={{ ...style.p }}>{startDate}-{endDate}</P>
-                        </FlexBox>
-
-                        <FlexBox margin="0">
-                            <LiaMapMarkerSolid />
-                            <P style={{ ...style.p }}>{location}</P>
-                        </FlexBox>
-                    </FlexBox>
-                    <P style={{ ...style.p }}>{aboutCompany}</P>
-                    <Ul display="block" margin="0">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index} display="block">{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </>
-            )
-        default:
-            return (
-                <>
-                    <H2 color="#044627" fontFamily="'Raleway', sans-serif" fontWeight="500" textAlign="left">{position}</H2>
-                    <FlexBox justifyContent="space-between" margin="0" alignItems="center">
-                        <H2 color="#4bdd97" fontSize="16px" fontWeight="normal">{companyName}</H2>
-                        <FlexBox margin="0" alignItems="center">
-                            <BiCalendar />
-                            <P>{startDate}-{endDate}</P>
-                        </FlexBox>
-                    </FlexBox>
-                    <P>{aboutCompany}</P>
-                    <Ul display="block">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </>
-            )
-    }
-
-}
 const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, props }) => {
-    console.log("simple experience car calldl")
+    console.log("simple experience card called")
     const { position, startDate, endDate, companyName, aboutCompany, location, achievements } = experience
-    const { applyFlex, includeDateAndAddress } = props
-
-    if(layout_no===6){
-                    return (
-                        <FlexBox gap="20px">
-                            <div style={{ flex: "2" }}>
-                                <h3 style={{...style.h3}}>{startDate}-{endDate}</h3>
-                                <h2 style={{...style.h2}}>{location}</h2>
-
-                            </div>
-                            <div style={{ flex: "1" }}>
-                                <VerticalPinSeparator />
-                            </div>
-                            <div style={{ flex: "7" }}>
-                                <h2 style={{...style.h2}}>{position}</h2>
-                                <h3 style={{...style.h3}}>{companyName}</h3>
-                                <p style={{...style.p}}>{aboutCompany}</p>
-                                
-                                    {
-                                       <Ul display="block">
-                                       {
-                                           achievements.map((achievement, index) => (
-                                               <Li key={index}>{achievement.value}</Li>
-                                           ))
-                                       }
-                                   </Ul> 
-                                    }
-                                
-                            </div>
-                        </FlexBox>
-                    )
+    const {
+        applyFlex,
+        includeDateAndAddress,
+        includeAddrss,
+        includeDate,
+        swapPosition,
+        applyVerticalDivider } = props
+    if (applyVerticalDivider) {
+        return (
+            <FlexBox gap="20px">
+                <div style={{ flex: "2" }}>
+                    <h3 style={{ ...style.h3 }}>{startDate}-{endDate}</h3>
+                    <P>{location}</P>
+                </div>
+                <div style={{ flex: "1" }}>
+                    <VerticalPinSeparator />
+                </div>
+                <div style={{ flex: "7" }}>
+                    <P fontWeight="600" fontFamily="Open sans">{position}</P>
+                    <P fontWeight="500">{aboutCompany}</P>
+                    <Ul listStyle="none" textAlign="left" padding="0 0 0 10px">
+                        {
+                            achievements.map((achievement, index) => (
+                                <Li key={index}>{achievement.value}</Li>
+                            ))
+                        }
+                    </Ul>
+                </div>
+            </FlexBox>
+        )
     }
+
     return (
         <>
-            <h3 style={{ ...style.h3 }} >{position}</h3>
-            {
-                (!applyFlex && includeDateAndAddress) ? (
-                    <FlexBox margin="0" justifyContent="space-between">
-                        <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
-                        <FlexBox margin="0" alignItems="center">
-                            <CgCalendar />
-                            <P style={{ ...style.p }}>{startDate}-{endDate}</P>
-                        </FlexBox>
-                    </FlexBox>
-                )
-                    :
-                    (
-                        <>
-                            <FlexBox margin="0" justifyContent="space-between">
-                                <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
-                                <div>
-                                    <P style={{ ...style.p }}>{location}</P>
-                                    <P style={{ ...style.p }}>{startDate}-{endDate}</P>
-                                </div>
-                            </FlexBox>
-                        </>
-                    )
-            }
-            {/* <FlexBox margin="0" flexWrap="wrap">
-                
+            <div className="mb-3">
 
-                <FlexBox margin="0">
-                    <LiaMapMarkerSolid />
-                    <P style={{ ...style.p }}>{location}</P>
-                </FlexBox>
-            </FlexBox> */}
-            {
-                !applyFlex && (
-                    <>
-                        <h2 style={{ ...style.h2, textAlign: "left" }}  >{companyName}</h2>
+
+
+
+                {/* When applyFlex is true and includeDateAndAddress is true */}
+
+                <FlexBox margin="0" justifyContent="space-between"  {...(applyFlex) ? { display: "flex" } : { display: "block" }}>
+                    <FlexBox  display= "block" alignItems="center" margin="0">
+                        {
+                            //awap position of elemenet based on flag
+                            swapPosition ?
+                                (
+                                    <>
+                                        <h3 style={{ ...style.sectionSubHeader }}>{companyName}</h3>
+                                        <h3 style={{ ...style.h3 }}>{position}</h3>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h3 style={{ ...style.h3 }}>{position}</h3>
+                                        <h3 style={{ ...style.sectionSubHeader }}>{companyName}</h3>
+                                    </>
+                                )
+                        }
+                    </FlexBox>
+                    {applyFlex && (
                         <FlexBox margin="0" alignItems="center">
-                            <FlexBox margin="0" alignItems="center">
+                            {
+                                includeDate && <P style={{ ...style.p }}>{startDate} - {endDate}</P>
+
+                            }
+                            {
+                                includeAddrss && <P style={{ ...style.p }}>{location}</P>
+                            }
+                            {
+                                includeDateAndAddress && (<div>
+                                    <P style={{ ...style.p }}>{location}</P>
+                                    <P style={{ ...style.p }}>{startDate} - {endDate}</P>
+                                </div>)
+                            }
+                        </FlexBox>
+                    )}
+                </FlexBox>
+
+
+                {/* When applyFlex is false */}
+                {!applyFlex && (
+                    <>
+                        <FlexBox margin="0">
+                            <FlexBox justifyContent='space-between' margin="0">
                                 <LiaMapMarkerSolid />
-                                <p>{location}</p>
+                                <P style={{ ...style.p }}> {location}</P>
                             </FlexBox>
-                            <FlexBox margin="0" alignItems="center">
+                            <FlexBox margin="0">
                                 <CgCalendar />
-                                <p>{startDate}-{endDate}</p>
+                                <P style={{ ...style.p }}>{startDate} - {endDate}</P>
                             </FlexBox>
                         </FlexBox>
                     </>
-                )
-            }
-            <P style={{ ...style.p }}>{aboutCompany}</P>
-            <Ul display="block" margin="0">
-                {
-                    achievements.map((achievement, index) => (
-                        <Li key={index}>{achievement.value}</Li>
-                    ))
-                }
-            </Ul>
+                )}
+
+                {/* About Company */}
+                <P style={{ ...style.p }}>{aboutCompany}</P>
+
+                {/* Achievements */}
+                <Ul display="block" margin="0">
+                    {achievements.map((achievement, index) => (
+                        <Li key={index} style={{ ...style.p }}>{achievement.value}</Li>
+                    ))}
+                </Ul>
+            </div>
         </>
     )
 }
@@ -399,17 +121,41 @@ const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, prop
 
 const ExperienceCard = memo(({ experience, layout_no, style, layout_type = "classical", ...props }) => {
 
-    // achievements
-    // const { companyName, position, aboutCompany, achievements, location, startDate, endDate } = experience
-    // if (layout_type === layout_type_map.CLASSICAL) {
-    //     return generateClassicalResumeExperienceCard({ experience, layout_no })
-    // }
-    // if (layout_type === layout_type_map.MODERN) {
-    //     return generateModernResumeExperienceCard({ experience, layout_no, style })
-    // }
-    // if (layout_type === layout_type_map.SIMPLE) {
-        return generateSimpleResumeExperienceCard({ experience, layout_no, style, props })
-    // }
+    console.log("props", props)
+    return generateSimpleResumeExperienceCard({ experience, layout_no, style, props })
+
 
 })
 export default ExperienceCard
+
+/*
+ if (layout_no === 6) {
+        return (
+            <FlexBox gap="20px">
+                <div style={{ flex: "2" }}>
+                    <h3 style={{ ...style.h3 }}>{startDate}-{endDate}</h3>
+                    <h2 style={{ ...style.h2 }}>{location}</h2>
+
+                </div>
+                <div style={{ flex: "1" }}>
+                    <VerticalPinSeparator />
+                </div>
+                <div style={{ flex: "7" }}>
+                    <h2 style={{ ...style.h2 }}>{position}</h2>
+                    <h3 style={{ ...style.h3 }}>{companyName}</h3>
+                    <p style={{ ...style.p }}>{aboutCompany}</p>
+
+                    {
+                        <Ul display="block">
+                            {
+                                achievements.map((achievement, index) => (
+                                    <Li key={index}>{achievement.value}</Li>
+                                ))
+                            }
+                        </Ul>
+                    }
+
+                </div>
+            </FlexBox>
+        )
+    }*/

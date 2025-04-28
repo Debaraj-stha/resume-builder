@@ -12,21 +12,45 @@ export const layout_6_style = {
         fontWeight: "700",
         fontFamily: "'Poppins', sans-serif",
         color: "#000000",
-        textTransform: "none",
+        textTransform: "uppercase",
+        textAlign:"left"
     },
     titleStyle: {
         fontSize: "16px",
         fontWeight: "500",
         color: "#0056d2",
         letterSpacing: "0px",
+        textAlign:"left"
+    },
+    profile_ul: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType:"none",
+        listStylePosition:"inside"
+    },
+
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor:"#000"
     },
 
     sectionHeader: {
         fontSize: "14px",
         fontWeight: "600",
-        color: "#0056d2",
+        color: "#000",
         textTransform: "uppercase",
-        width: "fit-content"
+        width: "fit-content",
+        textAlign:"left"
     },
 
     sectionSubHeader: {
@@ -46,14 +70,14 @@ export const layout_6_style = {
 
     h1: {
         fontSize: "20px",
-        fontWeight: "600",
+        fontWeight: "500",
         textAlign: "left",
         color: "#000000",
     },
 
     h2: {
         fontSize: "16px",
-        fontWeight: "600",
+        fontWeight: "500",
         color: "#000000",
         textAlign: "center"
     },

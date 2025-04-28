@@ -1,6 +1,6 @@
 export const layout_3_style = {
     primaryColor: "#0056d2", // Bright blue used for name title and headings
-    fontFamily: "'Poppins', sans-serif",
+    fontFamily: "'Wittgenstein', sans-serif",
     backgroundColor: "#ffffff",
     headerBackground: "#ffffff",
     textColor: "#000000",
@@ -11,10 +11,16 @@ export const layout_3_style = {
     nameStyle: {
         fontSize: "28px",
         fontWeight: "700",
-        fontFamily: "'Poppins', sans-serif",
+        fontFamily: "'Wittgenstein', sans-serif",
         color: "#000000",
         textTransform: "uppercase",
         letterSpacing: "1px",
+    },
+    profile_ul: {
+
+    },
+    profile_li: {
+
     },
 
     titleStyle: {
@@ -22,6 +28,7 @@ export const layout_3_style = {
         fontWeight: "500",
         color: "#0056d2", // Title (like "Full Stack Developer") in blue
         letterSpacing: "0px",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     sectionHeader: {
@@ -31,15 +38,17 @@ export const layout_3_style = {
         textTransform: "uppercase",
         borderBottom: "1px solid #d3d3d3", // Gray underline under "Experience", "Education"
         paddingBottom: "4px",
-        width: "fit-content",
+        textAlign: "center",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     sectionSubHeader: {
         fontSize: "13px",
         fontWeight: "600",
-        color: "#000000",
+        color: "rgb(0, 86, 210)",
         margin: "4px 0",
         textAlign: "left",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     p: {
@@ -47,6 +56,7 @@ export const layout_3_style = {
         lineHeight: "1.6",
         color: "#4f4f4f",
         textAlign: "left",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     h1: {
@@ -54,6 +64,7 @@ export const layout_3_style = {
         fontWeight: "600",
         textAlign: "left",
         color: "#000000",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     h2: {
@@ -61,6 +72,7 @@ export const layout_3_style = {
         fontWeight: "600",
         color: "#000000",
         textAlign: "center",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     h3: {
@@ -68,6 +80,7 @@ export const layout_3_style = {
         fontWeight: "500",
         color: "#000000",
         textAlign: "left",
+        fontFamily: "'Wittgenstein', sans-serif",
     },
 
     tagStyle: {
@@ -79,5 +92,6 @@ export const layout_3_style = {
         display: "inline-block",
         margin: "2px",
         fontWeight: "500",
-    },
+        fontFamily: "'Wittgenstein', sans-serif"
+    }
 };

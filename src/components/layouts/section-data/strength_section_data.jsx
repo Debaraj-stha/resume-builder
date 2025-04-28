@@ -3,20 +3,50 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import StrengthCard from "../cards/ResumeStrengthCard"
 import generateTitle from "./titleGenerater"
 
-const generateStrength=({strengths,style,divider,layout_no,layout_type=layout_type_map.CLASSICAL,sectionHeader})=>{
-    return  {
+const generateStrength = ({ strengths, style, divider, layout_no, layout_type = layout_type_map.CLASSICAL, sectionHeader = "strengths",props={} }) => {
+    const { grid } = props
+    return {
         key: "strengths",
         content: () => (
             <>
                 {
-                    generateTitle({ title: sectionHeader, style: { ...style.sectionHeader, textAlign: "left" } })
+                    generateTitle({ title: sectionHeader, style: { ...style.sectionHeader } })
                 }
                 {
-                    divider ?  divider :null
+                    divider ? divider : null
                 }
                 <SectionContent>
 
-                    <StrengthCard layout_no={layout_no} layout_type={layout_type} style={{h2:style.h2,p:style.p}} strengths={strengths} />
+                    {
+                        grid ? (
+                            <div className="grid grid-cols-2 gap-5">
+                                {
+                                    strengths.map((strength, index) => (
+                                        <StrengthCard
+                                            key={index}
+                                            layout_no={layout_no}
+                                            layout_type={layout_type}
+                                            style={{ h2: style.h2, p: style.p }}
+                                            strength={strength}
+                                            {...props}
+                                            />
+                                    ))
+                                }
+                            </div>
+                        ) :
+
+                            strengths.map((strength, index) => (
+                                <StrengthCard
+                                    key={index}
+                                    layout_no={layout_no}
+                                    layout_type={layout_type}
+                                    style={{ h2: style.h2, p: style.p }}
+                                    strength={strength}
+                                    {...props}
+                                    />
+                            ))
+
+                    }
 
                 </SectionContent>
             </>

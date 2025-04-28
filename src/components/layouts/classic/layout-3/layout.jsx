@@ -4,7 +4,7 @@ import getLayout3OutputSection from "../resume-output/layout3-output";
 import { useFormContext } from "react-hook-form";
 import { useLayout } from "../../../../provider/layoutProvider";
 import LayoutUi from "../../layoutUI";
-
+// import "../layout-3/style.css"
 const ClassicalLayout3 = memo((props) => {
     const sectionRefs = useRef([])
     const {
@@ -47,7 +47,7 @@ const ClassicalLayout3 = memo((props) => {
     }, [sectionData.length]);
 
     return (
-        <div className="mx-2 w-full max-w-full" ref={ref}>
+        <div className="mx-2 w-full max-w-full " id="classical-layout-3"ref={ref}>
             <LayoutUi sectionRefs={sectionRefs} key_val={key_val} pages={pages} layoutId={3} />
         </div>
     )

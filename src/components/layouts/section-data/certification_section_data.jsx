@@ -3,7 +3,7 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import CertificationCard from "../cards/ResumeCertificationCard"
 import generateTitle from "./titleGenerater"
 
-const generateCertification = ({ certificates, divider, layout_no, layout_type = layout_type_map.CLASSICAL, sectionHeader = "certification" }) => {
+const generateCertification = ({ certificates, divider, layout_no, layout_type = layout_type_map.CLASSICAL, sectionHeader = "certification" ,props={}}) => {
     return {
         key: "certification",
         content: () => (

@@ -18,14 +18,18 @@ const getLayout1OutputSectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: {...personalDetails,urls:[
-                personalDetails.urls[0]]}
+            personalDetails: {
+                ...personalDetails, urls: [
+                    personalDetails.urls[0]]
+            }
             , layout_no: layout_no,
             shouldIncludeImage: false,
             style: {
-                nameStyle: style.nameStyle, h2: style.h2, p: style.p,
-                li_style: style.li_style,
-                ul:style.ul
+                nameStyle: style.nameStyle,
+                titleStyle: style.titleStyle,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                p:style.p
             },
             props: {
                 shouldIncludeImage: false,
@@ -51,16 +55,16 @@ const getLayout1OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                subSection: style.sectionSubHeader,
+                sectionSubHeader: style.sectionSubHeader,
                 sectionHeader: style.sectionHeader
             },
-            props:{
-                applyFlex:true,
-                includeDateAndAddress:true
+            props: {
+                applyFlex: true,
+                includeDateAndAddress: true
             }
         }),
         ...generateEducationSections({
-            educations,
+            educations:educations.slice(0,1),
             layout_no,
             divider,
             style: {
@@ -68,10 +72,11 @@ const getLayout1OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader:style.sectionSubHeader
             },
-            props:{
-                applyFlex:true
+            props: {
+                applyFlex: true
             }
         }),
         ...generateAchievementsSections({
@@ -81,17 +86,18 @@ const getLayout1OutputSectionData = (data, layout_no) => {
                 sectionHeader: style.sectionHeader,
                 iconColor: style.primaryColor,
                 h2: style.h2,
-                p: style.p
+                p: style.p,
+                tagStyle:style.tagStyle
 
             },
-            shouldPair:true,
-            props:{
-                shouldApplyGrid:false
+            shouldPair: true,
+            props: {
+                shouldApplyGrid: false
             }
         }),
 
         generateSkill({
-            skills,
+            skills:skills.slice(0,3),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -101,8 +107,8 @@ const getLayout1OutputSectionData = (data, layout_no) => {
                 h3: style.h3
             },
             layout_no: layout_no,
-            props:{
-                shouldIncludeField:false
+            props: {
+                shouldIncludeField: false
             }
         }),
     ];

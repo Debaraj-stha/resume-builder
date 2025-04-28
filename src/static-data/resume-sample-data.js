@@ -19,7 +19,7 @@ export const experiences = [
         "achievements": [
             { value: "Built reusable React components that improved UI development speed by 40%." },
             { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
-            { value: "Worked with cross-functional teams to deliver new features on a bi-weekly sprint cycle." },
+            
         ],
     "location":"Dharan",
     "startDate" :"2022",
@@ -28,7 +28,7 @@ export const experiences = [
     {
         "companyName": "NexaEdge Solutions",
         "position": "Business Data Analyst",
-        "aboutCompany": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics and supply chain optimization.",
+        "aboutCompany": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics",
         "achievements": [
             { value: "Conducted cost-efficiency analysis that saved the company $200K annually in operations." },
             { value: "Created predictive models in Python to forecast shipment delays with 85% accuracy." },

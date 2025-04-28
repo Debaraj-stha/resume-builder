@@ -1,12 +1,12 @@
 export const layout_1_style = {
-    primaryColor: "#000000", // Black used for all main headings
-    fontFamily: "'Poppins', sans-serif",
-    backgroundColor: "#ffffff",
-    headerBackground: "#ffffff",
-    textColor: "#000000",
-    headerTextColor: "#000000",
-    subTextColor: "#4f4f4f", // Gray for summary and descriptions
-    accentColor: "#000000", // No colored accents, all black
+    primaryColor: "#000000", // Black for headers and important text
+    fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+    backgroundColor: "#ffffff", // White background
+    headerBackground: "#ffffff", // White header background
+    textColor: "#000000", // Main text in black
+    headerTextColor: "#000000", // Headers in black
+    subTextColor: "#4f4f4f", // Gray color for summary and bullet points
+    accentColor: "#000000", // No accent color (monochrome)
 
     nameStyle: {
         fontSize: "28px",
@@ -14,14 +14,33 @@ export const layout_1_style = {
         fontFamily: "'Poppins', sans-serif",
         color: "#000000",
         textTransform: "uppercase",
+        textAlign: "center",
         letterSpacing: "1px",
     },
 
     titleStyle: {
         fontSize: "16px",
         fontWeight: "500",
-        color: "#4f4f4f", // Subtitle like "Equity and Debt Financing" is lighter
+        color: "#4f4f4f", // For subheaders like "Buyside and Sellside M&A"
         letterSpacing: "0px",
+        textAlign: "center"
+    },
+
+    profile_ul: {
+        // display: "flex",
+        // justifyContent: "center",
+        // alignItems: "center",
+        // alignContent: "center",
+        // flexWrap: "wrap",
+        // listStyleType:"disc",
+        // listStylePosition:"inside",
+        margin:"0"
+    },
+
+    profile_li: {
+        fontSize: "14px",
+
+        display:"list-items"
     },
 
     sectionHeader: {
@@ -29,17 +48,16 @@ export const layout_1_style = {
         fontWeight: "700",
         color: "#000000",
         textTransform: "uppercase",
-        borderBottom: "1px solid #d3d3d3", // Thin gray underline
-        paddingBottom: "4px",
-        textAlign: "center"
+        textAlign: "center",
+        marginBottom: "8px",
     },
 
     sectionSubHeader: {
         fontSize: "13px",
         fontWeight: "600",
         color: "#000000",
-        margin: "4px 0",
         textAlign: "left",
+        // margin: "4px 0",
     },
 
     p: {
@@ -70,8 +88,22 @@ export const layout_1_style = {
         textAlign: "left",
     },
 
+    experience_item: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: "16px"
+    },
+
+    education_item: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: "16px"
+    },
+
     tagStyle: {
-        backgroundColor: "#f0f0f0", // Very soft light gray background for tags
+        backgroundColor: "#f5f5f5", // Light gray background for tags if needed
         color: "#000000",
         fontSize: "11px",
         padding: "4px 8px",
@@ -79,17 +111,4 @@ export const layout_1_style = {
         display: "inline-block",
         margin: "2px",
     },
-    li_style: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        alignContent: "center",
-
-    },
-    ul: {
-        display: "flex",
-        jistifyContent: "center",
-        alignItems: "center"
-    },
-    
 };

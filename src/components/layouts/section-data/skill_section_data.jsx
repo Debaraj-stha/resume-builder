@@ -3,11 +3,11 @@ import { SectionContent } from "../../elements/resumeSectionWrapper";
 import SkillCard from "../cards/ResumeSkillCard";
 import generateTitle from "./titleGenerater";
 
-const generateSkill = ({ skills, divider, 
-    style,layout_no,
-     layout_type = layout_type_map.CLASSICAL, 
+const generateSkill = ({ skills, divider,
+    style, layout_no,
+    layout_type = layout_type_map.CLASSICAL,
     titleHeader = "skills",
-    props={}
+    props = {}
 }) => {
     return {
         key: "skills",
@@ -24,12 +24,7 @@ const generateSkill = ({ skills, divider,
 
                 <SectionContent>
                     <SkillCard skills={skills} layout_no={layout_no} layout_type={layout_type}
-                        style={{
-                            header: style?.sectionHeader,
-                            h1: style?.h1,
-                            h2: style?.h2,
-                            h3: style?.h3
-                        }}
+                        style={style}
                         {...props}
 
                     />

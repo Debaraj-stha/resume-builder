@@ -279,7 +279,7 @@ background:black;
 export const FlexBox=styled.div.withConfig({
   shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap"].includes(props)
 })`
-display:flex;
+display:${({display})=>display||"flex"};
 gap:${({gap})=>gap||"10px"};
 align-items:${({alignItems})=>alignItems||"normal"};
 margin:${({margin})=>margin||"10px 0 0 0"};
@@ -287,9 +287,13 @@ justify-content:${({justifyContent})=>justifyContent||"start"};
 align-content: center;
 // flex-wrap: wrap;
 padding:${({padding})=>padding||"0"};
-flex-wrap:${({flexWrap})=>flexWrap||"no-wrap"};
+flex-wrap:${({flexWrap})=>flexWrap||"nowrap"};
 
 
+`
+export const ColumnFlexBox=styled(FlexBox)`
+flex-direction:${({flexDirection})=>flexDirection||"column"};
+gap:${({gap})=>gap||"10px"};
 `
 export const GridBox = styled.div`
   display: flex;
@@ -305,19 +309,20 @@ border:1px solid;
 border-radius:1px;
 padding:${({padding})=>padding||"0 5px 0 0"};
 border-top-color:${({borderTopColor})=>borderTopColor||"transparent"};
-border-bottom-color:${({BorderBottomColor})=>BorderBottomColor||"transparent"};
+border-bottom-color:${({borderBottomColor})=>borderBottomColor||"transparent"};
 border-left-color:${({borderLeftColor})=>borderLeftColor||"transparent"};
 border-right-color:${({borderRightColor})=>borderRightColor||"transparent"};
 `;
 
 export const GridPairBox=styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content:space-between;
   gap: 1.25rem; /* gap-5 = 20px */
-  /* Responsive: change to row on medium screens and up */
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
+  // /* Responsive: change to row on medium screens and up */
+  // @media (min-width: 768px) {
+  //   flex-direction: row;
+  // }
 
 
 `

@@ -1,42 +1,68 @@
 export const layout_2_style = {
-    primaryColor: "#0056d2", // Strong blue used for headers and accents
+    primaryColor: "#000000", // Black for headers and important text
     fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
-    backgroundColor: "#ffffff",
-    headerBackground: "#ffffff",
-    textColor: "#000000",
-    headerTextColor: "#0056d2",
-    subTextColor: "#4f4f4f",
-    accentColor: "#0056d2",
-    
+    backgroundColor: "#ffffff", // White background
+    headerBackground: "#ffffff", // White header background
+    textColor: "#000000", // Main text in black
+    headerTextColor: "#000000", // Headers in black
+    subTextColor: "#4f4f4f", // Gray color for summary and bullet points
+    accentColor: "#000000", // No accent color (monochrome)
+
     nameStyle: {
         fontSize: "28px",
         fontWeight: "700",
         fontFamily: "'Poppins', sans-serif",
         color: "#000000",
-        textTransform: "none",
+        textTransform: "capitalize",
+        textAlign: "left",
+        letterSpacing: "1px",
     },
 
     titleStyle: {
         fontSize: "16px",
         fontWeight: "500",
-        color: "#0056d2",
+        color: "#0040ff", 
         letterSpacing: "0px",
+        textAlign: "left"
+    },
+
+    profile_ul: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType:"none",
+        listStylePosition:"inside"
+    },
+
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor:"#0040ff"
     },
 
     sectionHeader: {
         fontSize: "14px",
-        fontWeight: "600",
-        color: "#0056d2",
+        fontWeight: "700",
+        color: "#000000",
         textTransform: "uppercase",
-        width: "fit-content",
+        textAlign: "left",
+        // marginBottom: "8px",
     },
 
     sectionSubHeader: {
         fontSize: "13px",
         fontWeight: "600",
-        color: "#000000",
-        margin: "4px 0",
-        textAlign: "left",
+        color: "#0040ff", 
+        textAlign: "left"
+        // margin: "4px 0",
     },
 
     p: {
@@ -57,7 +83,7 @@ export const layout_2_style = {
         fontSize: "16px",
         fontWeight: "600",
         color: "#000000",
-        textAlign: "center",
+        textAlign: "left",
     },
 
     h3: {
@@ -67,9 +93,23 @@ export const layout_2_style = {
         textAlign: "left",
     },
 
+    experience_item: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: "16px"
+    },
+
+    education_item: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: "16px"
+    },
+
     tagStyle: {
-        backgroundColor: "#e6f0fd",
-        color: "#0056d2",
+        backgroundColor: "#f5f5f5", // Light gray background for tags if needed
+        color: "#000000",
         fontSize: "11px",
         padding: "4px 8px",
         borderRadius: "12px",

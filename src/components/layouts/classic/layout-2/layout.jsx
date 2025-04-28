@@ -4,6 +4,7 @@ import getLayout2OutputSectionData from "../resume-output/layout2-output";
 import { useLayout } from "../../../../provider/layoutProvider";
 import LayoutUi from "../../layoutUI";
 import "../../css/google-fonts.css"
+import { strengths } from "../../../../static-data/resume-sample-data";
 
 const ClassicalLayout2 = memo((props) => {
   const sectionRefs = useRef([])
@@ -27,7 +28,8 @@ const ClassicalLayout2 = memo((props) => {
     summary: summary,
     experiences: experiences,
     achievements: achievements,
-    skills: skills
+    skills: skills,
+    strengths:strengths
   }
   const sectionData = getLayout2OutputSectionData(key_val)
   const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
