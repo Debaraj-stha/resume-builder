@@ -2,7 +2,7 @@ import { memo } from "react";
 import { BorderBox, ColumnFlexBox, FlexBox, GridBox } from "../../CustomComponents";
 
 const buildSimpleSkillCard = ({ skills, layout_no, style, ...props }) => {
-    console.log("props", props)
+ 
     const { shouldIncludeField, borderBox, borderBottom } = props
     const skillWithBorderBottom = (item, key) => (
         <BorderBox key={key} borderBottomColor="#555">

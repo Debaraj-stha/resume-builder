@@ -18,8 +18,13 @@ const renderLayout = ({
   leftFlex = "2",
   rightFlex = "3",
   background = "transparent",
+  props={
+    leftPadding:"0",
+    rightPadding:"0",
+    mainPadding:"20mm"
+  }
 }) => {
-
+const{leftPadding,rightPadding,mainPadding}=props
   const renderSection = (section, index) => {
     const SectionContent = section.content(key_val?.[section.key]);
     return (
@@ -33,27 +38,7 @@ const renderLayout = ({
     );
   };
 
-  // Dynamically compute resume padding based on layout
-  let resumePadding = null;
-  if (layout_no === 1) {
-    resumePadding = "0 0 0 20mm";
-  } else if (layout_no === 5) {
-    resumePadding = "0";
-  }
-  let leftPadding;
-  let rightPadding;
-  if (layout_no === 1 || layout_no === 5 ) {
-    leftPadding = "10mm 10mm 20mm 20mm"
-    rightPadding = "10mm 20mm  20mm 10mm "
-  }
-  else if (layout_no === 6 || layout_no === 3||layout_no==2) {
-    leftPadding = "0 10mm 0 0";
-    rightPadding = "0 0 0 10mm "
-  }
-  else {
-    leftPadding = "0";
-    rightPadding = "0"
-  }
+
 
   if (pages.length > 0) {
     return pages.map((group, pageIndex) => {
@@ -114,7 +99,7 @@ const renderLayout = ({
   });
 
   return (
-    <ResumeWrapper padding={resumePadding}>
+    <ResumeWrapper padding={mainPadding}>
       {headerSection}
       <Wrapper>
         <LeftColumn

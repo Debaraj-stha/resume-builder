@@ -19,7 +19,7 @@ const getLayout2OutputSectionData = (data, layout_no) => {
         skills = [],
         strengths=[]
     } = data;
-    console.log("data",data)
+
     const divider = <TransparentLine />
 
     return [

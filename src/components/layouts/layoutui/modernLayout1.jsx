@@ -11,7 +11,11 @@ const getModernLayout1 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
         layout_no:1,
         leftFlex:"3",
         rightFlex:"2",
-        background:"#1c2a45"
+        background:"#1c2a45",
+        props:{
+          mainPadding:"0 0 0 20mm",
+          leftPadding:"20mm 15px 0 0"
+        }
        
       });
 

@@ -9,6 +9,8 @@ import generateLanguage from "../../section-data/language_section_data";
 import generateCertification from "../../section-data/certification_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import { layout_type_map } from "../../../../constant";
+import generateProfileDetails from "../../section-data/profile_details";
+import { LineDivider } from "../../../Divider/TransparentDividers";
 const getModernLayout1OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
@@ -20,11 +22,25 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
         languages = [],
         certificates = []
     } = data
+
+    const divider = <LineDivider />
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
-            shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] },
+            layout_no: layout_no,
+            layout_type: layout_type_map.SIMPLE,
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle
+            },
+            props: {
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true
+            }
 
         }),
         generateExperience({
@@ -36,10 +52,14 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
-                p: style.p,
-                header: style.sectionHeader,
-                subSection: style.sectionSubHeader,
-                sectionHeader: style.sectionHeader
+                p: { ...style.p },
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
+            props: {
+                applyFlex: true,
+                includeDateAndAddress: true,
+
             }
         }),
         generateEducation({
@@ -52,17 +72,24 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            props: {
+                side: "right",
+                shouldIncludeIcon: false,
+                shouldIncludeGPA: true
             }
-            
+
 
         }),
         generateIndustryExpertise({
             industryExpertise,
             layout_no,
-            layout_type:layout_type_map.MODERN,
-            style:{
-                sectionHeader:style.sectionHeader,
+            divider,
+            layout_type: layout_type_map.MODERN,
+            style: {
+                sectionHeader: style.sectionHeader,
                 sectionSubHeader: style.sectionSubHeader
             }
         }),
@@ -79,7 +106,10 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
                 p: style.p
 
             },
-            shouldIncludeIcon:true
+            props: {
+                shouldIncludeIcon: true,
+                side: "right"
+            }
         }),
         generateSkill({
             skills,
@@ -100,17 +130,27 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
             layout_type: layout_type_map.SIMPLE,
             style: {
                 sectionHeader: style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
+                h2: style.h2, color: style.headerTextColor,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            props: {
+                side: "right"
             }
         }),
         generateCertification({
             certificates,
             divider,
             layout_no,
-            layout_type:layout_type_map.SIMPLE,
-            style:{
-                sectionHeader:style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
+            layout_type: layout_type_map.SIMPLE,
+            style: {
+                sectionHeader: style.sectionHeader,
+                h3: style.h3,
+                p: style.p
+
+            },
+
+            props: {
+
             }
 
         }),

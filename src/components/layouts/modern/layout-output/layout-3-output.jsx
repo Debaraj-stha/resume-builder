@@ -24,12 +24,23 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
     } = data;
 
     const divider = <LineDivider height="3px" />
-const layout_type=layout_type_map.MODERN
+    const layout_type = layout_type_map.MODERN
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no, layout_type: layout_type,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle
+            },
+            props: {
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true
+            }
 
         }),
         generateSummary({
@@ -50,7 +61,13 @@ const layout_type=layout_type_map.MODERN
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
+            props:{
+                shouldIncludeIcon:true,
+                shouldIncludeAddress:true,
+                flexIcons:true
             }
 
         }),
@@ -63,11 +80,10 @@ const layout_type=layout_type_map.MODERN
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
-                p: style.p,
-                header: style.sectionHeader,
-                subSection: style.sectionSubHeader,
-                sectionHeader: style.sectionHeader
-            }
+                p: { ...style.p },
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
         }),
         generateSkill({
             skills,
@@ -77,7 +93,8 @@ const layout_type=layout_type_map.MODERN
                 header: style.sectionHeader,
                 h1: style.h1,
                 h2: style.h2,
-                h3: style.h3
+                h3: style.h3,
+                sectionSubHeader: style.sectionSubHeader
             },
             layout_no: layout_no,
             layout_type: layout_type
@@ -89,18 +106,20 @@ const layout_type=layout_type_map.MODERN
             layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
+                h2: style.h2, color: style.headerTextColor,
+                sectionSubHeader:style.sectionSubHeader
             }
         }),
         generateStrength({
-            strengths,
+            strengths:strengths.slice(0,4),
             layout_no,
             layout_type: layout_type,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,
-                p: style.p
+                p: style.p,
+                sectionSubHeader:style.sectionHeader
             }
 
         }),

@@ -4,7 +4,11 @@ import generateSkill from "../../section-data/skill_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateEducation from "../../section-data/education_secion_data";
-const getModernLayout2OutputSectionData = (data, layout_id) => {
+import { layout_type_map } from "../../../../constant";
+import generateProfileDetails from "../../section-data/profile_details";
+import { LineDivider } from "../../../Divider/TransparentDividers";
+import generateOpenSourceWork from "../../section-data/open_source_work_section_data";
+const getModernLayout2OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -14,15 +18,27 @@ const getModernLayout2OutputSectionData = (data, layout_id) => {
         summary = "",
         openSourceWork
     } = data;
-
-    const layout_type = ayout_type_map.MODERN
+    const divider = <LineDivider />
+    const layout_type = layout_type_map.MODERN
     return [
 
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no, layout_type: layout_type,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
-
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle
+            },
+            props: {
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true,
+                shouldIncludeImage:true,
+                flexImage:true
+            }
         }),
         generateSkill({
             skills,
@@ -32,10 +48,14 @@ const getModernLayout2OutputSectionData = (data, layout_id) => {
                 header: style.sectionHeader,
                 h1: style.h1,
                 h2: style.h2,
-                h3: style.h3
+                h3: style.h3,
+                sectionSubHeader:style.sectionSubHeader
             },
             layout_no: layout_no,
-            layout_type: layout_type
+            layout_type: layout_type,
+            props:{
+                shouldIncludeField:true
+            }
         }),
         generateSummary({
             summary,
@@ -48,15 +68,15 @@ const getModernLayout2OutputSectionData = (data, layout_id) => {
         generateIndustryExpertise({
             industryExpertise,
             layout_no,
-            layout_type:layout_type,
-            style:{
-                sectionHeader:style.sectionHeader,
+            layout_type: layout_type,
+            style: {
+                sectionHeader: style.sectionHeader,
                 sectionSubHeader: style.sectionSubHeader
             },
-            sectionHeader:"expertise"
+            sectionHeader: "expertise"
         }),
         generateExperience({
-            experiences,
+            experiences:experiences.slice(0,2),
             layout_no,
             layout_type: layout_type,
             divider,
@@ -64,11 +84,11 @@ const getModernLayout2OutputSectionData = (data, layout_id) => {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
-                p: style.p,
-                header: style.sectionHeader,
-                subSection: style.sectionSubHeader,
-                sectionHeader: style.sectionHeader
-            }
+                p: { ...style.p },
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
+
         }),
         generateEducation({
             educations,
@@ -80,8 +100,9 @@ const getModernLayout2OutputSectionData = (data, layout_id) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
-            }
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
 
         }),
 

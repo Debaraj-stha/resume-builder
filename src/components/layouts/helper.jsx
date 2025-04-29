@@ -1,6 +1,6 @@
 import React from "react";
 
-import {  TransparentLine } from "../Divider/TransparentDividers";
+import { TransparentLine } from "../Divider/TransparentDividers";
 import { SectionContent } from "../elements/resumeSectionWrapper";
 
 import { GridPairBox } from "../CustomComponents";
@@ -23,9 +23,9 @@ const generateExperienceSections = ({
     title = "experience",
     layout_type = layout_type_map.CLASSICAL,
     shouldPair = false,
-    props={}
+    props = {}
 }) => {
-    console.log("props", props);
+  
 
     const renderTitleAndDivider = (index) => (
         index === 0 && (
@@ -98,7 +98,7 @@ const generateEducationSections = ({
     title = "education",
     layout_type = layout_type_map.CLASSICAL,
     shouldPair = false,
-    props={}
+    props = {}
 }) => {
     const renderTitleAndDivider = (index) => (
         index === 0 && (
@@ -164,8 +164,8 @@ const generateAchievementsSections = ({
     divider,
     shouldPair = false,
     layout_type = layout_type_map.CLASSICAL,
-    sectionHeader = "achievement" ,
-    props={}
+    sectionHeader = "achievement",
+    props = {}
 }
 ) => {
     const renderTitleAndDivider = (index) => (
@@ -235,7 +235,7 @@ const generateCertipicates = ({
     shouldPair = false,
     sectionHeader = "certifications",
     layout_type = layout_type_map.CLASSICAL,
-    props={}
+    props = {}
 }
 ) => {
     const renderTitleAndDivider = (index) => (

@@ -12,8 +12,9 @@ export const layout_3_style = {
         fontSize: "28px",
         fontWeight: "700",
         fontFamily: "'Poppins', sans-serif",
-        color: "#000000",
+        color: "#0f0771",
         textTransform: "none",
+        textAlign:"left"
     },
 
     titleStyle: {
@@ -21,14 +22,38 @@ export const layout_3_style = {
         fontWeight: "500",
         color: "#0056d2",
         letterSpacing: "0px",
+        textAlign:"left"
+    },
+    profile_ul: {
+        display: "flex",
+        justifyContent: "start",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType:"none",
+        listStylePosition:"inside",
+        gap:"5px"
+    },
+
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor:"#0056d2"
     },
 
     sectionHeader: {
         fontSize: "14px",
         fontWeight: "600",
-        color: "#0056d2",
+        color: "#0f0771",
         textTransform: "uppercase",
-        width: "fit-content"
+        width: "fit-content",
+        textAlign:"left"
     },
 
     sectionSubHeader: {
@@ -63,7 +88,7 @@ export const layout_3_style = {
     h3: {
         fontSize: "14px",
         fontWeight: "500",
-        color: "#000000",
+        color: "#0f0771",
         textAlign: "left"
     },
 

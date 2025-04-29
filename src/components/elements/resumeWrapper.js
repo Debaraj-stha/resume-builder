@@ -6,6 +6,7 @@ export const ResumeWrapper = styled.div`
   padding:${({padding})=>padding||"20mm"};
   background: white;
   margin:10px auto;
+  overflow:hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   @media print {
     margin: 0;

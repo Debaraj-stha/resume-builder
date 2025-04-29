@@ -1,6 +1,6 @@
 export const layout_1_style = {
     primaryColor: "#1a355b", // Deep blue used for sidebar and highlights
-    fontFamily: "'Open Sans', sans-serif", // Clean sans-serif font
+    fontFamily: "'Roboto', sans-serif", // Clean sans-serif font
     backgroundColor: "#ffffff",
     sidebarBackgroundColor: "#1a355b",
     sidebarTextColor: "#ffffff",
@@ -15,28 +15,51 @@ export const layout_1_style = {
         fontFamily: "'Open Sans', sans-serif",
         color: "#1a355b",
         textTransform: "uppercase",
+        textAlign:"left"
     },
 
     titleStyle: {
         fontSize: "16px",
         fontWeight: "600",
-        color: "#555555",
+        color: "blue",
         letterSpacing: "0px",
+        textAlign:"left",
+    },
+    profile_ul: {
+        display: "flex",
+        justifyContent: "start",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType:"none",
+        listStylePosition:"inside",
+        gap:"5px"
     },
 
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor:"#000"
+    },
     sectionHeader: {
         fontSize: "13px",
         fontWeight: "700",
         color: "#1a355b",
-        textTransform: "uppercase",
-        borderBottom: "2px solid #1a355b",
-        width: "fit-content"
+        textTransform: "uppercase",       
+        textAlign:"left",
+        paddingBottom:"5px"
     },
 
     sectionSubHeader: {
         fontSize: "12px",
         fontWeight: "600",
-        color: "#333333",
+        color: "blue",
         margin: "4px 0",
         textAlign: "left"
     },

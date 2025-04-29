@@ -3,34 +3,50 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import AcheivementCard from "../cards/ResumeAchievementCard"
 import generateTitle from "./titleGenerater"
 
-const generateAchievement = ({ achievements, style, divider, layout_no, layout_type = layout_type_map.CLASSICAL, titleHeader = "achievement", shouldIncludeIcon = false }) => {
+const generateAchievement = ({
+    achievements,
+    style,
+    divider,
+    layout_no,
+    layout_type = layout_type_map.CLASSICAL,
+    titleHeader = "achievement",
+    props = {} }) => {
+
     return {
         key: "achievements",
         content: () => (
             <>
                 {
 
-                    generateTitle({ title: titleHeader, style: { ...style.sectionHeader } })
+                    generateTitle({
+                        title: titleHeader,
+                        style: {
+                            ...style.sectionHeader,
+                            ...(props.side === "right" && { color: "white" })
+                        }
+                    })
+
                 }
                 {
                     divider ? divider : null
                 }
                 <SectionContent>
                     {
-
-                        <AcheivementCard my_acheivement={achievements} layout_no={layout_no}
-
-                            style={
-                                {
-                                    iconColor: style.primaryColor,
-                                    h2: style.h2,
-                                    p: style.p
+                        achievements.map((achievement, index) => (
+                            <AcheivementCard
+                                key={index}
+                                my_acheivement={achievement} layout_no={layout_no}
+                                style={
+                                    style
                                 }
-                            }
-                            shouldIncludeIcon={shouldIncludeIcon}
-                            layout_type={layout_type} />
+                                layout_type={layout_type}
+                                {...props}
 
+                            />
+
+                        ))
                     }
+
                 </SectionContent>
             </>
         )

@@ -2,15 +2,22 @@ import { memo } from "react"
 import { H1, H2, H3, IconHolder, P } from "../../elements/resumeSectionWrapper"
 import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
 import { BiCalendar } from "react-icons/bi"
+import { LiaMapMarkedAltSolid, LiaMapMarkerSolid } from "react-icons/lia"
 
 
 
 
 const generateSimpleEducationCard = ({ education, layout_no, style, props }) => {
     const { degree, university, start_complete, address } = education
-    console.log(props)
-    const { swapPosition, applyFlex, shouldIncludeIcon,applyVerticalDivider } = props
-    console.log("swap position",swapPosition)
+    const { swapPosition,
+        applyFlex,
+        shouldIncludeIcon,
+        applyVerticalDivider,
+        side,
+        shouldIncludeGPA,
+        flexIcons,
+        shouldIncludeAddress } = props
+
     if (applyVerticalDivider) {
         return (
             <FlexBox gap="20px">
@@ -34,34 +41,47 @@ const generateSimpleEducationCard = ({ education, layout_no, style, props }) => 
             {
                 swapPosition ?
                     <h3 style={{ ...style.sectionSubHeader }}>{university}</h3>
-                    : <h2 style={{ ...style.h3 }}>{degree}</h2>
+                    : <h2 style={{ ...style.h3, ...(props.side === "right") && { color: "white" } }}>{degree}</h2>
             }
             {
                 applyFlex ? (
                     <FlexBox margin="0" justifyContent="space-between" alignItems="center">
                         {
                             swapPosition ?
-                                 <h2 style={{ ...style.h3 }}>{degree}</h2>
-                                : <h3 style={{ ...style.sectionSubHeader }}>{university}</h3>
+                                <h2 style={{ ...style.h3, ...(props.side === "right") && { color: "white" } }}>{degree}</h2>
+                                : <h3 style={{ ...style.sectionSubHeader, ...(props.side === "right") && { color: "white" } }}>{university}</h3>
                         }
-                        <FlexBox margin="0" alignItems="center">
+                        <FlexBox margin="0" alignItems="center" >
                             {shouldIncludeIcon && <BiCalendar />}
-                            <p style={{ ...style.p }}>{start_complete}</p>
+                            <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{start_complete}</p>
+                            <>
+                                {(shouldIncludeAddress && shouldIncludeIcon) && <LiaMapMarkerSolid />}
+                                {shouldIncludeAddress && <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{address}</p>}
+                            </>
+
                         </FlexBox>
                     </FlexBox>
                 ) :
                     (
                         <>
                             {
-                                    swapPosition ?
-                                    <h2 style={{ ...style.h3 }}>{degree}</h2>
-                                    : <h2 style={{ ...style.sectionSubHeader }}>{university}</h2>
+                                swapPosition ?
+                                    <h2 style={{ ...style.h2, ...(props.side === "right") && { color: "white" } }}>{degree}</h2>
+                                    : <h2 style={{ ...style.sectionSubHeader, ...(props.side === "right") && { color: "white" } }}>{university}</h2>
 
                             }
-                            <FlexBox margin="0" alignItems="center">
-                                <BiCalendar />
-                                <p style={{ ...style.p }}>{start_complete}</p>
+                           
+                          <FlexBox margin="0"  {...flexIcons && {justifyContent:"space-between"}}>
+                          <FlexBox margin="0" alignItems="center">
+                                {shouldIncludeIcon && <BiCalendar />}
+                                <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{start_complete}</p>
                             </FlexBox>
+                            <FlexBox margin="0" alignItems="center">
+                                {(shouldIncludeAddress && shouldIncludeIcon) && <LiaMapMarkerSolid />}
+                                {shouldIncludeAddress && <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{address}</p>}
+                            </FlexBox>
+                          </FlexBox>
+                            {shouldIncludeGPA && <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>3.4</p>}
                         </>
                     )
             }
@@ -71,7 +91,7 @@ const generateSimpleEducationCard = ({ education, layout_no, style, props }) => 
 }
 const EducationCard = memo(({ education, layout_no, layout_type = "classical", style, ...props }) => {
 
-    console.log("should apply flex", props)
+
 
     return generateSimpleEducationCard({ education, layout_no, style, props })
 

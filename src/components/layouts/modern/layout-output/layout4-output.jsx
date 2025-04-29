@@ -1,11 +1,14 @@
 import { LineDivider } from "../../../Divider/TransparentDividers";
-import { Layout_4_style as style } from "../layout-4/style";
+import { layout_4_style as style } from "../layout-4/style";
 import { layout_type_map } from "../../../../constant";
 import generateEducation from "../../section-data/education_secion_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateSkill from "../../section-data/skill_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import generatePassionSectionData from "../../section-data/passion_section_data";
+import generateProfileDetails from "../../section-data/profile_details";
+import generateSummary from "../../section-data/summary";
+import generateAchievement from "../../section-data/achievement_section_data";
 
 const divider = <LineDivider height="3px" backgroundColor="#ccc8c8" />
 
@@ -23,9 +26,21 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
     const layout_type = layout_type_map.MODERN
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: { ...personalDetails, urls: [] }, layout_no: layout_no, layout_type: layout_type,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle
+            },
+            props: {
+                shouldIncludeProfession: false,
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true
+            }
 
         }),
         generateSummary({
@@ -59,10 +74,14 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
-                p: style.p,
-                header: style.sectionHeader,
-                subSection: style.sectionSubHeader,
-                sectionHeader: style.sectionHeader
+                p: { ...style.p },
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
+            props: {
+                // applyFlex:true,
+                includeDateAndAddress: true,
+
             }
         }),
         generateEducation({
@@ -75,8 +94,9 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
-            }
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
 
         }),
         generateSkill({
@@ -87,32 +107,33 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
                 header: style.sectionHeader,
                 h1: style.h1,
                 h2: style.h2,
-                h3: style.h3
+                h3: style.h3,
+                sectionSubHeader: style.sectionSubHeader
             },
             layout_no: layout_no,
             layout_type: layout_type_map.SIMPLE,
             titleHeader: "skills"
 
         }),
-        generateIndustryExpertise({
-            industryExpertise,
-            layout_no,
-            layout_type:layout_type,
-            style:{
-                sectionHeader:style.sectionHeader,
-                sectionSubHeader: style.sectionSubHeader
-            },
-            sectionHeader:"industry expertise"
-            
-        }),
-     
+        // generateIndustryExpertise({
+        //     industryExpertise,
+        //     layout_no,
+        //     layout_type:layout_type,
+        //     style:{
+        //         sectionHeader:style.sectionHeader,
+        //         sectionSubHeader: style.sectionSubHeader
+        //     },
+        //     sectionHeader:"industry expertise"
+
+        // }),
+
         generatePassionSectionData({
-            passions,
+            passions:passions.slice(0,4),
             layout_no,
-            layout_type:layout_type,
-            style:{
-                sectionHeader:style.sectionHeader,
-                h2:style.h2
+            layout_type: layout_type,
+            style: {
+                sectionHeader: style.sectionHeader,
+                h2: style.h2
             },
             divider
         })

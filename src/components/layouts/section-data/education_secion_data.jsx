@@ -1,30 +1,37 @@
 import { layout_type_map } from "../../../constant"
 import { SectionContent } from "../../elements/resumeSectionWrapper"
 import EducationCard from "../cards/ResumeEducationCard"
+import generateTitle from "./titleGenerater"
 
-const generateEducation=({educations,divider,style,layout_no,layout_type=layout_type_map.CLASSICAL,titleHeader="education"})=>{
-    return   {
+const generateEducation = ({ educations, divider, style, layout_no, layout_type = layout_type_map.CLASSICAL, titleHeader = "education", props = {} }) => {
+
+    return {
         key: "education",
         content: () => (
             <>
                 {
 
-                    generateTitle({ title: titleHeader, style: { ...style.sectionHeader, } })
+                    generateTitle({
+                        title: titleHeader,
+                        style: {
+                            ...style.sectionHeader,
+                            ...(props.side === "right" && { color: "white" })
+                        }
+                    })
+
                 }
-               {
-                divider ?  divider :null
-               }
-                <SectionContent>
+                {
+                    divider ? divider : null
+                }
+                <SectionContent paddingTop='5px'>
                     {
                         educations.map((education, index) => (
                             <EducationCard key={index} education={education} layout_no={layout_no}
-                                style={{
-                                    h2: style.h2,
-                                    h3: style.h3,
-                                    primaryColor: style.primaryColor,
-                                    p: style.p
-                                }}
-                                layout_type={layout_type} />
+                                style={style}
+                                layout_type={layout_type}
+                                {...props}
+
+                            />
                         ))
                     }
                 </SectionContent>

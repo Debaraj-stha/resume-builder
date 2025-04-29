@@ -1,4 +1,4 @@
-import { memo } from "react"
+import React, { memo } from "react"
 
 import { IconHolder, Li, P, Ul, H1, H3, H2 } from "../../elements/resumeSectionWrapper"
 
@@ -17,105 +17,135 @@ height:${({ height }) => height || "70px"};
 `
 
 // LiaLinkSolid
-const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black",style }) => {
+const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black", style }) => {
     return (
         <Li {...style.profile_li}>
             <IconHolder>
                 {icon}
             </IconHolder>
-            <span style={{ fontWeight: fontWeight, color: color }}>
+            <span style={{ color: style?.profile_li.color }}>
                 {text}
             </span>
         </Li>
     )
 }
-const GenerateWebsiteURL = ({ urls, color,style
+const GenerateWebsiteURL = ({ urls, color, style
 
- }) => urls.map((u, index) => {
-    if (u.includes("linkedin")) {
-        return (
-            <GenerateLi 
-            style={style}
-            key={index} icon={<LiaLinkedin color={style.profile_li.iconColor}></LiaLinkedin>} text={u} color={color}></GenerateLi>
-        )
+}) => {
+    const iconMap = {
+        linkedin: <LiaLinkedin />,
+        github: <BsGithub />
     }
-    else if (u.includes("github")) {
-        return (
-            <GenerateLi 
-            style={style}
-            key={index} icon={<BsGithub color={style.profile_li.iconColor}></BsGithub>} text={u} color={color}></GenerateLi>
-        )
-    }
-    else {
+    urls.map((u, index) => {
+        const lower = u.toLowerCase()
+        const key = Object.keys(iconMap).find(k => lower.includes(k))
+        //create copy of icon and add new props
+        const icon = key
+            ? React.cloneElement(iconMap[key], { color: style?.profile_li?.iconColor })
+            : <BsGlobe color={style?.profile_li?.iconColor} />
+
         return (
             <GenerateLi
-            style={style}
-            key={index} icon={<BsGlobe color={style.profile_li.iconColor}></BsGlobe>} text={u} color={color}></GenerateLi>
+                key={index}
+                icon={icon}
+                text={u}
+                color={color}
+                style={style}
+            />
         )
     }
+    )
 }
-)
 
-const GenerateContactList = ({ personalDetails, urls,    style, color = "blue",}) => (
+const GenerateContactList = ({ personalDetails, urls, style, color = "blue", }) => (
     <>
         <GenerateLi
-        style={style}
-        icon={<BiMobile color={style?.profile_li.iconColor}></BiMobile>} text={personalDetails.phone} color={color}></GenerateLi>
-        <GenerateLi 
-        
-        style={style}
-        icon={<MdEmail color={style?.profile_li.iconColor}></MdEmail>} text={personalDetails.email} color={color}></GenerateLi>
-        <GenerateWebsiteURL 
-        style={style}
-        urls={urls || personalDetails.urls} color={color} />
+            style={style}
+            icon={<BiMobile color={style?.profile_li.iconColor}></BiMobile>} text={personalDetails.phone} color={color}></GenerateLi>
+        <GenerateLi
+
+            style={style}
+            icon={<MdEmail color={style?.profile_li.iconColor}></MdEmail>} text={personalDetails.email} color={color}></GenerateLi>
+        <GenerateWebsiteURL
+            style={style}
+            urls={urls || personalDetails.urls} color={color} />
         {/* <GenerateLi icon={<LiaLinkedin color="blue"></LiaLinkedin>} text={personalDetails.linkedin}></GenerateLi> */}
     </>
 )
-const AddressWithMarker = ({ address, fontWeight = "500", color = "black", size = 18, fontSize = "15px" }) => (
+const AddressWithMarker = ({ address, style, size = 18, iconColor }) => (
     <div className="flex items-center">
-        <LiaMapMarkerSolid color={color} size={size} />
-        <P fontWeight={fontWeight} color={color}>{address}</P>
+        <LiaMapMarkerSolid color={iconColor} size={size} />
+        <p style={{ ...style }}>{address}</p>
     </div>
 )
 
-const generateContactListWithoutIcon = ({ contactInfos,style }) => (
+const generateContactListWithoutIcon = ({ contactInfos, style }) => (
 
     contactInfos.map((contact, index) => (
-        <Li key={index} style={{...style}}>{contact}</Li>
+        <Li key={index} style={{ ...style }}>{contact}</Li>
     ))
 
 )
-const generateResumeHeader = ({ personalDetails, layout_no,  style,props}) => {
+const generateResumeHeader = ({ personalDetails, layout_no, style, props }) => {
     const { name, address, profile, urls, profession, email, phone } = personalDetails
-    const {shouldIncludeProfession=true,shouldIncludeAddress,shouldIncludeIcon,shouldIncludeImage}=props
-console.log(shouldIncludeIcon,shouldIncludeImage)
+    const { flexImage,
+        shouldIncludeProfession = true,
+        shouldIncludeAddress,
+        shouldIncludeIcon,
+        rectangularImage,
+        shouldIncludeImage } = props
+
+    const Address = shouldIncludeAddress && (
+        <AddressWithMarker address={address} style={style.profile_li} iconColor={style?.profile_li.iconColor}
+            fontSize={style.p.fontSize} />)
+
+    const ContactList = <Ul margin="0"{...style.profile_ul}>
+
+        {
+            shouldIncludeIcon ? <GenerateContactList personalDetails={personalDetails} color={style.p.color}
+                style={style}
+            /> :
+                generateContactListWithoutIcon({ contactInfos: [phone, email, ...urls, address], style: style.profile_li })}
+    </Ul>
+
+    const Profession = shouldIncludeProfession && <h2 style={{ ...style?.titleStyle }}>{profession}</h2>
+    const Image = <img src={`${profile[1]}`} alt="image"></img>
+    const RoundedImage = <Avatar margin="0">{Image}</Avatar>
+    const RectangularImage = <RectangularContainer>{Image}</RectangularContainer>
+    const Name = <h1 style={{ ...style?.nameStyle }}>{name}</h1>
+    if (flexImage && shouldIncludeImage) {
+        return (
+            <FlexBox backgroundColor={style.headerBg}
+                padding={style.headerBg ? "20mm 20mm 10mm 20mm" : "0"}
+                justifyContent="space-between">
+                <div>
+                    {Name}
+                    {Profession}
+                    {ContactList}
+                    {Address}
+                </div>
+                {
+                    rectangularImage ? RectangularImage : RoundedImage
+                }
+            </FlexBox>
+        )
+    }
     return (
         <div>
             {
-                shouldIncludeImage && (<Avatar><img src={`${profile[1]}`} alt="image"></img></Avatar>)
+                shouldIncludeImage && RoundedImage
             }
-            <h1 style={{ ...style?.nameStyle }}>{name}</h1>
-            {shouldIncludeProfession&& <h2 style={{ ...style?.titleStyle }}>{profession}</h2>}
-            <Ul  margin="0"{...style.profile_ul}>
-
-                {
-                    shouldIncludeIcon ? <GenerateContactList personalDetails={personalDetails} color={style.p.color}
-                    style={style}
-                    /> :
-                        generateContactListWithoutIcon({ contactInfos: [phone, email, ...urls, address] ,style:style.profile_li})}
-            </Ul>
-            {
-                shouldIncludeAddress  &&  <AddressWithMarker address={address} color={style.p.color} fontSize={style.p.fontSize} />
-            }
-            
+            {Name}
+            {Profession}
+            {ContactList}
+            {Address}
         </div>
     )
 
 }
 
-const ResumeHeader = ({ personalDetails, layout_no, style, layout_type = "classical", ...props})=>{
-    console.log("props",props)
-    return generateResumeHeader({personalDetails,layout_no,style,props})
+const ResumeHeader = memo(({ personalDetails, layout_no, style, layout_type = "classical", ...props }) => {
+    return generateResumeHeader({ personalDetails, layout_no, style, props })
 
-}
+})
 export default ResumeHeader

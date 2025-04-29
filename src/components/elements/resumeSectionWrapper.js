@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const Section = styled.section.withConfig({
-    shouldForwardProp: (props) => !['marginTop', 'textAlign', 'flex'].includes(props)
-  })`
+  shouldForwardProp: (props) => !['marginTop', 'textAlign', 'flex'].includes(props)
+})`
     color: black;
     text-align: ${(props) => props.textAlign || 'center'};
     font-weight: ${(props) => props.fontWeight || '500'};
@@ -12,7 +12,7 @@ export const Section = styled.section.withConfig({
 
 
 
-  export const FlexSection = styled.div`
+export const FlexSection = styled.div`
     flex-grow: ${({ flex }) => flex || 1}; /* Default to flex-grow: 1 if no flex prop is provided */
   
     padding: 10px; 
@@ -21,7 +21,7 @@ export const Section = styled.section.withConfig({
   `;
 
 export const H1 = styled.h1.withConfig({
-    shouldForwardProp: (props) => !["textAlign"].includes(props)
+  shouldForwardProp: (props) => !["textAlign"].includes(props)
 })`
       font-weight: ${(props) => props.fontWeight || "400"};
       font-family: ${(props) => props.fontFamily || "system-ui, Avenir, Helvetica, Arial, sans-serif"};
@@ -30,30 +30,40 @@ export const H1 = styled.h1.withConfig({
       text-align:${(props) => props.textAlign || "center"};F
     `;
 
-export const SectionContent = styled.div`
+export const SectionContent = styled.div.withConfig({
+  shouldForwardProp: (props) => !["paddingTop"].includes(props)
+})`
     padding-top:${(props) => props.paddingTop || "0px"};
     `
 export const H2 = styled.h2.withConfig({
-    shouldForwardProp:(props)=>!["fontFamily","textAlign"].includes(props)
+  shouldForwardProp: (props) => !["fontFamily", "textAlign"].includes(props)
 })`
     font-weight:${(props) => props.fontWeight || "bold"};
     font-size:${(props) => props.fontSize || "18px"};
     color:${(props) => props.color || "black"};
-    font-family:${({fontFamily})=>fontFamily};
-    text-align:${({textAlign})=>textAlign||"left"};
+    font-family:${({ fontFamily }) => fontFamily};
+    text-align:${({ textAlign }) => textAlign || "left"};
     
     `
 export const H3 = styled.h3.withConfig({
-    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
+  shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
 })`
     font-weight:${(props) => props.fontWeight || "600"};
-    font-family:${({fontFamily})=>fontFamily};
+    font-family:${({ fontFamily }) => fontFamily};
     font-size:${(props) => props.fontSize || "15px"};
     text-align:${(props) => props.textAlign || "center"};
      color:${(props) => props.color || "black"};
     `
 export const Ul = styled.ul.withConfig({
-    shouldForwardProp: (props) => !["alignItems", "justifyContent", "listStyle","listStylePosition","textAlign"].includes(props)
+  shouldForwardProp: (props) => !["alignItems", 
+    "alignContent",
+     "flexWrap",
+    "listStyleType",
+     "justifyContent", 
+    "listStyle", 
+    "listStylePosition",
+     "textAlign"
+    ].includes(props)
 })`
     display: ${(props) => props.display || "flex"};
     list-style: ${(props) => props.listStyle || "disc"};
@@ -62,13 +72,13 @@ export const Ul = styled.ul.withConfig({
     justify-content: ${(props) => props.justifyContent || "center"};
     font-weight: ${(props) => props.fontWeight || "normal"};
     gap: ${(props) => props.gap || "10px"};
-    list-style-position:${(props)=>"inside"};
+    list-style-position:${(props) => "inside"};
     margin:${(props) => props.margin || "10px 0 0 0"};
     padding:${(props) => props.padding || "0"};
-    text-align:${({textAlign})=>textAlign||"left"}
+    text-align:${({ textAlign }) => textAlign || "left"}
   `;
-  export const Li = styled.li.withConfig({
-    shouldForwardProp: (props) => !["alignItems", "justifyContent"].includes(props)
+export const Li = styled.li.withConfig({
+  shouldForwardProp: (props) => !["alignItems", "justifyContent", "textAlign", "alignContent", "iconColor"].includes(props)
 })`
     font-weight:${(props) => props.fontWeight || "normal"};
     font-size:${(props) => props.fontSize || "12px"};
@@ -85,7 +95,7 @@ export const Ul = styled.ul.withConfig({
 // flex list-disc  items-center content-center justify-center gap-5 font-normal
 
 export const P = styled.p.withConfig({
-    shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
+  shouldForwardProp: (props) => !['marginTop', 'textAlign'].includes(props)
 })`
     font-weight:${(props) => props.fontWeight || "normal"};
     font-size:${(props) => props.fontSize || "15px"};
@@ -94,7 +104,7 @@ export const P = styled.p.withConfig({
     `
 
 export const InnerContentWrapper = styled.div.withConfig({
-    shouldForwardProp: (props) => !["justifyContent"].includes(props)
+  shouldForwardProp: (props) => !["justifyContent"].includes(props)
 })`
     display:flex;
     justify-content:${(props) => props.justifyContent || "space-between"};
@@ -102,7 +112,7 @@ export const InnerContentWrapper = styled.div.withConfig({
 
 
 export const FlexCard = styled.div.withConfig({
-    shouldForwardProp: (props) => !["justifyContent"].includes(props)
+  shouldForwardProp: (props) => !["justifyContent"].includes(props)
 })`
 display:flex;
 justify-content:${(props) => props.justifyContent || "start"};
@@ -111,13 +121,13 @@ gap:${(props) => props.gap || "10px"};
 // align-items:center;
 `
 export const IconHolder = styled.div.withConfig({
-    shouldForwardProp: (props) => !["backgroundColor", "borderRadius","shouldBoxShadow"].includes(props)
+  shouldForwardProp: (props) => !["backgroundColor", "borderRadius", "shouldBoxShadow"].includes(props)
 })`
 margin:${(props) => props.margin || "0 5px 0 0"};
 background-color:${(props) => props.backgroundColor || "transparent"};
 padding:${(props) => props.padding || "0"};
 border-radius:${(props) => props.borderRadius || "0"};
-box-shadow:${(props)=>props.shouldBoxShadow  ? "5px 5px 10px rgba(0,0,0,.6)":null };
+box-shadow:${(props) => props.shouldBoxShadow ? "5px 5px 10px rgba(0,0,0,.6)" : null};
 `
 export const SkillCardWrapper = styled.div`
 display:flex;
@@ -146,19 +156,19 @@ export const Textarea = styled.textarea`
 `;
 
 export const LeftColumn = styled.div.withConfig({
-  shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
+  shouldForwardProp: (props) => !["backgroundColor"].includes(props)
 })`
-  flex: ${({flex})=>flex||"3"};
-  background-color:${({backgroundColor})=>backgroundColor||"#fff"};
-  padding:${({padding})=>padding||"40px 20px 40px 40px"};
+  flex: ${({ flex }) => flex || "3"};
+  background-color:${({ backgroundColor }) => backgroundColor || "#fff"};
+  padding:${({ padding }) => padding || "40px 20px 40px 40px"};
 `;
 export const RightColumn = styled.div.withConfig({
-  shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
+  shouldForwardProp: (props) => !["backgroundColor"].includes(props)
 })`
-  flex: ${({flex})=>flex||"2"};
-  background-color:${({backgroundColor})=>backgroundColor||"#1c2a45"};
+  flex: ${({ flex }) => flex || "2"};
+  background-color:${({ backgroundColor }) => backgroundColor || "#1c2a45"};
   color: #fff;
-  padding:${({padding})=>padding||"20px 40px 20px 20px"};
+  padding:${({ padding }) => padding || "20px 40px 20px 20px"};
   min-height:297mm;
 `;
 

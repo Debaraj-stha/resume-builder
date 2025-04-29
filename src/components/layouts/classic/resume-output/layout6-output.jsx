@@ -51,7 +51,8 @@ const getlayout6OutputSection = (data, layout_no) => {
             divider: divider
         }),
         ...generateExperienceSections({
-            experiences, layout_no, style: {
+            experiences, layout_no,
+             style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,

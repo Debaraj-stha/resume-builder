@@ -42,29 +42,19 @@ const getProficiencyPercent = (level) => {
 
 
 
-const LanguageCard = ({ language,layout_no,style }) => {
+const LanguageCard = ({ language,layout_no,style ,...props}) => {
     const percent = getProficiencyPercent(language.proficiency);
-    switch(layout_no){
-      case 3:
-        return(
-          <LanguageWrapper>
-            <H2 fontFamily="'Roboto', sans-serif" color="#0f0771" textAlign="left" fontWeight="normal" fontSize="18px" >{language.language}</H2>
-            <ProgressBarContainer>
-              <ProgressBar percent={percent} color="#0f0771"/>
-            </ProgressBarContainer>
-          </LanguageWrapper>
-        )
-        
-      default:
+    const {side}=props
+
         return (
           <LanguageWrapper>
-            <h2 style={{...style.h2}}>{language.language}</h2>
+            <h2 style={{...style?.sectionSubHeader,...(props.side==="right") && {color:"white"}}}>{language.language}</h2>
             <ProgressBarContainer>
-              <ProgressBar percent={percent} color={style.color} />
+              <ProgressBar percent={percent} color={style?.barColor} />
             </ProgressBarContainer>
           </LanguageWrapper>
         );
-    }
+    
   
   };
 export default LanguageCard

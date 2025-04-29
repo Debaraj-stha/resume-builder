@@ -15,7 +15,7 @@ import getSimpleLayout1 from "./layoutui/simple/simple-layout-1";
 
 
 const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "classical",shouldImplementFlex=false }) => {
-    console.log("layout type",layout_type)
+
 
     switch (layout_type) {
         case layout_type_map.CLASSICAL:

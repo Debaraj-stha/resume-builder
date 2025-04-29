@@ -21,14 +21,25 @@ import ClassicalLayout3 from "./layouts/classic/layout-3/layout";
 import ClassicalLayout4 from "./layouts/classic/layout-4/layout";
 import ClassicalLayout5 from "./layouts/classic/layout-5/layout";
 import ClassicalLayout6 from "./layouts/classic/layout-6/layout";
-
+import ModernLayout1 from "./layouts/modern/layout-1/layout";
+import ModernLayout2 from "./layouts/modern/layout-2/layout";
+import ModernLayout3 from "./layouts/modern/layout-3/layout";
+import ModernLayout4 from "./layouts/modern/layout-4/layout"
+import ModernLayout5 from "./layouts/modern/layout-5/layout"
+import ModernLayout6 from "./layouts/modern/layout-6/layout"
 const layoutComponents = [
-  { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
-  { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ClassicalLayout3, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
-  { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
+  // { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout3, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
+  // { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout1, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout2, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout3, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout4, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout5, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: ModernLayout6, titleKey: "Timeline", descriptionIndex: 1 },
 ];
 
 const AllLayouts = () => {

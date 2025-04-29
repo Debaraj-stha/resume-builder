@@ -7,6 +7,7 @@ import generateSkill from "../../section-data/skill_section_data";
 import generateEducation from "../../section-data/education_secion_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateProfileDetails from "../../section-data/profile_details";
+import { layout_type_map } from "../../../../constant";
 
 const getModernLayout5OutputSectionData = (data, layout_no) => {
     const {
@@ -23,13 +24,27 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
     const layout_type = layout_type_map.MODERN
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type,
-            shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            personalDetails: personalDetails, layout_no: layout_no, layout_type: layout_type,
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle,
+                headerBg: style?.headerBackground
+            },
+            props: {
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true,
+                shouldIncludeImage: true,
+                flexImage: true,
+                rectangularImage: true
+            }
 
         }),
         generateExperience({
-            experiences,
+            experiences: experiences.slice(0, 2),
             layout_no,
             layout_type: layout_type,
             divider,
@@ -38,10 +53,10 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                header: style.sectionHeader,
-                subSection: style.sectionSubHeader,
-                sectionHeader: style.sectionHeader
-            }
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
+            },
+            titleHeader: "professional experiences"
         }),
         generateEducation({
             educations,
@@ -53,46 +68,55 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
-            }
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
 
         }),
         generateSkill({
-            skills,
+            skills: skills.slice(0, 4),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
-                header: style.sectionHeader,
+
                 h1: style.h1,
                 h2: style.h2,
-                h3: style.h3
+                h3: style.h3,
+                sectionSubHeader: style.sectionSubHeader
             },
             layout_no: layout_no,
             layout_type: layout_type_map.SIMPLE,
-            titleHeader: "technical experiences"
+            titleHeader: "technical skills",
+            props: {
+                borderBox: true
+            }
+
+        }),
+
+        generateStrength({
+            strengths: strengths.slice(0, 5),
+            layout_no,
+            layout_type: layout_type,
+            divider,
+            style: {
+                sectionHeader: style.sectionHeader,
+                h2: style.h2,
+                p: style.p,
+                sectionSubHeader: style.sectionHeader
+
+            }
 
         }),
         generateIndustryExpertise({
             industryExpertise,
             layout_no,
+            divider,
             layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 sectionSubHeader: style.sectionSubHeader
             },
-            sectionHeader: "expertise"
-        }),
-        generateStrength({
-            strengths,
-            layout_no,
-            layout_type: layout_type,
-            divider,
-            style: {
-                sectionHeader: style.sectionHeader,
-                h2: style.h2,
-                p: style.p
-            }
-
+            sectionHeader: "industry expertise"
         }),
     ]
 }

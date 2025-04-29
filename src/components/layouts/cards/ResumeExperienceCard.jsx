@@ -7,7 +7,7 @@ import { CgCalendar } from "react-icons/cg"
 
 
 const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, props }) => {
-    console.log("simple experience card called")
+
     const { position, startDate, endDate, companyName, aboutCompany, location, achievements } = experience
     const {
         applyFlex,
@@ -51,7 +51,7 @@ const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, prop
                 {/* When applyFlex is true and includeDateAndAddress is true */}
 
                 <FlexBox margin="0" justifyContent="space-between"  {...(applyFlex) ? { display: "flex" } : { display: "block" }}>
-                    <FlexBox  display= "block" alignItems="center" margin="0">
+                    <FlexBox display="block" alignItems="center" margin="0">
                         {
                             //awap position of elemenet based on flag
                             swapPosition ?
@@ -71,16 +71,16 @@ const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, prop
                     {applyFlex && (
                         <FlexBox margin="0" alignItems="center">
                             {
-                                includeDate && <P style={{ ...style.p }}>{startDate} - {endDate}</P>
+                                includeDate && <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>
 
                             }
                             {
-                                includeAddrss && <P style={{ ...style.p }}>{location}</P>
+                                includeAddrss && <P style={{ ...style.p, textAlign: "right" }}>{location}</P>
                             }
                             {
                                 includeDateAndAddress && (<div>
-                                    <P style={{ ...style.p }}>{location}</P>
-                                    <P style={{ ...style.p }}>{startDate} - {endDate}</P>
+                                    <P style={{ ...style.p, textAlign: "right" }}>{location}</P>
+                                    <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>
                                 </div>)
                             }
                         </FlexBox>
@@ -120,8 +120,6 @@ const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, prop
 
 
 const ExperienceCard = memo(({ experience, layout_no, style, layout_type = "classical", ...props }) => {
-
-    console.log("props", props)
     return generateSimpleResumeExperienceCard({ experience, layout_no, style, props })
 
 

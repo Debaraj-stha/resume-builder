@@ -26,7 +26,7 @@ const generateStrength = ({ strengths, style, divider, layout_no, layout_type = 
                                             key={index}
                                             layout_no={layout_no}
                                             layout_type={layout_type}
-                                            style={{ h2: style.h2, p: style.p }}
+                                            style={style}
                                             strength={strength}
                                             {...props}
                                             />
@@ -40,7 +40,7 @@ const generateStrength = ({ strengths, style, divider, layout_no, layout_type = 
                                     key={index}
                                     layout_no={layout_no}
                                     layout_type={layout_type}
-                                    style={{ h2: style.h2, p: style.p }}
+                                    style={style}
                                     strength={strength}
                                     {...props}
                                     />

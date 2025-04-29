@@ -19,7 +19,7 @@ const generatePassionSectionData = ({ passions, style, divider, layout_no, layou
                 <SectionContent>
                     <FlexBox flexWrap="wrap" margin="0">
                         {
-                            passions.slice(0, 1).map((passion, index) => (
+                            passions.map((passion, index) => (
                                 <PassionCard key={index} passion={passion} layout_no={layout_no} layout_type={layout_type} style={{ h2: style.h2 }} />
                             ))
                         }

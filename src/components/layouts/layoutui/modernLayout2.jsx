@@ -11,6 +11,10 @@ const getModernLayout2 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
       key_val,
       leftFlex: "2",
       rightFlex: "3",
+      props:{
+        leftPadding:"0 15px 0 0",
+        rightPadding:"0"
+      }
      
     });
   };

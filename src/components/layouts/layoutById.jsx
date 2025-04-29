@@ -4,13 +4,13 @@ const classicalLayoutById = (layoutId) => {
   //dynamically importing the layouts
   switch (layoutId) {
     case 1:
-      console.log("Loading Classical Layout 1");
+      
       return lazy(() => import("./classic/layout-1/layout"));
     case 2:
-      console.log("Loading Classical Layout 2");
+     
       return lazy(() => import("./classic/layout-2/layout"));
     case 3:
-      console.log("Loading Classical Layout 3");
+     
       return lazy(() => import("./classic/layout-3/layout"));
     default:
       return () => <h1>Default Classical Layout</h1>;

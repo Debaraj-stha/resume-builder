@@ -21,7 +21,7 @@ const generateIndustryExpertise=({industryExpertise,layout_no,style,divider,layo
                             industryExpertise.slice(0, 2).map((expertise, index) => (
                                 <ExpertiseCard key={index} expertise={expertise} 
                                 layout_type={layout_type}
-                                layout_no={layout_no} style={{ sectionSubHeader: style.sectionSubHeader }}
+                                layout_no={layout_no} style={style}
                                 />
                             ))
                         }

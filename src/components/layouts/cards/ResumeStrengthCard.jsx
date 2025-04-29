@@ -8,8 +8,8 @@ const generateSimpleStrengthCard = ({ strength, layout_no, style }) => {
         <>
 
             <div className="text-left">
-                <h2 style={{ ...style.h2 }}>{strength.title}</h2>
-                <p style={{ ...style.p }}>{strength.description}</p>
+                <h2 style={{ ...style?.sectionSubHeader }}>{strength.title}</h2>
+                <p style={{ ...style?.p }}>{strength.description}</p>
             </div>
 
 

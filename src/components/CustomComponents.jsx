@@ -203,7 +203,7 @@ export const Avatar = styled.div`
   background-color: ${({ theme }) => theme.colors.accent + '20'};
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 1rem;
+  margin: ${({margin})=>margin||"0 auto 1rem"};
 
   img {
     width: 100%;
@@ -277,7 +277,7 @@ background:black;
 `
 
 export const FlexBox=styled.div.withConfig({
-  shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap"].includes(props)
+  shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap","backgroundColor"].includes(props)
 })`
 display:${({display})=>display||"flex"};
 gap:${({gap})=>gap||"10px"};
@@ -288,10 +288,13 @@ align-content: center;
 // flex-wrap: wrap;
 padding:${({padding})=>padding||"0"};
 flex-wrap:${({flexWrap})=>flexWrap||"nowrap"};
+background-color:${({backgroundColor})=>backgroundColor||"transparent"}
 
 
 `
-export const ColumnFlexBox=styled(FlexBox)`
+export const ColumnFlexBox=styled(FlexBox).withConfig({
+  shouldForwardProp:(props)=>!["flexDirection"].includes(props)
+})`
 flex-direction:${({flexDirection})=>flexDirection||"column"};
 gap:${({gap})=>gap||"10px"};
 `
@@ -308,6 +311,7 @@ export const BorderBox = styled.div.withConfig({
 border:1px solid;
 border-radius:1px;
 padding:${({padding})=>padding||"0 5px 0 0"};
+margin:${({margin})=>margin||"5px"};
 border-top-color:${({borderTopColor})=>borderTopColor||"transparent"};
 border-bottom-color:${({borderBottomColor})=>borderBottomColor||"transparent"};
 border-left-color:${({borderLeftColor})=>borderLeftColor||"transparent"};

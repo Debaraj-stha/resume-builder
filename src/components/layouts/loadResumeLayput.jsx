@@ -4,12 +4,12 @@ import { layout_type_map } from "../../constant";
 
 // Custom hook to dynamically import and render layout sections based on layoutId
 const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical") => {
-  console.log("use dyamic", layout_type)
+
   // Initialize state to hold the output sections from the layout file
   //function to load modern layout sections
   const [sections, setSections] = useState([]);
   const loadModernLayout = async (isMounted) => {
-    console.log("called modern load layout")
+
     let layoutModule;
     switch (layoutId) {
       case 1:
@@ -22,7 +22,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         layoutModule = await import("./modern/layout-output/layout-3-output")
         break
       case 4:
-        console.log("loading moderl layout 4")
+
         layoutModule = await import("./modern/layout-output/layout4-output")
         break
 
@@ -94,7 +94,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         break
       default:
         layoutModule = null
-        console.log("loading default simple layout")
+
     }
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, layoutId)
