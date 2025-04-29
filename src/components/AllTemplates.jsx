@@ -27,6 +27,7 @@ import ModernLayout3 from "./layouts/modern/layout-3/layout";
 import ModernLayout4 from "./layouts/modern/layout-4/layout"
 import ModernLayout5 from "./layouts/modern/layout-5/layout"
 import ModernLayout6 from "./layouts/modern/layout-6/layout"
+import CreativeLayout1 from   "./layouts/creative/layout-1/layout"
 const layoutComponents = [
   // { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
   // { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
@@ -34,12 +35,12 @@ const layoutComponents = [
   // { Component: ClassicalLayout4, titleKey: "Timeline", descriptionIndex: 1 },
   // { Component: ClassicalLayout5, titleKey: "Ivy League", descriptionIndex: 0 },
   // { Component: ClassicalLayout6, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout1, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout2, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout3, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout4, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout5, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: ModernLayout6, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ModernLayout1, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ModernLayout2, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ModernLayout3, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ModernLayout4, titleKey: "Timeline", descriptionIndex: 1 },
+  // { Component: ModernLayout5, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: CreativeLayout1, titleKey: "Timeline", descriptionIndex: 1 },
 ];
 
 const AllLayouts = () => {

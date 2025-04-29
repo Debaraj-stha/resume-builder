@@ -11,6 +11,7 @@ import getModernLayout5 from "./layoutui/modern-layout-5";
 import getModernLayout6 from "./layoutui/modern-layout-6";
 import { layout_type_map } from "../../constant";
 import getSimpleLayout1 from "./layoutui/simple/simple-layout-1";
+import renderCreativeLayoutUI from "./layoutui/creative/creative-layout-ui";
 
 
 
@@ -39,7 +40,8 @@ const LayoutUi = memo(({ pages, layoutId, key_val, sectionRefs, layout_type = "c
             }
         case layout_type_map.SIMPLE:
             return getSimpleLayout1({pages,layoutId,key_val,layout_type:"simple",sectionRefs,shouldImplementFlex})
-
+        case layout_type_map.CREATIVE:
+            return renderCreativeLayoutUI({pages,layoutId,key_val,layout_type:"creative",sectionRefs,shouldImplementFlex})
 
         default:
             console.log("default")

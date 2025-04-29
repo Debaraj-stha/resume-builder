@@ -103,7 +103,16 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
   }
 
   const loadCreativeLayout = async (isMounted) => {
-
+    let layoutModule
+    switch(layoutId){
+      case 1:
+        layoutModule=await import("./creative/layout-output/layout-1-output")
+        break
+    }
+    if(layoutModule && isMounted){
+      const output=layoutModule.default(resumeData,layoutId)
+      setSections(output)
+    }
   }
   // useEffect runs whenever layoutId or resumeData changes
   useEffect(() => {

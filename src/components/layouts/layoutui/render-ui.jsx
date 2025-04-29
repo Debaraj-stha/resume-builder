@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { LeftColumn, RightColumn, Section } from "../../elements/resumeSectionWrapper";
 import { FlexResumeWrapper, ModernResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
-import { useEffect } from "react";
+import CurvedWrapper from "../wrappers/curved-wrapper";
+import { lazy, useEffect } from "react";
 export const Wrapper = styled.div`
 display: flex;
 padding: 0;
@@ -24,7 +25,12 @@ const renderLayout = ({
     mainPadding:"20mm"
   }
 }) => {
-const{leftPadding,rightPadding,mainPadding}=props
+  console.log("p",props)
+const{leftPadding,rightPadding,mainPadding,layout}=props
+const layout_map={
+  CURVED:"curved",
+  GRID:"grid"
+}
   const renderSection = (section, index) => {
     const SectionContent = section.content(key_val?.[section.key]);
     return (
@@ -37,6 +43,15 @@ const{leftPadding,rightPadding,mainPadding}=props
       </Section>
     );
   };
+  let CustomWrapper
+  console.log()
+  if(layout===layout_map.CURVED){
+    CustomWrapper=CurvedWrapper
+  }
+  else{
+    CustomWrapper=ResumeWrapper
+  }
+  
 
 
 
@@ -99,7 +114,7 @@ const{leftPadding,rightPadding,mainPadding}=props
   });
 
   return (
-    <ResumeWrapper padding={mainPadding}>
+    <CustomWrapper padding={mainPadding}>
       {headerSection}
       <Wrapper>
         <LeftColumn
@@ -116,7 +131,7 @@ const{leftPadding,rightPadding,mainPadding}=props
           {rightColumn}
         </RightColumn>
       </Wrapper>
-    </ResumeWrapper>
+    </CustomWrapper>
   );
 };
 
