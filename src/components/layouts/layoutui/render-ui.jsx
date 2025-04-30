@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { LeftColumn, RightColumn, Section } from "../../elements/resumeSectionWrapper";
 import { FlexResumeWrapper, ModernResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
 import CurvedWrapper from "../wrappers/curved-wrapper";
+import { CreativeResumeWrapperWithLine } from "../../elements/resumeWrapper";
 import { lazy, useEffect } from "react";
 export const Wrapper = styled.div`
 display: flex;
@@ -10,6 +11,20 @@ margin: 0;
 min-width: 100%;
 max-height: 100%;
 `;
+const RectangularContainer = styled.div`
+    border-radius: 5px;
+    height: 130px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    background:${({ backgroundColor }) => backgroundColor || "#660c09"};
+
+`
+
+
 const renderLayout = ({
   pages,
   sectionData,
@@ -19,20 +34,35 @@ const renderLayout = ({
   leftFlex = "2",
   rightFlex = "3",
   background = "transparent",
-  props={
-    leftPadding:"0",
-    rightPadding:"0",
-    mainPadding:"20mm"
+  props = {
+    leftPadding: "0",
+    rightPadding: "0",
+    mainPadding: "20mm",
+    personalDetailsOnLeft: false
   }
 }) => {
-  console.log("p",props)
-const{leftPadding,rightPadding,mainPadding,layout}=props
-const layout_map={
-  CURVED:"curved",
-  GRID:"grid"
-}
+
+  const { leftPadding, rightPadding, mainPadding, layout, personalDetailsOnLeft, includeNameInitial } = props
+
+  const layout_map = {
+    CURVED: "curved",
+    NORMAL: "normal",
+    LINE: "line"
+
+  }
+
+  const NameInitial = () => {
+    const name=key_val.personalDetails.name
+    const names = name.split(" ")
+    const fnameFirstChar = names[0][0]
+    const lnameFirstChar = names[1][0]
+    //display initial letter as image
+    return <RectangularContainer><h1>{fnameFirstChar}{lnameFirstChar}</h1></RectangularContainer>
+  }
+
   const renderSection = (section, index) => {
     const SectionContent = section.content(key_val?.[section.key]);
+
     return (
       <Section
         key={section.id || section.key || index}
@@ -44,14 +74,17 @@ const layout_map={
     );
   };
   let CustomWrapper
-  console.log()
-  if(layout===layout_map.CURVED){
-    CustomWrapper=CurvedWrapper
+
+  if (layout === layout_map.CURVED) {
+    CustomWrapper = CurvedWrapper
   }
-  else{
-    CustomWrapper=ResumeWrapper
+  else if (layout === layout_map.LINE) {
+    CustomWrapper = CreativeResumeWrapperWithLine
   }
-  
+  else {
+    CustomWrapper = ResumeWrapper
+  }
+
 
 
 
@@ -67,9 +100,13 @@ const layout_map={
 
         const content = renderSection(section, sectionIndex);
         if (sectionIndex === 0) {
-          if (layout_no === 1) {
+          // if (layout_no === 1) {
+          if (personalDetailsOnLeft) {
             leftColumn.push(content);
-            rightColumn.push(<Section key="placeholder" marginTop="100px" />);
+            console.log(content)
+            rightColumn.push(
+              includeNameInitial ? <NameInitial key={`name_initial_${sectionIndex}`} /> :
+                <Section key="placeholder" marginTop="100px" />);
           } else {
             headerSection = content;
           }
@@ -98,11 +135,15 @@ const layout_map={
   let headerSection = null;
 
   sectionData.forEach((section, index) => {
+ 
     const content = renderSection(section, index);
     if (index === 0) {
-      if (layout_no === 1) {
+ 
+      // if (layout_no === 1) {
+      if (personalDetailsOnLeft) {
         leftColumn.push(content);
-        rightColumn.push(<Section key="placeholder" marginTop="100px" />);
+        rightColumn.push(includeNameInitial ? <NameInitial key={`name_initial_${index}`} /> :
+          <Section key="placeholder" marginTop="100px" />);
       } else {
         headerSection = content;
       }

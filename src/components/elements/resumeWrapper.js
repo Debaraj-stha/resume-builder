@@ -37,6 +37,7 @@ export const CreativeResumeWrapper1 = styled(ResumeWrapper)`
     border: 3px solid;
     border-color: white white transparent white;
     transform: translateY(50%);
+    z-index:12;
   }
 
   &::before {

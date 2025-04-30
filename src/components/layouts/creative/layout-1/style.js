@@ -1,4 +1,4 @@
-export const layout_1_style= {
+export const layout_1_style = {
     primaryColor: "#000000", // Black for headers and important text
     fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     backgroundColor: "#ffffff", // White background
@@ -21,19 +21,22 @@ export const layout_1_style= {
     titleStyle: {
         fontSize: "16px",
         fontWeight: "500",
-        color: "#0040ff", 
+        color: "#0040ff",
         letterSpacing: "0px",
-        textAlign: "left"
+        textAlign: "left",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     profile_ul: {
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "start",
         alignItems: "center",
         alignContent: "center",
         flexWrap: "wrap",
-        listStyleType:"none",
-        listStylePosition:"inside"
+        listStyleType: "none",
+        listStylePosition: "inside",
+        gap: "5px",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     profile_li: {
@@ -41,11 +44,12 @@ export const layout_1_style= {
         color: "#000000",
         padding: "4px 8px",
         textAlign: "center",
-        display:"flex",
-        justifyContent:"space-between",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+        display: "flex",
+        justifyContent: "space-between",
         alignItems: "center",
         alignContent: "center",
-        iconColor:"#0040ff"
+        iconColor: "#0040ff"
     },
 
     sectionHeader: {
@@ -54,14 +58,16 @@ export const layout_1_style= {
         color: "#000000",
         textTransform: "uppercase",
         textAlign: "left",
-        // marginBottom: "8px",
+        marginBottom: "4px",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     sectionSubHeader: {
         fontSize: "13px",
         fontWeight: "600",
-        color: "#0040ff", 
-        textAlign: "left"
+        color: "#0040ff",
+        textAlign: "left",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
         // margin: "4px 0",
     },
 
@@ -70,6 +76,7 @@ export const layout_1_style= {
         lineHeight: "1.6",
         color: "#4f4f4f",
         textAlign: "left",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     h1: {
@@ -77,6 +84,7 @@ export const layout_1_style= {
         fontWeight: "600",
         textAlign: "left",
         color: "#000000",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     h2: {
@@ -84,6 +92,7 @@ export const layout_1_style= {
         fontWeight: "600",
         color: "#000000",
         textAlign: "left",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
     h3: {
@@ -91,29 +100,8 @@ export const layout_1_style= {
         fontWeight: "500",
         color: "#000000",
         textAlign: "left",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
 
-    experience_item: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: "16px"
-    },
 
-    education_item: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: "16px"
-    },
-
-    tagStyle: {
-        backgroundColor: "#f5f5f5", // Light gray background for tags if needed
-        color: "#000000",
-        fontSize: "11px",
-        padding: "4px 8px",
-        borderRadius: "12px",
-        display: "inline-block",
-        margin: "2px",
-    },
 };

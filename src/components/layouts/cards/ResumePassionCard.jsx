@@ -1,19 +1,24 @@
-import { layout_type_map } from "../../../constant"
-import { H2 } from "../../elements/resumeSectionWrapper"
-const generateModernPassionCard = ({ passion, layout_no,style }) => {
-    switch (layout_no) {
-        case 4:
-            return (
-                <>
-                <H2 style={{...style.h2}}>{passion}</H2>
-                </>
-            )
-    }
+
+import { FlexBox } from "../../CustomComponents"
+import { FaFire } from "react-icons/fa"
+const generateModernPassionCard = ({ passion, layout_no, style, ...props }) => {
+    const { shouldIncludeIcon } = props
+    return (
+        <>
+            <FlexBox margin="0" gap="10px">
+               {
+                shouldIncludeIcon && <FaFire color={style?.iconColor?style?.iconColor:"orange"}/>
+               }
+                <h2 style={{ ...style.sectionSubHeader }}>{passion}</h2>
+            </FlexBox>
+        </>
+    )
+
 }
-const PassionCard = ({ passion, layout_type = "modern", layout_no, style }) => {
-    if (layout_type === layout_type_map.MODERN) {
-        return generateModernPassionCard({ passion, layout_no, style })
-    }
+const PassionCard = ({ passion, layout_type = "modern", layout_no, style, ...props }) => {
+
+    return generateModernPassionCard({ passion, layout_no, style, ...props })
+
 }
 
 export default PassionCard

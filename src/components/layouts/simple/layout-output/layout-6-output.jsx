@@ -82,7 +82,8 @@ const getSimpleLayout6SectionData = (data, layout_no) => {
             layout_type: layout_type_map.SIMPLE,
             style: {
                 sectionHeader: style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
+                h3: style.h3,
+                p: style.p
             }
 
         }),

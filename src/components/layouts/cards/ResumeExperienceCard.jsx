@@ -1,159 +1,119 @@
-import { memo } from "react"
-import { Li, P, Ul } from "../../elements/resumeSectionWrapper"
-import { FlexBox, VerticalPinSeparator } from "../../CustomComponents"
+import { memo } from "react";
+import { Li, P, Ul } from "../../elements/resumeSectionWrapper";
+import { FlexBox, VerticalPinSeparator } from "../../CustomComponents";
+import { LiaMapMarkerSolid } from "react-icons/lia";
+import { CgCalendar } from "react-icons/cg";
 
-import { LiaMapMarkerSolid } from "react-icons/lia"
-import { CgCalendar } from "react-icons/cg"
+const ExperienceCard = memo(({ experience, style, ...props }) => {
+  const {
+    position,
+    startDate,
+    endDate,
+    companyName,
+    aboutCompany,
+    location,
+    achievements,
+  } = experience;
 
+  const {
+    applyFlex,
+    includeDateAndAddress,
+    includeAddrss,
+    includeDate,
+    swapPosition,
+    applyVerticalDivider,
+  } = props;
 
-const generateSimpleResumeExperienceCard = ({ experience, layout_no, style, props }) => {
+  // Vertical Divider Layout
+  if (applyVerticalDivider) {
+    return (
+      <FlexBox gap="20px" className="mb-3">
+        <div style={{ flex: "2" }}>
+          <h3 style={style.h3}>{startDate} - {endDate}</h3>
+          <P>{location}</P>
+        </div>
+        <div style={{ flex: "1" }}>
+          <VerticalPinSeparator />
+        </div>
+        <div style={{ flex: "7" }}>
+          <P fontWeight="600" fontFamily="Open sans">{position}</P>
+          <P fontWeight="500">{aboutCompany}</P>
+          <Ul listStyle="none" textAlign="left" padding="0 0 0 10px">
+            {achievements.map((a, i) => <Li key={i}>{a.value}</Li>)}
+          </Ul>
+        </div>
+      </FlexBox>
+    );
+  }
 
-    const { position, startDate, endDate, companyName, aboutCompany, location, achievements } = experience
-    const {
-        applyFlex,
-        includeDateAndAddress,
-        includeAddrss,
-        includeDate,
-        swapPosition,
-        applyVerticalDivider } = props
-    if (applyVerticalDivider) {
-        return (
-            <FlexBox gap="20px">
-                <div style={{ flex: "2" }}>
-                    <h3 style={{ ...style.h3 }}>{startDate}-{endDate}</h3>
-                    <P>{location}</P>
-                </div>
-                <div style={{ flex: "1" }}>
-                    <VerticalPinSeparator />
-                </div>
-                <div style={{ flex: "7" }}>
-                    <P fontWeight="600" fontFamily="Open sans">{position}</P>
-                    <P fontWeight="500">{aboutCompany}</P>
-                    <Ul listStyle="none" textAlign="left" padding="0 0 0 10px">
-                        {
-                            achievements.map((achievement, index) => (
-                                <Li key={index}>{achievement.value}</Li>
-                            ))
-                        }
-                    </Ul>
-                </div>
-            </FlexBox>
-        )
+  const renderPositionBlock = () => (
+    <>
+      <h3 style={style.h3}>{swapPosition ? companyName : position}</h3>
+      <h3 style={style.sectionSubHeader}>{swapPosition ? position : companyName}</h3>
+    </>
+  );
+
+  const renderDateAddress = () => {
+    if (!applyFlex) {
+      return (
+        <FlexBox margin="0">
+          <FlexBox justifyContent="space-between" margin="0">
+            <LiaMapMarkerSolid />
+            <P style={style.p}>{location}</P>
+          </FlexBox>
+          <FlexBox margin="0">
+            <CgCalendar />
+            <P style={style.p}>{startDate} - {endDate}</P>
+          </FlexBox>
+        </FlexBox>
+      );
+    }
+
+    if (includeDateAndAddress) {
+      return (
+        <div>
+          <P style={{ ...style.p, textAlign: "right" }}>{location}</P>
+          <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>
+        </div>
+      );
     }
 
     return (
-        <>
-            <div className="mb-3">
+      <>
+        {includeDate && <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>}
+        {includeAddrss && <P style={{ ...style.p, textAlign: "right" }}>{location}</P>}
+      </>
+    );
+  };
 
+  return (
+    <div className="mb-3">
+      <FlexBox
+        justifyContent="space-between"
+        display={applyFlex ? "flex" : "block"}
+        margin="0"
+      >
+        <FlexBox display="block" alignItems="center" margin="0">
+          {renderPositionBlock()}
+        </FlexBox>
+        {applyFlex && (
+          <FlexBox margin="0" alignItems="center">
+            {renderDateAddress()}
+          </FlexBox>
+        )}
+      </FlexBox>
 
+      {!applyFlex && renderDateAddress()}
 
+      <P style={style.p}>{aboutCompany}</P>
 
-                {/* When applyFlex is true and includeDateAndAddress is true */}
+      <Ul display="block" margin="0">
+        {achievements.map((a, i) => (
+          <Li key={i} style={style.p}>{a.value}</Li>
+        ))}
+      </Ul>
+    </div>
+  );
+});
 
-                <FlexBox margin="0" justifyContent="space-between"  {...(applyFlex) ? { display: "flex" } : { display: "block" }}>
-                    <FlexBox display="block" alignItems="center" margin="0">
-                        {
-                            //awap position of elemenet based on flag
-                            swapPosition ?
-                                (
-                                    <>
-                                        <h3 style={{ ...style.sectionSubHeader }}>{companyName}</h3>
-                                        <h3 style={{ ...style.h3 }}>{position}</h3>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h3 style={{ ...style.h3 }}>{position}</h3>
-                                        <h3 style={{ ...style.sectionSubHeader }}>{companyName}</h3>
-                                    </>
-                                )
-                        }
-                    </FlexBox>
-                    {applyFlex && (
-                        <FlexBox margin="0" alignItems="center">
-                            {
-                                includeDate && <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>
-
-                            }
-                            {
-                                includeAddrss && <P style={{ ...style.p, textAlign: "right" }}>{location}</P>
-                            }
-                            {
-                                includeDateAndAddress && (<div>
-                                    <P style={{ ...style.p, textAlign: "right" }}>{location}</P>
-                                    <P style={{ ...style.p, textAlign: "right" }}>{startDate} - {endDate}</P>
-                                </div>)
-                            }
-                        </FlexBox>
-                    )}
-                </FlexBox>
-
-
-                {/* When applyFlex is false */}
-                {!applyFlex && (
-                    <>
-                        <FlexBox margin="0">
-                            <FlexBox justifyContent='space-between' margin="0">
-                                <LiaMapMarkerSolid />
-                                <P style={{ ...style.p }}> {location}</P>
-                            </FlexBox>
-                            <FlexBox margin="0">
-                                <CgCalendar />
-                                <P style={{ ...style.p }}>{startDate} - {endDate}</P>
-                            </FlexBox>
-                        </FlexBox>
-                    </>
-                )}
-
-                {/* About Company */}
-                <P style={{ ...style.p }}>{aboutCompany}</P>
-
-                {/* Achievements */}
-                <Ul display="block" margin="0">
-                    {achievements.map((achievement, index) => (
-                        <Li key={index} style={{ ...style.p }}>{achievement.value}</Li>
-                    ))}
-                </Ul>
-            </div>
-        </>
-    )
-}
-
-
-const ExperienceCard = memo(({ experience, layout_no, style, layout_type = "classical", ...props }) => {
-    return generateSimpleResumeExperienceCard({ experience, layout_no, style, props })
-
-
-})
-export default ExperienceCard
-
-/*
- if (layout_no === 6) {
-        return (
-            <FlexBox gap="20px">
-                <div style={{ flex: "2" }}>
-                    <h3 style={{ ...style.h3 }}>{startDate}-{endDate}</h3>
-                    <h2 style={{ ...style.h2 }}>{location}</h2>
-
-                </div>
-                <div style={{ flex: "1" }}>
-                    <VerticalPinSeparator />
-                </div>
-                <div style={{ flex: "7" }}>
-                    <h2 style={{ ...style.h2 }}>{position}</h2>
-                    <h3 style={{ ...style.h3 }}>{companyName}</h3>
-                    <p style={{ ...style.p }}>{aboutCompany}</p>
-
-                    {
-                        <Ul display="block">
-                            {
-                                achievements.map((achievement, index) => (
-                                    <Li key={index}>{achievement.value}</Li>
-                                ))
-                            }
-                        </Ul>
-                    }
-
-                </div>
-            </FlexBox>
-        )
-    }*/
+export default ExperienceCard;

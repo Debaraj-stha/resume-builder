@@ -2,15 +2,17 @@ import React,{ memo, useEffect, useLayoutEffect, useRef, useState } from "react"
 
 import { useFormContext } from "react-hook-form";
 import LayoutUi from "../../layoutUI";
-import {  languages, strengths } from "../../../../static-data/resume-sample-data";
+import { certificates, languages,  passions, strengths} from "../../../../static-data/resume-sample-data";
 
 import { useLayout } from "../../../../provider/layoutProvider";
-import getCreativeLayout1OuctputSectionData from "../layout-output/layout-1-output";
+import getCreativeLayout5OuctputSectionData from "../layout-output/layout-5-output";
 
 
 
 
-const CreativeLayout1 = memo((props) => {
+
+
+const CreativeLayout5 = memo((props) => {
    const {
        watch
      } = useFormContext();
@@ -30,14 +32,16 @@ const CreativeLayout1 = memo((props) => {
          educations,
          summary,
          experiences,
-         skills,
+    
          strengths,
          languages,
          achievements,
-         
+        skills,
+        certificates,
+         passions
        } 
-       const layout_id=1
-       const sectionData = getCreativeLayout1OuctputSectionData(key_val,layout_id)
+       const layout_id=5
+       const sectionData = getCreativeLayout5OuctputSectionData(key_val,layout_id)
        const shouldMeasureHeight = props.shouldMeasureHeight || false;
        const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout()
          const sectionRefs = useRef([])
@@ -60,4 +64,4 @@ const CreativeLayout1 = memo((props) => {
         </div>
     )
 })
-export default CreativeLayout1
+export default CreativeLayout5

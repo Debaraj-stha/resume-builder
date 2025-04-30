@@ -1,23 +1,23 @@
 import React, { memo } from "react"
 
-import { IconHolder, Li, P, Ul, H1, H3, H2 } from "../../elements/resumeSectionWrapper"
+import { IconHolder, Li,  Ul} from "../../elements/resumeSectionWrapper"
 
 //icons
 import { BiMobile } from "react-icons/bi"
 import { MdEmail } from "react-icons/md"
-import { LiaLinkedin, LiaLinkSolid, LiaMapMarkerSolid } from "react-icons/lia"
+import { LiaLinkedin, LiaMapMarkerSolid } from "react-icons/lia"
 import { BsGithub, BsGlobe } from "react-icons/bs"
-import { layout_type_map } from "../../../constant"
+
 import { Avatar, FlexBox } from "../../CustomComponents"
 import styled from "styled-components"
 
 const RectangularContainer = styled.div`
-width:${({ width }) => width || "70px"};
-height:${({ height }) => height || "70px"};
+width:${({ width }) => width || "80px"};
+height:${({ height }) => height || "80px"};
 `
 
 // LiaLinkSolid
-const GenerateLi = ({ icon, text, fontWeight = "normal", color = "black", style }) => {
+const GenerateLi = ({ icon, text, style }) => {
     return (
         <Li {...style.profile_li}>
             <IconHolder>
@@ -36,7 +36,7 @@ const GenerateWebsiteURL = ({ urls, color, style
         linkedin: <LiaLinkedin />,
         github: <BsGithub />
     }
-    urls.map((u, index) => {
+    return urls.map((u, index) => {
         const lower = u.toLowerCase()
         const key = Object.keys(iconMap).find(k => lower.includes(k))
         //create copy of icon and add new props
@@ -86,8 +86,10 @@ const generateContactListWithoutIcon = ({ contactInfos, style }) => (
     ))
 
 )
-const generateResumeHeader = ({ personalDetails, layout_no, style, props }) => {
+const generateResumeHeader = ({ personalDetails,  style, props }) => {
+    console.log("style",style)
     const { name, address, profile, urls, profession, email, phone } = personalDetails
+    console.log(props)
     const { flexImage,
         shouldIncludeProfession = true,
         shouldIncludeAddress,
@@ -144,8 +146,8 @@ const generateResumeHeader = ({ personalDetails, layout_no, style, props }) => {
 
 }
 
-const ResumeHeader = memo(({ personalDetails, layout_no, style, layout_type = "classical", ...props }) => {
-    return generateResumeHeader({ personalDetails, layout_no, style, props })
+const ResumeHeader = memo(({ personalDetails,  style, ...props }) => {
+    return generateResumeHeader({ personalDetails,  style, props })
 
 })
 export default ResumeHeader

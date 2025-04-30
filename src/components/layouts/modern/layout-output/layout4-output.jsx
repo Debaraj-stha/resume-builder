@@ -4,7 +4,6 @@ import { layout_type_map } from "../../../../constant";
 import generateEducation from "../../section-data/education_secion_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateSkill from "../../section-data/skill_section_data";
-import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import generatePassionSectionData from "../../section-data/passion_section_data";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
@@ -19,7 +18,7 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         educations = [],
         achievements = [],
         skills = [],
-        industryExpertise = [],
+       
         summary = "",
         passions
     } = data;
@@ -115,17 +114,7 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
             titleHeader: "skills"
 
         }),
-        // generateIndustryExpertise({
-        //     industryExpertise,
-        //     layout_no,
-        //     layout_type:layout_type,
-        //     style:{
-        //         sectionHeader:style.sectionHeader,
-        //         sectionSubHeader: style.sectionSubHeader
-        //     },
-        //     sectionHeader:"industry expertise"
-
-        // }),
+     
 
         generatePassionSectionData({
             passions:passions.slice(0,4),

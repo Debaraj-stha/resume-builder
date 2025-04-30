@@ -28,6 +28,10 @@ import ModernLayout4 from "./layouts/modern/layout-4/layout"
 import ModernLayout5 from "./layouts/modern/layout-5/layout"
 import ModernLayout6 from "./layouts/modern/layout-6/layout"
 import CreativeLayout1 from   "./layouts/creative/layout-1/layout"
+import CreativeLayout2 from   "./layouts/creative/layout-2/layout"
+import CreativeLayout3 from "./layouts/creative/layout-3/layout";
+import CreativeLayout4 from "./layouts/creative/layout-4/layout";
+import CreativeLayout5 from "./layouts/creative/layout-5/layout";
 const layoutComponents = [
   // { Component: ClassicalLayout1, titleKey: "Ivy League", descriptionIndex: 0 },
   // { Component: ClassicalLayout2, titleKey: "Timeline", descriptionIndex: 1 },
@@ -40,7 +44,7 @@ const layoutComponents = [
   // { Component: ModernLayout3, titleKey: "Timeline", descriptionIndex: 1 },
   // { Component: ModernLayout4, titleKey: "Timeline", descriptionIndex: 1 },
   // { Component: ModernLayout5, titleKey: "Timeline", descriptionIndex: 1 },
-  { Component: CreativeLayout1, titleKey: "Timeline", descriptionIndex: 1 },
+  { Component: CreativeLayout5, titleKey: "Timeline", descriptionIndex: 1 },
 ];
 
 const AllLayouts = () => {

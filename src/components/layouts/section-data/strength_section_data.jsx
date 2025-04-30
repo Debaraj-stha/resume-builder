@@ -4,13 +4,13 @@ import StrengthCard from "../cards/ResumeStrengthCard"
 import generateTitle from "./titleGenerater"
 
 const generateStrength = ({ strengths, style, divider, layout_no, layout_type = layout_type_map.CLASSICAL, sectionHeader = "strengths",props={} }) => {
-    const { grid } = props
+    const { grid ,side} = props
     return {
         key: "strengths",
         content: () => (
             <>
                 {
-                    generateTitle({ title: sectionHeader, style: { ...style.sectionHeader } })
+                    generateTitle({ title: sectionHeader, style: { ...style.sectionHeader ,...(side==="right") && {color:"white"}} })
                 }
                 {
                     divider ? divider : null

@@ -50,7 +50,7 @@ const LanguageCard = ({ language,layout_no,style ,...props}) => {
           <LanguageWrapper>
             <h2 style={{...style?.sectionSubHeader,...(props.side==="right") && {color:"white"}}}>{language.language}</h2>
             <ProgressBarContainer>
-              <ProgressBar percent={percent} color={style?.barColor} />
+              <ProgressBar percent={percent} color={props.side==="right"? "#4983f2":style?.barColor} />
             </ProgressBarContainer>
           </LanguageWrapper>
         );

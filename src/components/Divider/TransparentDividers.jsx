@@ -122,9 +122,9 @@ export const TransparentLine = () => {
 }
 export const TransparentLineWithBox = () => {
   return (
-    <div className="mt-6 pt-6">
-      <Line backgroundColor="pink">
-        <Box borderTopColor="transparent" borderLeftColor="pink" borderRightColor="pink" borderBottomColor="pink" backgroundColor="white" />
+    <div className="my-3">
+      <Line>
+        <Box borderTopColor="transparent" backgroundColor="white" />
       </Line>
     </div>
   )
@@ -143,7 +143,7 @@ export const TransparentLineWithSeperatorAtEnd = () => {
 
 export const TransparentLineWithAngleAtCenter = () => {
   return (
-    <div className="mt-5 pt-6">
+    <div className="pb-3">
       <Line backgroundColor="black">
         <BoxWithAngle borderLeftColor="transparent" borderTopColor="transparent"></BoxWithAngle>
       </Line>

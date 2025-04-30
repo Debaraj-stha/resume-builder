@@ -1,7 +1,7 @@
 import { memo } from "react"
-import { H2, H3, P } from "../../elements/resumeSectionWrapper"
 
-const buildSimpeLayoutCertificationCArd = ({ certificate, layout_no, style }) => {
+
+const buildSimpeLayoutCertificationCArd = ({ certificate, style }) => {
     return (
         <div>
             <div style={{ flex: "2" }}>
@@ -16,9 +16,9 @@ const buildSimpeLayoutCertificationCArd = ({ certificate, layout_no, style }) =>
 
 }
 
-const CertificationCard = memo(({ certificate, layout_no, layout_type = "classical",style }) => {
+const CertificationCard = memo(({ certificate,style,...props }) => {
 
-        return buildSimpeLayoutCertificationCArd({ certificate, layout_no ,style})
+        return buildSimpeLayoutCertificationCArd({ certificate, style,...props})
     
 
 

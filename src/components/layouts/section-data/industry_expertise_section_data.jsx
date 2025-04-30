@@ -18,7 +18,7 @@ const generateIndustryExpertise=({industryExpertise,layout_no,style,divider,layo
                 <SectionContent>
                     <div className="grid grid-cols-2 gap-3">
                         {
-                            industryExpertise.slice(0, 2).map((expertise, index) => (
+                            industryExpertise.map((expertise, index) => (
                                 <ExpertiseCard key={index} expertise={expertise} 
                                 layout_type={layout_type}
                                 layout_no={layout_no} style={style}

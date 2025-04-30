@@ -277,18 +277,18 @@ background:black;
 `
 
 export const FlexBox=styled.div.withConfig({
-  shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap","backgroundColor"].includes(props)
+  shouldForwardProp:(props)=>!["justifyContent","alignItems","flexWrap","backgroundColor","flexDirection","alignContent"].includes(props)
 })`
 display:${({display})=>display||"flex"};
 gap:${({gap})=>gap||"10px"};
 align-items:${({alignItems})=>alignItems||"normal"};
 margin:${({margin})=>margin||"10px 0 0 0"};
 justify-content:${({justifyContent})=>justifyContent||"start"};
-align-content: center;
-// flex-wrap: wrap;
 padding:${({padding})=>padding||"0"};
 flex-wrap:${({flexWrap})=>flexWrap||"nowrap"};
-background-color:${({backgroundColor})=>backgroundColor||"transparent"}
+background-color:${({backgroundColor})=>backgroundColor||"transparent"};
+flex-direction: ${({flexDirection})=>flexDirection||"row"};
+align-content: ${({alignContent})=>alignContent||"center"};
 
 
 `

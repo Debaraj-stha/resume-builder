@@ -14,7 +14,8 @@ const getModernLayout1 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
         background:"#1c2a45",
         props:{
           mainPadding:"0 0 0 20mm",
-          leftPadding:"20mm 15px 0 0"
+          leftPadding:"20mm 15px 0 0",
+          personalDetailsOnLeft:true
         }
        
       });
