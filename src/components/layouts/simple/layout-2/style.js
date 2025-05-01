@@ -22,7 +22,30 @@ export const layout_2_style = {
         letterSpacing: "0px",
          textAlign:"left"
     },
+    profile_ul: {
+        display: "flex",
+        justifyContent: "start",
+        alignItems: "center",
+        alignContent: "center",
+        flexWrap: "wrap",
+        listStyleType: "none",
+        listStylePosition: "inside",
+        gap: "5px",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+    },
 
+    profile_li: {
+        fontSize: "14px",
+        color: "#000000",
+        padding: "4px 8px",
+        textAlign: "center",
+        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        iconColor: "#0040ff"
+    },
     sectionHeader: {
         fontSize: "14px",
         fontWeight: "600",

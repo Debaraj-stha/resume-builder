@@ -43,7 +43,7 @@ const generateSimpleOpenSourceCard = ({ works, layout_no, style }) => {
     return (
         <>
             {
-                works.slice(0, 1).map((work, index) => {
+                works.map((work, index) => {
                     const { projectName, role, description, link, technologies, date } = work
                     return (
                         <>
@@ -68,13 +68,9 @@ const generateSimpleOpenSourceCard = ({ works, layout_no, style }) => {
 }
 const OpenSourceWorkCard = ({ works, layout_no, layout_type = "modern", style }) => {
 
-    if (layout_type === layout_type_map.MODERN) {
-        return generateModernOpenSourceWorkCard({ works, layout_no, style })
-    }
-    if (layout_type === layout_type_map.SIMPLE) {
 
         return generateSimpleOpenSourceCard({ works, layout_no, style })
-    }
+    
 
 }
 export default OpenSourceWorkCard

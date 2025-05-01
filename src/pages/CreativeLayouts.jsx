@@ -2,23 +2,26 @@ import React, { useEffect } from "react";
 import { templateDescription } from "../static-data/template_description";
 import TemplatesdescriptionCard from "../components/TemplateHeaderCard";
 import { CTAButton, Hspace } from "../components/CustomComponents";
-import { classical_layouts_image_map, mostPopularClassicalLayouts } from "../components/LayoutImages";
+import {creative_layouts_image_map, mostPopularCreativeLayouts } from "../components/LayoutImages";
 import LayoutCardWithDetails from "../components/LayoutCardWithDetails";
-import { classicalLayoutDescription } from "../static-data/layout_description";
+import { classicalLayoutDescription, creativeLayoutDescription } from "../static-data/layout_description";
 import ContainerWrapper from "../components/layouts/wrappers/ContainerWrapper";
 import LayoutGridWrapper from "../components/layouts/wrappers/LayoutGridWrapper";
 import Container from "../components/Container";
 import { PaginationProvider, usePagination } from "../provider/paginationProvider";
-import { classicalLayoutCardInfos } from "../static-data/classicalLayoutDescription"
+
 
 import LayoutCardGrid from "../components/LayoutDescriptionGrid";
 import MostUsedLayouts from "../components/MostUsedLayouts";
+
+import { creativeLayoutCardInfos } from "../static-data/creative_layout_card_info";
 import StartBuildingResumeButtton from "../components/StartBuildingResumeButton";
-const ClassicalLayouts = () => {
+const CreativeLayouts = () => {
     const itemsPerPage = 3
     const { currentPage, PaginationButtons, setItemsLength } = usePagination()
     useEffect(() => {
-        const length = Object.keys(classical_layouts_image_map).length
+        console.log("ca;llled pdppd")
+        const length = Object.keys(creative_layouts_image_map).length
         //setting items length to calculate pages
         setItemsLength(length)
     }, [])
@@ -28,10 +31,11 @@ const ClassicalLayouts = () => {
             <Container>
                 <Hspace height="200px" />
                 <ContainerWrapper>
-                    <TemplatesdescriptionCard title={templateDescription.classical.title} description={templateDescription.classical.description}></TemplatesdescriptionCard>
+                    <TemplatesdescriptionCard title={templateDescription.creative.title}
+                     description={templateDescription.creative.description}></TemplatesdescriptionCard>
                     <LayoutGridWrapper>
                         {
-                            Object.entries(classical_layouts_image_map).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(([layoutName, imageSRC], index) => (
+                            Object.entries(creative_layouts_image_map).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(([layoutName, imageSRC], index) => (
                                 <LayoutCardWithDetails
                                     key={index}
                                     imageSRC={imageSRC}
@@ -41,18 +45,19 @@ const ClassicalLayouts = () => {
                             ))
                         }
                     </LayoutGridWrapper>
+                    {/* paginations buttons */}
                     {PaginationButtons}
                     {/* info card sections */}
-                    <LayoutCardGrid cardInfos={classicalLayoutCardInfos} />
+                    <LayoutCardGrid cardInfos={creativeLayoutCardInfos} />
                     <PaginationProvider>
-                        <MostUsedLayouts layout_descriptions={classicalLayoutDescription} layout_image_map={mostPopularClassicalLayouts} />
+                        <MostUsedLayouts layout_descriptions={creativeLayoutDescription} layout_image_map={mostPopularCreativeLayouts} />
                     </PaginationProvider>
                 </ContainerWrapper>
-                <StartBuildingResumeButtton/>
+              <StartBuildingResumeButtton/>
 
             </Container>
 
         </>
     )
 }
-export default ClassicalLayouts
+export default CreativeLayouts

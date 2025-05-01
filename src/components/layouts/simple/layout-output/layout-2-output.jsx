@@ -5,6 +5,9 @@ import generateStrength from "../../section-data/strength_section_data";
 import generateLanguage from "../../section-data/language_section_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateEducation from "../../section-data/education_secion_data";
+import generateProfileDetails from "../../section-data/profile_details";
+import generateSummary from "../../section-data/summary";
+import generateSkill from "../../section-data/skill_section_data";
 
 const getSimpleLayout2SectionData = (data, layout_no) => {
     const {
@@ -22,7 +25,7 @@ const getSimpleLayout2SectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
+            personalDetails:  personalDetails , layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
             shouldIncludeImage: true,
             style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 

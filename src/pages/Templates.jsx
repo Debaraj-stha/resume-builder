@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { Hspace } from "../components/CustomComponents";
-import InPageLayoutLinks from "../components/InPageLayoutLinks";
-import AllLayouts from "../components/AllTemplates";
-import ClassicalLayouts from "../components/ClassicalLayouts";
-import ModernLayouts from "../components/ModernLayouts";
-import SimpleLayouts from "../components/SimpleLayouts";
-import CreativeLayouts from "../components/CreativeLayouts";
+
+import AllLayouts from "./AllTemplates";
+
 import Container from "../components/Container";
 
 
@@ -30,19 +27,7 @@ const Templates = () => {
 
             <Hspace></Hspace>
             <div className="items-center max-w-7xl mx-auto px-4">
-                {/* link */}
-                <InPageLayoutLinks />
-                {/* all resume section */}
                 <AllLayouts />
-                {/* classical resume templates */}
-                {/* <ClassicalLayouts></ClassicalLayouts> */}
-                {/* modern resume templates */}
-                {/* <ModernLayouts></ModernLayouts> */}
-                {/* simple resume templates */}
-                {/* <SimpleLayouts></SimpleLayouts> */}
-                {/* creative resume templates */}
-                {/* <CreativeLayouts></CreativeLayouts> */}
-
             </div>
         </Container>
     )

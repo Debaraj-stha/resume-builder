@@ -6,6 +6,7 @@ import { HiOutlineDocumentText } from "react-icons/hi";
 import styled from "styled-components";
 import { useTheme } from "styled-components";
 import { IconHolder } from "./elements/resumeSectionWrapper";
+import { Link } from "react-router-dom";
 
 const IconDiv = styled.div.withConfig({
     shouldForwardProp:(props)=>!["textColor"].includes(props)
@@ -29,31 +30,31 @@ const iconData = [
     id: "all_templates",
     label: "All Templates",
     icon: <MdDashboard />,
-    href: "#all-templates",
+    href: "/templates",
   },
   {
     id: "classical",
     label: "Classical Templates",
     icon: <HiOutlineDocumentText />,
-    href: "#classical",
+    href: "classical",
   },
   {
     id: "modern",
     label: "Modern Templates",
     icon: <FaCubes />,
-    href: "#modern",
+    href: "modern",
   },
   {
     id: "creative",
     label: "Creative Templates",
     icon: <FaPaintBrush />,
-    href: "#creative",
+    href: "creative",
   },
   {
     id: "simple",
     label: "Simple Templates",
     icon: <BiRectangle />,
-    href: "#simple",
+    href: "simple",
   },
 ];
 
@@ -80,7 +81,7 @@ const InPageLayoutLinks = () => {
             >
               {icon}
             </IconHolder>
-            <a href={href}>{label}</a>
+            <Link to={href}>{label}</Link>
           </IconDiv>
         );
       })}

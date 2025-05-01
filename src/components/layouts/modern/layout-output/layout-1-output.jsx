@@ -44,7 +44,7 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
 
         }),
         generateExperience({
-            experiences,
+            experiences:experiences.slice(0,2),
             layout_no,
             layout_type: layout_type_map.SIMPLE,
             divider,
@@ -112,7 +112,7 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
             }
         }),
         generateSkill({
-            skills,
+            skills:skills.slice(0,2),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

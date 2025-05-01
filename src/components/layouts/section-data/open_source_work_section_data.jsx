@@ -13,11 +13,7 @@ const generateOpenSourceWork = ({ openSourceWork, divider, style, layout_no, lay
                 }
                 {divider?divider:null}
                 <SectionContent>
-                    <OpenSourceWorkCard works={openSourceWork} layout_no={layout_no} layout_type={layout_type} style={{
-                        h2: style.h2,
-                        p: style.p,
-                        h3: style.h3
-                    }} />
+                    <OpenSourceWorkCard works={openSourceWork} layout_no={layout_no} layout_type={layout_type} style={style} />
                 </SectionContent>
             </>
         )

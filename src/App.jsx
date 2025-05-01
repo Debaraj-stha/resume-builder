@@ -1,9 +1,9 @@
 import './App.css'
-import MyRoutes from './components/MyRoutes'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import GlobalStyle from './theme/global_styles'
 import ErrorBoundary from './components/ErrorBoundary'
+import AppRoutes from './components/AppRoutes'
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <GlobalStyle />
       <ErrorBoundary>
       <Header></Header>
-        <MyRoutes></MyRoutes>
+        <AppRoutes/>
         <Footer />
       </ErrorBoundary>
        

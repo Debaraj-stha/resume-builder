@@ -21,5 +21,5 @@ const CurvedWrapper = ({ children }) => (
     </CreativeResumeWrapper1>
 )
 
-
 export default CurvedWrapper
+

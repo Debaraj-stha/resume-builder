@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Hspace=styled.div`
-height:130px;
+height:${({height})=>height||"130px"};
 width:100%;
 margin-bottom:30px;
 `
@@ -23,15 +23,16 @@ export const StyledNavLink = styled(Link).withConfig({
 
 
 export const Button = styled.button.withConfig({
-  shouldForwardProp:(props)=>!["variant"].includes(props)
+  shouldForwardProp:(props)=>!["variant","backgroundColor","borderColor"].includes(props)
 })`
   display:${({display})=>display||"block"};
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  background-color: ${({ theme, variant = 'primary' }) => theme.colors.button[variant].bg};
+  overflow;hidden;
+  background-color: ${({ backgroundColor, theme, variant = 'primary' }) => backgroundColor|| theme.colors.button[variant].bg};
   color: ${({ theme, variant = 'primary' }) => theme.colors.button[variant].text};
-  border: 1px solid ${({ theme, variant = 'primary' }) => theme.colors.button[variant].border};
+  border: 1px solid ${({ borderColor,theme, variant = 'primary' }) => borderColor||theme.colors.button[variant].border};
   padding: 0.5rem 1.25rem;
   border-radius: 0.375rem;
   font-weight: 500;
@@ -149,12 +150,14 @@ export const Features = styled.section`
   text-align: center;
 `;
 
-export const FeatureGrid = styled.div`
+export const FeatureGrid = styled.div.withConfig({
+  shouldForwardProp:(props)=>!["minmax"].includes(props)
+})`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(${({minmax})=>minmax||"200px"}, 1fr));
   gap: 2rem;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: ${({margin})=>margin||"0 auto"};
 `;
 
 
@@ -225,9 +228,10 @@ color:${({theme})=>theme.colors.text||"black"};
 export const H2=styled.h2`
 color:${({theme})=>theme.colors.text||"black"};
 font-size:22px;
+margin:10px auto;
 `
 export const H3=styled.h3`
-color:${({theme})=>theme.colors.text||"black"};
+color:${({theme,color})=>color||theme.colors.text||"black"};
 font-size:18px;
 `
 export const Input = styled.input`
@@ -306,16 +310,17 @@ export const GridBox = styled.div`
 `;
 
 export const BorderBox = styled.div.withConfig({
-  shouldForwardProp:(props)=>!["borderTopColor","borderRightColor","borderBottomColor","borderLeftColor"].includes(props)
+  shouldForwardProp:(props)=>!["borderRadius","borderTopColor","borderRightColor","borderBottomColor","borderLeftColor","borderColor"].includes(props)
 })`
 border:1px solid;
 border-radius:1px;
 padding:${({padding})=>padding||"0 5px 0 0"};
 margin:${({margin})=>margin||"5px"};
-border-top-color:${({borderTopColor})=>borderTopColor||"transparent"};
-border-bottom-color:${({borderBottomColor})=>borderBottomColor||"transparent"};
-border-left-color:${({borderLeftColor})=>borderLeftColor||"transparent"};
-border-right-color:${({borderRightColor})=>borderRightColor||"transparent"};
+border-top-color:${({borderColor,borderTopColor})=>borderColor||borderTopColor||"transparent"};
+border-bottom-color:${({borderColor,borderBottomColor})=>borderColor||borderBottomColor||"transparent"};
+border-left-color:${({borderColor,borderLeftColor})=>borderColor||borderLeftColor||"transparent"};
+border-right-color:${({borderColor,borderRightColor})=>borderColor||borderRightColor||"transparent"};
+border-radius:${({borderRadius})=>borderRadius||"0"};
 `;
 
 export const GridPairBox=styled.div`

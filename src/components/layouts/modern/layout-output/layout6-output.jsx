@@ -104,7 +104,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
             shouldIncludeIcon: false
         }),
         generateIndustryExpertise({
-            industryExpertise,
+            industryExpertise:industryExpertise.slice(0,2),
             layout_no,
             layout_type: layout_type,
             style: {
@@ -131,7 +131,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
 
         }),
         generateLanguage({
-            languages,
+            languages:languages.slice(0,2),
             layout_no,
             layout_type: layout_type,
             style: {

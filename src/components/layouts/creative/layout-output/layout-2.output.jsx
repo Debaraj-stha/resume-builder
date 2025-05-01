@@ -140,7 +140,7 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         }),
 
         generateStrength({
-            strengths: strengths.slice(0, 4),
+            strengths: strengths.slice(0, 2),
             layout_no,
             layout_type: layout_type,
             divider,

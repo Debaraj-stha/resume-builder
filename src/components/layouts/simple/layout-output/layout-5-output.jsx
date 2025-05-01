@@ -24,7 +24,7 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
+            personalDetails:  personalDetails , layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
             shouldIncludeImage: true,
             style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
 

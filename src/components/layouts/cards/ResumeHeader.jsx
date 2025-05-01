@@ -87,9 +87,7 @@ const generateContactListWithoutIcon = ({ contactInfos, style }) => (
 
 )
 const generateResumeHeader = ({ personalDetails,  style, props }) => {
-    console.log("style",style)
     const { name, address, profile, urls, profession, email, phone } = personalDetails
-    console.log(props)
     const { flexImage,
         shouldIncludeProfession = true,
         shouldIncludeAddress,
@@ -112,12 +110,12 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
 
     const Profession = shouldIncludeProfession && <h2 style={{ ...style?.titleStyle }}>{profession}</h2>
     const Image = <img src={`${profile[1]}`} alt="image"></img>
-    const RoundedImage = <Avatar margin="0">{Image}</Avatar>
+    const RoundedImage = <div className="flex justify-center items-center content-center"><Avatar margin="0">{Image}</Avatar></div>
     const RectangularImage = <RectangularContainer>{Image}</RectangularContainer>
     const Name = <h1 style={{ ...style?.nameStyle }}>{name}</h1>
     if (flexImage && shouldIncludeImage) {
         return (
-            <FlexBox backgroundColor={style.headerBg}
+            <FlexBox backgroundColor={style.headerBg} margin="0"
                 padding={style.headerBg ? "20mm 20mm 10mm 20mm" : "0"}
                 justifyContent="space-between">
                 <div>

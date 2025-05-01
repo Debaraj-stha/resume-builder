@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { UserProvider } from './provider/userProvider.jsx'
 import { ThemeProvider } from './provider/themeProvider.jsx'
 import LayoutProvider from './provider/layoutProvider.jsx'
+import { PaginationProvider } from './provider/paginationProvider.jsx'
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 createRoot(document.getElementById('root')).render(
@@ -16,7 +17,9 @@ createRoot(document.getElementById('root')).render(
         <Router>
           <UserProvider>
             <LayoutProvider>
+              <PaginationProvider>
               <App />
+              </PaginationProvider>
             </LayoutProvider>
           </UserProvider>
         </Router>

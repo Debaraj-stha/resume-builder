@@ -1,4 +1,4 @@
-import {generateExperienceSections } from "../../helper";
+import { generateExperienceSections } from "../../helper";
 import { layout_1_style as style } from "../layout-1/style"
 import { LineDivider } from "../../../Divider/TransparentDividers";
 import { layout_type_map } from "../../../../constant";
@@ -23,9 +23,20 @@ const getSimpleLayout1SectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: { personalDetails }, layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] },
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_ul: style.profile_ul,
+                profile_li: style.profile_li,
+                titleStyle: style?.titleStyle
+            },
+
+            props: {
+                shouldIncludeImage: true
+            }
 
         }),
         generateSummary({
@@ -38,19 +49,14 @@ const getSimpleLayout1SectionData = (data, layout_no) => {
         }),
 
         ...generateExperienceSections({
-            experiences,
+            experiences:experiences.slice(0,2),
             style: {
-                title: {
-                    ...style.sectionHeader
-                },
-                experienceCard: {
-                    h2: style.h2,
-                    h3: style.h3,
-                    primaryColor: style.primaryColor,
-                    p: style.p,
-                    header: style.sectionHeader,
-                    subSection: style.sectionSubHeader
-                }
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: { ...style.p },
+                sectionSubHeader: style.sectionSubHeader,
+                sectionHeader: style.sectionHeader,
             },
             layout_no: layout_no,
             divider: divider,
@@ -67,12 +73,13 @@ const getSimpleLayout1SectionData = (data, layout_no) => {
                 h3: style.h3,
                 primaryColor: style.primaryColor,
                 p: style.p,
-                sectionHeader: style.sectionHeader
-            }
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader
+            },
 
         }),
         generateSkill({
-            skills,
+            skills:skills.slice(0,2),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -85,10 +92,9 @@ const getSimpleLayout1SectionData = (data, layout_no) => {
             layout_type: layout_type_map.SIMPLE
         }),
         generateOpenSourceWork({
-            openSourceWork,
+            openSourceWork:openSourceWork.slice(0,1),
             divider,
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+           
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,

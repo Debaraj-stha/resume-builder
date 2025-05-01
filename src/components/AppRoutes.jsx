@@ -7,13 +7,14 @@ import Contact from "../pages/Contact";
 import Privacy from "../pages/Privacy";
 import About from "../pages/About";
 import GenerateResume from "../pages/GenerateResume";
-
-import ClassicalLayouts from "../pages/ClassicalLayouts";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFoound";
 import DashboardProvider from "../provider/DashboardProvider";
 import LayoutWrapper from "./LayoutWrapper";
-const MyRoutes = () => {
+import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWithProvider } from "./LayoutsWithProvider";
+
+
+const AppRoutes = () => {
     return (
         <Routes>
             <Route index path="/" element={<Home></Home>}></Route>
@@ -23,8 +24,10 @@ const MyRoutes = () => {
                 </DashboardProvider>}></Route>
             <Route exact path="/templates" element={<LayoutWrapper />}>
                 <Route index element={<Templates />} />
-                <Route exact path="classical" element={<ClassicalLayouts />} />
-                <Route exact path="modern" element={<h1>modern layout</h1>} />
+                <Route exact path="classical" element={<ClassicalLayoutWithProvider />} />
+                <Route exact path="modern" element={<ModernLayoutWithProvider/>} />
+                <Route exact path="simple" element={<h1>simple layout</h1>} />
+                <Route exact path="creative" element={<CreativeLayoutWithProvider/>} />
             </Route>
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>
@@ -37,4 +40,4 @@ const MyRoutes = () => {
     )
 
 }
-export default MyRoutes
+export default AppRoutes
