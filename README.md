@@ -125,4 +125,4 @@ resume-builder/
 
 ---
 
-Let me know if you'd like a downloadable `.md` file or want to publish this on GitHub!
+
