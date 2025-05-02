@@ -1,4 +1,3 @@
-Sure! Here's your complete and updated `README.md` with **PDF export support using `html2canvas` and `jspdf`**, along with your **folder structure**, all formatted cleanly:
 
 ---
 
@@ -23,6 +22,7 @@ A powerful, modern resume builder built with **React**, **Supabase**, **Vite**, 
 * ⬆️ Upload profile images or attachments to Supabase Storage
 * 📄 Export resumes to PDF (`html2canvas` + `jspdf`)
 * ⚡ Built with Vite for blazing-fast development
+* ❤️ Live Preview of resume as you type 
 
 ---
 
@@ -48,7 +48,7 @@ A powerful, modern resume builder built with **React**, **Supabase**, **Vite**, 
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/resume-builder.git
+git clone https://github.com/Debaraj-stha/resume-builder.git
 cd resume-builder
 ```
 
