@@ -55,6 +55,6 @@ yarn
 ```
 ### 3. Configure Supabase
 create .env file in root folder and add
-VITE_SUPABASE_URL=https://your-project-id.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
+    VITE_SUPABASE_URL=https://your-project-id.supabase.co
+    VITE_SUPABASE_ANON_KEY=your-anon-key
 
