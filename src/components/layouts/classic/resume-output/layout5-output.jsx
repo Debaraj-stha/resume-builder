@@ -1,5 +1,5 @@
 import SkillCard from "../../cards/ResumeSkillCard"
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
+import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_5_style as style } from "../layout-5/style"
 
 import { SectionContent } from "../../../elements/resumeSectionWrapper";
@@ -78,7 +78,6 @@ const getlayout5OutputSection = (data, layout_no) => {
 
         generateSkill({
             skills:skills.slice(0,3),
-            divider: <IncludeSeparator layout_no={layout_no} />,
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,

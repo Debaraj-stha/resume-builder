@@ -36,8 +36,10 @@ const GenerateWebsiteURL = ({ urls, color, style
         linkedin: <LiaLinkedin />,
         github: <BsGithub />
     }
-    return urls.map((u, index) => {
-        const lower = u.toLowerCase()
+    return urls?.map((u, index) => {
+        const url=u?.value?.trim()
+        if(!url) return
+        const lower = url.toLowerCase()
         const key = Object.keys(iconMap).find(k => lower.includes(k))
         //create copy of icon and add new props
         const icon = key
@@ -87,7 +89,13 @@ const generateContactListWithoutIcon = ({ contactInfos, style }) => (
 
 )
 const generateResumeHeader = ({ personalDetails,  style, props }) => {
-    const { name, address, profile, urls, profession, email, phone } = personalDetails
+    console.log("pes",personalDetails)
+    
+    const { name, address,  urls, profession, email, phone } = personalDetails
+    let {profile}=personalDetails
+    if(!Array.isArray(profile)){
+        profile=[profile]
+    }
     const { flexImage,
         shouldIncludeProfession = true,
         shouldIncludeAddress,
@@ -109,7 +117,7 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
     </Ul>
 
     const Profession = shouldIncludeProfession && <h2 style={{ ...style?.titleStyle }}>{profession}</h2>
-    const Image = <img src={`${profile[1]}`} alt="image"></img>
+    const Image = <img src={`${profile[0]}`} alt="image"></img>
     const RoundedImage = <div className="flex justify-center items-center content-center"><Avatar margin="0">{Image}</Avatar></div>
     const RectangularImage = <RectangularContainer>{Image}</RectangularContainer>
     const Name = <h1 style={{ ...style?.nameStyle }}>{name}</h1>

@@ -3,7 +3,15 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import CertificationCard from "../cards/ResumeCertificationCard"
 import generateTitle from "./titleGenerater"
 
-const generateCertification = ({ certificates, divider, layout_no, style, layout_type = layout_type_map.CLASSICAL, sectionHeader = "certification", props = {} }) => {
+const generateCertification = ({ certificates, divider, style, sectionHeader = "certification", props = {} }) => {
+    const { grid } = props
+    const Certificate = certificates.map((certificate, index) => (
+        <CertificationCard key={index}
+            certificate={certificate}
+            {...props}
+            style={style}
+        />
+    ))
     return {
         key: "certification",
         content: () => (
@@ -17,16 +25,17 @@ const generateCertification = ({ certificates, divider, layout_no, style, layout
                 }
                 <SectionContent>
                     {
-                        certificates.map((certificate, index) => (
-                            <CertificationCard key={index}
-                                certificate={certificate}
-                                layout_no={layout_no}
-                                layout_type={layout_type}
-                                {...props}
-                                style={style}
-                            />
-                        ))
+                        grid ? (
+                            <div className="grid grid-cols-2 gap-3">
+                                {
+                                    Certificate
+                                }
+                            </div>
+                        )
+
+                            : Certificate 
                     }
+
                 </SectionContent>
             </>
         )

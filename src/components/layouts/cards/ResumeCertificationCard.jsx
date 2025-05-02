@@ -1,7 +1,7 @@
 import { memo } from "react"
 
 
-const buildSimpeLayoutCertificationCArd = ({ certificate, style }) => {
+const buildSimpeLayoutCertificationCard = ({ certificate, style }) => {
     return (
         <div>
             <div style={{ flex: "2" }}>
@@ -18,7 +18,7 @@ const buildSimpeLayoutCertificationCArd = ({ certificate, style }) => {
 
 const CertificationCard = memo(({ certificate,style,...props }) => {
 
-        return buildSimpeLayoutCertificationCArd({ certificate, style,...props})
+        return buildSimpeLayoutCertificationCard({ certificate, style,...props})
     
 
 

@@ -11,7 +11,8 @@ import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFoound";
 import DashboardProvider from "../provider/DashboardProvider";
 import LayoutWrapper from "./LayoutWrapper";
-import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWithProvider } from "./LayoutsWithProvider";
+import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWithProvider, SimpleLayoutWithProvider } from "./LayoutsWithProvider";
+import Login from "../pages/Login";
 
 
 const AppRoutes = () => {
@@ -25,10 +26,11 @@ const AppRoutes = () => {
             <Route exact path="/templates" element={<LayoutWrapper />}>
                 <Route index element={<Templates />} />
                 <Route exact path="classical" element={<ClassicalLayoutWithProvider />} />
-                <Route exact path="modern" element={<ModernLayoutWithProvider/>} />
-                <Route exact path="simple" element={<h1>simple layout</h1>} />
-                <Route exact path="creative" element={<CreativeLayoutWithProvider/>} />
+                <Route exact path="modern" element={<ModernLayoutWithProvider />} />
+                <Route exact path="simple" element={<SimpleLayoutWithProvider />} />
+                <Route exact path="creative" element={<CreativeLayoutWithProvider />} />
             </Route>
+            <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>
             <Route exact path="/about" element={<About />}></Route>

@@ -1,4 +1,4 @@
-import {generateExperienceSections } from "../../helper";
+import { generateExperienceSections } from "../../helper";
 import { layout_5_style as style } from "../layout-5/style"
 import { LineDivider } from "../../../Divider/TransparentDividers";
 import { layout_type_map } from "../../../../constant";
@@ -8,6 +8,7 @@ import generateEducation from "../../section-data/education_secion_data";
 import generateCertification from "../../section-data/certification_section_data";
 import generateSkill from "../../section-data/skill_section_data";
 import generateAchievement from "../../section-data/achievement_section_data";
+import generateLanguage from "../../section-data/language_section_data";
 
 const getSimpleLayout5SectionData = (data, layout_no) => {
     const {
@@ -16,7 +17,7 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
         educations = [],
         achievements = [],
         skills = [],
-        certificates = [],
+        languages = [],
         summary = "",
     } = data;
     const divider = <LineDivider height="3px" />
@@ -24,9 +25,17 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails:  personalDetails , layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
+            personalDetails: personalDetails,
             shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_li: style.profile_li,
+                profile_ul: style.profile_ul,
+                titleStyle: style.titleStyle,
+                iconColor: style.profile_li.iconColor
+            },
 
         }),
         generateSummary({
@@ -37,84 +46,88 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
             },
             divider: divider
         }),
+
+        ...generateExperienceSections({
+            experiences: experiences.slice(0,1),
+            style: {
+                sectionHeader: style.sectionHeader,
+                h2: style.h2,
+                h3: style.h3,
+                p: style.p,
+                sectionSubHeader: style.sectionSubHeader
+
+            },
+
+            divider: divider,
+
+            props: {
+                applyFlex: true,
+                includeDateAndAddress: true,
+                applyVerticalDivider: true
+
+            },
+        }),
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
             style: {
                 sectionHeader: style.sectionHeader,
-                iconColor: style.primaryColor,
+                iconColor: style.profile_li.iconColor,
                 h2: style.h2,
-                p: style.p
-
+                p: style.p,
+                sectionSubHeader:style.sectionSubHeader,
             },
-            shouldIncludeIcon:true
-        }),
-        ...generateExperienceSections({
-            experiences,
-            style: {
-                title: {
-                    ...style.sectionHeader
-                },
-                experienceCard: {
-                    h2: style.h2,
-                    h3: style.h3,
-                    primaryColor: style.primaryColor,
-                    p: style.p,
-                    header: style.sectionHeader,
-                    subSection: style.sectionSubHeader
-                }
-            },
-            layout_no: layout_no,
-            divider: divider,
-            layout_type: layout_type_map.SIMPLE,
-            props: {
-                applyFlex: true,
-                includeDateAndAddress: true
-            },
-            title: "professional experiences"
+            titleHeader: "key accomplishment",
+            props:{
+                shouldApplyGrid:true,
+                shouldIncludeIcon:true,
+            }
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE,
             divider,
             style: {
                 h2: style.h2,
                 h3: style.h3,
-                primaryColor: style.primaryColor,
+                sectionSubHeader:style.sectionSubHeader,
                 p: style.p,
                 sectionHeader: style.sectionHeader
+            },
+            props:{
+                applyVerticalDivider:true,
             }
 
-        }),
-        generateCertification({
-            certificates,
-            divider,
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
-            style: {
-                sectionHeader: style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
-            }
 
         }),
+
         generateSkill({
-            skills,
+            skills: skills.slice(0, 2),
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
-                header: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader,
                 h1: style.h1,
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE,
-            titleHeader: "technical skills"
+            titleHeader: "technical skills",
+            props:{
+                borderBottom:true
+            }
 
-        })
+        }),
+        generateLanguage({
+            languages,
+            style: {
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader,
+                progressBar: style.progressBar
+            },
+            props:{
+                grid:true,
+                shouldIncludeProficiency:true
+            }
+        }),
     ];
 
 }

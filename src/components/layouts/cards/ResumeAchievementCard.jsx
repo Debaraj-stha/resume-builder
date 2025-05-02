@@ -15,18 +15,18 @@ const generateSimpleAchievementCard = ({ my_acheivement,  style, props }) => {
             <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{date}</p>
         </div>
     )
-    if (shouldApplyGrid) {
-        return (
-            <>
-                <div className="grid grid-cols-2">
-                    <div>
-                        {Achievement}
-                    </div>
+    // if (shouldApplyGrid) {
+    //     return (
+    //         <>
+    //             <div className="grid grid-cols-2">
+    //                 <div>
+    //                     {Achievement}
+    //                 </div>
 
-                </div>
-            </>
-        )
-    }
+    //             </div>
+    //         </>
+    //     )
+    // }
     return (
         <>
             <div className={`${shouldIncludeIcon ? "flex gap-5  justify-start content-center":""}`}>

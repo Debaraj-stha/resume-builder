@@ -7,6 +7,7 @@ import generateSummary from "../../section-data/summary";
 import generateSkill from "../../section-data/skill_section_data";
 import generateStrength from "../../section-data/strength_section_data";
 import generateCertification from "../../section-data/certification_section_data";
+import generateEducation from "../../section-data/education_secion_data";
 
 const getSimpleLayout4SectionData = (data, layout_no) => {
     const {
@@ -23,13 +24,25 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails:  personalDetails , layout_no: layout_no, layout_type: layout_type_map.SIMPLE,
-            shouldIncludeImage: true,
-            style: { nameStyle: style.nameStyle, h2: style.h2, p: style.p }
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] },
+            style: {
+                nameStyle: style.nameStyle,
+                h2: style.h2,
+                p: style.p,
+                profile_li: style.profile_li,
+                profile_ul: style.profile_ul,
+                titleStyle: style.titleStyle,
+                iconColor: style.profile_li.iconColor
+            },
+            props: {
+                shouldIncludeIcon: true,
+                shouldIncludeAddress: true
+            }
 
         }),
         generateSummary({
             summary,
+            titleHeader: "Profile",
             style: {
                 sectionHeader: style.sectionHeader,
                 p: style.p
@@ -39,23 +52,21 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
 
 
         ...generateExperienceSections({
-            experiences,
+            experiences: experiences.slice(0, 2),
             style: {
-                title: {
-                    ...style.sectionHeader
-                },
-                experienceCard: {
-                    h2: style.h2,
-                    h3: style.h3,
-                    primaryColor: style.primaryColor,
-                    p: style.p,
-                    header: style.sectionHeader,
-                    subSection: style.sectionSubHeader
-                }
+
+                sectionHeader: style.sectionHeader,
+                h2: style.h2,
+                h3: style.h3,
+                primaryColor: style.primaryColor,
+                p: style.p,
+
+                sectionSubHeader: style.sectionSubHeader
+
             },
-            layout_no: layout_no,
-            divider: <LineDivider height="3px" />,
-            layout_type: layout_type_map.SIMPLE,
+
+            divider,
+
             props: {
                 applyFlex: false
             },
@@ -63,26 +74,32 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE,
+
             divider,
             style: {
                 h2: style.h2,
                 h3: style.h3,
-                primaryColor: style.primaryColor,
+                sectionSubHeader:style.sectionSubHeader,
                 p: style.p,
                 sectionHeader: style.sectionHeader
+            },
+            props:{
+                shouldIncludeIcon:true
             }
 
         }),
         generateCertification({
             certificates,
             divider,
-            layout_no,
-            layout_type:layout_type_map.SIMPLE,
-            style:{
-                sectionHeader:style.sectionHeader,
-                h2: style.h2, color: style.headerTextColor
+
+            style: {
+                sectionHeader: style.sectionHeader,
+                h3: style.h3,
+                p: style.p,
+                sectionSubHeader:style.sectionSubHeader
+            },
+            props:{
+                grid:true//show two items per row
             }
 
         }),
@@ -97,21 +114,13 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE
-        }),
-        generateStrength({
-            strengths,
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
-            divider,
-            style: {
-                sectionHeader: style.sectionHeader,
-                h2: style.h2,
-                p: style.p
+            titleHeader: "technical skills",
+            props:{
+                borderBottom:true
             }
 
         }),
+
     ];
 
 }

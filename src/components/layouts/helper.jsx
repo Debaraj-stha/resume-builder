@@ -12,16 +12,14 @@ import AcheivementCard from "./cards/ResumeAchievementCard"
 import { layout_type_map } from "../../constant";
 import generateTitle from "./section-data/titleGenerater";
 
-export const IncludeSeparator = ({ layout_no, divider }) =>
-    (layout_no === 1 || layout_no === 2 || layout_no === 3 || layout_no === 6) ? <TransparentLine /> : null;
+
 // Helper to generate experience sections
 const generateExperienceSections = ({
     experiences,
     style,
-    layout_no = 1,
+    
     divider,
     title = "experience",
-    layout_type = layout_type_map.CLASSICAL,
     shouldPair = false,
     props = {}
 }) => {
@@ -31,7 +29,7 @@ const generateExperienceSections = ({
         index === 0 && (
             <>
                 {generateTitle({ title, style: style?.sectionHeader })}
-                {divider || (layout_no === 6 ? <IncludeSeparator layout_no={layout_no} /> : <IncludeSeparator />)}
+                {divider ? divider :null}
             </>
         )
     );
@@ -39,8 +37,7 @@ const generateExperienceSections = ({
         <ExperienceCard
             key={key}
             experience={experience}
-            layout_no={layout_no}
-            layout_type={layout_type}
+           
             style={style}
             {...props}
         />
@@ -80,8 +77,7 @@ const generateExperienceSections = ({
                 <SectionContent>
                     <ExperienceCard
                         experience={experience}
-                        layout_no={layout_no}
-                        layout_type={layout_type}
+                       
                         style={style}
                         {...props}
                     />
@@ -104,7 +100,7 @@ const generateEducationSections = ({
         index === 0 && (
             <>
                 {generateTitle({ title, style: style?.sectionHeader })}
-                {divider || <IncludeSeparator />}
+                {divider ? divider : null}
             </>
         )
     );
@@ -113,8 +109,7 @@ const generateEducationSections = ({
         <EducationCard
             key={key}
             education={education}
-            layout_no={layout_no}
-            layout_type={layout_type}
+           
             style={style}
             {...props}
         />
@@ -181,8 +176,7 @@ const generateAchievementsSections = ({
         <AcheivementCard
             key={key}
             my_acheivement={achievement}
-            layout_no={layout_no}
-            layout_type={layout_type}
+           
             style={style}
             {...props}
         />
@@ -251,8 +245,7 @@ const generateCertipicates = ({
         <CertificationCard
             key={key}
             certificate={certificate}
-            layout_no={layout_no}
-            layout_type={layout_type}
+           
             style={style}
             {...props}
         />

@@ -3,7 +3,7 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import EducationCard from "../cards/ResumeEducationCard"
 import generateTitle from "./titleGenerater"
 
-const generateEducation = ({ educations, divider, style, layout_no, layout_type = layout_type_map.CLASSICAL, titleHeader = "education", props = {} }) => {
+const generateEducation = ({ educations, divider, style,  titleHeader = "education", props = {} }) => {
 
     return {
         key: "education",
@@ -26,9 +26,9 @@ const generateEducation = ({ educations, divider, style, layout_no, layout_type 
                 <SectionContent paddingTop='5px'>
                     {
                         educations.map((education, index) => (
-                            <EducationCard key={index} education={education} layout_no={layout_no}
+                            <EducationCard key={index} education={education} 
                                 style={style}
-                                layout_type={layout_type}
+                               
                                 {...props}
 
                             />

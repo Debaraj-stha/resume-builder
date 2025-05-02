@@ -140,8 +140,7 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
         generateCertification({
             certificates,
             divider,
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+           
             style: {
                 sectionHeader: style.sectionHeader,
                 h3: style.h3,

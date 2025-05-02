@@ -23,16 +23,16 @@ const EducationCard = memo(({ education, style, ...props }) => {
     return (
       <FlexBox gap="20px" className="mb-3">
         <div style={{ flex: "2" }}>
-          <H3 textAlign="left">{start_complete}</H3>
+          <p style={{...style.p}}>{start_complete}</p>
         </div>
         <div style={{ flex: "1" }}>
           <VerticalPinSeparator />
         </div>
         <div style={{ flex: "7" }}>
-          <P fontWeight="600" fontFamily="Open sans">{degree}</P>
-          <P fontWeight="500">{university}</P>
+          <h2 style={{...style.h3,...textColor}}>{degree}</h2>
+          <h3 style={{...style.sectionSubHeader}}>{university}</h3>
           {shouldIncludeGPA && (
-            <P fontWeight="400" fontSize="14px">GPA 3.8</P>
+            <p style={{...style.p}}>GPA 3.8</p>
           )}
         </div>
       </FlexBox>

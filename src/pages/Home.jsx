@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { CTA, CTAButton, Heading, Hspace, Subtitle } from "../components/CustomComponents";
-import Feature from "../components/Features";
+import { CTAButton, Hspace, Subtitle } from "../components/CustomComponents";
+
 import UserThought from "../components/UserThought";
 import styled, { keyframes, useTheme } from "styled-components";
 import "../css/home.css"
 import CTACard from "../components/CTACard";
 import FeatureCards from "../components/FeatureCard";
 import Container from "../components/Container";
+
+
 
 const TypingAnimation = keyframes`
         from {
@@ -37,7 +39,7 @@ const Span = styled.span`
     animation: ${TypingAnimation} 2s steps(30) 1s  forwards;
 `
 
-const TopSection=styled.section`
+const TopSection = styled.section`
     background-color: ${({ theme }) => theme.colors.card.background};
   color: ${({ theme }) => theme.colors.card.text};
   border: 1px solid ${({ theme }) => theme.colors.card.border};
@@ -75,35 +77,40 @@ const Home = () => {
     const createCv = () => {
 
     }
-    const theme=useTheme()
+
+
+
+    const theme = useTheme()
+      
     return (
         <Container>
 
-        <div className="m-auto">
-            <Hspace />
-            <TopSection>
-                <div className="max-w-4xl mx-auto text-center">
-                    <TextWrapper>
-                        <Span>
-                            Build Your Professional CV in Minutes
-                        </Span>
-                    </TextWrapper>
-                    <Subtitle>
-                        Easy to use, customizable templates. Download your resume instantly.
-                    </Subtitle>
-                    <CTAButton onClick={getStarted}>
-                        Get Started
-                    </CTAButton>
-                </div>
-            </TopSection>
-            {/* features of cv builder */}
-            <FeatureCards />
-            {/* user thought  to this site */}
-            <UserThought />
+            <div className="m-auto">
+                <Hspace />
+                <TopSection>
+                    <div className="max-w-4xl mx-auto text-center">
+                        <TextWrapper>
+                            <Span>
+                                Build Your Professional CV in Minutes
+                            </Span>
+                        </TextWrapper>
+                        <Subtitle>
+                            Easy to use, customizable templates. Download your resume instantly.
+                        </Subtitle>
+                        <CTAButton onClick={getStarted}>
+                            Get Started
+                        </CTAButton>
+                    </div>
+                </TopSection>
+                {/* features of cv builder */}
+                <FeatureCards />
+                {/* user thought  to this site */}
+                <UserThought />
 
-            <CTACard />
+                <CTACard />
 
-        </div>
+
+            </div>
         </Container>
     )
 }

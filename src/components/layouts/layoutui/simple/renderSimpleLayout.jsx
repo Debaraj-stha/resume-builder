@@ -12,7 +12,8 @@ const renderSimpleLayout = ({
     layoutId,
     leftFlex = "2",
     rightFlex = "3",
-    shouldImplementFlex = false
+    shouldImplementFlex = false,
+    props={}
 
 }) => {
     if (shouldImplementFlex) {
@@ -22,8 +23,9 @@ const renderSimpleLayout = ({
             sectionRefs,
             key_val,
             layout_no: 2,
-            leftFlex:"3",
-            rightFlex:"2"
+            leftFlex,
+            rightFlex,
+           props:props
         })
     }
     else {

@@ -265,7 +265,7 @@ border-radius:10px;
 `
 export const VerticalPinSeparator=styled.div`
 background:black;
-width:1px;
+width:2px;
 height:100%;
 position:relative;
 &:before{

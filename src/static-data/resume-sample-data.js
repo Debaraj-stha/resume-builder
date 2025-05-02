@@ -120,8 +120,12 @@ export const personalDetails = {
     "https://images.unsplash.com/photo-1568316280532-71d1baad0986?q=80&w=2063&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   ],
   urls: [
-    "https://linkedin.com/jhone",
-    "https://github.com/jhone"
+    {
+      value: "https://linkedin.com/jhone",
+    },
+    {
+      value: "https://github.com/jhone"
+    }
   ],
   profession: "Business Data Analyst,Software Engineer",
 

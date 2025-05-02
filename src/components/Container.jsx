@@ -5,7 +5,7 @@ width:100vw;
 `
 const Container = ({ children }) => {
   return (
-    <ContainerDiv className="px-4 sm:px-6 lg:px-78">
+    <ContainerDiv className="px-4 sm:px-6 lg:px-78 min-h-screen">
       {children}
     </ContainerDiv>
   );

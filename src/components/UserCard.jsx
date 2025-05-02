@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../provider/userProvider";
-import Login from "./Login";
+
+
 import { MdArrowDropDown } from "react-icons/md";
 import Modal from "./Modal";
 import ToolTip from "./Tooltip";
 import { useTheme } from "styled-components";
 import { Button } from "./CustomComponents";
-
+import { useAuth } from "../provider/AuthProvider";
+import LoginButton from "./LoginButton";
+import profile_holder from "../assets/profile_holder.jpg"
 
 const Usercard = () => {
-    const { user, logout } = useUser();
+    const { user, logout,loading } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const theme=useTheme()
 
@@ -24,7 +26,7 @@ const Usercard = () => {
                 <>
                     <div className="profile">
                         <img
-                            src={user?.picture || "/assets/profile-holder.jpg"}
+                            src={user?.picture || profile_holder}
                             alt="User Profile"
                             className="w-16 h-16 rounded-full"
                         />
@@ -63,18 +65,19 @@ const Usercard = () => {
                                             logout();
                                             setIsModalOpen(false);
                                         }}
-                                                                        >
+                                        
+                                        >
                                         Logout
                                     </Button>
                                 </div>
                             }
                         >
-                            <p className='text-black text-md'>Are you sure you want to logout?</p>
+                            <p className=' text-md' style={{color:theme.colors.text}}>Are you sure you want to logout?</p>
                         </Modal>
                     )}
                 </>
             ) : (
-                <Login />
+                <LoginButton />
             )}
         </div>
     );

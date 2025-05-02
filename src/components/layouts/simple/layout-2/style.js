@@ -1,104 +1,111 @@
 export const layout_2_style = {
-    primaryColor: "#0056d2", // Strong blue used for headers and accents
-    fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+    primaryColor: "#000000",
     backgroundColor: "#ffffff",
-    headerBackground: "#ffffff",
-    textColor: "#000000",
-    headerTextColor: "#0056d2",
-    subTextColor: "#4f4f4f",
-    accentColor: "#0056d2",
+    fontFamily: "'Helvetica Neue', sans-serif",
+    textColor: "#333333",
+    subTextColor: "#555555",
+    accentColor: "#000000",
+
     nameStyle: {
-        fontSize: "28px",
+        fontSize: "24px",
         fontWeight: "700",
-        fontFamily: "'Poppins', sans-serif",
-        color: "#f00",
+        fontFamily: "'Georgia', serif",
+        color: "#000000",
         textTransform: "none",
-        textAlign:"left"
+        textAlign: "left",
+        marginBottom: "4px",
     },
+
     titleStyle: {
-        fontSize: "16px",
-        fontWeight: "500",
-        color: "#0056d2",
-        letterSpacing: "0px",
-         textAlign:"left"
+        fontSize: "13px",
+        fontWeight: "400",
+        color: "#555555",
+        textAlign: "left",
+        marginBottom: "12px",
     },
+
     profile_ul: {
         display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        alignContent: "center",
         flexWrap: "wrap",
+        gap: "12px",
+        justifyContent:"start",
         listStyleType: "none",
-        listStylePosition: "inside",
-        gap: "5px",
-        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+        padding: "0",
+        margin: "0 0 12px",
     },
 
     profile_li: {
-        fontSize: "14px",
-        color: "#000000",
-        padding: "4px 8px",
-        textAlign: "center",
-        fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+        fontSize: "12px",
+        color: "#333333",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
-        alignContent: "center",
-        iconColor: "#0040ff"
+        gap: "6px",
+        iconColor: "#555555",
     },
+
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "600",
-        color: "#0056d2",
+        fontSize: "13px",
+        fontWeight: "700",
+        color: "#000000",
         textTransform: "uppercase",
-        width: "fit-content",
-         textAlign:"left"
+        paddingBottom: "4px",
+        marginBottom: "4px",
+        textAlign:"left"
     },
 
     sectionSubHeader: {
-        fontSize: "13px",
+        fontSize: "12px",
         fontWeight: "600",
         color: "#000000",
-        margin: "4px 0",
-        textAlign: "left"
+        marginBottom: "4px",
+        textAlign:"left"
     },
 
     p: {
-        fontSize: "12px",
+        fontSize: "11px",
         lineHeight: "1.6",
-        color: "#4f4f4f",
-        textAlign: "left"
+        color: "#555555",
+       
+        textAlign:"left"
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
+        fontSize: "16px",
+        fontWeight: "700",
         color: "#000000",
-         textAlign:"left"
+        marginBottom: "4px",
+        textAlign:"left"
     },
 
     h2: {
-        fontSize: "16px",
+        fontSize: "14px",
         fontWeight: "600",
         color: "#000000",
-        textAlign: "left"
-         
+        marginBottom: "2px",
+        textAlign:"left"
     },
 
     h3: {
-        fontSize: "14px",
+        fontSize: "12px",
         fontWeight: "500",
         color: "#000000",
-        textAlign: "left"
+        textAlign:"left"
     },
 
     tagStyle: {
-        backgroundColor: "#e6f0fd",
-        color: "#0056d2",
-        fontSize: "11px",
-        padding: "4px 8px",
+        backgroundColor: "#f2f2f2",
+        color: "#000000",
+        fontSize: "10px",
+        padding: "4px 10px",
         borderRadius: "12px",
+        margin: "3px",
         display: "inline-block",
-        margin: "2px",
+    },
+
+    progressBar: {
+        backgroundColor: "#e0e0e0",
+        fillColor: "#000000",
+        height: "5px",
+        borderRadius: "2.5px",
     },
 };

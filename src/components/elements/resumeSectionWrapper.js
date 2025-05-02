@@ -6,7 +6,9 @@ export const Section = styled.section.withConfig({
     text-align: ${(props) => props.textAlign || 'center'};
     font-weight: ${(props) => props.fontWeight || '500'};
     padding: ${(props) => props.padding || '0'};
+    margin:${({margin})=>margin||"0 10px"};
     margin-top: ${(props) => props.marginTop || '0'};
+
     box-sizing: border-box;
   `;
 

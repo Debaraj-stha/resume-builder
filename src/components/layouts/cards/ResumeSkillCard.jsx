@@ -5,7 +5,7 @@ import {
   FlexBox
 } from "../../CustomComponents";
 
-const SkillCard = memo(({ skills, layout_no, style, ...props }) => {
+const SkillCard = memo(({ skills, style, ...props }) => {
   const {
     shouldIncludeField,
     borderBox,

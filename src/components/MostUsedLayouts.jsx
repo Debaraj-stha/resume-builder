@@ -76,7 +76,7 @@ const MostUsedLayouts = memo(({layout_image_map,layout_descriptions}) => {
                             key={index}
                             imageSRC={imageSRC}
                             layoutName={layoutName}
-                            layoutDescription={layout_descriptions[layoutName]}
+                            // layoutDescription={layout_descriptions[layoutName]}
                             includeUserCount={true}
                             userCount={100}
                         />

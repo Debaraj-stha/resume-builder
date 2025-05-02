@@ -1,81 +1,111 @@
 export const layout_3_style = {
-    primaryColor: "#0056d2", // Strong blue used for headers and accents
-    fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
+    primaryColor: "#000000",
     backgroundColor: "#ffffff",
-    headerBackground: "#ffffff",
+    fontFamily: "'Arial', sans-serif",
     textColor: "#000000",
-    headerTextColor: "#0056d2",
-    subTextColor: "#4f4f4f",
-    accentColor: "#0056d2",
+    subTextColor: "#555555",
+    accentColor: "#000000",
+
     nameStyle: {
-        fontSize: "28px",
+        fontSize: "22px",
         fontWeight: "700",
-        fontFamily: "'Poppins', sans-serif",
-        color: "green",
+        fontFamily: "'Georgia', serif",
+        color: "#000000",
         textTransform: "none",
-        textAlign:"left"
+        textAlign: "left",
+        marginBottom: "2px",
     },
+
     titleStyle: {
-        fontSize: "16px",
-        fontWeight: "500",
-        color: "#0056d2",
-        letterSpacing: "0px",
-         textAlign:"left"
+        fontSize: "12px",
+        fontWeight: "600",
+        color: "rgb(6, 51, 228)",
+        textAlign: "left",
+        marginBottom: "10px",
+    },
+
+    profile_ul: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "8px",
+        listStyleType: "none",
+        padding: "0",
+        margin: "0 0 10px",
+        justifyContent:"start"
+    },
+
+    profile_li: {
+        fontSize: "11px",
+        color: "#000000",
+        display: "flex",
+        alignItems: "center",
+        gap: "4px",
+        iconColor: "rgb(6, 51, 228)",
     },
 
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "600",
-        color: "#0056d2",
+        fontSize: "12px",
+        fontWeight: "700",
+        color: "#000000",
         textTransform: "uppercase",
-        width: "fit-content",
-         textAlign:"left"
+        paddingBottom: "4px",
+        marginBottom: "4px",
+        textAlign:"left",
     },
 
     sectionSubHeader: {
-        fontSize: "13px",
+        fontSize: "11px",
         fontWeight: "600",
-        color: "#000000",
-        margin: "4px 0",
-        textAlign: "left"
+        color: "rgb(6, 51, 228)",
+        marginBottom: "4px",
+        textAlign:"left",
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
-        color: "#4f4f4f",
-        textAlign: "left"
+        fontSize: "11px",
+        lineHeight: "1.5",
+        color: "#555555",
+        marginBottom: "5px",
+        textAlign:"left",
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
+        fontSize: "14px",
+        fontWeight: "700",
         color: "#000000",
-         textAlign:"left"
+        textAlign:"left",
+        marginBottom: "4px",
     },
 
     h2: {
-        fontSize: "16px",
+        fontSize: "12px",
         fontWeight: "600",
         color: "#000000",
-        textAlign: "left"
-         
+        textAlign:"left",
+        marginBottom: "2px",
     },
 
     h3: {
-        fontSize: "14px",
+        fontSize: "11px",
         fontWeight: "500",
         color: "#000000",
-        textAlign: "left"
+        textAlign:"left",
     },
 
     tagStyle: {
-        backgroundColor: "#e6f0fd",
-        color: "#0056d2",
-        fontSize: "11px",
+        backgroundColor: "#f2f2f2",
+        color: "#000000",
+        fontSize: "10px",
         padding: "4px 8px",
-        borderRadius: "12px",
+        borderRadius: "10px",
+        margin: "3px",
         display: "inline-block",
-        margin: "2px",
+    },
+
+    progressBar: {
+        backgroundColor: "#dddddd",
+        fillColor: "#000000",
+        height: "4px",
+        borderRadius: "2px",
     },
 };

@@ -1,6 +1,6 @@
 import SkillCard from "../../cards/ResumeSkillCard"
 import ResumeHeader from "../../cards/ResumeHeader";
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
+import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_4_style as style } from "../layout-4/style"
 import { Title } from "../../../Title";
 import { TransparentLine } from "../../../Divider/TransparentDividers";

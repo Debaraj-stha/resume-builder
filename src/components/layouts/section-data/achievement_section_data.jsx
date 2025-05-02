@@ -7,11 +7,23 @@ const generateAchievement = ({
     achievements,
     style,
     divider,
-    layout_no,
-    layout_type = layout_type_map.CLASSICAL,
+
     titleHeader = "achievement",
     props = {} }) => {
+    const { shouldApplyGrid,side } = props
+    const Achievement = achievements.map((achievement, index) => (
+        <AcheivementCard
+            key={index}
+            my_acheivement={achievement} 
+            style={
+                style
+            }
+            {...props}
 
+        />
+
+    ))
+    const textColor=side==="right" ? {color:"white"} : {}
     return {
         key: "achievements",
         content: () => (
@@ -22,7 +34,7 @@ const generateAchievement = ({
                         title: titleHeader,
                         style: {
                             ...style.sectionHeader,
-                            ...(props.side === "right" && { color: "white" })
+                            ...textColor
                         }
                     })
 
@@ -32,19 +44,14 @@ const generateAchievement = ({
                 }
                 <SectionContent>
                     {
-                        achievements.map((achievement, index) => (
-                            <AcheivementCard
-                                key={index}
-                                my_acheivement={achievement} layout_no={layout_no}
-                                style={
-                                    style
-                                }
-                                layout_type={layout_type}
-                                {...props}
+                        shouldApplyGrid ? (
+                            <div className="grid grid-cols-2 gap-3">
+                                {Achievement}
+                            </div>
 
-                            />
+                        ) :
+                            Achievement 
 
-                        ))
                     }
 
                 </SectionContent>

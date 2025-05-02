@@ -1,7 +1,7 @@
 
 import ResumeHeader from "../../cards/ResumeHeader";
 import SkillCard from "../../cards/ResumeSkillCard"
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections, IncludeSeparator } from "../../helper";
+import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_6_style as style } from "../layout-6/style"
 
 import { DoubleLineDivider, LineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
@@ -85,7 +85,6 @@ const getlayout6OutputSection = (data, layout_no) => {
         }),
         generateSkill({
             skills:skills.slice(0,3),
-            divider: <IncludeSeparator layout_no={layout_no} />,
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,

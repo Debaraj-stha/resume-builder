@@ -89,9 +89,6 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
       case 5:
         layoutModule = await import("../layouts/simple/layout-output/layout-5-output")
         break
-      case 6:
-        layoutModule = await import("../layouts/simple/layout-output/layout-6-output")
-        break
       default:
         layoutModule = null
 

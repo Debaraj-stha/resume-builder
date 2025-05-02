@@ -23,7 +23,7 @@ const generateSkill = ({ skills, divider,
                 }
 
                 <SectionContent>
-                    <SkillCard skills={skills} layout_no={layout_no} layout_type={layout_type}
+                    <SkillCard skills={skills} 
                         style={style}
                         {...props}
 

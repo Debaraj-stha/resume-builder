@@ -30,15 +30,15 @@ const ExperienceCard = memo(({ experience, style, ...props }) => {
       <FlexBox gap="20px" className="mb-3">
         <div style={{ flex: "2" }}>
           <h3 style={style.h3}>{startDate} - {endDate}</h3>
-          <P>{location}</P>
+          <p style={style.p}>{location}</p>
         </div>
         <div style={{ flex: "1" }}>
           <VerticalPinSeparator />
         </div>
         <div style={{ flex: "7" }}>
-          <P fontWeight="600" fontFamily="Open sans">{position}</P>
-          <P fontWeight="500">{aboutCompany}</P>
-          <Ul listStyle="none" textAlign="left" padding="0 0 0 10px">
+          <h3 style={style.h3}>{position}</h3>
+          <p style={style.p}>{aboutCompany}</p>
+          <Ul textAlign="left" padding="0 0 0 10px">
             {achievements.map((a, i) => <Li key={i}>{a.value}</Li>)}
           </Ul>
         </div>

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import LayoutCard from "./LayoutCard"
 import LayoutDescriptionCard from "./LayoutDescriptionCard"
 import { Button, FlexBox, H3 } from "./CustomComponents";
+import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 
 
 const Overlay = styled.div`
@@ -35,19 +37,23 @@ const ImageContainer = styled.div`
     opacity: 1; /*show on hover */
   }
 `;
-const LayoutCardWithDetails = ({imageSRC,layoutName,layoutDescription,userCount,includeUserCount=false}) => {
-    return (
-        <LayoutCard>
-            <ImageContainer>
-                <img src={imageSRC} alt={`layout`} loading="lazy" />
-                <Overlay>
-                    <Button>Customize This Template</Button>
-                </Overlay>
-            </ImageContainer>
-            <LayoutDescriptionCard title={layoutName} description={layoutDescription} includeUserCount={includeUserCount} userCount={userCount} />
-           
-        </LayoutCard>
-    )
-}
+const LayoutCardWithDetails = memo(({ imageSRC, layoutName, layoutDescription, userCount, layout_type,layout_id ,includeUserCount = false,}) => {
+ const navigate=useNavigate()
+  const handleButtonClick = () => {
+    navigate(`/build-resume/${layout_type}/${layout_id}`)
+  }
+  return (
+    <LayoutCard>
+      <ImageContainer>
+        <img src={imageSRC} alt={`layout`} loading="lazy" />
+        <Overlay>
+          <Button onClick={handleButtonClick}>Customize This Template</Button>
+        </Overlay>
+      </ImageContainer>
+      <LayoutDescriptionCard title={layoutName} description={layoutDescription} includeUserCount={includeUserCount} userCount={userCount} />
+
+    </LayoutCard>
+  )
+})
 
 export default LayoutCardWithDetails
