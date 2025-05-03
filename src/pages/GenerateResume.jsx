@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components"
 import {H1, Hspace} from "../components/CustomComponents"
-
+import LayoutInputField from "../components/layouts/input-layout/LayoutInputField"
 import LayoutProvider, { useLayout } from "../provider/layoutProvider";
-import LayoutInputField from "../components/layouts/classic/input-layout/LayoutInputField";
-import LayoutPreview from "../components/layouts/classic/input-layout/LayoutPreview";
+
+import LayoutPreview from "../components/layouts/input-layout/LayoutPreview";
 const MainWrapper=styled.section`
 width:100vw;
 height:auto;

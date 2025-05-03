@@ -14,7 +14,6 @@ import LayoutWrapper from "./LayoutWrapper";
 import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWithProvider, SimpleLayoutWithProvider } from "./LayoutsWithProvider";
 import Login from "../pages/Login";
 
-
 const AppRoutes = () => {
     return (
         <Routes>

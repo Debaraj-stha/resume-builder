@@ -1,0 +1,36 @@
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { CardWrapper, Input } from "../../CustomComponents";
+import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
+import { GridTwo } from "./GridCards";
+
+const DynamicPassionCard = ({ name }) => {
+    const { control, register } = useFormContext();
+    const { fields, append, remove } = useFieldArray({ control, name });
+
+    const handleAppend = () => {
+        append({ value: "" });
+    };
+    const handleRemove = (index) => {
+        remove(index)
+    }
+
+    return (
+        <CardWrapper>
+            {fields.length > 0 ? fields.map((field, index) => {
+                const base = `${name}[${index}].value`;
+                return (
+                    <GridTwo key={field.id}>
+                        <Input
+                            {...register(base)}
+                            placeholder={`passion[${index}] e.g. Tech Blogging, UI/UX Design`}
+                        />
+                        <AppendRemoveButton handleAppend={handleAppend} handleRemove={handleRemove} />
+                    </GridTwo>
+                )
+            }) :
+                <AppendButton handleAppend={handleAppend} />
+            }
+        </CardWrapper>
+    );
+}
+export default DynamicPassionCard

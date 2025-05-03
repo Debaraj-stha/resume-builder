@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { Textarea } from "../../../elements/resumeSectionWrapper";
+import { Textarea } from "../../elements/resumeSectionWrapper";
 
 const SummarySection = () => {
   const { register } = useFormContext();

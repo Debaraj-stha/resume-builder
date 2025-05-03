@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { FiDelete } from "react-icons/fi";
-import { Button, Input } from "../../../CustomComponents"; // Assuming Input component is used
-import { useLayout } from "../../../../provider/layoutProvider";
+import { Button, Input } from "../../CustomComponents"; // Assuming Input component is used
+import { useLayout } from "../../../provider/layoutProvider";
 
 const Wrapper = styled.div`
   margin-bottom: 1.5rem;

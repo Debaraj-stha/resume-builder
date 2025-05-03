@@ -7,7 +7,7 @@ export const lightTheme = {
     navHoverText: "#1e40af",       // blue-800
     accent: "#ec4899",             // pink-500
     accentHover: "#db2777",        // pink-600
-    border: "#eee",             // gray-200
+    border: "#505664",             // gray-200
     bannerText: "#ec4899",
     bannerHoverText: "#be185d",
     tableHeaderBg: "#ddd",       // gray-100
@@ -102,7 +102,7 @@ export const lightTheme = {
       background: "#ffffff",         // same as overall background, or optionally:
       background: "#f9fafb",     // a subtle off-white if you want a soft card feel
       text: "#111827",               // for high contrast text
-      border: "#e5e7eb",             // soft gray border
+      border: "#505664",             // soft gray border
       hoverBackground: "#f3f4f6",    // light hover effect
       shadow: "rgba(0, 0, 0, 0.05)", // optional box shadow
     }
@@ -214,7 +214,7 @@ export const darkTheme = {
     card: {
       background: "#1f2937",         // dark gray (navBackground)
       text: "#ffffff",               // high contrast white
-      border: "#374151",             // subtle border
+      border: "#7b879b",             // subtle border
       hoverBackground: "#374151",    // slightly lighter on hover
       shadow: "rgba(0, 0, 0, 0.2)",  // optional soft shadow for lift
     }

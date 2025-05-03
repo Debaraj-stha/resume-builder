@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { LayoutWrapperWithBorder, ResumeInputFieldWrapper, ResumeWrapper } from "../../../elements/resumeWrapper";
-import { Section } from "../../../elements/resumeSectionWrapper";
+import { LayoutWrapperWithBorder, ResumeInputFieldWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
+import { Section } from "../../elements/resumeSectionWrapper";
 import { useParams } from "react-router-dom";
 import { fetchSectionData } from "./section-data/fetch-section-data";
-import { useLayout } from "../../../../provider/layoutProvider";
+import { useLayout } from "../../../provider/layoutProvider";
 import { useFormContext } from "react-hook-form";
-import { H1 } from "../../../CustomComponents";
+import { H1 } from "../../CustomComponents";
 
 
 
@@ -18,13 +18,6 @@ const LayoutInputField = () => {
   const sectionData = fetchSectionData(layout_id)
   const [pages, setPages] = useState([]);
   const { measured, setMeasured, groupSectionsIntoPages, sectionRefs } = useLayout()
-
-
-
-
-
-
-
 
   const { handleSubmit } = useFormContext()
   const onSubmit = (data) => {

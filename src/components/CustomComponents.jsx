@@ -335,3 +335,9 @@ export const GridPairBox=styled.div`
 
 
 `
+export const CardWrapper=styled.div`
+border:1px solid ${({theme})=>theme.colors.card.border};
+border-radius:10px;
+padding:10px;
+margin:10px;
+`
