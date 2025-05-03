@@ -193,7 +193,7 @@ const Login = () => {
 
   };
   useEffect(() => {
-  
+
     handleResize();
 
     // Add resize listener
@@ -234,16 +234,16 @@ const Login = () => {
     }
     else {
       response = await loginWithLink(data.email)
-      if (response.status === "success") {
-        reset()//clearing from field
-      }
+    }
+    if (response.status === "success") {
+      reset()//clearing from field
     }
   }
 
 
   //login with google
 
-  const handleLoginWithGoogle=async()=>{
+  const handleLoginWithGoogle = async () => {
     await loginWithGoogle()
   }
 

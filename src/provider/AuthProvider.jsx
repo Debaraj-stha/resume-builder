@@ -69,7 +69,6 @@ const AuthProvider = ({ children }) => {
             } else {
                 alert("Check your email for the login link.");
                 response.status = "success"
-
                 return response
             }
         } catch (e) {
