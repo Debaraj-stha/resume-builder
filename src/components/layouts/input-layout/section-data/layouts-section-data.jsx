@@ -8,7 +8,15 @@ import DynamicExperienceSection from "../DynamicExperienceSection";
 import HeaderSection from "../HeaderSection";
 import DynamicSkillCard, { SkillItems } from "../SkilllCard";
 import SummarySection from "../SummarySection";
-
+import DynamicCertificateCard from "../DynamicCertificateCard"
+import DynamicPassionCard  from "../DynamicPassionCrad"
+import DynamicLanguageInputCard from "../DynamicLanguageInputCard"
+import DynamicStrengthsCard from "../DynamicStrengthsCard";
+import DynamicTrainingCard from "../DynamicTrainingCard";
+import DynamicMyTimeCard from "../DynamicMyTimeCard";
+import DynamicAwardCard from "../DynamicAwardCard";
+import DynamicIndustryExpertiseCard from "../DynamicInductryExpertiseCard";
+import DynamicOpenSourceWorkCard from "../DynamicOpenSourceWork";
 // Section Component Map
 const sectionComponents = {
   header: () => <HeaderSection />,
@@ -43,24 +51,62 @@ const sectionComponents = {
       <DynamicSkillCard name="skills" />
     </DynamicInputSectionWrapper>
   ),
+  certificate:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Certificates</Paragraph>
+      <DynamicCertificateCard name="certificates" />
+    </DynamicInputSectionWrapper>
+  },
+  passion:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Passions</Paragraph>
+      <DynamicPassionCard name="passions"/>
+    </DynamicInputSectionWrapper>
+  },
+  language:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Languages</Paragraph>
+      <DynamicLanguageInputCard name="languages"/>
+    </DynamicInputSectionWrapper>
+  },
+  strength:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Strengths</Paragraph>
+      <DynamicStrengthsCard name="strengths"/>
+    </DynamicInputSectionWrapper>
+  },
+  training:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Trainings</Paragraph>
+      <DynamicTrainingCard name="trainings"/>
+    </DynamicInputSectionWrapper>
+  },
+  my_time:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>My Time</Paragraph>
+      <DynamicMyTimeCard name="my_time"/>
+    </DynamicInputSectionWrapper>
+  },
+  awards:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Awards</Paragraph>
+      <DynamicAwardCard name="awards"/>
+    </DynamicInputSectionWrapper>
+  },
+  expertise:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Industry Expertise</Paragraph>
+      <DynamicIndustryExpertiseCard name="industryExpertise"/>
+    </DynamicInputSectionWrapper>
+  },
+  open_source_work:()=>{
+    <DynamicInputSectionWrapper>
+      <Paragraph>Open Source Work</Paragraph>
+      <DynamicOpenSourceWorkCard name="openSourceWork"/>
+    </DynamicInputSectionWrapper>
+  }
 };
 
-// Layout Definitions
-const layoutSections = {
-  layout1: ["header", "summary", "experience", "education", "achievement", "skills1"],
-  layout2: ["header", "summary", "experience", "education", "skills1"],
-  layout3: ["header", "summary", "experience", "education", "skills2"],
-};
 
-// Generator
-const generateLayoutData = (layoutKey) => {
-  return layoutSections[layoutKey].map((key) => ({
-    key,
-    content: () => sectionComponents[key](),
-  }));
-};
+export default sectionComponents
 
-// Final Exports
-export const layout1SeactionData = generateLayoutData("layout1");
-export const layout2sectionData = generateLayoutData("layout2");
-export const layout3SectionData = generateLayoutData("layout3");

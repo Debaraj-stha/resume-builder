@@ -3,7 +3,7 @@ import { LeftColumn, RightColumn, Section } from "../../elements/resumeSectionWr
 import { FlexResumeWrapper, ModernResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
 import CurvedWrapper from "../wrappers/curved-wrapper";
 import { CreativeResumeWrapperWithLine } from "../../elements/resumeWrapper";
-import { lazy, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
 export const Wrapper = styled.div`
 display: flex;
 padding: 0;
@@ -49,10 +49,14 @@ const renderLayout = ({
     NORMAL: "normal",
     LINE: "line"
 
+
   }
 
+  const [sectionsHeight, setSectionsHeight] = useState([])
+  const [CustomWrapper, setCustomWrapper] = useState(null)
+
   const NameInitial = () => {
-    const name=key_val.personalDetails.name
+    const name = key_val.personalDetails.name
     const names = name.split(" ")
     const fnameFirstChar = names[0][0]
     const lnameFirstChar = names[1][0]
@@ -73,18 +77,58 @@ const renderLayout = ({
       </Section>
     );
   };
-  let CustomWrapper
 
-  if (layout === layout_map.CURVED) {
-    CustomWrapper = CurvedWrapper
-  }
-  else if (layout === layout_map.LINE) {
-    CustomWrapper = CreativeResumeWrapperWithLine
-  }
-  else {
-    CustomWrapper = ResumeWrapper
+  const selectWrapper = () => {
+    if (layout === layout_map.CURVED) {
+      setCustomWrapper(CurvedWrapper)
+    }
+    else if (layout === layout_map.LINE) {
+      setCustomWrapper(CreativeResumeWrapperWithLine)
+    }
+    else {
+      setCustomWrapper(ResumeWrapper)
+    }
   }
 
+  const distributeSectionsByHeight = (heights) => {
+    const leftColumnIndices = []
+    const rightColumnIndices = []
+    let leftHeight = 0
+    let rightHeight = 0
+    heights.forEach((height, index) => {
+      if (i === 0 && personalDetailsOnLeft) {
+        leftColumnIndices.push(i)
+        leftHeight += height
+      }
+      else if (i == 0 && !personalDetailsOnLeft) {
+        //do nothing and handle as header
+      }
+      else if (leftHeight < rightHeight) {
+        leftColumnIndices.push(i)
+        leftHeight += height
+      }
+      else {
+        rightColumnIndices.push(i)
+        rightHeight += height
+      }
+    })
+    return {leftColumnIndices,rightColumnIndices}
+  }
+
+
+
+  useEffect(() => {
+    if (sectionRefs.current.length === 0) return
+    //computing each section height
+    const heights = sectionRefs.current.map((ref, i) => ref.offsetHeight || 0)
+    setSectionsHeight(heights)
+  }, [sectionData])
+
+
+
+  useEffect(() => {
+    selectWrapper()
+  }, [layout])
 
 
 
@@ -135,10 +179,10 @@ const renderLayout = ({
   let headerSection = null;
 
   sectionData.forEach((section, index) => {
- 
+
     const content = renderSection(section, index);
     if (index === 0) {
- 
+
       // if (layout_no === 1) {
       if (personalDetailsOnLeft) {
         leftColumn.push(content);

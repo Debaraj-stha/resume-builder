@@ -1,4 +1,4 @@
-import { layout1SeactionData, layout2sectionData, layout3SectionData } from "./layouts-section-data";
+import { layout1SeactionData, layout2sectionData, layout3SectionData } from "./generateLayoutData"
 
 export const fetchSectionData = (layout_id) => {
   switch (layout_id) {

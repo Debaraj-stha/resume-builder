@@ -1,6 +1,6 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
-import { GridFive, GridFour, GridThree, GridTwo } from "./GridCards";
+import {  GridFour,  GridTwo } from "./GridCards";
 import { CardWrapper, H2, Input } from "../../CustomComponents";
 import { Textarea } from "../../elements/resumeSectionWrapper";
 
