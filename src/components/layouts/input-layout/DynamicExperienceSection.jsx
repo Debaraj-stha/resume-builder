@@ -28,9 +28,11 @@ const DynamicExperienceSection = ({ name }) => {
   });
   const { measured, setMeasured } = useLayout()
   const handleAppend = () => {
+    console.log("before measured",measured)
     append({ companyName: "", position: "", aboutCompany: "", achievements: [{ value: "" }] })
     console.log("Experience added")
     setMeasured(false)
+    console.log("after measured",measured)
   }
   const handleRemove = () => {
     remove(outerIndex)

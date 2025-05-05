@@ -13,6 +13,7 @@ const ExperienceList = ({ name }) => {
     control,
     name,
   });
+  const {measured, setMeasured } = useLayout()
   const handleRemove = (index)=>{
     remove(index);
     setMeasured(false)
@@ -20,9 +21,10 @@ const ExperienceList = ({ name }) => {
   const handleAppend = () => {
     append({ value: "" })
     setMeasured(false)
+    console.log("measuredsssss",measured)
 
   }
-  const { setMeasured } = useLayout()
+
   return (
     <CardWrapper>
       {

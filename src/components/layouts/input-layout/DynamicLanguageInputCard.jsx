@@ -3,17 +3,20 @@ import { CardWrapper, Input } from "../../CustomComponents";
 
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
 import { GridThree } from "./GridCards";
+import { useLayout } from "../../../provider/layoutProvider";
 
 
 const DynamicLanguageInputCard = ({ name }) => {
     const { control, register } = useFormContext();
     const { fields, append, remove } = useFieldArray({ control, name });
-
+const{setMeasured}=useLayout()
     const handleAdd = () => {
         append({ language: "", proficiency: "" });
+         setMeasured(false)
     };
     const handleRemove = (index) => {
         remove(index)
+         setMeasured(false)
     }
 
 

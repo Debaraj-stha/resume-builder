@@ -3,17 +3,20 @@ import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
 import { GridFour } from "./GridCards";
 import { CardWrapper, Input } from "../../CustomComponents";
 import { useTheme } from "styled-components";
+import { useLayout } from "../../../provider/layoutProvider";
 
 const DynamicCertificateCard = ({ name }) => {
 
     const { control, register } = useFormContext();
     const { fields, append, remove } = useFieldArray({ control, name });
-
+    const{setMeasured}=useLayout()
     const handleAppend = () => {
         append({ subject: "", certificate: "", date: "" })
+        setMeasured(false)
     };
     const handleRemove = (index) => {
         remove(index)
+        setMeasured(false)
     }
     const theme = useTheme()
     return (

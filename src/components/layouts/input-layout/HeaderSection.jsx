@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import DynamicFieldArray from "./DynamicArrayField";
 import { CardWrapper, Input } from "../../CustomComponents";
-import { GridTwo } from "./GridCards";
+import { GridOne, GridTwo } from "./GridCards";
 
 const HeaderSection = () => {
   const { control, register } = useFormContext();
@@ -31,14 +31,14 @@ const HeaderSection = () => {
           {...register("personalDetails.email")} // Registering the 'email' field inside 'personalDetails'
         />
       </GridTwo>
-      <GridTwo>
+      <GridOne>
       <DynamicFieldArray
         name="personalDetails.urls" // Registering the 'url' field inside 'personalDetails'
         placeholder="URL"
         control={control}
         register={register}
       />
-      </GridTwo>
+      </GridOne>
     </CardWrapper>
   );
 };

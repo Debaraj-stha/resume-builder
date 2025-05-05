@@ -50,7 +50,7 @@ const GenerateWebsiteURL = ({ urls, color, style
             <GenerateLi
                 key={index}
                 icon={icon}
-                text={u}
+                text={url}
                 color={color}
                 style={style}
             />
@@ -92,6 +92,7 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
     console.log("pes",personalDetails)
     
     const { name, address,  urls, profession, email, phone } = personalDetails
+    const urlValue=urls?.map((url,index)=>url?.value)
     let {profile}=personalDetails
     if(!Array.isArray(profile)){
         profile=[profile]
@@ -113,7 +114,7 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
             shouldIncludeIcon ? <GenerateContactList personalDetails={personalDetails} color={style.p.color}
                 style={style}
             /> :
-                generateContactListWithoutIcon({ contactInfos: [phone, email, ...urls, address], style: style.profile_li })}
+                generateContactListWithoutIcon({ contactInfos: [phone, email,...urlValue , address], style: style.profile_li })}
     </Ul>
 
     const Profession = shouldIncludeProfession && <h2 style={{ ...style?.titleStyle }}>{profession}</h2>

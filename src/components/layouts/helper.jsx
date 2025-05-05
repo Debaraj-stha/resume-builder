@@ -171,7 +171,6 @@ const generateAchievementsSections = ({
             </>
         )
     );
-
     const renderAchievementCard = (achievement, key) => (
         <AcheivementCard
             key={key}

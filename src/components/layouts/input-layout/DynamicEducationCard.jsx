@@ -5,7 +5,7 @@ import {  CardWrapper, Input } from "../../CustomComponents";
 import { useLayout } from "../../../provider/layoutProvider";
 import { GridThree, GridTwo } from "./GridCards";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
-
+//  educations: [{ university: "", degree: "", start_complete: "" }],
 const DynamicEducationCard = ({ name }) => {
   const { control, register } = useFormContext();
   const { fields, append, remove } = useFieldArray({

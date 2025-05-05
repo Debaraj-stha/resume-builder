@@ -3,6 +3,8 @@ import { ResumeWrapper } from "../elements/resumeWrapper";
 import useDynamicLayoutSections from "./loadResumeLayput";
 
 const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
+
+      
     const shoulApplyMargin = (section) => {
         const isExperienceSection = section.key?.startsWith("experience_") ;
         const isFirstExperience = isExperienceSection && section.key === "experience_0";
@@ -33,6 +35,7 @@ const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
         return applyMarginTop;
     };
     const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
+    
     return (
         pages.length > 0 ? (
             pages.map((group, pageIndex) => (

@@ -2,18 +2,21 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { CardWrapper, Input } from "../../CustomComponents";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
 import { GridThree } from "./GridCards";
+import { useLayout } from "../../../provider/layoutProvider";
 
 
 const DynamicIndustryExpertiseCard = ({ name }) => {
 
     const { control, register } = useFormContext();
     const { fields, append, remove } = useFieldArray({ control, name });
-
+const{setMeasured}=useLayout()
     const handleAppend = () => {
         append({ tech: "", value: "" })
+        setMeasured(false)
     };
     const handleRemove = (index) => {
         remove(index)
+        setMeasured(false)
     }
  
 

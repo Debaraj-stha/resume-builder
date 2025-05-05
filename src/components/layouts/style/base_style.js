@@ -1,4 +1,5 @@
 const base_style = {
+   main_style:{
     primaryColor: "#000000", // Black used for name and section titles
     fontFamily: "'Roboto', sans-serif", // Clean modern sans-serif font
     backgroundColor: "#ffffff",
@@ -8,6 +9,7 @@ const base_style = {
     textColor: "#333333", // Dark gray for body text
     subTextColor: "#555555", // Slightly lighter gray for secondary text
     accentColor: "#000000", // Used in section dividers and headings
+   },
     nameStyle: {
         fontSize: "22px",
         fontWeight: "700",

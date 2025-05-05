@@ -8,9 +8,6 @@ export const LayoutContext = createContext(null);
 
 const LayoutProvider = ({ children }) => {
   const theme = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
-  const [measured, setMeasured] = useState(false);
-  const sectionRefs = useRef([]);
   const methods = useForm({
     defaultValues: {
       personalDetails: {
@@ -96,6 +93,10 @@ const LayoutProvider = ({ children }) => {
       ]
     },
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [measured, setMeasured] = useState(false);
+  const sectionRefs = useRef([]);
+
 
 
 
@@ -164,7 +165,7 @@ const LayoutProvider = ({ children }) => {
 
 
   const groupSectionsIntoPages = (sectionRefs, setMeasured, setPages) => {
-    const PAGE_HEIGHT = 1122;
+    const PAGE_HEIGHT = 970;
 
     // Initialize an array to hold the grouped sections (pages).
     let grouped = [];

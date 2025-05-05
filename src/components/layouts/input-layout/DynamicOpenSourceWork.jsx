@@ -3,6 +3,7 @@ import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
 import {  GridFour,  GridTwo } from "./GridCards";
 import { CardWrapper, H2, Input } from "../../CustomComponents";
 import { Textarea } from "../../elements/resumeSectionWrapper";
+import { useLayout } from "../../../provider/layoutProvider";
 
 
 const DynamicTechnologyCard = ({ name }) => {
@@ -39,7 +40,7 @@ const DynamicTechnologyCard = ({ name }) => {
 const DynamicOpenSourceWorkCard = ({ name }) => {
     const { control, register } = useFormContext();
     const { fields, append, remove } = useFieldArray({ control, name });
-
+    const{setMeasured}=useLayout()
     const handleAppend = () => {
         append({
             tech: "",
@@ -51,9 +52,11 @@ const DynamicOpenSourceWorkCard = ({ name }) => {
             description: "",
             technologies: [{ value: "" }]
         })
+         setMeasured(false)
     };
     const handleRemove = (index) => {
         remove(index)
+         setMeasured(false)
     }
 
 

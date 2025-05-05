@@ -1,16 +1,19 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
 import { Input } from "../../CustomComponents";
+import { useLayout } from "../../../provider/layoutProvider";
 
 const DynamicAwardCard = ({ name }) => {
     const { control, register } = useFormContext();
     const { fields, append, remove } = useFieldArray({ control, name });
-
+const { setMeasured}=useLayout()
     const handleAppend = () => {
         append({ title: "", organization: "", year: "", location: "" });
+        setMeasured(false)
     };
     const handleRemove = (index) => {
         remove(index)
+        setMeasured(false)
     }
     // title: "Top Rated Freelancer",
     // organization: "Upwork Corporation",

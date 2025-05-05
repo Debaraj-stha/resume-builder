@@ -25,8 +25,8 @@ const LayoutInputField = () => {
   }
 
   return (
-
-    <form onSubmit={handleSubmit(onSubmit)}>
+   <div className="min-h-screen overflow-y-scroll">
+     <form onSubmit={handleSubmit(onSubmit)}>
       <LayoutWrapperWithBorder>
         <div className="my-6">
           <H1>Input Your Details</H1>
@@ -51,6 +51,7 @@ const LayoutInputField = () => {
       </div>
     </form>
 
+   </div>
   );
 };
 

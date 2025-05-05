@@ -18,10 +18,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: {
-                ...personalDetails, urls: [
-                    personalDetails.urls[0]]
-            }
+            personalDetails
             , layout_no: layout_no,
             shouldIncludeImage: false,
             style: {
@@ -64,7 +61,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
             }
         }),
         ...generateEducationSections({
-            educations:educations.slice(0,1),
+            educations,
             layout_no,
             divider,
             style: {
@@ -92,7 +89,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
             },
             shouldPair: true,
             props: {
-                shouldApplyGrid: false
+                shouldApplyGrid: true
             }
         }),
 

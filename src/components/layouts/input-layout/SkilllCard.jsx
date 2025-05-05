@@ -5,6 +5,7 @@ import { CgAdd } from "react-icons/cg";
 import { FiDelete } from "react-icons/fi";
 import AppendRemoveButton, { AppendButton, RemoveButton } from "./AppendDeleteButton";
 import { GridFour, GridTwo } from "./GridCards";
+import { useLayout } from "../../../provider/layoutProvider";
 
 const DynamicSkillCard = ({ name }) => {
   const { control, register } = useFormContext();
@@ -12,11 +13,14 @@ const DynamicSkillCard = ({ name }) => {
     control,
     name, // 'skills'
   });
+  const {measured,setMeasured}=useLayout()
   const handleAppend = () => {
     append({ field: "", items: [""] })
+    setMeasured(false)
   }
   const handleRemove = (index) => {
     remove(index)
+    setMeasured(false)
   }
 
   return (
@@ -52,15 +56,19 @@ const SkillItems = ({ name }) => {
     control,
     name, // items inside skills[i]
   });
+  const {setMeasured}=useLayout()
   const handleAppend = () => {
     append({ value: "" })
+     setMeasured(false)
+    
   }
   const handleRemove = (index) => {
     remove(index)
+     setMeasured(false)
   }
 
   return (
-    <GridFour>
+    <GridTwo>
       {
         fields.length > 0 ?
           fields.map((item, index) => (
@@ -74,7 +82,7 @@ const SkillItems = ({ name }) => {
           )) : <AppendButton handleAppend={handleAppend} />
       }
 
-    </GridFour>
+    </GridTwo>
   );
 };
 

@@ -2,9 +2,7 @@ import SkillCard from "../../cards/ResumeSkillCard"
 import ResumeHeader from "../../cards/ResumeHeader";
 import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_4_style as style } from "../layout-4/style"
-import { Title } from "../../../Title";
-import { TransparentLine } from "../../../Divider/TransparentDividers";
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
+
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSkill from "../../section-data/skill_section_data";
 const getLayout4OutputSection = (data, layout_no) => {
