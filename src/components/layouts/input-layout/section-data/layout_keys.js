@@ -1,6 +1,6 @@
 export const classical_keys={
     layout_1:["header", "summary", "experience", "education", "achievement", "skills1"],
-    layout_2:["header", "summary", "experience", "education", "skills1"],
+    layout_2:["header", "summary", "experience", "education", "skills1","strength"],
     layout_3:["header", "summary", "experience", "education", "skills2"],
     layout_4:["header","achievement","education","experience","skills1","certificate"],
     layout_5:["header","achievement","education","experience","skills1","certipicate"],

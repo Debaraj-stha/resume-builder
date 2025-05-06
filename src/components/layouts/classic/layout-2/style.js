@@ -1,119 +1,79 @@
+import base_style from "../../style/base_style";
 export const layout_2_style = {
-    primaryColor: "#000000", // Black for headers and important text
+   ...base_style.main_style,
     fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
-    backgroundColor: "#ffffff", // White background
-    headerBackground: "#ffffff", // White header background
     textColor: "#000000", // Main text in black
     headerTextColor: "#000000", // Headers in black
     subTextColor: "#4f4f4f", // Gray color for summary and bullet points
-    accentColor: "#000000", // No accent color (monochrome)
-
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "28px",
-        fontWeight: "700",
         fontFamily: "'Poppins', sans-serif",
-        color: "#000000",
         textTransform: "capitalize",
         textAlign: "left",
         letterSpacing: "1px",
     },
-
     titleStyle: {
+        ...base_style.titleStyle,
         fontSize: "16px",
-        fontWeight: "500",
         color: "#0040ff", 
         letterSpacing: "0px",
         textAlign: "left"
     },
-
     profile_ul: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        alignContent: "center",
-        flexWrap: "wrap",
-        listStyleType:"none",
+        ...base_style.profile_ul,
+        justifyContent: "start",
+        gap:"10px",
         listStylePosition:"inside"
+    },
+    profile_li: {
+        fontSize: "12px",
+        color: "#333333",
+        padding: "0 8px",
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        iconColor: "#555555"
     },
 
     profile_li: {
-        fontSize: "14px",
+        ...base_style.profile_li,
         color: "#000000",
-        padding: "4px 8px",
-        textAlign: "center",
-        display:"flex",
         justifyContent:"space-between",
-        alignItems: "center",
-        alignContent: "center",
         iconColor:"#0040ff"
     },
 
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "700",
-        color: "#000000",
-        textTransform: "uppercase",
-        textAlign: "left",
-        // marginBottom: "8px",
+        ...base_style.sectionHeader
     },
-
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
+        ...base_style.sectionSubHeader,
         color: "#0040ff", 
-        textAlign: "left"
-        // margin: "4px 0",
+      
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#4f4f4f",
-        textAlign: "left",
+    
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
-        textAlign: "left",
-        color: "#000000",
+       ...base_style.h1
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
-        color: "#000000",
-        textAlign: "left",
+       ...base_style.h2
     },
 
     h3: {
-        fontSize: "14px",
-        fontWeight: "500",
-        color: "#000000",
-        textAlign: "left",
-    },
-
-    experience_item: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: "16px"
-    },
-
-    education_item: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: "16px"
+        ...base_style.h3,
     },
 
     tagStyle: {
-        backgroundColor: "#f5f5f5", // Light gray background for tags if needed
-        color: "#000000",
-        fontSize: "11px",
-        padding: "4px 8px",
-        borderRadius: "12px",
+        ...base_style.tagStyle,
+        backgroundColor: "#f5f5f5", 
         display: "inline-block",
-        margin: "2px",
+      
     },
 };

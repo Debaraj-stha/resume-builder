@@ -26,9 +26,9 @@ const {setMeasured}=useLayout()
                     return (
                        <div className="my-4">
                          <GridThree>
-                            <Input placeholder={`${base}.title e.g(Problem Solving)`} {...register(`${base}.title`)} />
+                            <Input placeholder="e.g Problem Solving " {...register(`${base}.title`)} />
                             <Textarea
-                                placeholder={`${base}.description e.g(Able to analyze complex problems, break them down into smaller tasks, and devise efficient solutions under tight deadlines)`}
+                                placeholder="Description about strength"
                                 {...register(`${base}.description`)} />
                             <AppendRemoveButton handleAppend={handleAppend} handleRemove={handleRemove} />
                         </GridThree>

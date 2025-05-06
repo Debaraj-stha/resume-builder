@@ -57,54 +57,54 @@ const sectionComponents = {
       <DynamicCertificateCard name="certificates" />
     </DynamicInputSectionWrapper>
   },
-  passion:()=>{
+  passion:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Passions</Paragraph>
       <DynamicPassionCard name="passions"/>
     </DynamicInputSectionWrapper>
-  },
-  language:()=>{
+  ),
+  language:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Languages</Paragraph>
       <DynamicLanguageInputCard name="languages"/>
     </DynamicInputSectionWrapper>
-  },
-  strength:()=>{
+  ),
+  strength:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Strengths</Paragraph>
       <DynamicStrengthsCard name="strengths"/>
     </DynamicInputSectionWrapper>
-  },
-  training:()=>{
+  ),
+  training:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Trainings</Paragraph>
       <DynamicTrainingCard name="trainings"/>
     </DynamicInputSectionWrapper>
-  },
-  my_time:()=>{
+  ),
+  my_time:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>My Time</Paragraph>
       <DynamicMyTimeCard name="my_time"/>
     </DynamicInputSectionWrapper>
-  },
-  awards:()=>{
+  ),
+  awards:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Awards</Paragraph>
       <DynamicAwardCard name="awards"/>
     </DynamicInputSectionWrapper>
-  },
-  expertise:()=>{
+  ),
+  expertise:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Industry Expertise</Paragraph>
       <DynamicIndustryExpertiseCard name="industryExpertise"/>
     </DynamicInputSectionWrapper>
-  },
-  open_source_work:()=>{
+  ),
+  open_source_work:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Open Source Work</Paragraph>
       <DynamicOpenSourceWorkCard name="openSourceWork"/>
     </DynamicInputSectionWrapper>
-  }
+  )
 };
 
 
