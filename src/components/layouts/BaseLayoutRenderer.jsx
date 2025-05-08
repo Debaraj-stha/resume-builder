@@ -64,6 +64,7 @@ const BaseLayoutRenderer = memo(
 
     useLayoutEffect(() => {
       if (shouldMeasureHeight && !measured) {
+        //creating new ref array of length secionData length and filling with null value
         sectionRefs.current = new Array(sectionData.length).fill(null);
         groupSectionsIntoPages(sectionRefs, setMeasured, setPages);
       }

@@ -13,9 +13,10 @@ import { H1 } from "../../CustomComponents";
 const LayoutInputField = () => {
   const params = useParams()
   const layout_id = parseInt(params.layout_id, 10); //  force it to be a number bydefault it is string
+  const layout_type=params.layout_type||"classical"
 
 
-  const sectionData = fetchSectionData(layout_id)
+  const sectionData = fetchSectionData({layout_id,layout_type})
   const [pages, setPages] = useState([]);
   const { measured, setMeasured, groupSectionsIntoPages, sectionRefs } = useLayout()
 
