@@ -14,12 +14,11 @@ const BaseLayoutRenderer = memo(
     layout_type = layout_type_map.CLASSICAL,
   }) => {
     const { getValues } = useFormContext(); 
-    const [liveDetails, setLiveDetails] = useState({});
+    const {liveDetails, setLiveDetails,complie_input} = useLayout()
     //listening the live values only if entered keyis pressed
     const handleEntered = (e) => {
       if (e.key === "Enter") {
-        const values = getValues();
-        setLiveDetails(values);
+        complie_input()
       }
     };
 

@@ -15,10 +15,10 @@ const getLayout4OutputSection = (data, layout_no) => {
         achievements = [],
         certificates = []
     } = data;
-
+console.log("called layout number 4",layout_no)
     return [
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no,
+            personalDetails,
             shouldIncludeImage: true,
             style: {
                 nameStyle: style.nameStyle,

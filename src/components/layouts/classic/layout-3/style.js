@@ -19,6 +19,8 @@ export const layout_3_style = {
     },
     profile_li: {
         ...base_style.profile_li,
+        display:"list-items"
+        
     },
   
     titleStyle: {

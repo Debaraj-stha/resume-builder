@@ -16,7 +16,7 @@ const layoutSections = {
         "layout3": modern_keys.layout_3,
         "layout4": modern_keys.layout_4,
         "layout5": modern_keys.layout_5,
-     "   layout6": modern_keys.layout_6
+     "layout6": modern_keys.layout_6
     },
     "simple": {
         "layout1": simple_keys.layout_1,

@@ -16,10 +16,11 @@ const getLayout3OutputSection = (data, layout_no) => {
         educations = [],
         skills = [],
     } = data;
+    console.log("called layout no 3",layout_no)
     const divider = <TransparentLine />
     return [
         generateProfileDetails({
-            personalDetails: {...personalDetails,urls:[personalDetails.urls[0]]}, layout_no: layout_no,
+            personalDetails,
             shouldIncludeImage: true,
             style: {  nameStyle: style.nameStyle,
                             titleStyle: style.titleStyle,
@@ -41,7 +42,7 @@ const getLayout3OutputSection = (data, layout_no) => {
             divider: divider
         }),
         ...generateExperienceSections({
-            experiences, layout_no, style: {
+            experiences,  style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
@@ -56,7 +57,7 @@ const getLayout3OutputSection = (data, layout_no) => {
             }
         }),
         ...generateEducationSections({
-            educations, layout_no, style: {
+            educations,  style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,

@@ -3,8 +3,7 @@ import generateLayoutData from "./sectionsData";
 
 // A helper to generate layout objects
 const createLayouts = (layoutType, keys) => {
-    return Object.fromEntries(keys.map((key,index)=>[key,generateLayoutData({layoutType,layoutKey:key})]))
-
+    return Object.fromEntries(keys.map((key)=>[key,generateLayoutData({layoutType,layoutKey:key})]))
 };
 
 // Shared layout keys

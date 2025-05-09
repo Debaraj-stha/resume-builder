@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useContext, createContext, useState, useEffect, useRef } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useTheme } from "styled-components";
 
 export const LayoutContext = createContext(null);
@@ -31,9 +31,9 @@ const LayoutProvider = ({ children }) => {
 
         },
       ],
-      
+
       achievements: [{ acheivement: "", field: "", date: "" }],
-      skills: [{ field: "basic", items: [{value:""}] }],
+      skills: [{ field: "basic", items: [{ value: "" }] }],
       languages: [
         {
           language: "",
@@ -55,7 +55,7 @@ const LayoutProvider = ({ children }) => {
           year: ""
         },
       ],
-      passions: [{value:""}],
+      passions: [{ value: "" }],
       strengths: [
         {
           title: "",
@@ -67,7 +67,7 @@ const LayoutProvider = ({ children }) => {
           projectName: "",
           role: "",
           description: "",
-          technologies: [{value:""}],
+          technologies: [{ value: "" }],
           link: "",
           date: ""
         },
@@ -85,10 +85,10 @@ const LayoutProvider = ({ children }) => {
           date: ""
         },
       ],
-      my_time:[
+      my_time: [
         {
-          activity:"",
-          value:""
+          activity: "",
+          value: ""
         }
       ]
     },
@@ -96,8 +96,12 @@ const LayoutProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [measured, setMeasured] = useState(false);
   const sectionRefs = useRef([]);
-
-
+  const [liveDetails, setLiveDetails] = useState({});
+const complie_input=()=>{
+  const {getValues}=methods
+  const values=getValues()
+  setLiveDetails(values)
+}
 
 
   useEffect(() => {
@@ -205,7 +209,19 @@ const LayoutProvider = ({ children }) => {
   };
 
 
-  const values = { theme, isLoading, generatePDF, ref, measured, setMeasured, groupSectionsIntoPages, sectionRefs };
+  const values = {
+    theme,
+    isLoading,
+    generatePDF,
+    ref,
+    measured,
+    setMeasured,
+    groupSectionsIntoPages,
+    sectionRefs,
+    liveDetails,
+    setLiveDetails,
+    complie_input
+  };
   return (
     <LayoutContext.Provider value={values}>
       <FormProvider {...methods}>{children}</FormProvider>

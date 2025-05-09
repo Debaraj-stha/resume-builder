@@ -92,7 +92,7 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
     console.log("pes",personalDetails)
     
     const { name, address,  urls, profession, email, phone } = personalDetails
-    const urlValue=urls?.map((url,index)=>url?.value)
+    const urlValue = urls?.map((url) => url?.value) || [];
     let {profile}=personalDetails
     if(!Array.isArray(profile)){
         profile=[profile]

@@ -1,19 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import { LayoutWrapperWithBorder, ResumesWrapperDiv } from "../../elements/resumeWrapper";
-import { Button, H1 } from "../../CustomComponents"
+import { Button, FlexBox, H1 } from "../../CustomComponents"
 import LayoutByType from "../LayoutByType";
 import LayoutProvider, { useLayout } from "../../../provider/layoutProvider";
 import TextIconButton, { IconButton } from "../../IconButton";
 import { FaDownLong } from "react-icons/fa6";
+import { FaCogs } from "react-icons/fa";
 
 const LayoutPreview = () => {
-    const { generatePDF} = useLayout()
+    const { generatePDF,complie_input} = useLayout()
     return (
           <LayoutWrapperWithBorder>
             <H1>Resume Preview</H1>
             <div className="flex justify-center items-center flex-col">
-                <TextIconButton onClick={generatePDF} text="Generate PDF" icon={<FaDownLong/>}></TextIconButton>
+                <FlexBox>
+                <TextIconButton  onClick={complie_input} id="modern" text="Compile Now" icon={<FaCogs color="white" />}></TextIconButton>
+                <TextIconButton onClick={generatePDF} text="Generate PDF" icon={<FaDownLong color="white"/>}></TextIconButton>
+                </FlexBox>
                 <ResumesWrapperDiv  className="w-full wrapper-div">
                     <LayoutByType></LayoutByType>
                 </ResumesWrapperDiv>
