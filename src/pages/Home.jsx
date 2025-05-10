@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CTAButton, Hspace, Subtitle } from "../components/CustomComponents";
 
 import UserThought from "../components/UserThought";
-import styled, { keyframes, useTheme } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import "../css/home.css"
 import CTACard from "../components/CTACard";
 import FeatureCards from "../components/FeatureCard";
 import Container from "../components/Container";
+
 
 
 
@@ -40,7 +41,7 @@ const Span = styled.span`
 `
 
 const TopSection = styled.section`
-    background-color: ${({ theme }) => theme.colors.card.background};
+background-color: ${({ theme }) => theme.colors.card.background};
   color: ${({ theme }) => theme.colors.card.text};
   border: 1px solid ${({ theme }) => theme.colors.card.border};
   border-radius: 12px;
@@ -54,9 +55,9 @@ const TopSection = styled.section`
 `
 
 const Home = () => {
+    const[loading,setLoading]=useState(true)
     useEffect(() => {
         const sections = document.querySelectorAll("section");
-
         const handleScroll = () => {
             sections.forEach((section) => {
                 const boundingRect = section.getBoundingClientRect().top;
@@ -65,11 +66,21 @@ const Home = () => {
                 }
             });
         };
-
         handleScroll(); // run once on mount
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setLoading(false);
+        }, 1000); 
+    
+        return () => clearTimeout(timeout);
+    }, []);
+    
+
+
 
     const getStarted = () => {
 
@@ -80,13 +91,13 @@ const Home = () => {
 
 
 
-    const theme = useTheme()
+
       
     return (
         <Container>
 
             <div className="m-auto">
-                <Hspace />
+                <Hspace height="200px"/>
                 <TopSection>
                     <div className="max-w-4xl mx-auto text-center">
                         <TextWrapper>

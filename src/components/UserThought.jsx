@@ -47,7 +47,7 @@ const UserThought = () => {
                 <Heading>What Users Say</Heading>
 
                 <OuterWrapper>
-                    <OuterContainer className="gap-6 w-max">
+                    <OuterContainer className="gap-6 w-max overflow-hidden">
                         {[...thoughts, ...thoughts].map((thought, index) => (
                             <div key={index} className="flex-shrink-0 w-[300px]">
                                 <UserThouhtCard thought={thought} />

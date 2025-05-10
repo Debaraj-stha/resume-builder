@@ -57,6 +57,7 @@ background-color: ${({ theme }) => theme.colors.card.background};
 text-align: center;
 padding: 4rem 1.5rem;
 border: 1px solid ${({ theme }) => theme.colors.card.border};
+border-radius:10px;
 box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
   transition: transform 0.3s ease;
   &:hover {
@@ -96,6 +97,7 @@ export const FeatureCard = styled.div`
   padding: 1.5rem;
   box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
   transition: transform 0.3s ease;
+  overflow:hidden;
 
   &:hover {
     transform: translateY(-4px);

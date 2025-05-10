@@ -1,6 +1,7 @@
 import { classicalLayoutById, creativeLayoutById, modernLayoutById, simpleLayoutById } from "./layoutById";
 import { useParams } from "react-router-dom";
 import { Suspense, useMemo } from "react";
+
 import {
   achievements,
   educations,
@@ -10,6 +11,7 @@ import {
   skills,
 } from "../../static-data/resume-sample-data";
 import { layout_type_map } from "../../constant";
+import Loading from "../Loading"
 
 const LayoutByType = () => {
   const { layout_id, layout_type } = useParams();
@@ -38,7 +40,7 @@ const LayoutByType = () => {
   }, [layout_type, parsedId]);
 
   return (
-    <Suspense fallback={<div>Loading layout...</div>}>
+    <Suspense fallback={<Loading message="Preparing Input fields"/>}>
       <LayoutComponent shouldMeasureHeight={true} />
     </Suspense>
   );

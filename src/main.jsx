@@ -29,3 +29,11 @@ createRoot(document.getElementById('root')).render(
 
   </StrictMode>,
 )
+
+// Hide loader after app mounts
+window.addEventListener("DOMContentLoaded", () => {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.style.display = "none";
+  }
+});

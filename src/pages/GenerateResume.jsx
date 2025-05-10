@@ -27,10 +27,6 @@ const ResponsiveGrid = styled.div`
 
 
 const GenerateResume=()=>{
-    const {theme,isLoading}=useLayout()
-    if(isLoading){
-        return <H1>Loading...</H1>
-    }
     return(
         <MainWrapper>
             <Hspace/>

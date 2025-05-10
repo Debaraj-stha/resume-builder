@@ -6,7 +6,7 @@ const FeatureCards = () => {
   return (
     <Features>
       <Heading>Why Choose Resume Builder?</Heading>
-      <FeatureGrid>
+      <FeatureGrid  minmax="250px">
         {
           features.map((feature, index) => (
             <FeatureCard key={index}>

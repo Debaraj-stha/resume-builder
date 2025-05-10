@@ -36,7 +36,7 @@ const Usercard = () => {
                             {user.name}
                         </h3>
                         <ToolTip text="Logout">
-                        <Button variant="secondary"
+                        <Button variant="danger"
                             onClick={handleLogout}
                             
                         >
@@ -60,7 +60,7 @@ const Usercard = () => {
                                         Cancel
                                     </Button>
                                     <Button
-                                    varian="danger"
+                                    variant="danger"
                                         onClick={() => {
                                             logout();
                                             setIsModalOpen(false);

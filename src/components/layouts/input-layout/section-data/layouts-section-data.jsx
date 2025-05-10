@@ -51,12 +51,12 @@ const sectionComponents = {
       <DynamicSkillCard name="skills" />
     </DynamicInputSectionWrapper>
   ),
-  certificate:()=>{
+  certificate:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Certificates</Paragraph>
       <DynamicCertificateCard name="certificates" />
     </DynamicInputSectionWrapper>
-  },
+  ),
   passion:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Passions</Paragraph>

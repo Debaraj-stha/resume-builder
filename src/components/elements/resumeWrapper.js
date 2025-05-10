@@ -137,6 +137,7 @@ export const LayoutWrapperWithBorder = styled.div`
 border:1px solid ${({ theme }) => theme.colors.border};
 min-height:297mm;
 padding:20px 0px;
+border-radius:10px;
 `
 
 
