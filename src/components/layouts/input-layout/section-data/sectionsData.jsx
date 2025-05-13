@@ -1,43 +1,29 @@
+import { layout_type_map } from "../../../../constant";
 import { classical_keys, creative_keys, modern_keys, simple_keys } from "./layout_keys";
 import sectionComponents from "./layouts-section-data";
-// Layout Definitions
-const layoutSections = {
-    "classical": {
-        "layout1": classical_keys.layout_1,
-        "layout2": classical_keys.layout_2,
-        "layout3": classical_keys.layout_3,
-        "layout4": classical_keys.layout_4,
-        "layout5": classical_keys.layout_5,
-        "layout6": classical_keys.layout_6
-    },
-    "modern": {
-        "layout1": modern_keys.layout_1,
-        "layout2": modern_keys.layout_2,
-        "layout3": modern_keys.layout_3,
-        "layout4": modern_keys.layout_4,
-        "layout5": modern_keys.layout_5,
-     "layout6": modern_keys.layout_6
-    },
-    "simple": {
-        "layout1": simple_keys.layout_1,
-        "layout2": simple_keys.layout_2,
-        "layout3": simple_keys.layout_3,
-        "layout4": simple_keys.layout_4,
-        "layout5": simple_keys.layout_5,
-        "layout6": simple_keys.layout_6
-    },
-    "creative": {
-        "layout1": creative_keys.layout_1,
-        "layout2": creative_keys.layout_2,
-        "layout3": creative_keys.layout_3,
-        "layout4": creative_keys.layout_4,
-        "layout5": creative_keys.layout_5
+const generatelayoutSections = () => {
+    const layoutGroups = {
+        [layout_type_map.CLASSICAL]: classical_keys,
+        [layout_type_map.MODERN]: modern_keys,
+        [layout_type_map.CREATIVE]: creative_keys,
+        [layout_type_map.SIMPLE]: simple_keys,
     }
-};
+    const result = {}
+    for (const [type, keys] of Object.entries(layoutGroups)) {
+        result[type] = {}
+        Object.entries(keys).forEach(([layoutKey, sectionList]) => {
+            const layoutNumber = layoutKey.replace("layout_", "layout")
+            result[type][layoutNumber] = sectionList
+        })
+    }
+    return result
 
+}
+const layouts = generatelayoutSections()
 // Generator
-const generateLayoutData = ({layoutType = "classical", layoutKey = "layout1"}) => {
-    return layoutSections[layoutType][layoutKey].map((key) => ({
+const generateLayoutData = ({ layoutType = "classical", layoutKey = "layout1" }) => {
+
+    return layouts[layoutType][layoutKey].map((key) => ({
         key,
         content: () => sectionComponents[key](),
     }));
