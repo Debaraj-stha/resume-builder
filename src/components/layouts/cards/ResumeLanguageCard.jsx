@@ -1,29 +1,32 @@
-import { memo } from "react"
-import { FlexBox, } from "../../CustomComponents"
-import { H2, H3 } from "../../elements/resumeSectionWrapper"
+import { memo } from "react";
+import { FlexBox } from "../../CustomComponents";
 import styled from "styled-components";
 
+// Styled Components
 const LanguageWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
 const ProgressBarContainer = styled.div`
   background: ${({ backgroundColor }) => backgroundColor || "#eee"};
-  border-radius: 10px;
+  border-radius: ${({ borderRadius }) => borderRadius || "10px"};
   overflow: hidden;
-  height: 8px;
+  height: ${({ height }) => height || "8px"};
   margin-top: 4px;
 `;
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.div.withConfig({
+  shouldForwardProp:(props)=>!['percent'].includes(props)
+})`
   height: 100%;
   width: ${({ percent }) => percent}%;
   background: ${({ color }) => color || "#4caf50"};
   transition: width 0.3s ease;
 `;
 
+// Utility
 const getProficiencyPercent = (level) => {
-  switch (level.toLowerCase()) {
+  switch (level?.toLowerCase?.()) {
     case "beginner":
       return 25;
     case "intermediate":
@@ -38,28 +41,46 @@ const getProficiencyPercent = (level) => {
   }
 };
 
-
-
-
-
-const LanguageCard = ({ language, layout_no, style, ...props }) => {
+// Component
+const LanguageCard = ({ language, layout_no, style = {}, ...props }) => {
   const percent = getProficiencyPercent(language.proficiency);
-  const { side,shouldIncludeProficiency } = props
+  const { side, shouldIncludeProficiency } = props;
+  const barStyle = style?.progressBar || {};
 
   return (
     <LanguageWrapper>
       <FlexBox justifyContent="space-between">
-        <h2 style={{ ...style?.sectionSubHeader, ...(side === "right") && { color: "white" } }}>{language.language}</h2>
-      {shouldIncludeProficiency &&
-       <h2 style={{ ...style?.sectionSubHeader, ...(side === "right") && { color: "white" } }}>{language.proficiency}</h2>
-      }
+        <h2
+          style={{
+            ...style?.sectionSubHeader,
+            ...(side === "right" && { color: "white" }),
+          }}
+        >
+          {language.language}
+        </h2>
+        {shouldIncludeProficiency && (
+          <h2
+            style={{
+              ...style?.sectionSubHeader,
+              ...(side === "right" && { color: "white" }),
+            }}
+          >
+            {language.proficiency}
+          </h2>
+        )}
       </FlexBox>
-      <ProgressBarContainer backgroundColor={style?.progressBar?.backgroundColor}>
-        <ProgressBar percent={percent} color={props.side === "right" ? "#4983f2" : style?.progressBar?.fillColor} />
+      <ProgressBarContainer
+        backgroundColor={barStyle.backgroundColor}
+        height={barStyle.height}
+        borderRadius={barStyle.borderRadius}
+      >
+        <ProgressBar
+          percent={percent}
+          color={barStyle.fillColor}
+        />
       </ProgressBarContainer>
     </LanguageWrapper>
   );
-
-
 };
-export default LanguageCard
+
+export default memo(LanguageCard);

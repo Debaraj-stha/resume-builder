@@ -24,8 +24,7 @@ const getlayout6OutputSection = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no,
-            shouldIncludeImage: true,
+            personalDetails: { ...personalDetails, urls: [personalDetails?.urls?.[0]] },
             style: {
                 nameStyle: style.nameStyle,
                 titleStyle: style.titleStyle,

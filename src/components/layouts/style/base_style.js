@@ -115,6 +115,15 @@ const base_style = {
         height: "4px",
         borderRadius: "2px",
     },
+    barStyle: {
+        fillColor: "#1a355b",
+        height: "6px",
+        borderRadius: "4px",
+        thumbColor: "#fff",
+        thumbBorderColor: "#1a355b",
+        thumbSize: "14px",
+      }
+      
 };
 
 export default base_style

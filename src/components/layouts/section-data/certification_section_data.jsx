@@ -12,13 +12,16 @@ const generateCertification = ({ certificates, divider, style, sectionHeader = "
             style={style}
         />
     ))
+    const{side}=props
+    const color=side=="right" && {color :"white" }
+    console.log("certif",side)
     return {
         key: "certification",
         content: () => (
             <>
                 {
 
-                    generateTitle({ title: sectionHeader, style: { ...style?.sectionHeader, textAlign: "left" } })
+                    generateTitle({ title: sectionHeader, style: { ...style?.sectionHeader, ...(props.side === "right" && { color: "white" }), textAlign: "left", } })
                 }
                 {
                     divider ? divider : null

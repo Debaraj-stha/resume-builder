@@ -15,6 +15,7 @@ const LayoutProvider = ({ children }) => {
         email: "",
         phone: "",
         profession: "",
+        address:"",
         urls: [{ value: "" }],
       },
       educations: [{ university: "", degree: "", start_complete: "" }],
@@ -33,7 +34,7 @@ const LayoutProvider = ({ children }) => {
       ],
 
       achievements: [{ acheivement: "", field: "", date: "" }],
-      skills: [{ field: "basic", items: [{ value: "" }] }],
+      skills: [{ field: "", items: [{ value: "" }] }],
       languages: [
         {
           language: "",

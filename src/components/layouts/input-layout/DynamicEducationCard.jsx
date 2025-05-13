@@ -18,6 +18,7 @@ const DynamicEducationCard = ({ name }) => {
       university: "",
       degree: "",
       start_complete: "",
+      gpa:""
     })
     setMeasured(false)
   }
@@ -43,6 +44,10 @@ const DynamicEducationCard = ({ name }) => {
               <Input
                 placeholder="Start & Completion Dates (e.g., 2020 - 2024)"
                 {...register(`${base}.start_complete`)}
+              />
+               <Input
+                placeholder="GPA e.g 3.02"
+                {...register(`${base}.gpa`)}
               />
               </GridThree>
 

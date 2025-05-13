@@ -39,6 +39,13 @@ const HeaderSection = () => {
         register={register}
       />
       </GridOne>
+      <GridOne>
+      <Input
+          type="text"
+          placeholder="Address"
+          {...register("personalDetails.address")} // Registering the 'email' field inside 'personalDetails'
+        />
+      </GridOne>
     </CardWrapper>
   );
 };

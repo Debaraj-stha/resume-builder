@@ -48,12 +48,10 @@ const renderLayout = ({
     CURVED: "curved",
     NORMAL: "normal",
     LINE: "line"
-
-
   }
 
   const [sectionsHeight, setSectionsHeight] = useState([])
-  const [CustomWrapper, setCustomWrapper] = useState(null)
+  let CustomWrapper
 
   const NameInitial = () => {
     const name = key_val.personalDetails.name
@@ -78,17 +76,17 @@ const renderLayout = ({
     );
   };
 
-  const selectWrapper = () => {
+
     if (layout === layout_map.CURVED) {
-      setCustomWrapper(CurvedWrapper)
+      CustomWrapper=CurvedWrapper
     }
     else if (layout === layout_map.LINE) {
-      setCustomWrapper(CreativeResumeWrapperWithLine)
+      CustomWrapper=CreativeResumeWrapperWithLine
     }
     else {
-      setCustomWrapper(ResumeWrapper)
+      CustomWrapper=ResumeWrapper
     }
-  }
+  
 
   const distributeSectionsByHeight = (heights) => {
     const leftColumnIndices = []
@@ -117,18 +115,18 @@ const renderLayout = ({
 
 
 
-  useEffect(() => {
-    if (sectionRefs.current.length === 0) return
-    //computing each section height
-    const heights = sectionRefs.current.map((ref, i) => ref.offsetHeight || 0)
-    setSectionsHeight(heights)
-  }, [sectionData])
+  // useEffect(() => {
+  //   if (sectionRefs.current.length === 0) return
+  //   //computing each section height
+  //   const heights = sectionRefs.current.map((ref, i) => ref.offsetHeight || 0)
+  //   setSectionsHeight(heights)
+  // }, [sectionData])
 
 
 
-  useEffect(() => {
-    selectWrapper()
-  }, [layout])
+  // useEffect(() => {
+  //   selectWrapper()
+  // }, [])
 
 
 

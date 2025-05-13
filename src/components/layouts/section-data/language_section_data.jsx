@@ -36,7 +36,7 @@ const generateLanguage = ({ languages, style, divider,sectionHeader="languages",
                                 {Language}
                             </div>
                         )
-                            : { Language }
+                            :  Language 
                     }
                 </SectionContent>
             </>

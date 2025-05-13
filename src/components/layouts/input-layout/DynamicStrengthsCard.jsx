@@ -24,7 +24,7 @@ const {setMeasured}=useLayout()
                 fields.length > 0 ? fields.map((field, index) => {
                     const base = `${name}[${index}]`
                     return (
-                       <div className="my-4">
+                       <div key={field.id} className="my-4">
                          <GridThree>
                             <Input placeholder="e.g Problem Solving " {...register(`${base}.title`)} />
                             <Textarea

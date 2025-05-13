@@ -44,6 +44,8 @@ const BaseLayoutRenderer = memo(
     const skills = staticProps.skills || liveDetails.skills;
     const strengths = staticProps.strengths || liveDetails.strengths;
     const certificates = staticProps.certificates || liveDetails.certificates;
+    const industryExpertise=staticProps.industryExpertise|| liveDetails.industryExpertise;
+    const languages=staticProps.languages||liveDetails.languages;
 
     const key_val = {
       personalDetails,
@@ -54,6 +56,9 @@ const BaseLayoutRenderer = memo(
       skills,
       strengths,
       certificates,
+      industryExpertise,
+      languages
+
     };
 
     const sectionData = getSectionDataFn(key_val);

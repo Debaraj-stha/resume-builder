@@ -5,7 +5,7 @@ import { BiCalendar } from "react-icons/bi";
 import { LiaMapMarkerSolid } from "react-icons/lia";
 
 const EducationCard = memo(({ education, style, ...props }) => {
-  const { degree, university, start_complete, address } = education;
+  const { degree, university, start_complete, address,gpa } = education;
   const {
     swapPosition,
     applyFlex,
@@ -32,7 +32,7 @@ const EducationCard = memo(({ education, style, ...props }) => {
           <h2 style={{...style.h3,...textColor}}>{degree}</h2>
           <h3 style={{...style.sectionSubHeader}}>{university}</h3>
           {shouldIncludeGPA && (
-            <p style={{...style.p}}>GPA 3.8</p>
+            <p style={{...style.p}}>{gpa}</p>
           )}
         </div>
       </FlexBox>
@@ -75,7 +75,7 @@ const EducationCard = memo(({ education, style, ...props }) => {
             {CalendarAndAddress()}
           </FlexBox>
           {shouldIncludeGPA && (
-            <P style={{ ...style.p, ...textColor }}>GPA 3.4</P>
+            <P style={{ ...style.p, ...textColor }}>{gpa}</P>
           )}
         </>
       )}

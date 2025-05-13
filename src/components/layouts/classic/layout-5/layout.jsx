@@ -7,7 +7,7 @@ const ClassicalLayout5 = (props) => {
     <BaseLayoutRenderer
       layoutId={5}
       getSectionDataFn={(key_val) => getLayout5OutputSectionData(key_val, 5)}
-      staticProps={{...props,certificates}}
+      staticProps={props}
       shouldMeasureHeight={props.shouldMeasureHeight || false}
     />
   );
