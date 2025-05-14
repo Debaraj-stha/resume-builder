@@ -39,13 +39,17 @@ const HeaderSection = () => {
         register={register}
       />
       </GridOne>
-      <GridOne>
+      <GridTwo>
       <Input
           type="text"
           placeholder="Address"
           {...register("personalDetails.address")} // Registering the 'email' field inside 'personalDetails'
         />
-      </GridOne>
+         <Input
+          type="file"
+          {...register("personalDetails.profile")} // Registering the 'email' field inside 'personalDetails'
+        />
+      </GridTwo>
     </CardWrapper>
   );
 };

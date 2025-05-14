@@ -13,8 +13,9 @@ const BaseLayoutRenderer = memo(
     shouldMeasureHeight,
     layout_type = layout_type_map.CLASSICAL,
   }) => {
-    const { getValues } = useFormContext(); 
-    const {liveDetails, setLiveDetails,complie_input} = useLayout()
+    console.log("shouldMeasureHeight",shouldMeasureHeight)
+
+    const { liveDetails,  complie_input } = useLayout()
     //listening the live values only if entered keyis pressed
     const handleEntered = (e) => {
       if (e.key === "Enter") {
@@ -22,11 +23,7 @@ const BaseLayoutRenderer = memo(
       }
     };
 
-    // Initial state setup
-    useEffect(() => {
-      setLiveDetails(getValues());
-    }, []);
-
+ 
     //attach event listener
     useEffect(() => {
       window.addEventListener("keyup", handleEntered);
@@ -44,9 +41,9 @@ const BaseLayoutRenderer = memo(
     const skills = staticProps.skills || liveDetails.skills;
     const strengths = staticProps.strengths || liveDetails.strengths;
     const certificates = staticProps.certificates || liveDetails.certificates;
-    const industryExpertise=staticProps.industryExpertise|| liveDetails.industryExpertise;
-    const languages=staticProps.languages||liveDetails.languages;
-
+    const industryExpertise = staticProps.industryExpertise || liveDetails.industryExpertise;
+    const languages = staticProps.languages || liveDetails.languages;
+    const openSourceWork = staticProps.openSourceWork || liveDetails.openSourceWork
     const key_val = {
       personalDetails,
       educations,
@@ -57,7 +54,8 @@ const BaseLayoutRenderer = memo(
       strengths,
       certificates,
       industryExpertise,
-      languages
+      languages,
+      openSourceWork
 
     };
 

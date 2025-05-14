@@ -4,6 +4,7 @@ import {
   ColumnFlexBox,
   FlexBox
 } from "../../CustomComponents";
+import capitalize from "../../helper/capitalize";
 
 const SkillCard = memo(({ skills, style, ...props }) => {
   const {
@@ -11,18 +12,17 @@ const SkillCard = memo(({ skills, style, ...props }) => {
     borderBox,
     borderBottom
   } = props;
-
+  const commonStyle = {
+    ...style.sectionSubHeader,
+    margin: "0",
+    padding: "0"
+  };
+  const RenderItem = ({ item }) => <h3 style={commonStyle}>{capitalize(item)}</h3>
   const renderSkillItem = (item, key) => {
-    const commonStyle = {
-      ...style.sectionSubHeader,
-      margin: "0",
-      padding: "0"
-    };
-
     if (borderBottom) {
       return (
-        <BorderBox key={key} borderBottomColor="#555">
-          <h3 style={commonStyle}>{item}</h3>
+        <BorderBox key={key} borderBottomColor={style.borderColor ? style.borderColor : "#555"}>
+          <RenderItem item={item} />
         </BorderBox>
       );
     }
@@ -37,16 +37,12 @@ const SkillCard = memo(({ skills, style, ...props }) => {
           borderRightColor="#555"
           padding="5px"
         >
-          <h3 style={commonStyle}>{item}</h3>
+          <RenderItem item={item}/>
         </BorderBox>
       );
     }
 
-    return (
-      <h3 key={key} style={commonStyle}>
-        {item}
-      </h3>
-    );
+    return  <RenderItem item={item}/>
   };
 
   return (
@@ -68,12 +64,12 @@ const SkillCard = memo(({ skills, style, ...props }) => {
           {shouldIncludeField && (
             <h3
               style={{
-                ...style.sectionSubHeader,
+                ...style?.h3,
                 margin: "0",
                 padding: "0"
               }}
             >
-              {skill.field}:
+              {capitalize(skill.field)}:
             </h3>
           )}
           {skill.items.map((item, i) =>

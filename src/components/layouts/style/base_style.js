@@ -46,7 +46,8 @@ const base_style = {
         textAlign: "center",
         display: "flex",
         alignItems: "center",
-        iconColor: "#555555"
+        iconColor: "#555555",
+        alignContent: "center",
     },
 
     sectionHeader: {

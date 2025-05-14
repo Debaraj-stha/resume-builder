@@ -1,44 +1,9 @@
-import { BiCalendar } from "react-icons/bi"
-import { layout_type_map } from "../../../constant"
-import { BorderBox, FlexBox } from "../../CustomComponents"
-import { H1, H2, P, Ul } from "../../elements/resumeSectionWrapper"
-import { LiaLinkSolid } from "react-icons/lia"
 
-const generateModernOpenSourceWorkCard = ({ works, layout_no, style }) => {
-    switch (layout_no) {
-        case 2:
-            return (
-                <>
-                    <div>
-                        {
-                            works.slice(0, 1).map((work, index) => {
-                                const { projectName, role, description, link, technologies, date } = work
-                                return (
-                                    <div key={index}>
-                                        <h2 style={{ ...style.h2, textAlign: "left" }}>{projectName}</h2>
-                                        <FlexBox margin="0" alignItems="center" gap="5px">
-                                            <BiCalendar />
-                                            <P style={{ ...style.p }}>{date}</P>
-                                        </FlexBox>
-                                        <FlexBox margin="0" alignItems="center" gap="5px">
-                                            <LiaLinkSolid />
-                                            <P style={{ ...style.p }}>{link}</P>
-                                        </FlexBox>
-                                        <P style={{ ...style.p }}>{description}</P>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </>
-            )
-        default:
-            return (
-                <h1>default opensource work</h1>
-            )
-    }
-}
-const generateSimpleOpenSourceCard = ({ works, layout_no, style }) => {
+import { BorderBox, FlexBox } from "../../CustomComponents"
+
+
+
+const generateSimpleOpenSourceCard = ({ works,  style }) => {
 
     return (
         <>
@@ -46,19 +11,19 @@ const generateSimpleOpenSourceCard = ({ works, layout_no, style }) => {
                 works.map((work, index) => {
                     const { projectName, role, description, link, technologies, date } = work
                     return (
-                        <>
+                        <div key={index}>
                             <h2 style={{ ...style.h2 }}>{projectName}</h2>
                             <FlexBox margin="0" justifyContent="space-between">
-                                <h3 style={{ ...style.h3 }}>{link}</h3>
+                                <p style={{ ...style.p }}>{link}</p>
                                 <p style={{ ...style.p }}>{date}</p>
                             </FlexBox>
                             <p style={{ ...style.p }}>{description}</p>
-                            <FlexBox margin="0">
+                            <FlexBox margin="0" justifyContent="start">
                                 {
-                                    technologies.map((tech, index) => <BorderBox key={index} color={style.p.color} padding="2px 5px"><p>{tech}</p></BorderBox>)
+                                    technologies.map((tech, index) => <BorderBox key={index}  margin="0"  color={style.p.color} padding="5px 0"><p>{tech.value}</p></BorderBox>)
                                 }
                             </FlexBox>
-                        </>
+                        </div>
                     )
                 })
             }
@@ -66,10 +31,10 @@ const generateSimpleOpenSourceCard = ({ works, layout_no, style }) => {
         </>
     )
 }
-const OpenSourceWorkCard = ({ works, layout_no, layout_type = "modern", style }) => {
+const OpenSourceWorkCard = ({ works,  style }) => {
 
 
-        return generateSimpleOpenSourceCard({ works, layout_no, style })
+        return generateSimpleOpenSourceCard({ works,  style })
     
 
 }

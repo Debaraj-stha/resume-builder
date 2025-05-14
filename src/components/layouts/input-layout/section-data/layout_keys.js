@@ -8,7 +8,7 @@ export const classical_keys={
 }
 export const modern_keys={
     layout_1:["header",  "experience", "education", "strength", "achievement","skills2","expertise","language","certificate"],
-    layout_2:["header", "summary", "experience", "education", "skills2","expertise","open_source_work"],
+    layout_2:["header","skills2", "summary", "experience", "education","expertise","open_source_work"],
     layout_3:["header", "summary" ,"experience", "education", "strength", "skills1","language"],
     layout_4:["header","summary","achievement","education","experience","skills1","expertise","passion"],
     layout_5:["header","experience","education","skills1","expertise","strength"],

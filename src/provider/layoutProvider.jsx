@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useContext, createContext, useState, useEffect, useRef } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 
 export const LayoutContext = createContext(null);
@@ -15,7 +15,8 @@ const LayoutProvider = ({ children }) => {
         email: "",
         phone: "",
         profession: "",
-        address:"",
+        address: "",
+        profile: "",
         urls: [{ value: "" }],
       },
       educations: [{ university: "", degree: "", start_complete: "" }],
@@ -98,11 +99,15 @@ const LayoutProvider = ({ children }) => {
   const [measured, setMeasured] = useState(false);
   const sectionRefs = useRef([]);
   const [liveDetails, setLiveDetails] = useState({});
-const complie_input=()=>{
-  const {getValues}=methods
-  const values=getValues()
-  setLiveDetails(values)
-}
+  const { getValues } = methods
+  const complie_input = () => {
+    const values = getValues()
+    setLiveDetails(values)
+  }
+  // Initial state setup
+  useEffect(() => {
+    setLiveDetails(getValues());
+  }, []);
 
 
   useEffect(() => {

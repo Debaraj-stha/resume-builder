@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 
-import { IconHolder, Li,  Ul} from "../../elements/resumeSectionWrapper"
+import { IconHolder, Li, Ul } from "../../elements/resumeSectionWrapper"
 
 //icons
 import { BiMobile } from "react-icons/bi"
@@ -37,8 +37,8 @@ const GenerateWebsiteURL = ({ urls, color, style
         github: <BsGithub />
     }
     return urls?.map((u, index) => {
-        const url=u?.value?.trim()
-        if(!url) return
+        const url = u?.value?.trim()
+        if (!url) return
         const lower = url.toLowerCase()
         const key = Object.keys(iconMap).find(k => lower.includes(k))
         //create copy of icon and add new props
@@ -88,21 +88,34 @@ const generateContactListWithoutIcon = ({ contactInfos, style }) => (
     ))
 
 )
-const generateResumeHeader = ({ personalDetails,  style, props }) => {
-    console.log("pes",personalDetails)
-    
-    const { name, address,  urls, profession, email, phone } = personalDetails
-    const urlValue = urls?.map((url) => url?.value) || [];
-    let {profile}=personalDetails
-    if(!Array.isArray(profile)){
-        profile=[profile]
-    }
+const generateResumeHeader = ({ personalDetails, style, props }) => {
+    const { name, address, urls, profession, email, phone } = personalDetails
     const { flexImage,
         shouldIncludeProfession = true,
         shouldIncludeAddress,
         shouldIncludeIcon,
         rectangularImage,
-        shouldIncludeImage } = props
+        shouldIncludeImage ,
+        isStatic //if static image is passed
+    } = props
+    const urlValue = urls?.map((url) => url?.value) || [];
+    let { profile } = personalDetails;
+    let imageUrl = null;
+    if(isStatic){
+        if(!Array.isArray(profile)){
+            profile=[profile]
+            imageUrl=profile[0]
+        }
+    }
+    else{
+        if (profile && profile.length > 0) {
+            imageUrl = URL.createObjectURL(profile[0]);
+        }
+    }
+
+
+
+
 
     const Address = shouldIncludeAddress && (
         <AddressWithMarker address={address} style={style.profile_li} iconColor={style?.profile_li.iconColor}
@@ -114,11 +127,11 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
             shouldIncludeIcon ? <GenerateContactList personalDetails={personalDetails} color={style.p.color}
                 style={style}
             /> :
-                generateContactListWithoutIcon({ contactInfos: [phone, email,...urlValue , address], style: style.profile_li })}
+                generateContactListWithoutIcon({ contactInfos: [phone, email, ...urlValue, address], style: style.profile_li })}
     </Ul>
 
     const Profession = shouldIncludeProfession && <h2 style={{ ...style?.titleStyle }}>{profession}</h2>
-    const Image = <img src={`${profile[0]}`} alt="image"></img>
+    const Image = <img src={`${imageUrl}`} alt="image"></img>
     const RoundedImage = <div className="flex justify-center items-center content-center"><Avatar margin="0">{Image}</Avatar></div>
     const RectangularImage = <RectangularContainer>{Image}</RectangularContainer>
     const Name = <h1 style={{ ...style?.nameStyle }}>{name}</h1>
@@ -153,8 +166,8 @@ const generateResumeHeader = ({ personalDetails,  style, props }) => {
 
 }
 
-const ResumeHeader = memo(({ personalDetails,  style, ...props }) => {
-    return generateResumeHeader({ personalDetails,  style, props })
+const ResumeHeader = memo(({ personalDetails, style, ...props }) => {
+    return generateResumeHeader({ personalDetails, style, props })
 
 })
 export default ResumeHeader

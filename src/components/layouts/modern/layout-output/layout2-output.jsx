@@ -19,12 +19,10 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
         openSourceWork
     } = data;
     const divider = <LineDivider />
-    const layout_type = layout_type_map.MODERN
     return [
 
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no, layout_type: layout_type,
-            shouldIncludeImage: true,
+            personalDetails,           
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -49,12 +47,12 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
                 h1: style.h1,
                 h2: style.h2,
                 h3: style.h3,
-                sectionSubHeader:style.sectionSubHeader
+                sectionSubHeader:style.sectionSubHeader,
+                borderColor:style.primaryColor
             },
-            layout_no: layout_no,
-            layout_type: layout_type,
             props:{
-                shouldIncludeField:true
+                shouldIncludeField:true,
+                borderBottom:true
             }
         }),
         generateSummary({
@@ -67,18 +65,16 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
         }),
         generateIndustryExpertise({
             industryExpertise,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
-                sectionSubHeader: style.sectionSubHeader
+                sectionSubHeader: style.sectionSubHeader,
+                barStyle:style.barStyle,
+               
             },
-            sectionHeader: "expertise"
+            
         }),
         generateExperience({
             experiences:experiences.slice(0,2),
-            layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -92,8 +88,6 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -109,13 +103,12 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
         generateOpenSourceWork({
             openSourceWork,
             divider,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,
                 p: style.p,
-                h3: style.h3
+                h3: style.h3,
+                sectionSubHeader:style.sectionSubHeader
             }
         })
     ]

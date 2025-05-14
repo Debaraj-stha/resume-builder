@@ -12,7 +12,7 @@ import { layout_type_map } from "../../../../constant";
 import generateProfileDetails from "../../section-data/profile_details";
 import { LineDivider } from "../../../Divider/TransparentDividers";
 import generateStrength from "../../section-data/strength_section_data";
-const getModernLayout1OutputSectionData = (data, layout_no) => {
+const getModernLayout1OutputSectionData = (data) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -25,6 +25,7 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
         strengths=[],
         
     } = data
+
 
     const divider = <LineDivider />
     return [
@@ -40,7 +41,8 @@ const getModernLayout1OutputSectionData = (data, layout_no) => {
             },
             props: {
                 shouldIncludeIcon: true,
-                shouldIncludeAddress: true
+                shouldIncludeAddress: true,
+               
             }
 
         }),

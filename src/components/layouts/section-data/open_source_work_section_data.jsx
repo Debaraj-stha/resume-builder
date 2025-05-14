@@ -3,7 +3,7 @@ import { SectionContent } from "../../elements/resumeSectionWrapper"
 import OpenSourceWorkCard from "../cards/ResumeOpenSourceWorkCard"
 import generateTitle from "./titleGenerater"
 
-const generateOpenSourceWork = ({ openSourceWork, divider, style, layout_no, layout_type = layout_type_map.CLASSICAL, sectionHeader = "open source work" }) => {
+const generateOpenSourceWork = ({ openSourceWork, divider, style,  sectionHeader = "open source work" }) => {
     return {
         key: "open_source_work",
         content: () => (
@@ -13,7 +13,7 @@ const generateOpenSourceWork = ({ openSourceWork, divider, style, layout_no, lay
                 }
                 {divider?divider:null}
                 <SectionContent>
-                    <OpenSourceWorkCard works={openSourceWork} layout_no={layout_no} layout_type={layout_type} style={style} />
+                    <OpenSourceWorkCard works={openSourceWork}  style={style} />
                 </SectionContent>
             </>
         )

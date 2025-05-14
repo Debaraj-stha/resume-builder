@@ -1,102 +1,88 @@
+import base_style from "../../style/base_style";
+const primaryColor= "rgb(10, 95, 71)"
 export const layout_2_style = {
-    primaryColor: "#24aa92", // Fresh teal green used for headings and accents
-    fontFamily: "'Open Sans', sans-serif", // Clean, modern sans-serif font
-    backgroundColor: "#ffffff",
-    headerBackground: "#ffffff",
+    ...base_style.main_style,
+   primaryColor:primaryColor , // Fresh teal green used for headings and accents
+    fontFamily: "'Suranna', sans-serif", // Clean, modern sans-serif font
     textColor: "#444444", // Dark gray for regular text
     headerTextColor: "#24aa92", // Teal for name and titles
     subTextColor: "#666666", // Slightly lighter gray for paragraphs
     accentColor: "#24aa92", // Teal for highlights
 
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "30px",
-        fontWeight: "700",
-        fontFamily: "'Open Sans', sans-serif",
-        color: "#24aa92",
-        textTransform: "uppercase",
-        textAlign:"left"
-    },
+        fontFamily: "'Suranna', sans-serif",
+        color: "rgb(10, 95, 71)",
+        textAlign: "left"
 
+    },
+   
     titleStyle: {
+        ...base_style.titleStyle,
         fontSize: "16px",
-        fontWeight: "600",
-        color: "#444444",
+        color: "#24aa92",
         letterSpacing: "0px",
-        textAlign:"left"
+        textAlign: "left"
     },
     profile_ul: {
-        display: "flex",
+        ...base_style.profile_ul,
         justifyContent: "start",
-        alignItems: "center",
-        alignContent: "center",
-        flexWrap: "wrap",
-        listStyleType:"none",
-        listStylePosition:"inside",
-        gap:"5px"
+        listStylePosition: "inside",
+        gap: "5px"
     },
 
     profile_li: {
-        fontSize: "14px",
-        color: "#000000",
-        padding: "4px 8px",
-        textAlign: "center",
-        display:"flex",
-        justifyContent:"space-between",
-        alignItems: "center",
-        alignContent: "center",
-        iconColor:"#000"
-    },
-    sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "700",
-        color: "#24aa92",
-        textTransform: "uppercase",
-        
+        ...base_style.profile_li,
+        color: "#999",
+        justifyContent: "space-between",
+        iconColor: "#999"
     },
 
+    sectionHeader: {
+        ...base_style.sectionHeader,
+        color: "#999",
+        fontWeight: "500"
+    },
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
+        ...base_style.sectionSubHeader,
         color: "#24aa92",
-        margin: "4px 0",
-        textAlign: "left"
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#666666",
-        textAlign: "left"
+
     },
 
     h1: {
-        fontSize: "18px",
-        fontWeight: "700",
-        textAlign: "left",
-        color: "#444444",
+
+        ...base_style.h1,
+        color: primaryColor,
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
+        ...base_style.h2,
         color: "#24aa92",
-        textAlign: "left"
+
     },
 
     h3: {
-        fontSize: "13px",
-        fontWeight: "500",
-        color: "#444444",
-        textAlign: "left"
+        ...base_style.h3,
+         color: "#24aa92",
+
     },
 
     tagStyle: {
+        ...base_style.tagStyle,
         backgroundColor: "#e7f7f4",
         color: "#24aa92",
-        fontSize: "11px",
-        padding: "4px 10px",
-        borderRadius: "20px",
-        display: "inline-block",
-        margin: "2px",
     },
+
+      barStyle:{
+        ...base_style.barStyle,
+        fillColor:primaryColor,
+        thumbColor:"#069c2e",
+        thumbBorderColor:"#069c2e"
+    }
 };
