@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { FlexBox } from "../../CustomComponents";
 import styled from "styled-components";
+import capitalize from "../../helper/capitalize";
 
 // Styled Components
 const LanguageWrapper = styled.div`
@@ -56,7 +57,7 @@ const LanguageCard = ({ language, layout_no, style = {}, ...props }) => {
             ...(side === "right" && { color: "white" }),
           }}
         >
-          {language.language}
+          {capitalize(language.language)}
         </h2>
         {shouldIncludeProficiency && (
           <h2

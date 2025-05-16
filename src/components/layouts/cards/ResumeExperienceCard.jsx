@@ -3,6 +3,7 @@ import { Li, P, Ul } from "../../elements/resumeSectionWrapper";
 import { FlexBox, VerticalPinSeparator } from "../../CustomComponents";
 import { LiaMapMarkerSolid } from "react-icons/lia";
 import { CgCalendar } from "react-icons/cg";
+import capitalize from "../../helper/capitalize";
 
 const ExperienceCard = memo(({ experience, style, ...props }) => {
   const {
@@ -48,8 +49,8 @@ const ExperienceCard = memo(({ experience, style, ...props }) => {
 
   const renderPositionBlock = () => (
     <>
-      <h3 style={style.h3}>{swapPosition ? companyName : position}</h3>
-      <h3 style={style.sectionSubHeader}>{swapPosition ? position : companyName}</h3>
+      <h3 style={style.h3}>{swapPosition ? capitalize(companyName) : capitalize(position)}</h3>
+      <h3 style={style.sectionSubHeader}>{swapPosition ? capitalize(position) : capitalize(companyName)}</h3>
     </>
   );
 

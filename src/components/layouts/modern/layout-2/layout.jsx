@@ -5,7 +5,7 @@ import BaseLayoutRenderer from "../../BaseLayoutRenderer"
 const ModernLayout2 = (props) => {
   return <BaseLayoutRenderer
   layoutId={2}
-  getSectionDataFn={(key_val) => getModernLayout2OutputSectionData(key_val, 1)}
+  getSectionDataFn={(key_val) => getModernLayout2OutputSectionData(key_val, 2)}
   staticProps={props}
   layout_type={layout_type_map.MODERN}
   shouldMeasureHeight={props.shouldMeasureHeight || false}

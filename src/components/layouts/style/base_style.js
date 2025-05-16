@@ -37,6 +37,7 @@ const base_style = {
         gap: "12px",
         padding: "0",
         margin: "6px 0 12px",
+        alignContent: "center",
     },
 
     profile_li: {

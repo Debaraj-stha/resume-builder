@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import capitalize from "../../helper/capitalize";
 
 
 const ExpertiseWrapper = styled.div`
@@ -50,7 +51,7 @@ const ExpertiseCard = ({ expertise, style = {} }) => {
 
   return (
     <ExpertiseWrapper>
-      <h2 style={{ ...style.sectionSubHeader }}>{expertise.tech}</h2>
+      <h2 style={{ ...style.sectionSubHeader }}>{ capitalize(expertise.tech)}</h2>
       <RangeInput
         value={expertise.value}
         onChange={handleChange}
