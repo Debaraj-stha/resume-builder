@@ -48,8 +48,8 @@ const renderLayout = ({
   const NameInitial = () => {
     const name = key_val.personalDetails.name
     const names = name.split(" ")
-    const fnameFirstChar = names[0][0]
-    const lnameFirstChar = names[1][0]
+    const fnameFirstChar = names?.[0]?.[0]
+    const lnameFirstChar = names?.[1]?.[0]
     //display initial letter as image
     return <RectangularContainer><h1>{fnameFirstChar}{lnameFirstChar}</h1></RectangularContainer>
   }

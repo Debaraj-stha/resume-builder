@@ -1,30 +1,28 @@
+import base_style from "../../style/base_style";
 export const layout_4_style = {
-    primaryColor: "#000", // Strong blue used for headers and accents
+    ...base_style.main_style,
+    
     fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
-    backgroundColor: "#ffffff",
     headerBackground: "#ffffff",
     textColor: "#000000",
     headerTextColor: "#000",
     subTextColor: "#4f4f4f",
-    accentColor: "#000",
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "28px",
-        fontWeight: "700",
         fontFamily: "'Poppins', sans-serif",
-        color: "black",
         textTransform: "none",
         textAlign:"left"
     },
     titleStyle: {
+        ...base_style.titleStyle,
         fontSize: "16px",
-        fontWeight: "500",
         color: "#000",
         letterSpacing: "0px",
          textAlign:"left"
     },
     profile_ul: {
-        display: "flex",
-        flexWrap: "wrap",
+        ...base_style.profile_ul,
         gap: "8px",
         listStyleType: "none",
         padding: "0",
@@ -33,75 +31,43 @@ export const layout_4_style = {
     },
 
     profile_li: {
+        ...base_style.profile_li,
         fontSize: "11px",
         color: "#000000",
-        display: "flex",
-        alignItems: "center",
         gap: "4px",
         iconColor: "rgb(6, 51, 228)",
     },
 
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "600",
-        color: "#000",
-        textTransform: "uppercase",
-        width: "fit-content",
-         textAlign:"left",
-         paddingBottom:"4px",
-         marginBottom:"4px",
-         textAlign:"left"
+       ...base_style.sectionHeader
     },
 
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
-        color: "#000000",
-        margin: "4px 0",
-        textAlign: "left",
-        textAlign:"left"
+       ...base_style.sectionSubHeader
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#4f4f4f",
-        textAlign: "left",
-        textAlign:"left"
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
-        color: "#000000",
-         textAlign:"left",
-         textAlign:"left"
+        ...base_style.h1,
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
-        color: "#000000",
-        textAlign: "left",
-        textAlign:"left"
+        ...base_style.h2,
          
     },
 
     h3: {
-        fontSize: "14px",
-        fontWeight: "500",
-        color: "#000000",
-        textAlign: "left",
-        textAlign:"left"
+        ...base_style.h3,
     },
 
     tagStyle: {
+        ...base_style.tagStyle,
         backgroundColor: "#e6f0fd",
         color: "#000",
-        fontSize: "11px",
-        padding: "4px 8px",
-        borderRadius: "12px",
-        display: "inline-block",
-        margin: "2px",
+       
     },
 };

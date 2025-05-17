@@ -189,7 +189,7 @@ const LayoutProvider = ({ children }) => {
     sectionRefs.current.forEach((ref, idx) => {
       // If the section reference is valid and has a height, process it.
       if (ref && ref.offsetHeight) {
-        alert("inside if")
+        console.log("inside if")
         const sectionHeight = ref.offsetHeight; // Get the height of the current section.
 
         // If adding this section would exceed the page height, push the current group to `grouped` and start a new page.

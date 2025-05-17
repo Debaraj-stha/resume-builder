@@ -1,16 +1,16 @@
+import base_style from "../../style/base_style";
 export const layout_2_style = {
+  ...base_style.main_style,
     primaryColor: "#1c1c1c",
     fontFamily: "'Lato', sans-serif", // Modern and professional
-    backgroundColor: "#ffffff",
     headerBackground: "#ffffff",
     textColor: "#1c1c1c",
     headerTextColor: "#1c1c1c",
     subTextColor: "#4f4f4f",
     accentColor: "#00c4cc", // Used in bars and highlights
-  
     nameStyle: {
+      ...base_style.nameStyle,
       fontSize: "28px",
-      fontWeight: "700",
       fontFamily: "'Lato', sans-serif",
       color: "#1c1c1c",
       textTransform: "capitalize",
@@ -19,97 +19,75 @@ export const layout_2_style = {
     },
   
     titleStyle: {
-      fontSize: "14px",
-      fontWeight: "500",
+      ...base_style.titleStyle,
       color: "#00c4cc",
       letterSpacing: "0px",
       textAlign: "left"
     },
-  
     profile_ul: {
-      display: "flex",
+      ...base_style.profile_ul,
       justifyContent: "start",
-      alignItems: "center",
-      flexWrap: "wrap",
       listStyleType: "none",
       gap: "8px"
     },
   
     profile_li: {
-      fontSize: "13px",
+      ...base_style.profile_li,
       color: "#1c1c1c",
       padding: "4px 8px",
-      display: "flex",
-      alignItems: "center",
       iconColor: "#00c4cc"
     },
   
     sectionHeader: {
-      fontSize: "13px",
-      fontWeight: "700",
+      ...base_style.sectionHeader,
       color: "#1c1c1c",
-      textTransform: "uppercase",
-      textAlign: "left",
-      marginBottom: "4px",
     },
   
     sectionSubHeader: {
-      fontSize: "13px",
-      fontWeight: "600",
+      ...base_style.sectionSubHeader,
       color: "#00c4cc",
-      textAlign: "left",
+    
     },
   
     p: {
-      fontSize: "12px",
-      lineHeight: "1.6",
+      ...base_style.p,
       color: "#4f4f4f",
-      textAlign: "left",
+
     },
   
     h1: {
-      fontSize: "18px",
-      fontWeight: "600",
-      textAlign: "left",
+     ...base_style.h1,
       color: "#1c1c1c",
     },
   
     h2: {
-      fontSize: "15px",
-      fontWeight: "600",
+      ...base_style.h2,
       color: "#1c1c1c",
-      textAlign: "left",
+
     },
   
     h3: {
-      fontSize: "13px",
-      fontWeight: "500",
+     ...base_style.h3,
       color: "#1c1c1c",
-      textAlign: "left",
+
     },
   
-    experience_item: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      marginBottom: "16px"
-    },
-  
-    education_item: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      marginBottom: "16px"
-    },
+
   
     tagStyle: {
       backgroundColor: "#f0f9fa",
       color: "#1c1c1c",
-      fontSize: "11px",
-      padding: "4px 10px",
-      borderRadius: "20px",
-      display: "inline-block",
-      margin: "3px",
+      ...base_style.tagStyle
     },
+    progressBar:{
+      ...base_style.progressBar,
+      fillColor:"#00c4cc"
+
+    },
+    barStyle:{
+      ...base_style.barStyle,
+        fillColor:"#00c4cc"
+    }
+
   };
   

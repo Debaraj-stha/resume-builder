@@ -145,7 +145,8 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 color: style.headerTextColor,
                 sectionSubHeader: style.sectionSubHeader,
-                barColor: style.profile_li.iconColor
+                barColor: style.profile_li.iconColor,
+                progressBar:style.progressBar,
             }
         }),
         generateMyTimeSection({

@@ -87,7 +87,7 @@ const sectionComponents = {
       <DynamicMyTimeCard name="my_time"/>
     </DynamicInputSectionWrapper>
   ),
-  awards:()=>(
+  award:()=>(
     <DynamicInputSectionWrapper>
       <Paragraph>Awards</Paragraph>
       <DynamicAwardCard name="awards"/>

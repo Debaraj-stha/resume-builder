@@ -159,7 +159,8 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
             style: {
                 sectionHeader: style.sectionHeader,
                 sectionSubHeader: style.sectionSubHeader,
-                barColor:style.profile_li.iconColor
+                barColor:style.profile_li.iconColor,
+                barStyle:style.barStyle
             },
 
         }),

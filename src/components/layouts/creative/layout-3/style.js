@@ -1,4 +1,6 @@
+import base_style from "../../style/base_style";
 export const layout_3_style = {
+    ...base_style.main_style,
     primaryColor: "#0040ff", // Strong blue accent used for titles and highlights
     fontFamily: "'Gidole', sans-serif", // Modern sans-serif font
     backgroundColor: "#eaf3ff", // Soft pastel blue background
@@ -9,18 +11,17 @@ export const layout_3_style = {
     accentColor: "#0040ff", // Blue for accents, bars, and icons
 
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "28px",
-        fontWeight: "700",
         fontFamily: "'Gidole', sans-serif",
         color: "#0040ff",
-        textTransform: "uppercase",
         textAlign: "left",
         letterSpacing: "1px",
     },
 
     titleStyle: {
+        ...base_style.titleStyle,
         fontSize: "16px",
-        fontWeight: "500",
         color: "#0040ff",
         letterSpacing: "0px",
         textAlign: "left",
@@ -28,74 +29,62 @@ export const layout_3_style = {
     },
 
     profile_ul: {
-        display: "flex",
+        ...base_style.profile_ul,
         justifyContent: "start",
-        alignItems: "center",
-        flexWrap: "wrap",
-        listStyleType: "none",
         gap: "10px",
         fontFamily: "'Gidole', sans-serif",
     },
 
     profile_li: {
+        ...base_style.profile_li,
         fontSize: "14px",
         color: "#000000",
         padding: "4px 8px",
-        textAlign: "center",
-        display: "flex",
         gap: "6px",
-        alignItems: "center",
         iconColor: "#0040ff",
         fontFamily: "'Gidole', sans-serif",
     },
 
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "700",
+        ...base_style.sectionHeader,
         color: "#0040ff",
-        textTransform: "uppercase",
-        textAlign: "left",
-        marginBottom: "4px",
         fontFamily: "'Gidole', sans-serif",
     },
 
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
+      ...base_style.sectionSubHeader,
         color: "#0040ff",
-        fontFamily: "'Gidole', sans-serif",
-        textAlign: "left",
+        fontFamily: "'Gidole', sans-serif"
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#4f4f4f",
-        textAlign: "left",
         fontFamily: "'Gidole', sans-serif",
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
-        textAlign: "left",
-        color: "#000000",
+        ...base_style.h1,
+
         fontFamily: "'Gidole', sans-serif",
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
-        color: "#000000",
-        textAlign: "left",
+        ...base_style.h2,
+        
         fontFamily: "'Gidole', sans-serif",
     },
 
     h3: {
-        fontSize: "14px",
-        fontWeight: "500",
-        color: "#000000",
-        textAlign: "left",
+        ...base_style.h3,
         fontFamily: "'Gidole', sans-serif",
     },
+    progressBar:{
+        ...base_style.progressBar,
+        fillColor:"#0040ff"
+    },
+    barStyle:{
+        ...base_style.barStyle,
+        fillColor:"#0040ff"
+    }
 };

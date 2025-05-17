@@ -67,7 +67,7 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
                 iconColor:style.profile_li.iconColor
             },
             props:{
-                side:"right",
+               
                 shouldIncludeIcon:true
             }
 
@@ -109,7 +109,7 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
             titleHeader: "most proud of",
             props: {
                
-                side:"right",
+               
                 shouldIncludeIcon:true
             }
         }),
@@ -147,10 +147,10 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 color: style.headerTextColor,
                 sectionSubHeader: style.sectionSubHeader,
-                barColor: style.profile_li.iconColor
+                progressBar:style.progressBar
             },
             props:{
-                side:"right"
+              
             }
         }),
         generatePassionSectionData({
@@ -167,11 +167,6 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
                 shouldIncludeIcon:true
             }
         })
-
-        
-
-
-
 
 
 
