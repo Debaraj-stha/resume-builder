@@ -27,6 +27,8 @@ const ResponsiveGrid = styled.div`
 
 
 const GenerateResume=()=>{
+
+
     return(
         <MainWrapper>
             <Hspace/>

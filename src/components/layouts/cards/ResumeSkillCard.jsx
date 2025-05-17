@@ -17,8 +17,10 @@ const SkillCard = memo(({ skills, style, ...props }) => {
     margin: "0",
     padding: "0"
   };
+   const borderColor=style.borderColor
   const RenderItem = ({ item }) => <h3 style={commonStyle}>{capitalize(item)}</h3>
   const renderSkillItem = (item, key) => {
+   
     if (borderBottom) {
       return (
         <BorderBox key={key} borderBottomColor={style.borderColor ? style.borderColor : "#555"}>
@@ -31,18 +33,19 @@ const SkillCard = memo(({ skills, style, ...props }) => {
       return (
         <BorderBox
           key={key}
-          borderBottomColor="#555"
-          borderLeftColor="#555"
-          borderTopColor="#555"
-          borderRightColor="#555"
+          borderBottomColor={borderColor?borderColor:"#555"}
+          borderLeftColor={borderColor?borderColor:"#555"}
+          borderTopColor={borderColor?borderColor:"#555"}
+          borderRightColor={borderColor?borderColor:"#555"}
           padding="5px"
+          borderRadius="3px"
         >
           <RenderItem item={item}/>
         </BorderBox>
       );
     }
 
-    return  <RenderItem item={item}/>
+    return  <RenderItem key={key} item={item}/>
   };
 
   return (

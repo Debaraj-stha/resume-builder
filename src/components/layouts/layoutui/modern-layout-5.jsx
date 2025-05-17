@@ -14,7 +14,7 @@ const getModernLayout5 = ({ pages, layoutId, key_val, layout_type, sectionRefs }
      props:{
       leftPadding:"10px 15px 0 20mm",
       rightPadding:"10px 20mm 0 15px",
-      mainPadding:"0"
+      mainPadding:"0 0 0 0"
      }
     });
   

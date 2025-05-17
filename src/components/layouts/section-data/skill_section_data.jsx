@@ -4,8 +4,7 @@ import SkillCard from "../cards/ResumeSkillCard";
 import generateTitle from "./titleGenerater";
 
 const generateSkill = ({ skills, divider,
-    style, layout_no,
-    layout_type = layout_type_map.CLASSICAL,
+    style,
     titleHeader = "skills",
     props = {}
 }) => {

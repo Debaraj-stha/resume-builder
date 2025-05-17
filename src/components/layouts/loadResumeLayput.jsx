@@ -22,10 +22,8 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         layoutModule = await import("./modern/layout-output/layout-3-output")
         break
       case 4:
-
         layoutModule = await import("./modern/layout-output/layout4-output")
         break
-
       case 5:
         layoutModule = await import("./modern/layout-output/layout5-output")
         break
@@ -115,8 +113,8 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         layoutModule = await import("./creative/layout-output/layout-4-output")
         break
       case 5:
-          layoutModule = await import("./creative/layout-output/layout-5-output")
-          break
+        layoutModule = await import("./creative/layout-output/layout-5-output")
+        break
     }
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, layoutId)

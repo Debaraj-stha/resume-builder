@@ -5,8 +5,9 @@ import {  CardWrapper, Input } from "../../CustomComponents";
 import { useLayout } from "../../../provider/layoutProvider";
 import { GridThree, GridTwo } from "./GridCards";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
-//  educations: [{ university: "", degree: "", start_complete: "" }],
-const DynamicEducationCard = ({ name }) => {
+
+const DynamicEducationCard = ({ name,...props}) => {
+  const{acceptGPA=false}=props
   const { control, register } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -45,10 +46,13 @@ const DynamicEducationCard = ({ name }) => {
                 placeholder="Start & Completion Dates (e.g., 2020 - 2024)"
                 {...register(`${base}.start_complete`)}
               />
-               <Input
+              {
+                acceptGPA &&  <Input
                 placeholder="GPA e.g 3.02"
                 {...register(`${base}.gpa`)}
               />
+              }
+              
               </GridThree>
 
               <AppendRemoveButton handleAppend={handleAppend} handleRemove={handleRemove}/>

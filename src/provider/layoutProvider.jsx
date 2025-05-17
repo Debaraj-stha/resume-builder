@@ -118,6 +118,7 @@ const LayoutProvider = ({ children }) => {
   }, []);
   const ref = useRef(null);
 
+
   const generatePDF = async () => {
     // Get the DOM element that we want to convert to PDF
     const element = ref.current;
@@ -175,6 +176,7 @@ const LayoutProvider = ({ children }) => {
 
 
   const groupSectionsIntoPages = (sectionRefs, setMeasured, setPages) => {
+    console.log("called")
     const PAGE_HEIGHT = 970;
 
     // Initialize an array to hold the grouped sections (pages).
@@ -187,6 +189,7 @@ const LayoutProvider = ({ children }) => {
     sectionRefs.current.forEach((ref, idx) => {
       // If the section reference is valid and has a height, process it.
       if (ref && ref.offsetHeight) {
+        alert("inside if")
         const sectionHeight = ref.offsetHeight; // Get the height of the current section.
 
         // If adding this section would exceed the page height, push the current group to `grouped` and start a new page.
@@ -201,13 +204,14 @@ const LayoutProvider = ({ children }) => {
         // Add the height of the section to the current page's total height.
         currentHeight += sectionHeight;
       }
+    
     });
 
     // After the loop, if there are any remaining sections in the current group, push them as a new page.
     if (currentGroup.length > 0) {
       grouped.push(currentGroup);
     }
-
+    console.log("group",grouped)
     // Set the grouped sections (pages) in the state.
     setPages(grouped);
     // Mark the measurement process as complete.

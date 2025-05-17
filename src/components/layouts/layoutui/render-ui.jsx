@@ -3,7 +3,7 @@ import { LeftColumn, RightColumn, Section } from "../../elements/resumeSectionWr
 import { FlexResumeWrapper, ModernResumeWrapper, ResumeWrapper } from "../../elements/resumeWrapper";
 import CurvedWrapper from "../wrappers/curved-wrapper";
 import { CreativeResumeWrapperWithLine } from "../../elements/resumeWrapper";
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 export const Wrapper = styled.div`
 display: flex;
 padding: 0;
@@ -21,16 +21,12 @@ const RectangularContainer = styled.div`
     align-content: center;
     margin: auto;
     background:${({ backgroundColor }) => backgroundColor || "#660c09"};
-
 `
-
-
 const renderLayout = ({
   pages,
   sectionData,
   sectionRefs,
   key_val,
-  layout_no,
   leftFlex = "2",
   rightFlex = "3",
   background = "transparent",
@@ -38,21 +34,17 @@ const renderLayout = ({
     leftPadding: "0",
     rightPadding: "0",
     mainPadding: "20mm",
-    personalDetailsOnLeft: false
-  }
+    personalDetailsOnLeft: false,
+  },
 }) => {
-
-  const { leftPadding, rightPadding, mainPadding, layout, personalDetailsOnLeft, includeNameInitial } = props
-
+  const { leftPadding, rightPadding, mainPadding, layout, personalDetailsOnLeft, includeNameInitial } = props;
   const layout_map = {
     CURVED: "curved",
     NORMAL: "normal",
-    LINE: "line"
-  }
-
-  const [sectionsHeight, setSectionsHeight] = useState([])
-  let CustomWrapper
-
+    LINE: "line",
+  };
+  const [sectionsHeight, setSectionsHeight] = useState([]);
+  let CustomWrapper;
   const NameInitial = () => {
     const name = key_val.personalDetails.name
     const names = name.split(" ")
@@ -69,153 +61,126 @@ const renderLayout = ({
       <Section
         key={section.id || section.key || index}
         ref={(el) => (sectionRefs.current[index] = el)}
+        margin={index === 0 ? "0" : "0 10px"}
         marginTop={index === 0 ? 0 : "15px"}
       >
         {SectionContent}
       </Section>
     );
   };
-
-
-    if (layout === layout_map.CURVED) {
-      CustomWrapper=CurvedWrapper
-    }
-    else if (layout === layout_map.LINE) {
-      CustomWrapper=CreativeResumeWrapperWithLine
-    }
-    else {
-      CustomWrapper=ResumeWrapper
-    }
-  
-
-  const distributeSectionsByHeight = (heights) => {
-    const leftColumnIndices = []
-    const rightColumnIndices = []
-    let leftHeight = 0
-    let rightHeight = 0
-    heights.forEach((height, index) => {
-      if (i === 0 && personalDetailsOnLeft) {
-        leftColumnIndices.push(i)
-        leftHeight += height
-      }
-      else if (i == 0 && !personalDetailsOnLeft) {
-        //do nothing and handle as header
-      }
-      else if (leftHeight < rightHeight) {
-        leftColumnIndices.push(i)
-        leftHeight += height
-      }
-      else {
-        rightColumnIndices.push(i)
-        rightHeight += height
-      }
-    })
-    return {leftColumnIndices,rightColumnIndices}
+  if (layout === layout_map.CURVED) {
+    CustomWrapper = CurvedWrapper;
+  } else if (layout === layout_map.LINE) {
+    CustomWrapper = CreativeResumeWrapperWithLine;
+  } else {
+    CustomWrapper = ResumeWrapper;
   }
+  // Measure section heights after refs are assigned
+  useEffect(() => {
+    if (
+      !sectionRefs.current ||
+      sectionRefs.current.length === 0 ||
+      sectionRefs.current.some(ref => ref === null)
+    ) {
+      return;
+    }
 
-
-
-  // useEffect(() => {
-  //   if (sectionRefs.current.length === 0) return
-  //   //computing each section height
-  //   const heights = sectionRefs.current.map((ref, i) => ref.offsetHeight || 0)
-  //   setSectionsHeight(heights)
-  // }, [sectionData])
-
-
-
-  // useEffect(() => {
-  //   selectWrapper()
-  // }, [])
-
-
-
+    const heights = sectionRefs.current.map(ref => ref.offsetHeight || 0);
+    setSectionsHeight(heights);
+    console.log("Section heights:", heights);
+  }, [sectionData.length, sectionRefs]);
+  const renderUI = (headerSection, leftColumn, rightColumn) => {
+    return <CustomWrapper padding={mainPadding}>
+      {headerSection}
+      <Wrapper>
+        <LeftColumn flex={leftFlex} padding={leftPadding}>
+          {leftColumn}
+        </LeftColumn>
+        <RightColumn flex={rightFlex} padding={rightPadding} backgroundColor={background}>
+          {rightColumn}
+        </RightColumn>
+      </Wrapper>
+    </CustomWrapper>
+  }
+  // === Render paginated layout ===
   if (pages.length > 0) {
     return pages.map((group, pageIndex) => {
       const leftColumn = [];
       const rightColumn = [];
       let headerSection = null;
-
+        let leftHeight = 0;
+        let rightHeight = 0;
       group.forEach((sectionIndex) => {
         const section = sectionData[sectionIndex];
         if (!section) return;
 
         const content = renderSection(section, sectionIndex);
+        const sectionHeight = sectionsHeight[sectionIndex] || 0;
+
         if (sectionIndex === 0) {
-          // if (layout_no === 1) {
           if (personalDetailsOnLeft) {
             leftColumn.push(content);
-            console.log(content)
+            leftHeight += sectionHeight;
+
             rightColumn.push(
               includeNameInitial ? <NameInitial key={`name_initial_${sectionIndex}`} /> :
-                <Section key="placeholder" marginTop="100px" />);
+                <Section key="placeholder" marginTop="100px" />
+            );
           } else {
             headerSection = content;
           }
-        } else if (sectionIndex % 2 === 0) {
-          rightColumn.push(content);
-        } else {
+        } else if (leftHeight <= rightHeight) {
           leftColumn.push(content);
+          leftHeight += sectionHeight;
+        } else {
+          rightColumn.push(content);
+          rightHeight += sectionHeight;
         }
+
       });
 
-      return (
-        <ModernResumeWrapper key={pageIndex}>
-          <FlexResumeWrapper>
-            {headerSection}
-            <LeftColumn>{leftColumn}</LeftColumn>
-            <RightColumn>{rightColumn}</RightColumn>
-          </FlexResumeWrapper>
-        </ModernResumeWrapper>
-      );
+      return renderUI(headerSection, leftColumn, rightColumn)
     });
   }
 
-  // Fallback if no pages
+  // === Render fallback layout ===
   const leftColumn = [];
   const rightColumn = [];
   let headerSection = null;
 
+  let leftHeight = 0;
+  let rightHeight = 0;
+
   sectionData.forEach((section, index) => {
-
     const content = renderSection(section, index);
-    if (index === 0) {
+    const sectionHeight = sectionsHeight[index] || 0;
 
-      // if (layout_no === 1) {
+    if (index === 0) {
       if (personalDetailsOnLeft) {
         leftColumn.push(content);
-        rightColumn.push(includeNameInitial ? <NameInitial key={`name_initial_${index}`} /> :
-          <Section key="placeholder" marginTop="100px" />);
+        leftHeight += sectionHeight;
+
+        rightColumn.push(
+          includeNameInitial ? <NameInitial key={`name_initial_${index}`} /> :
+            <Section key="placeholder" marginTop="100px" />
+        );
       } else {
         headerSection = content;
       }
-    } else if (index % 2 === 0) {
-      rightColumn.push(content);
-    } else {
+    } else if (leftHeight <= rightHeight) {
       leftColumn.push(content);
+      leftHeight += sectionHeight;
+    } else {
+      rightColumn.push(content);
+      rightHeight += sectionHeight;
     }
   });
 
-  return (
-    <CustomWrapper padding={mainPadding}>
-      {headerSection}
-      <Wrapper>
-        <LeftColumn
-          flex={leftFlex}
-          padding={leftPadding}
-        >
-          {leftColumn}
-        </LeftColumn>
-        <RightColumn
-          flex={rightFlex}
-          padding={rightPadding}
-          backgroundColor={background}
-        >
-          {rightColumn}
-        </RightColumn>
-      </Wrapper>
-    </CustomWrapper>
-  );
+
+  return renderUI(headerSection, leftColumn, rightColumn)
 };
 
-export default renderLayout
+export default renderLayout;
+
+
+

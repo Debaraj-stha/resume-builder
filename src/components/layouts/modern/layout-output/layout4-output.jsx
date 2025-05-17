@@ -8,6 +8,7 @@ import generatePassionSectionData from "../../section-data/passion_section_data"
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
 import generateAchievement from "../../section-data/achievement_section_data";
+import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 
 const divider = <LineDivider height="3px" backgroundColor="#ccc8c8" />
 
@@ -18,7 +19,7 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         educations = [],
         achievements = [],
         skills = [],
-       
+        industryExpertise,
         summary = "",
         passions
     } = data;
@@ -115,7 +116,16 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
 
         }),
      
-
+         generateIndustryExpertise({
+            industryExpertise,
+            style: {
+                sectionHeader: style.sectionHeader,
+                sectionSubHeader: style.sectionSubHeader,
+                barStyle:style.barStyle,
+               
+            },
+            
+        }),
         generatePassionSectionData({
             passions:passions.slice(0,4),
             layout_no,

@@ -107,7 +107,8 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2, color: style.headerTextColor,
-                sectionSubHeader:style.sectionSubHeader
+                sectionSubHeader:style.sectionSubHeader,
+                progressBar:style.progressBar
             }
         }),
         generateStrength({

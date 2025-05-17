@@ -4,9 +4,11 @@ import DynamicFieldArray from "./DynamicArrayField";
 import { CardWrapper, Input } from "../../CustomComponents";
 import { GridOne, GridTwo } from "./GridCards";
 
-const HeaderSection = () => {
+const HeaderSection = (props) => {
   const { control, register } = useFormContext();
 
+  const { acceptProfession = false,acceptImage=false } = props;
+  console.log(acceptProfession)
   return (
     <CardWrapper>
       <GridTwo>
@@ -15,11 +17,14 @@ const HeaderSection = () => {
           placeholder="Name"
           {...register("personalDetails.name")} // Registering the 'name' field inside 'personalDetails'
         />
-        <Input
-          type="text"
-          placeholder="Profession"
-          {...register("personalDetails.profession")} // Registering the 'profession' field inside 'personalDetails'
-        />
+        {
+          acceptProfession && <Input
+            type="text"
+            placeholder="Profession"
+            {...register("personalDetails.profession")} // Registering the 'profession' field inside 'personalDetails'
+          />
+        }
+
         <Input
           type="text"
           placeholder="Phone"
@@ -32,23 +37,28 @@ const HeaderSection = () => {
         />
       </GridTwo>
       <GridOne>
-      <DynamicFieldArray
-        name="personalDetails.urls" // Registering the 'url' field inside 'personalDetails'
-        placeholder="URL"
-        control={control}
-        register={register}
-      />
+        <DynamicFieldArray
+          name="personalDetails.urls" // Registering the 'url' field inside 'personalDetails'
+          placeholder="URL"
+          control={control}
+          register={register}
+        />
       </GridOne>
       <GridTwo>
-      <Input
+        <Input
           type="text"
           placeholder="Address"
           {...register("personalDetails.address")} // Registering the 'email' field inside 'personalDetails'
         />
-         <Input
-          type="file"
-          {...register("personalDetails.profile")} // Registering the 'email' field inside 'personalDetails'
-        />
+        {
+          acceptImage && (
+            < Input
+              type="file"
+              {...register("personalDetails.profile")} // Registering the 'email' field inside 'personalDetails'
+            />
+          )
+        }
+
       </GridTwo>
     </CardWrapper>
   );

@@ -1,101 +1,69 @@
+import base_style from "../../style/base_style"
 export const layout_5_style = {
-    primaryColor: "#000000", // Strong black for headers and main text
-    fontFamily: "'Inter', sans-serif", // Sleek, modern font used throughout
-    backgroundColor: "#ffffff",
+    ...base_style.main_style,
+    fontFamily: "'Roboto', sans-serif", // Sleek, modern font used throughout
     headerBackground: "#000000",
     textColor: "#1a1a1a",
     headerTextColor: "#ffffff",
     subTextColor: "#4f4f4f",
-    accentColor: "#000000",
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "32px",
-        fontWeight: "700",
         fontFamily: "'Inter', sans-serif",
         color: "#ffffff",
-        textTransform: "uppercase",
-        textAlign: "left",
     },
-
     titleStyle: {
-        fontSize: "14px",
-        fontWeight: "500",
+        ...base_style.titleStyle,
         color: "#ffffff",
-        letterSpacing: "0.5px",
         textAlign: "left",
     },
 
     profile_ul: {
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        flexWrap: "wrap",
-        listStyleType: "none",
-        padding: 0,
+        ...base_style.profile_ul,
+        justifyContent: "start",
         gap: "8px"
     },
 
     profile_li: {
-        fontSize: "13px",
+        ...base_style.profile_li,
         color: "#ffffff",
-        padding: "4px 10px",
-        display: "flex",
-        alignItems: "center",
         iconColor: "#ffffff"
     },
-
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "700",
-        color: "#000000",
-        textTransform: "uppercase",
-        marginBottom: "4px",
-        paddingBottom: "4px",
-        textAlign: "left"
+        ...base_style.sectionHeader
     },
-
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
-        color: "#000000",
-        margin: "4px 0",
-        textAlign: "left"
+        ...base_style.sectionSubHeader
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#4f4f4f",
-        textAlign: "left"
+       
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
-        textAlign: "left",
-        color: "#000000"
+       ...base_style.h1
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
-        color: "#000000",
-        textAlign: "left"
+        ...base_style.h2
     },
 
     h3: {
-        fontSize: "14px",
-        fontWeight: "500",
-        color: "#000000",
-        textAlign: "left"
+       ...base_style.h3
     },
 
     tagStyle: {
+        ...base_style.tagStyle,
         backgroundColor: "#f2f2f2",
         color: "#000000",
-        fontSize: "11px",
-        padding: "4px 10px",
-        borderRadius: "12px",
-        display: "inline-block",
-        margin: "2px",
     },
+    progressBar: {
+        ...base_style.progressBar
+    },
+    barStyle: {
+        ...base_style.barStyle
+      }
+
 };

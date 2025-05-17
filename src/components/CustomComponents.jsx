@@ -315,7 +315,7 @@ export const BorderBox = styled.div.withConfig({
   shouldForwardProp:(props)=>!["borderRadius","borderTopColor","borderRightColor","borderBottomColor","borderLeftColor","borderColor"].includes(props)
 })`
 border:1px solid;
-border-radius:1px;
+border-radius:${({borderRadius})=>borderRadius||"1px"};
 padding:${({padding})=>padding||"0 5px 0 0"};
 margin:${({margin})=>margin||"5px"};
 border-top-color:${({borderColor,borderTopColor})=>borderColor||borderTopColor||"transparent"};

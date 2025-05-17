@@ -7,7 +7,9 @@ const ExpertiseWrapper = styled.div`
   text-align: center;
 `;
 
-export const RangeInput = styled.input.attrs({ type: "range" })`
+export const RangeInput = styled.input.attrs({ type: "range" }).withConfig({
+  shouldForwardProp:(props)=>!["borderRadius","thumbSize","thumbColor","thumbRadius","thumbBorderColor"].includes(props)
+})`
   width: 100%;
   appearance: none;
   height: ${({ height }) => height || "6px"};

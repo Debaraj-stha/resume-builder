@@ -13,9 +13,9 @@ const BaseLayoutRenderer = memo(
     shouldMeasureHeight,
     layout_type = layout_type_map.CLASSICAL,
   }) => {
-    console.log("shouldMeasureHeight",shouldMeasureHeight)
+    console.log("shouldMeasureHeight", shouldMeasureHeight)
 
-    const { liveDetails,  complie_input } = useLayout()
+    const { liveDetails, complie_input } = useLayout()
     //listening the live values only if entered keyis pressed
     const handleEntered = (e) => {
       if (e.key === "Enter") {
@@ -23,7 +23,7 @@ const BaseLayoutRenderer = memo(
       }
     };
 
- 
+
     //attach event listener
     useEffect(() => {
       window.addEventListener("keyup", handleEntered);
@@ -44,6 +44,7 @@ const BaseLayoutRenderer = memo(
     const industryExpertise = staticProps.industryExpertise || liveDetails.industryExpertise;
     const languages = staticProps.languages || liveDetails.languages;
     const openSourceWork = staticProps.openSourceWork || liveDetails.openSourceWork
+    const passions = staticProps.passions || liveDetails.passions
     const key_val = {
       personalDetails,
       educations,
@@ -55,24 +56,44 @@ const BaseLayoutRenderer = memo(
       certificates,
       industryExpertise,
       languages,
-      openSourceWork
+      openSourceWork,
+      passions
 
     };
 
     const sectionData = getSectionDataFn(key_val);
+    console.log("section data",sectionData)
     const sectionRefs = useRef([]);
     const [pages, setPages] = useState([]);
     const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout();
 
     useLayoutEffect(() => {
-      if (shouldMeasureHeight && !measured) {
-        //creating new ref array of length secionData length and filling with null value
-        sectionRefs.current = new Array(sectionData.length).fill(null);
+      if (!shouldMeasureHeight || measured) return;
+
+      const refsReady =
+        sectionRefs.current.length === sectionData.length &&
+        sectionRefs.current.every((ref) => ref && ref.offsetHeight > 0);
+
+      if (refsReady) {
+        console.log("All refs ready. Measuring...");
         groupSectionsIntoPages(sectionRefs, setMeasured, setPages);
+      } else {
+        console.log("Refs not ready. Waiting...");
+        const timeout = setTimeout(() => {
+          setMeasured(false); // Triggers a re-run
+        }, 100); // retry after short delay
+
+        return () => clearTimeout(timeout);
       }
-    }, [shouldMeasureHeight, measured, sectionData.length]);
+    }, [
+      shouldMeasureHeight,
+      measured,
+      sectionData.length,
+      sectionRefs.current.map(ref => ref?.offsetHeight).join(","),
+    ]);
 
     useEffect(() => {
+      console.log("called measured in useEffect")
       if (shouldMeasureHeight) {
         setMeasured(false);
       }

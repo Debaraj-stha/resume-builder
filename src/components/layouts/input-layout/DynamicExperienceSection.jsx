@@ -34,7 +34,7 @@ const DynamicExperienceSection = ({ name }) => {
     setMeasured(false)
     console.log("after measured",measured)
   }
-  const handleRemove = () => {
+  const handleRemove = (outerIndex) => {
     remove(outerIndex)
     setMeasured(false)
   }

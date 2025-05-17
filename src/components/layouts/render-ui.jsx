@@ -3,79 +3,54 @@ import { ResumeWrapper } from "../elements/resumeWrapper";
 import useDynamicLayoutSections from "./loadResumeLayput";
 
 const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
+  const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
+  console.log("pages",pages)
 
-      
-    const shoulApplyMargin = (section) => {
-        const isExperienceSection = section.key?.startsWith("experience_") ;
-        const isFirstExperience = isExperienceSection && section.key === "experience_0";
-
-        const isEducationSection = section.key?.startsWith("education_");
-        const isFirstEducation = isEducationSection && section.key === "education_0";
-
-        const isAchievementSection = section.key?.startsWith("achievement_");
-        const isFirstAchievement = isAchievementSection && section.key === "achievement_0";
-        const isCertificateSection = section.key?.startsWith("certificate_")
-        const isFirstCertificate = isCertificateSection && section.key === "certificate_0"
-
-
-        const applyMarginTop =
-            section.key !== "personalDetails" &&
-            (
-                (isExperienceSection && isFirstExperience) ||
-                (isEducationSection && isFirstEducation) ||
-                (isAchievementSection && isFirstAchievement) ||
-                (isCertificateSection && isFirstCertificate) ||
-                section.key === "skills" ||
-                section.key === "personalDetails" ||
-                section.key==="summary"||
-                section.key==="strengths"
-
-            );
-
-        return applyMarginTop;
-    };
-    const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
-    
+  const shouldApplyMargin = (section) => {
+    const key = section.key;
     return (
-        pages.length > 0 ? (
-            pages.map((group, pageIndex) => (
-                <ResumeWrapper key={pageIndex}>
-                    {group.map((sectionIndex) => {
-                        const section = sectionData[sectionIndex];
-                        if (!section) return null;
-                        const SectionContent = section.content(key_val?.[section.key]);
-                        const applyMarginTop = shoulApplyMargin(section);
-
-                        return (
-                            <Section
-                                key={section.id || section.key || pageIndex}
-                                ref={(el) => (sectionRefs.current[sectionIndex] = el)}
-                                marginTop={applyMarginTop ? "15px" : 0}
-                            >
-                                {SectionContent}
-                            </Section>
-                        );
-                    })}
-                </ResumeWrapper>
-            ))
-        ) : (
-            <ResumeWrapper>
-                {sectionData.map((section, index) => {
-                    const SectionContent = section.content(key_val?.[section.key]);
-                    const applyMarginTop = shoulApplyMargin(section);
-                    return (
-                        <Section
-                            key={section.id || section.key || index}
-                            ref={(el) => (sectionRefs.current[index] = el)}
-                            marginTop={applyMarginTop ? "15px" : 0}
-                        >
-                            {SectionContent}
-                        </Section>
-                    );
-                })}
-            </ResumeWrapper>
-        )
+      key !== "personalDetails" &&
+      (
+        key === "experience_0" ||
+        key === "education_0" ||
+        key === "achievement_0" ||
+        key === "certificate_0" ||
+        ["skills", "summary", "strengths"].includes(key)
+      )
     );
-}
+  };
 
-export default renderUI
+  const renderSection = (section, index) => {
+    const SectionContent = section.content(key_val?.[section.key]);
+    return (
+      <Section
+        key={section.id || section.key || index}
+        ref={(el) => (sectionRefs.current[index] = el)}
+        marginTop={shouldApplyMargin(section) ? "15px" : 0}
+      >
+        {SectionContent}
+      </Section>
+    );
+  };
+
+  if (pages.length > 0) {
+    return pages.map((group, pageIndex) => (
+      <ResumeWrapper key={pageIndex}>
+        {group.map((sectionIndex) => {
+          const section = sectionData[sectionIndex];
+          if (!section) return null;
+          return renderSection(section, sectionIndex);
+        })}
+      </ResumeWrapper>
+    ));
+  }
+
+  // Fallback: render all sections on one page
+  return (
+    <ResumeWrapper>
+      {sectionData.map((section, index) => renderSection(section, index))}
+    </ResumeWrapper>
+  );
+};
+
+export default renderUI;

@@ -8,7 +8,9 @@ const LanguageWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const ProgressBarContainer = styled.div`
+const ProgressBarContainer = styled.div.withConfig({
+  shouldForwardProp:(props)=>!['borderRadius'].includes(props)
+})`
   background: ${({ backgroundColor }) => backgroundColor || "#eee"};
   border-radius: ${({ borderRadius }) => borderRadius || "10px"};
   overflow: hidden;

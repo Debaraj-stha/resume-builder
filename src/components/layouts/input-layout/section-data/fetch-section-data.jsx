@@ -18,8 +18,11 @@ const layoutMap = {
 export const fetchSectionData = ({
   layout_id,
   layout_type = layout_type_map.CLASSICAL,
+  props={}
 }) => {
-  const layouts = layoutMap[layout_type] || classicalLayouts;
+
+  const layoutFn = layoutMap[layout_type] || classicalLayouts;
+  const layouts = layoutFn(props);
   const key = `layout${Math.min(layout_id, Object.keys(layouts).length)}`;
   return layouts[key];
 };

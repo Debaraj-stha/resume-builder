@@ -1,7 +1,7 @@
 
 import { FlexBox } from "../../CustomComponents"
 import { FaFire } from "react-icons/fa"
-const generateModernPassionCard = ({ passion, layout_no, style, ...props }) => {
+const generateModernPassionCard = ({ passion, style, ...props }) => {
     const { shouldIncludeIcon } = props
     return (
         <>
@@ -9,15 +9,15 @@ const generateModernPassionCard = ({ passion, layout_no, style, ...props }) => {
                {
                 shouldIncludeIcon && <FaFire color={style?.iconColor?style?.iconColor:"orange"}/>
                }
-                <h2 style={{ ...style.sectionSubHeader }}>{passion}</h2>
+                <h2 style={{ ...style.sectionSubHeader }}>{passion.value}</h2>
             </FlexBox>
         </>
     )
 
 }
-const PassionCard = ({ passion, layout_type = "modern", layout_no, style, ...props }) => {
+const PassionCard = ({ passion,  style, ...props }) => {
 
-    return generateModernPassionCard({ passion, layout_no, style, ...props })
+    return generateModernPassionCard({ passion,  style, ...props })
 
 }
 

@@ -73,6 +73,12 @@ export const layout_3_style = {
         ...base_style.tagStyle,
         backgroundColor: "#e6f0fd",
         color: "#0056d2",
-        
+    },
+
+    progressBar: {
+        backgroundColor: "#e0e0e0",
+        fillColor: "#000000",
+        height: "4px",
+        borderRadius: "2px",
     },
 };

@@ -19,7 +19,7 @@ import DynamicIndustryExpertiseCard from "../DynamicInductryExpertiseCard";
 import DynamicOpenSourceWorkCard from "../DynamicOpenSourceWork";
 // Section Component Map
 const sectionComponents = {
-  header: () => <HeaderSection />,
+  header: (props) => <HeaderSection {...props} />,
   summary: () => <SummarySection />,
   experience: () => (
     <DynamicInputSectionWrapper>
@@ -27,10 +27,10 @@ const sectionComponents = {
       <DynamicExperienceSection name="experiences" />
     </DynamicInputSectionWrapper>
   ),
-  education: () => (
+  education: (props) => (
     <DynamicInputSectionWrapper>
       <Paragraph>Education</Paragraph>
-      <DynamicEducationCard name="educations" />
+      <DynamicEducationCard name="educations" {...props} />
     </DynamicInputSectionWrapper>
   ),
   achievement: () => (

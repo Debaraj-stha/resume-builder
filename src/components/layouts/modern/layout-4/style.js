@@ -1,104 +1,86 @@
+import base_style from "../../style/base_style"
+
 export const layout_4_style = {
+    ...base_style.main_style,
     primaryColor: "#f37021", // Orange accent used for icons, headings, and highlights
     fontFamily: "'Inter', sans-serif", // Clean modern sans-serif used in the design
-    backgroundColor: "#ffffff",
     headerBackground: "#ffffff",
     textColor: "#1a1a1a",
     headerTextColor: "#0f0771",
     subTextColor: "#4f4f4f",
     accentColor: "#f37021",
-
     nameStyle: {
+        ...base_style.nameStyle,
         fontSize: "32px",
-        fontWeight: "700",
         fontFamily: "'Inter', sans-serif",
         color: "#0f0771",
-        textTransform: "uppercase",
-        textAlign: "left",
+         textAlign: "left"
     },
-
     titleStyle: {
+        ...base_style.titleStyle,
         fontSize: "14px",
-        fontWeight: "500",
         color: "#f37021",
-        letterSpacing: "0.5px",
         textAlign: "left",
     },
-
     profile_ul: {
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        flexWrap: "wrap",
-        listStyleType: "none",
-        padding: 0,
+        ...base_style.profile_ul,
+        justifyContent: "start",
+        padding: "0",
         gap: "8px"
     },
-
     profile_li: {
-        fontSize: "13px",
+        ...base_style.profile_li,
         color: "#1a1a1a",
-        padding: "4px 10px",
         backgroundColor: "#f2f2f2",
         borderRadius: "8px",
-        display: "flex",
-        alignItems: "center",
         iconColor: "#f37021"
     },
-
     sectionHeader: {
-        fontSize: "14px",
-        fontWeight: "700",
+        ...base_style.sectionHeader,
         color: "#0f0771",
-        textTransform: "uppercase",
-        marginBottom: "4px",
-        paddingBottom: "4px",
-        textAlign: "left"
+       
     },
 
+
     sectionSubHeader: {
-        fontSize: "13px",
-        fontWeight: "600",
-        color: "#000000",
-        margin: "4px 0",
-        textAlign: "left"
+        ...base_style.sectionSubHeader,
     },
 
     p: {
-        fontSize: "12px",
-        lineHeight: "1.6",
+        ...base_style.p,
         color: "#4f4f4f",
-        textAlign: "left"
+        
     },
 
     h1: {
-        fontSize: "20px",
-        fontWeight: "600",
-        textAlign: "left",
+        ...base_style.h1,
         color: "#0f0771"
     },
 
     h2: {
-        fontSize: "16px",
-        fontWeight: "600",
+        ...base_style.h2,
         color: "#0f0771",
-        textAlign: "left"
+    
     },
 
     h3: {
-        fontSize: "14px",
-        fontWeight: "500",
+       ...base_style.h3,
         color: "#f37021",
-        textAlign: "left"
+        
     },
 
     tagStyle: {
+        ...base_style.tagStyle,
         backgroundColor: "#fef4ed",
         color: "#f37021",
-        fontSize: "11px",
-        padding: "4px 10px",
-        borderRadius: "12px",
-        display: "inline-block",
-        margin: "2px",
+        
     },
+    barStyle: {
+        fillColor: "#1a355b",
+        height: "6px",
+        borderRadius: "4px",
+        thumbColor: "#fff",
+        thumbBorderColor: "#1a355b",
+        thumbSize: "14px",
+      }
 };

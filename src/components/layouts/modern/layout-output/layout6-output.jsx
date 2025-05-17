@@ -8,7 +8,7 @@ import generateProfileDetails from "../../section-data/profile_details";
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateStrength from "../../section-data/strength_section_data";
 import generateLanguage from "../../section-data/language_section_data";
-import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
+
 const getModernLayout6OutputSectionData = (data, layout_no) => {
     const {
         personalDetails = {},
@@ -71,7 +71,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
 
         }),
         generateSkill({
-            skills:skills.slice(0,3),
+            skills,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -79,11 +79,12 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
                 h1: style.h1,
                 h2: style.h2,
                 h3: style.h3,
-                sectionSubHeader: style.sectionSubHeader
+                sectionSubHeader: style.sectionSubHeader,
+                borderColor:"#cfcbcb"
             },
             layout_no: layout_no,
             layout_type: layout_type_map.SIMPLE,
-            titleHeader: "technical experiences",
+            titleHeader: "technical skills",
             props:{
                 borderBox:true
             }
@@ -103,19 +104,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
             },
             shouldIncludeIcon: false
         }),
-        generateIndustryExpertise({
-            industryExpertise:industryExpertise.slice(0,2),
-            layout_no,
-            layout_type: layout_type,
-            style: {
-                sectionHeader: style.sectionHeader,
-                sectionSubHeader: style.sectionSubHeader,
-                barColor:style.profile_li?.iconColor
-
-            },
-            sectionHeader: "industry experiences"
-
-        }),
+       
         generateStrength({
             strengths:strengths.slice(0,3),
             layout_no,
@@ -138,7 +127,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2, color: style.headerTextColor,
                 sectionSubHeader: style.sectionSubHeader,
-                barColor:style.profile_li?.iconColor
+                progressBar:style.progressBar
             },
         }),
     ]

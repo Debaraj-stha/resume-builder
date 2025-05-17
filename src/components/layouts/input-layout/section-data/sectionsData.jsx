@@ -21,12 +21,13 @@ const generatelayoutSections = () => {
 }
 const layouts = generatelayoutSections()
 // Generator
-const generateLayoutData = ({ layoutType = "classical", layoutKey = "layout1" }) => {
-
-    return layouts[layoutType][layoutKey].map((key) => ({
+const generateLayoutData = ({ layoutType = "classical", layoutKey = "layout1",props={} }) => {
+    return layouts[layoutType][layoutKey].map((key) => {  
+        return ({
         key,
-        content: () => sectionComponents[key](),
-    }));
+        content: () => sectionComponents[key](props?.[key]),
+    })
+    });
 };
 
 export default generateLayoutData
