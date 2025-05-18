@@ -13,7 +13,7 @@ const BaseLayoutRenderer = memo(
     shouldMeasureHeight,
     layout_type = layout_type_map.CLASSICAL,
   }) => {
-    console.log("shouldMeasureHeight", shouldMeasureHeight)
+    
 
     const { liveDetails, complie_input } = useLayout()
     //listening the live values only if entered keyis pressed
@@ -62,7 +62,7 @@ const BaseLayoutRenderer = memo(
     };
 
     const sectionData = getSectionDataFn(key_val);
-    console.log("section data",sectionData)
+
     const sectionRefs = useRef([]);
     const [pages, setPages] = useState([]);
     const { measured, setMeasured, groupSectionsIntoPages, ref } = useLayout();

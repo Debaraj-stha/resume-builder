@@ -131,6 +131,16 @@ padding:${(props) => props.padding || "0"};
 border-radius:${(props) => props.borderRadius || "0"};
 box-shadow:${(props) => props.shouldBoxShadow ? "5px 5px 10px rgba(0,0,0,.6)" : null};
 `
+export const CircularIconHolder = styled(IconHolder)`
+  background-color:${({ backgroundColor }) => backgroundColor || "#324f22"};
+  border-radius:50%;
+  padding:10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+     &:hover {
+    transform: scale(1.05);
+  }
+`
 export const SkillCardWrapper = styled.div`
 display:flex;
 justify-content:space-between;

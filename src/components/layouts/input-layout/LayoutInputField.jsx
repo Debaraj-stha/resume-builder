@@ -3,11 +3,12 @@ import { LayoutWrapperWithBorder, ResumeInputFieldWrapper } from "../../elements
 import { Section } from "../../elements/resumeSectionWrapper";
 import { useParams } from "react-router-dom";
 import { fetchSectionData } from "./section-data/fetch-section-data";
-
+import TextIconButton, { IconButton } from "../../IconButton";
 import { useFormContext } from "react-hook-form";
-import { H1 } from "../../CustomComponents";
+import { H1,H2,H3,FlexBox } from "../../CustomComponents";
+import {useLayout} from "../../../provider/layoutProvider"
 import { layout_type_map } from "../../../constant";
-
+import { FaCogs } from "react-icons/fa";
 const LayoutInputField = () => {
   const params = useParams()
   const layout_id = parseInt(params.layout_id, 10);
@@ -31,6 +32,12 @@ const generatedProps = useMemo(() => {
       return props
     }
     const handleCreativeLayoutProps = () => {
+      switch(layout_id){
+        case 5:
+          props.header={
+             acceptImage: true
+          }
+      }
       return props
     }
     const handleClassicLayoutProps = () => {
@@ -61,14 +68,16 @@ const generatedProps = useMemo(() => {
   const onSubmit = (data) => {
     console.log(data)
   }
-
+    const {  complie_input } = useLayout()
   return (
     <div className="min-h-screen overflow-y-scroll">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LayoutWrapperWithBorder>
-          <div className="my-6">
-            <H1>Input Your Details</H1>
-          </div>
+        <LayoutWrapperWithBorder padding="20px 20mm">
+           <H3>Input Your Details</H3>
+          {/* <FlexBox alignItems="center">
+            <H3>Input Your Details</H3>
+             <TextIconButton  onClick={complie_input} id="modern" text="Compile Now" icon={<FaCogs color="white" />}></TextIconButton>
+          </FlexBox> */}
           <ResumeInputFieldWrapper>
             {sectionData.map((section, i) => {
               const isExperienceSection = section.key === "experience-0";

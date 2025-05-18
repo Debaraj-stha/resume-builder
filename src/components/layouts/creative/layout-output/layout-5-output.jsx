@@ -36,8 +36,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
     return [
         generateProfileDetails({
             personalDetails: personalDetails,
-            layout_no: layout_no,
-            layout_type: layout_type,
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -56,10 +54,9 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
             }
 
         }),
+        
         generateExperience({
-            experiences: experiences.slice(0, 2),
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+            experiences,
             divider,
             style: {
                 h2: style.h2,
@@ -80,8 +77,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
 
@@ -107,8 +102,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
-            layout_type: layout_type,
             props: {
                 borderBottom: true
             },
@@ -120,8 +113,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
 
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -143,8 +134,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
    
         generatePassionSectionData({
             passions:passions.slice(0,2),
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,
@@ -158,8 +147,6 @@ const getCreativeLayout5OuctputSectionData = (data, layout_no) => {
         generateCertification({
             certificates,
             divider,
-            layout_no,
-            layout_type:layout_type_map.SIMPLE,
             style:{
                 sectionHeader:style.sectionHeader,
                 h2: style.h2,

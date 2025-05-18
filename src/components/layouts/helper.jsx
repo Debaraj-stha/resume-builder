@@ -17,7 +17,6 @@ import generateTitle from "./section-data/titleGenerater";
 const generateExperienceSections = ({
     experiences,
     style,
-    
     divider,
     title = "experience",
     shouldPair = false,
@@ -50,6 +49,7 @@ const generateExperienceSections = ({
         }
         return pairedItems.map((pair, index) => ({
             key: `experience_${index}`,
+             groupId: `experience_group`,
             content: () => (
 
                 <>
@@ -68,23 +68,24 @@ const generateExperienceSections = ({
         ))
     }
 
-    return experiences.map((experience, index) => ({
-        key: `experience_${index}`,
-        id: `experience_${index}`,
-        content: () => (
-            <>
-                {renderTitleAndDivider(index)}
-                <SectionContent>
-                    <ExperienceCard
-                        experience={experience}
-                       
-                        style={style}
-                        {...props}
-                    />
-                </SectionContent>
-            </>
-        ),
-    }));
+   return experiences.map((experience, index) => ({
+  key: `experience_${index}`,
+  id: `experience_${index}`,
+ groupId: `experience_group`,
+  content: () => (
+    <>
+      {renderTitleAndDivider(index)}
+      <SectionContent>
+        <ExperienceCard
+          experience={experience}
+          style={style}
+          {...props}
+        />
+      </SectionContent>
+    </>
+  ),
+}));
+
 };
 const generateEducationSections = ({
     educations,

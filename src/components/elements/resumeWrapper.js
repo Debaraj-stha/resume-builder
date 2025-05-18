@@ -115,10 +115,13 @@ export const ModernResumeWrapper = styled(ResumeWrapper)`
 padding:${({ padding }) => padding || "20px 0 20px 20px"};
 `
 export const ResumeInputFieldWrapper = styled.div`
- width: 210mm;
-  padding: 20mm;
+  width: 210mm;
+  padding: ${({padding})=>padding||"20mm"};
   background: white;
-  margin:10px auto;
+  margin:${({margin})=>margin||"10px auto"};
+  height:${({height})=>height||"290mm"};
+  overflow-y:scroll;
+
   box-shadow: 0 0 5px ${({ theme }) => theme.colors.card.shadow || "rgba(0, 0, 0, 0.1)"};
   background: ${({ theme }) => theme.colors.card.background || "red"};
   transition: all 0.3s ease;
@@ -136,7 +139,7 @@ width: 210mm;
 export const LayoutWrapperWithBorder = styled.div`
 border:1px solid ${({ theme }) => theme.colors.border};
 min-height:297mm;
-padding:20px 0px;
+padding:${({padding})=>padding ||"20px 0px"} ;
 border-radius:10px;
 `
 

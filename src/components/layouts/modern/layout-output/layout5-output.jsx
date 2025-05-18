@@ -51,7 +51,7 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
                      sectionHeader: style.sectionHeader
                  },
                  props: {
-                     includeDateAndAddress: true
+                     includeDateAndAddress: true,
                  }
              }),
    
