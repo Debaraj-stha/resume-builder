@@ -4,7 +4,7 @@ import useDynamicLayoutSections from "./loadResumeLayput";
 
 const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
   const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
-  console.log("pages",pages)
+
 
   const shouldApplyMargin = (section) => {
     const key = section.key;

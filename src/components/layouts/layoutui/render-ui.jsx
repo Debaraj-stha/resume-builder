@@ -60,7 +60,6 @@ const renderLayout = ({
     ) {
       return;
     }
-
     const heights = sectionRefs.current.map((ref) => ref.offsetHeight || 0);
     setSectionsHeight(heights);
   }, [sectionData.length, sectionRefs]);

@@ -22,6 +22,7 @@ export const PaginationProvider = ({ children }) => {
   }, [items, itemPerPage, itemsLength]);
 
   const handlePageChange = useCallback((page) => {
+    console.log("page change",page)
     if (page === currentPage) return; // Prevent updating if already on that page
     setCurrentPage(page);
   }, [currentPage]);

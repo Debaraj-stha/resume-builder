@@ -3,6 +3,8 @@ import jsPDF from "jspdf";
 import { useContext, createContext, useState, useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
+import { useSupabase } from "./supabaseProvider";
+import { useAuth } from "./AuthProvider";
 
 export const LayoutContext = createContext(null);
 
@@ -19,7 +21,7 @@ const LayoutProvider = ({ children }) => {
         profile: "",
         urls: [{ value: "" }],
       },
-      educations: [{ university: "", degree: "", start_complete: "" }],
+      educations: [{ university: "", degree: "", start_complete: "" ,gpa:""}],
       summary: "",
       experiences: [
         {
@@ -99,11 +101,18 @@ const LayoutProvider = ({ children }) => {
   const [measured, setMeasured] = useState(false);
   const sectionRefs = useRef([]);
   const [liveDetails, setLiveDetails] = useState({});
-  const { getValues } = methods
+  const [savedData, setSavedData] = useState({})
+
+  const { getSavedData } = useSupabase()
+  const { user } = useAuth()
+  const { getValues, reset } = methods
+
+
   const complie_input = () => {
     const values = getValues()
     setLiveDetails(values)
   }
+
   // Initial state setup
   useEffect(() => {
     setLiveDetails(getValues());
@@ -116,6 +125,153 @@ const LayoutProvider = ({ children }) => {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  //retriving saved data from database
+  useEffect(() => {
+    const loadSavedData = async () => {
+      const data = await getSavedData()
+      console.log("saved data", data)
+      setSavedData(data)
+    }
+    if (user) {
+      loadSavedData()
+    }
+  }, [user])
+
+
+//resetting form
+ useEffect(() => {
+  const savedPersonalDetail = savedData?.personalDetails?.[0] || {};
+  const savedSummary = savedPersonalDetail?.summary || "";
+  const safePersonalDetails = {
+    name: savedPersonalDetail?.name || "",
+    email: savedPersonalDetail?.email || "",
+    phone: savedPersonalDetail?.phone || "",
+    profession: savedPersonalDetail?.profession || "",
+    address: savedPersonalDetail?.address || "",
+    profile: savedPersonalDetail?.profile || "",
+    urls: savedData?.urls?.map((url) => ({ value: url.url })) || [{ value: "" }],
+  };
+
+  const safeEducations = savedData?.educations || [{
+    university: "",
+    degree: "",
+    start_complete: "",
+    gpa:""
+  }];
+
+  const safeExperiences = savedData?.experiences || [{
+    companyName: "",
+    position: "",
+    aboutCompany: "",
+    startDate: "",
+    endDate: "",
+    location: "",
+    achievements: [{ value: "" }]
+  }];
+
+  const safeAchievements = savedData?.achievements || [{
+    acheivement: "",
+    field: "",
+    date: ""
+  }];
+
+  const safeSkills = savedData?.skills || [{
+    field: "",
+    items: [{ value: "" }]
+  }];
+
+  const safeLanguages = savedData?.languages || [{
+    language: "",
+    proficiency: ""
+  }];
+
+  const safeTrainings = savedData?.trainings || [{
+    title: "",
+    organization: "",
+    year: "",
+    location: ""
+  }];
+
+  const safeAwards = savedData?.awards || [{
+    title: "",
+    organization: "",
+    year: ""
+  }];
+
+  const safePassions = savedData?.passions || [{ value: "" }];
+
+  const safeStrengths = savedData?.strengths || [{
+    title: "",
+    description: ""
+  }];
+
+  const safeOpenSourceWork = savedData?.openSourceWork || [{
+    projectName: "",
+    role: "",
+    description: "",
+    technologies: [{ value: "" }],
+    link: "",
+    date: ""
+  }];
+
+  const safeIndustryExpertise = savedData?.industryExpertise || [{
+    tech: "",
+    value: ""
+  }];
+
+  const safeCertificates = savedData?.certificates || [{
+    certificate: "",
+    subject: "",
+    date: ""
+  }];
+
+  const safeMyTime = savedData?.my_time || [{
+    activity: "",
+    value: ""
+  }];
+
+  // Reset form with safe values
+  reset({
+    personalDetails: safePersonalDetails,
+    educations: safeEducations,
+    summary: savedSummary,
+    experiences: safeExperiences,
+    achievements: safeAchievements,
+    skills: safeSkills,
+    languages: safeLanguages,
+    trainings: safeTrainings,
+    awards: safeAwards,
+    passions: safePassions,
+    strengths: safeStrengths,
+    openSourceWork: safeOpenSourceWork,
+    industryExpertise: safeIndustryExpertise,
+    certificates: safeCertificates,
+    my_time: safeMyTime
+  });
+
+  // Set live details 
+  setLiveDetails({
+    personalDetails: safePersonalDetails,
+    educations: safeEducations,
+    summary: savedSummary,
+    experiences: safeExperiences,
+    achievements: safeAchievements,
+    skills: safeSkills,
+    languages: safeLanguages,
+    trainings: safeTrainings,
+    awards: safeAwards,
+    passions: safePassions,
+    strengths: safeStrengths,
+    openSourceWork: safeOpenSourceWork,
+    industryExpertise: safeIndustryExpertise,
+    certificates: safeCertificates,
+    my_time: safeMyTime
+  });
+
+}, [savedData]);
+
+
   const ref = useRef(null);
 
 
@@ -170,13 +326,11 @@ const LayoutProvider = ({ children }) => {
     }
 
     // Save the final multi-page PDF file with the name "resume.pdf"
-    pdf.save("resume.pdf");
+    const today = Date.now()
+    pdf.save(`resume-${today}.pdf`);
   };
-
-
-
   const groupSectionsIntoPages = (sectionRefs, setMeasured, setPages) => {
-    console.log("called")
+
     const PAGE_HEIGHT = 970;
 
     // Initialize an array to hold the grouped sections (pages).
@@ -189,7 +343,7 @@ const LayoutProvider = ({ children }) => {
     sectionRefs.current.forEach((ref, idx) => {
       // If the section reference is valid and has a height, process it.
       if (ref && ref.offsetHeight) {
-        console.log("inside if")
+
         const sectionHeight = ref.offsetHeight; // Get the height of the current section.
 
         // If adding this section would exceed the page height, push the current group to `grouped` and start a new page.
@@ -204,20 +358,18 @@ const LayoutProvider = ({ children }) => {
         // Add the height of the section to the current page's total height.
         currentHeight += sectionHeight;
       }
-    
+
     });
 
     // After the loop, if there are any remaining sections in the current group, push them as a new page.
     if (currentGroup.length > 0) {
       grouped.push(currentGroup);
     }
-    console.log("group",grouped)
     // Set the grouped sections (pages) in the state.
     setPages(grouped);
     // Mark the measurement process as complete.
     setMeasured(true);
   };
-
 
   const values = {
     theme,
@@ -230,7 +382,7 @@ const LayoutProvider = ({ children }) => {
     sectionRefs,
     liveDetails,
     setLiveDetails,
-    complie_input
+    complie_input,
   };
   return (
     <LayoutContext.Provider value={values}>

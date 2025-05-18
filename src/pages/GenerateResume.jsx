@@ -10,6 +10,8 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { FaDownLong } from "react-icons/fa6";
 import { FaCogs } from "react-icons/fa";
 import ToolTip from "../components/Tooltip";
+import { useSupabase } from "../provider/supabaseProvider";
+import { useAuth } from "../provider/AuthProvider";
 
 const MainWrapper = styled.section`
   width: 100vw;
@@ -45,19 +47,56 @@ const FixedIconWrapper = styled.div`
 
 const GenerateResume = () => {
   const [showIcons, setShowIcons] = useState(false);
-  const { generatePDF, complie_input } = useLayout();
-const handleScroll = () => {
-  //hiding the icons on scroll
-  setShowIcons(prev => {
-    if (prev) return false;
-    return prev;
-  });
-};
+  const { generatePDF, complie_input, liveDetails } = useLayout();
+  const handleScroll = () => {
+    //hiding the icons on scroll
+    setShowIcons(prev => {
+      if (prev) return false;
+      return prev;
+    });
+  };
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [showIcons])
+
+
+
+  useEffect(() => {
+    const handleUnload = async () => {
+      const userId = await insertPersonalDetails(liveDetails.personalDetails)
+      localStorage.setItem("userId", userId)
+    }
+    window.addEventListener("onbeforeunload", handleUnload);
+    return () => {
+      window.removeEventListener("onbeforeunload", handleUnload);
+    };
+
+  }, []);
+  const { insertPersonalDetails, insertURLs } = useSupabase()
+  const{user}=useAuth()
+  const saveData = async () => {
+    const personalDetails = liveDetails.personalDetails
+    const summary=liveDetails.summary
+    console.log("summary",summary)
+    personalDetails.auth_id=user.id
+    personalDetails.summary=summary
+    let urls = personalDetails.urls
+    delete personalDetails.urls
+    let res = await insertPersonalDetails(personalDetails)
+    const userId = res[0]["id"]
+    const urlsWithUserId = urls.map(url => ({
+      url: url.value,
+      user_id: userId,
+    }));
+    res = insertURLs(urlsWithUserId)
+    console.log(res)
+
+  }
+
+
 
   return (
     <MainWrapper>
@@ -75,6 +114,7 @@ const handleScroll = () => {
           >
             {showIcons ? <MdExpandLess /> : <MdExpandMore />}
           </CircularIconHolder>
+          <button onClick={saveData}>Save data</button>
         </ToolTip>
 
 

@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
                     name: data.user?.user_metadata?.name,
                     picture: data.user?.user_metadata?.picture,
                 };
+             
                 setUser(user);
             }
         } catch (err) {

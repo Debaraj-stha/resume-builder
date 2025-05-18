@@ -31,6 +31,11 @@ export const layout_1_style = {
         textAlign: "left",
         fontFamily: "'Poppins', sans-serif", // Clean, modern sans-serif font
     },
+    profile_ul:{
+        ...base_style.profile_ul,
+        justifyContent:"start",
+        gap:"7px"
+    },
     profile_li: {
         ...base_style.profile_li,
         color: "#000000",

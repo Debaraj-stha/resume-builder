@@ -39,6 +39,7 @@ const GenerateWebsiteURL = ({ urls, color, style
     return urls?.map((u, index) => {
         const url = u?.value?.trim()
         if (!url) return
+        console.log("insode url url",url)
         const lower = url.toLowerCase()
         const key = Object.keys(iconMap).find(k => lower.includes(k))
         //create copy of icon and add new props
