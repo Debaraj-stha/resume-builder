@@ -16,7 +16,7 @@ const DynamicAcheivementCard = ({ name }) => {
     const { measured, setMeasured } = useLayout()
     const handleAppend = () => {
         console.log(fields.length, "before");
-        append({ acheivement: "", field: "", date: "" });
+        append({ achievement: "", field: "", date: "" });
         console.log(fields.length, "after");
 
         setMeasured(false)
@@ -26,14 +26,14 @@ const DynamicAcheivementCard = ({ name }) => {
     return (
         <CardWrapper>
             {
-                // achievements: [{ acheivement: "", field: "", date: "" }],
+                // achievements: [{ achievement: "", field: "", date: "" }],
                 fields.length > 0 ? (
                     fields.map((field, index) => {
                         const base = `achievements[${index}]`
                         return (
                             <CardWrapper key={field.id}>
                                 <GridThree>
-                                    <Input placeholder="Achievement Title" {...register(`${base}.acheivement`)} />
+                                    <Input placeholder="Achievement Title" {...register(`${base}.achievement`)} />
                                     <Input placeholder="Field of Achievement (e.g., AI, Design)" {...register(`${base}.field`)} />
                                     <Input placeholder="Date of Achievement" {...register(`${base}.date`)} />
                                 </GridThree>

@@ -5,7 +5,8 @@ import { BiCalendar } from "react-icons/bi";
 import { LiaMapMarkerSolid } from "react-icons/lia";
 
 const EducationCard = memo(({ education, style, ...props }) => {
-  const { degree, university, start_complete, address,gpa } = education;
+  const { degree, university, start_year,end_year, address,gpa } = education;
+  let start_complete=start_year + "-" + end_year
   const {
     swapPosition,
     applyFlex,

@@ -4,13 +4,13 @@ import { FaTrophy } from "react-icons/fa"
 
 
 const generateSimpleAchievementCard = ({ my_acheivement,  style, props }) => {
-    const { acheivement, field, date } = my_acheivement
+    const { achievement, field, date } = my_acheivement
 
     const { shouldApplyGrid, side, shouldIncludeIcon } = props
 
     const Achievement = (
         <div>
-            <h2 style={{ ...style.h2, ...(props.side === "right") && { color: "white" } }}>{acheivement}</h2>
+            <h2 style={{ ...style.h2, ...(props.side === "right") && { color: "white" } }}>{achievement}</h2>
             <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{field}</p>
             <p style={{ ...style.p, ...(props.side === "right") && { color: "white" } }}>{date}</p>
         </div>

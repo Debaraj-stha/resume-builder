@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import supabase from "../../supabaseClient";
 import { useAuth } from "./AuthProvider";
+import { defaultAchievements, defaultEducation, defaultExperiences, defaultSkills } from "../components/helper/default_form_value";
 
 const SupabaseContext = createContext();
 
@@ -154,44 +155,82 @@ const SupabaseProvider = ({ children }) => {
     }
   };
 
-  const getSavedData = async (props = {}) => {
-    try {
-      if (!user.id) {
-        return {}
-      }
-      const res = {}
+ const getSavedData = async () => {
+  try {
+    if (!user?.id) return {};
 
-      const personalDetails = await retriveData('users', "*", {
-        auth_id: user.id
-      }, 1, "created_at",true)
-      res.personalDetails = personalDetails
+    const orderBy = ["created_at", true];
+    const res = {};
+    
+    const [personalDetails] = await retriveData("users", "*", { auth_id: user.id }, 1, ...orderBy);
+    if (!personalDetails) return {};
 
-      const urls = await retriveData('urls', "*", {
-        user_id: personalDetails[0].id
-      }, 3, "created_at",true)
-      res.urls=urls
-      return res
+    const user_id = personalDetails.id;
+    res.personalDetails = personalDetails;
 
-    } catch (error) {
-      console.log("error", error)
-      return {}
-    }
+    const fetchWithFallback = async (table, defaultValue, limit = null) => {
+      const data = await retriveData(table, "*", { user_id }, limit, ...orderBy);
+      return data.length > 0 ? data : defaultValue;
+    };
+
+    res.urls = await fetchWithFallback("urls", [{ value: "" }], 2);
+    res.educations = await fetchWithFallback("educations", defaultEducation, 3);
+    res.achievements = await fetchWithFallback("achievements", defaultAchievements);
+    res.skills = await fetchWithFallback("skills", defaultSkills);
+
+    // Get experiences and their achievements
+    const experiences = await retriveData("experiences", "*", { user_id }, 5, ...orderBy);
+    const experienceIds = experiences.map(e => e.id);
+
+    const { data: achievementsData, error } = await supabase
+      .from("experience_achievements")
+      .select("*")
+      .in("experience_id", experienceIds);
+
+    if (error) console.log("Error fetching experience achievements:", error);
+
+    const experienceMap = experiences.map(exp => {
+      const relatedAchievements = achievementsData
+        ?.filter(a => a.experience_id === exp.id)
+        .map(a => ({ value: a.achievement })) || [];
+
+      return {
+        company_name: exp.company_name || "",
+        position: exp.position || "",
+        about_company: exp.about_company || "",
+        start_date: exp.start_date || "",
+        end_date: exp.end_date || "",
+        location: exp.location || "",
+        achievements: relatedAchievements.length > 0 ? relatedAchievements : [{ value: "" }]
+      };
+    });
+
+    res.experiences = experienceMap.length > 0 ? experienceMap : defaultExperiences
+
+    return res;
+
+  } catch (error) {
+    console.log("Error in getSavedData:", error);
+    return {};
   }
+};
+
 
   const values = {
     insertPersonalDetails: (details) => insertData("users", details),
     insertURLs: (urls) => insertData("urls", urls, true),
-    insertEducations: (educations) => insertData("educations", educations),
-    insertExperiences: (experiences) => insertData("experiences", experiences),
-    insertAchievements: (achievements) => insertData("achievements", achievements),
-    insertSkills: (skills) => insertData("skills", skills),
-    insertPassions: (passions) => insertData("passions", passions),
-    insertLanguages: (languages) => insertData("languages", languages),
-    insertOpenSourceWork: (projects) => insertData("openSourcework", projects),
+    insertEducations: (educations) => insertData("educations", educations, true),
+    insertExperiences: (experiences) => insertData("experiences", experiences, true),
+    insertAchievements: (achievements) => insertData("achievements", achievements, true),
+    insertSkills: (skills) => insertData("skills", skills, true),
+    insertPassions: (passions) => insertData("passions", passions, true),
+    insertLanguages: (languages) => insertData("languages", languages, true),
+    insertOpenSourceWork: (projects) => insertData("openSourcework", projects, true),
     insertCertificates: (certs) => insertData("certificates", certs),
-    insertExperties: (expertise) => insertData("expertise", expertise),
-    insertMyTime: (entries) => insertData("myTime", entries),
-    insertExperienceAchievements: (achievements) => insertData("experience_achievements", achievements),
+    insertExperties: (expertise) => insertData("expertise", expertise, true),
+    insertMyTime: (entries) => insertData("myTime", entries, true),
+    insertExperienceAchievements: (achievements) => insertData("experience_achievements", achievements, true),
+    insertSkillItem:(items)=>insertData("skill_items",items,true),
     retriveData,
     uploadFile: uploadFileWithProgress,
     getFiles,

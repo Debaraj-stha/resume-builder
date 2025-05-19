@@ -94,7 +94,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
         }),
 
         generateSkill({
-            skills:skills.slice(0,3),
+            skills,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

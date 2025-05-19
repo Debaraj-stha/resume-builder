@@ -29,7 +29,16 @@ const DynamicExperienceSection = ({ name }) => {
   const { measured, setMeasured } = useLayout()
   const handleAppend = () => {
     console.log("before measured",measured)
-    append({ companyName: "", position: "", aboutCompany: "", achievements: [{ value: "" }] })
+    append({
+          company_name: "",
+          position: "",
+          about_company: "",
+          start_date: "",
+          end_date: "",
+          location: "",
+          achievements: [{ value: "" }]
+
+        })
     console.log("Experience added")
     setMeasured(false)
     console.log("after measured",measured)
@@ -47,12 +56,12 @@ const DynamicExperienceSection = ({ name }) => {
         return (
           <FieldGroup key={field.id} data-id={`experience-${outerIndex}`} className="experience">
             <GridTwo>
-              <Input placeholder="Company Name" {...register(`${base}.companyName`)} />
+              <Input placeholder="Company Name" {...register(`${base}.company_name`)} />
               <Input placeholder="Job Title / Position" {...register(`${base}.position`)} />
-              <Textarea placeholder="About Company/Role" rows={2} {...register(`${base}.aboutCompany`)} />
+              <Textarea placeholder="About Company/Role" rows={2} {...register(`${base}.about_company`)} />
               <Input placeholder="Companu Address" {...register(`${base}.location`)} />
-              <Input placeholder="Job Start Date" {...register(`${base}.startDate`)} />
-              <Input placeholder="Job End Date" {...register(`${base}.endDate`)} />
+              <Input placeholder="Job Start Date" {...register(`${base}.start_date`)} />
+              <Input placeholder="Job End Date" {...register(`${base}.end_date`)} />
             </GridTwo>
             <ExperienceList name={`${base}.achievements`} />
 

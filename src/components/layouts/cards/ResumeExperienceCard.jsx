@@ -8,10 +8,10 @@ import capitalize from "../../helper/capitalize";
 const ExperienceCard = memo(({ experience, style, ...props }) => {
   const {
     position,
-    startDate,
-    endDate,
-    companyName,
-    aboutCompany,
+    start_date:startDate,
+    end_date:endDate,
+    company_name:companyName,
+    about_company:aboutCompany,
     location,
     achievements,
   } = experience;
@@ -109,7 +109,7 @@ const ExperienceCard = memo(({ experience, style, ...props }) => {
       <P style={style.p}>{aboutCompany}</P>
 
       <Ul display="block" margin="0">
-        {achievements.map((a, i) => (
+        {achievements?.map((a, i) => (
           <Li key={i} style={style.p}>{a.value}</Li>
         ))}
       </Ul>

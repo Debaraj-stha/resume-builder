@@ -5,6 +5,22 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { useSupabase } from "./supabaseProvider";
 import { useAuth } from "./AuthProvider";
+import {
+  defaultAchievements,
+  defaultAwards,
+  defaultCertificates,
+  defaultEducation,
+  defaultExperiences,
+  defaultIndustryExpertise,
+  defaultLanguages,
+  defaultmy_time,
+  defaultOpenSourceWork,
+  defaultpassions,
+  defaultPersonalDetails,
+  defaultSkills,
+  defaultstrengths,
+  defaultTrainings,
+} from "../components/helper/default_form_value";
 
 export const LayoutContext = createContext(null);
 
@@ -12,89 +28,21 @@ const LayoutProvider = ({ children }) => {
   const theme = useTheme();
   const methods = useForm({
     defaultValues: {
-      personalDetails: {
-        name: "",
-        email: "",
-        phone: "",
-        profession: "",
-        address: "",
-        profile: "",
-        urls: [{ value: "" }],
-      },
-      educations: [{ university: "", degree: "", start_complete: "" ,gpa:""}],
+      personalDetails: defaultPersonalDetails,
+      educations: defaultEducation,
       summary: "",
-      experiences: [
-        {
-          companyName: "",
-          position: "",
-          aboutCompany: "",
-          startDate: "",
-          endDate: "",
-          location: "",
-          achievements: [{ value: "" }]
-
-        },
-      ],
-
-      achievements: [{ acheivement: "", field: "", date: "" }],
-      skills: [{ field: "", items: [{ value: "" }] }],
-      languages: [
-        {
-          language: "",
-          proficiency: ""
-        }
-      ],
-      trainings: [
-        {
-          title: "",
-          organization: "",
-          year: "",
-          location: ""
-        }
-      ],
-      awards: [
-        {
-          title: "",
-          organization: "",
-          year: ""
-        },
-      ],
-      passions: [{ value: "" }],
-      strengths: [
-        {
-          title: "",
-          description: ""
-        },
-      ],
-      openSourceWork: [
-        {
-          projectName: "",
-          role: "",
-          description: "",
-          technologies: [{ value: "" }],
-          link: "",
-          date: ""
-        },
-      ],
-      industryExpertise: [
-        {
-          tech: "",
-          value: ""
-        }
-      ],
-      certificates: [
-        {
-          certificate: "",
-          subject: "",
-          date: ""
-        },
-      ],
-      my_time: [
-        {
-          activity: "",
-          value: ""
-        }
-      ]
+      experiences: defaultExperiences,
+      achievements: defaultAchievements,
+      skills: defaultSkills,
+      languages: defaultLanguages,
+      trainings: defaultTrainings,
+      awards: defaultAwards,
+      passions: defaultpassions,
+      strengths: defaultstrengths,
+      openSourceWork: defaultOpenSourceWork,
+      industryExpertise: defaultIndustryExpertise,
+      certificates: defaultCertificates,
+      my_time: defaultmy_time,
     },
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -139,137 +87,139 @@ const LayoutProvider = ({ children }) => {
   }, [user])
 
 
-//resetting form
- useEffect(() => {
-  const savedPersonalDetail = savedData?.personalDetails?.[0] || {};
-  const savedSummary = savedPersonalDetail?.summary || "";
-  const safePersonalDetails = {
-    name: savedPersonalDetail?.name || "",
-    email: savedPersonalDetail?.email || "",
-    phone: savedPersonalDetail?.phone || "",
-    profession: savedPersonalDetail?.profession || "",
-    address: savedPersonalDetail?.address || "",
-    profile: savedPersonalDetail?.profile || "",
-    urls: savedData?.urls?.map((url) => ({ value: url.url })) || [{ value: "" }],
-  };
+  //resetting form
+  useEffect(() => {
+    const savedPersonalDetail = savedData?.personalDetails || {};
+    const savedSummary = savedPersonalDetail?.summary || "";
+    const safePersonalDetails = {
+      name: savedPersonalDetail?.name || "",
+      email: savedPersonalDetail?.email || "",
+      phone: savedPersonalDetail?.phone || "",
+      profession: savedPersonalDetail?.profession || "",
+      address: savedPersonalDetail?.address || "",
+      profile: savedPersonalDetail?.profile || "",
+      urls: savedData?.urls?.map((url) => ({ value: url.url })) || [{ value: "" }],
+    };
 
-  const safeEducations = savedData?.educations || [{
-    university: "",
-    degree: "",
-    start_complete: "",
-    gpa:""
-  }];
+    const safeEducations = savedData?.educations || [{
+      university: "",
+      degree: "",
+      start_year: "",
+      end_year: "",
+      address: "",
+      gpa: ""
+    }];
 
-  const safeExperiences = savedData?.experiences || [{
-    companyName: "",
-    position: "",
-    aboutCompany: "",
-    startDate: "",
-    endDate: "",
-    location: "",
-    achievements: [{ value: "" }]
-  }];
+    const safeExperiences = savedData?.experiences || [{
+      company_name: "",
+      position: "",
+      about_company: "",
+      start_date: "",
+      end_date: "",
+      location: "",
+      achievements: [{ value: "" }]
+    }];
 
-  const safeAchievements = savedData?.achievements || [{
-    acheivement: "",
-    field: "",
-    date: ""
-  }];
+    const safeAchievements = savedData?.achievements || [{
+      achievement: "",
+      field: "",
+      date: ""
+    }];
 
-  const safeSkills = savedData?.skills || [{
-    field: "",
-    items: [{ value: "" }]
-  }];
+    const safeSkills = savedData?.skills || [{
+      field: "",
+      items: [{ value: "" }]
+    }];
 
-  const safeLanguages = savedData?.languages || [{
-    language: "",
-    proficiency: ""
-  }];
+    const safeLanguages = savedData?.languages || [{
+      language: "",
+      proficiency: ""
+    }];
 
-  const safeTrainings = savedData?.trainings || [{
-    title: "",
-    organization: "",
-    year: "",
-    location: ""
-  }];
+    const safeTrainings = savedData?.trainings || [{
+      title: "",
+      organization: "",
+      year: "",
+      location: ""
+    }];
 
-  const safeAwards = savedData?.awards || [{
-    title: "",
-    organization: "",
-    year: ""
-  }];
+    const safeAwards = savedData?.awards || [{
+      title: "",
+      organization: "",
+      year: ""
+    }];
 
-  const safePassions = savedData?.passions || [{ value: "" }];
+    const safePassions = savedData?.passions || [{ value: "" }];
 
-  const safeStrengths = savedData?.strengths || [{
-    title: "",
-    description: ""
-  }];
+    const safeStrengths = savedData?.strengths || [{
+      title: "",
+      description: ""
+    }];
 
-  const safeOpenSourceWork = savedData?.openSourceWork || [{
-    projectName: "",
-    role: "",
-    description: "",
-    technologies: [{ value: "" }],
-    link: "",
-    date: ""
-  }];
+    const safeOpenSourceWork = savedData?.openSourceWork || [{
+      projectName: "",
+      role: "",
+      description: "",
+      technologies: [{ value: "" }],
+      link: "",
+      date: ""
+    }];
 
-  const safeIndustryExpertise = savedData?.industryExpertise || [{
-    tech: "",
-    value: ""
-  }];
+    const safeIndustryExpertise = savedData?.industryExpertise || [{
+      tech: "",
+      value: ""
+    }];
 
-  const safeCertificates = savedData?.certificates || [{
-    certificate: "",
-    subject: "",
-    date: ""
-  }];
+    const safeCertificates = savedData?.certificates || [{
+      certificate: "",
+      subject: "",
+      date: ""
+    }];
 
-  const safeMyTime = savedData?.my_time || [{
-    activity: "",
-    value: ""
-  }];
+    const safeMyTime = savedData?.my_time || [{
+      activity: "",
+      value: ""
+    }];
 
-  // Reset form with safe values
-  reset({
-    personalDetails: safePersonalDetails,
-    educations: safeEducations,
-    summary: savedSummary,
-    experiences: safeExperiences,
-    achievements: safeAchievements,
-    skills: safeSkills,
-    languages: safeLanguages,
-    trainings: safeTrainings,
-    awards: safeAwards,
-    passions: safePassions,
-    strengths: safeStrengths,
-    openSourceWork: safeOpenSourceWork,
-    industryExpertise: safeIndustryExpertise,
-    certificates: safeCertificates,
-    my_time: safeMyTime
-  });
+    // Reset form with safe values
+    reset({
+      personalDetails: safePersonalDetails,
+      educations: safeEducations,
+      summary: savedSummary,
+      experiences: safeExperiences,
+      achievements: safeAchievements,
+      skills: safeSkills,
+      languages: safeLanguages,
+      trainings: safeTrainings,
+      awards: safeAwards,
+      passions: safePassions,
+      strengths: safeStrengths,
+      openSourceWork: safeOpenSourceWork,
+      industryExpertise: safeIndustryExpertise,
+      certificates: safeCertificates,
+      my_time: safeMyTime
+    });
 
-  // Set live details 
-  setLiveDetails({
-    personalDetails: safePersonalDetails,
-    educations: safeEducations,
-    summary: savedSummary,
-    experiences: safeExperiences,
-    achievements: safeAchievements,
-    skills: safeSkills,
-    languages: safeLanguages,
-    trainings: safeTrainings,
-    awards: safeAwards,
-    passions: safePassions,
-    strengths: safeStrengths,
-    openSourceWork: safeOpenSourceWork,
-    industryExpertise: safeIndustryExpertise,
-    certificates: safeCertificates,
-    my_time: safeMyTime
-  });
+    // Set live details 
+    setLiveDetails({
+      personalDetails: safePersonalDetails,
+      educations: safeEducations,
+      summary: savedSummary,
+      experiences: safeExperiences,
+      achievements: safeAchievements,
+      skills: safeSkills,
+      languages: safeLanguages,
+      trainings: safeTrainings,
+      awards: safeAwards,
+      passions: safePassions,
+      strengths: safeStrengths,
+      openSourceWork: safeOpenSourceWork,
+      industryExpertise: safeIndustryExpertise,
+      certificates: safeCertificates,
+      my_time: safeMyTime
+    });
 
-}, [savedData]);
+  }, [savedData]);
 
 
   const ref = useRef(null);
