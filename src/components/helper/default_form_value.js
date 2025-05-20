@@ -22,13 +22,13 @@ export const defaultExperiences = [
 ]
 export const defaultAchievements = [{ achievement: "", field: "", date: "" }]
 export const defaultSkills = [{ field: "basic", items: [{ value: "" }] }]
-export const defaultLanguages=[
+export const defaultLanguages = [
     {
         language: "",
         proficiency: ""
     }
 ]
-export const defaultTrainings=[
+export const defaultTrainings = [
     {
         title: "",
         organization: "",
@@ -36,21 +36,21 @@ export const defaultTrainings=[
         location: ""
     }
 ]
-export const defaultAwards= [
+export const defaultAwards = [
     {
         title: "",
         organization: "",
         year: ""
     },
 ]
-export const defaultpassions=[{ value: "" }]
-export const defaultstrengths= [
+export const defaultpassions = [{ value: "" }]
+export const defaultstrengths = [
     {
         title: "",
         description: ""
     },
 ]
-      export const defaultOpenSourceWork= [
+export const defaultOpenSourceWork = [
     {
         projectName: "",
         role: "",
@@ -60,22 +60,40 @@ export const defaultstrengths= [
         date: ""
     },
 ]
-     export const defaultIndustryExpertise= [
+export const defaultIndustryExpertise = [
     {
         tech: "",
         value: ""
     }
 ]
-    export const defaultCertificates= [
+export const defaultCertificates = [
     {
         certificate: "",
         subject: "",
         date: ""
     },
 ]
-export const defaultmy_time= [
+export const defaultmy_time = [
     {
         activity: "",
         value: ""
     }
 ]
+const defaultFormFields = {
+    personalDetails: defaultPersonalDetails,
+    educations: defaultEducation,
+    summary: "",
+    experiences: defaultExperiences,
+    achievements: defaultAchievements,
+    skills: defaultSkills,
+    languages: defaultLanguages,
+    trainings: defaultTrainings,
+    awards: defaultAwards,
+    passions: defaultpassions,
+    strengths: defaultstrengths,
+    openSourceWork: defaultOpenSourceWork,
+    industryExpertise: defaultIndustryExpertise,
+    certificates: defaultCertificates,
+    my_time: defaultmy_time,
+}
+export default defaultFormFields

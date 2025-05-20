@@ -17,6 +17,7 @@ const SupabaseProvider = ({ children }) => {
   const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
       const payload = multiple ? data : [data];
+      console.log("payload",payload)
       const { data: res, error } = await supabase
         .from(table)
         .upsert(payload, {
@@ -128,9 +129,14 @@ const SupabaseProvider = ({ children }) => {
         return data?.length ? data : defaultValue;
       };
 
-      if (selectFields.includes("urls")) {
-        res.urls = await fetchWithFallback("urls", [{ value: "" }], 2);
+  
+      const urls = await fetchWithFallback("urls", [{ value: "" }], 2);
+      res.personalDetails={
+        ...res.personalDetails,
+        urls:urls.map((u,_)=>({value:u.url}))
       }
+
+      
 
       if (selectFields.includes("educations")) {
         res.educations = await fetchWithFallback("educations", defaultEducation, 3);
@@ -178,7 +184,7 @@ const SupabaseProvider = ({ children }) => {
               .map(a => ({ value: a.achievement })) || [{ value: "" }]
         })) || defaultExperiences;
       }
-
+    
       return res;
     } catch (error) {
       console.error("getSavedData error:", error);

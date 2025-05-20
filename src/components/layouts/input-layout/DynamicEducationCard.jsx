@@ -25,8 +25,8 @@ const DynamicEducationCard = ({ name,...props}) => {
     })
     setMeasured(false)
   }
-  const handleRemove=() => { remove(index); setMeasured(false) }
-  // educations: [{ university: "", degree: "", start_complete: "" }],
+  const handleRemove=(index) => { remove(index); setMeasured(false) }
+
   return (
     <CardWrapper>
       {fields.length > 0 ? (

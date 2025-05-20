@@ -139,6 +139,7 @@ const GenerateResume = () => {
           ...rest,
           user_id: userId,
         }));
+        experiencesPayload.map((experience,_)=>delete experience?.id)
 
         res = await insertExperiences(experiencesPayload);
         const experienceIds = res.map(e => e.id);
