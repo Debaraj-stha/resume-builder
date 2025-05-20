@@ -5,10 +5,10 @@ import {
   createContext,
   useState,
   useEffect,
-  useRef
+  useRef,
+  useMemo
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useTheme } from "styled-components";
 import { useSupabase } from "./supabaseProvider";
 import { useAuth } from "./AuthProvider";
 import defaultFormFields from "../components/helper/default_form_value";
@@ -16,7 +16,6 @@ import defaultFormFields from "../components/helper/default_form_value";
 export const LayoutContext = createContext(null);
 
 const LayoutProvider = ({ children }) => {
-  const theme = useTheme();
   const { user } = useAuth();
   const { getSavedData } = useSupabase();
 
@@ -67,45 +66,49 @@ const LayoutProvider = ({ children }) => {
   };
 
   // PDF generation
-// Function to generate a multi-page PDF from a DOM element
-const generatePDF = async () => {
-  const element = pdfRef.current;
-  // Convert the DOM element to a high-resolution canvas using html2canvas
-  const canvas = await html2canvas(element, { scale: 2 });
+  // Function to generate a multi-page PDF from a DOM element
+  const generatePDF = async (filename_prefix = "new_") => {
+    const element = pdfRef.current;
+    // Convert the DOM element to a high-resolution canvas using html2canvas
+    const canvas = await html2canvas(element, { scale: 2 });
 
-  // Convert the canvas to a base64 PNG image
-  const imageData = canvas.toDataURL("image/png");
+    // Convert the canvas to a base64 PNG image
+    const imageData = canvas.toDataURL("image/png");
 
-  // Initialize a jsPDF instance for an A4 portrait PDF (units in pixels)
-  const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
+    // Initialize a jsPDF instance for an A4 portrait PDF (units in pixels)
+    const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
 
-  // Get dimensions of the PDF page
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
+    // Get dimensions of the PDF page
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-  // Calculate the scaled height of the image to fit the PDF width
-  const imgProps = pdf.getImageProperties(imageData);
-  const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    // Calculate the scaled height of the image to fit the PDF width
+    const imgProps = pdf.getImageProperties(imageData);
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-  // Initialize remaining height and drawing position
-  let heightLeft = imgHeight;
-  let position = 0;
+    // Initialize remaining height and drawing position
+    let heightLeft = imgHeight;
+    let position = 0;
 
-  // Add the first portion of the image to the first page
-  pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight);
-  heightLeft -= pageHeight;
+    // Add the first portion of the image to the first page
+    pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight);
+    heightLeft -= pageHeight;
 
-  // Add remaining portions of the image to new pages
-  while (heightLeft > 0) {
-    position -= pageHeight;      // Move the image up by one page
-    pdf.addPage();               // Add a new page
-    pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight); // Draw remaining image
-    heightLeft -= pageHeight;    // Reduce the remaining height
-  }
+    // Add remaining portions of the image to new pages
+    while (heightLeft > 0) {
+      position -= pageHeight;      // Move the image up by one page
+      pdf.addPage();               // Add a new page
+      pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight); // Draw remaining image
+      heightLeft -= pageHeight;    // Reduce the remaining height
+    }
 
-  // Save the PDF file with a timestamped filename
-  pdf.save(`resume-${Date.now()}.pdf`);
-};
+    // Save the PDF file with a timestamped filename
+    const filename = `${filename_prefix}resume-${Date.now()}.pdf`
+    const pdfBlob = pdf.output("blob")
+    //create file from blob
+    const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
+    return pdfFile
+  };
 
 
   // Group sections into printable pages
@@ -163,11 +166,23 @@ const generatePDF = async () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const contextValue = {
-    theme,
+  const contextValue = useMemo(
+    () => ({
+      isLoading,
+      generatePDF,
+      ref: pdfRef,
+      measured,
+      setMeasured,
+      groupSectionsIntoPages,
+      sectionRefs,
+      liveDetails,
+      setLiveDetails,
+      compileInput,
+      isSavedLoaded
+    }), [
     isLoading,
     generatePDF,
-    ref: pdfRef,
+    pdfRef,
     measured,
     setMeasured,
     groupSectionsIntoPages,
@@ -176,7 +191,7 @@ const generatePDF = async () => {
     setLiveDetails,
     compileInput,
     isSavedLoaded
-  };
+  ]);
 
   return (
     <LayoutContext.Provider value={contextValue}>

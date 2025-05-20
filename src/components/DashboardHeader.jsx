@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "../components/CustomComponents";
 import { H1 } from "../components/elements/resumeSectionWrapper";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { useDashboard } from "../provider/DashboardProvider";
 
 const UtilityHolder = styled.div`
@@ -45,11 +45,12 @@ const SortSelect = styled.select`
 `;
 
 const DashboardHeader = () => {
-  const {theme,
+  const {
     searchQuery,
     handleSearchQuery,
     handleCreate,
     handleSort}=useDashboard()
+    const theme=useTheme()
   return (
     <>
       <H1 color={theme.colors.text}>All Your Resumes</H1>

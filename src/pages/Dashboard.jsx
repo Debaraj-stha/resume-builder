@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heading, Hspace } from "../components/CustomComponents";
 import ClassicalLayout1 from "../components/layouts/classic/layout-1/layout"
 // import ClassicalLayout2 from "../components/layouts/classic/layout-2/layout"
@@ -9,6 +9,8 @@ import Pagination from "../components/Pagination";
 import DeleteModal from "../components/DeleteModal";
 import { useDashboard } from "../provider/DashboardProvider";
 import Container from "../components/Container";
+import { useSupabase } from "../provider/supabaseProvider";
+import { usePagination } from "../provider/paginationProvider";
 
 
 
@@ -21,8 +23,16 @@ const ResumePreview = React.memo(({ closePreviewModal }) => {
 });
 
 const Dashboard = () => {
-  const { isModalShow, closePreviewModal,
+
+  const {
+    isModalShow,
+    closePreviewModal,
     isPreviewShow } = useDashboard()
+  const {
+    PaginationButtons,
+  } = usePagination()
+
+
 
   return (
     <Container>
@@ -32,7 +42,8 @@ const Dashboard = () => {
       {/* resumes table */}
       <ResumeTable />
       {/* pagination buttons */}
-      <Pagination />
+      {/* <Pagination /> */}
+      {PaginationButtons}
 
       {isModalShow && <DeleteModal />} {/*show delete modal on button click based on state*/}
       {/* show preview of resume */}

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import supabase from "../../supabaseClient"
 const AuthContext = createContext()
 
@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
                     name: data.user?.user_metadata?.name,
                     picture: data.user?.user_metadata?.picture,
                 };
-             
+
                 setUser(user);
             }
         } catch (err) {
@@ -129,7 +129,17 @@ const AuthProvider = ({ children }) => {
         };
     }, [])
 
-    const values = {
+     const contextValue = useMemo(
+        () => ({
+            user,
+            logout,
+            loginWithEmailAndPassword,
+            loginWithGoogle,
+            loginWithLink,
+            loading,
+            isAuthenciated,
+            setLoading
+    }),[
         user,
         logout,
         loginWithEmailAndPassword,
@@ -138,12 +148,9 @@ const AuthProvider = ({ children }) => {
         loading,
         isAuthenciated,
         setLoading
-
-    }
-
-
+    ])
     return (
-        <AuthContext.Provider value={values}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     )

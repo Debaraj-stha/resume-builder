@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import supabase from "../../supabaseClient";
 import { useAuth } from "./AuthProvider";
 import {
@@ -17,7 +17,7 @@ const SupabaseProvider = ({ children }) => {
   const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
       const payload = multiple ? data : [data];
-      console.log("payload",payload)
+      console.log("payload", payload)
       const { data: res, error } = await supabase
         .from(table)
         .upsert(payload, {
@@ -96,7 +96,12 @@ const SupabaseProvider = ({ children }) => {
             console.error("Signed URL error for", file.name, signedError.message);
             return null;
           }
-          return signed.signedUrl;
+          return {
+            url: signed.signedUrl,
+            ...file
+
+
+          }
         })
       );
 
@@ -129,14 +134,14 @@ const SupabaseProvider = ({ children }) => {
         return data?.length ? data : defaultValue;
       };
 
-  
+
       const urls = await fetchWithFallback("urls", [{ value: "" }], 2);
-      res.personalDetails={
+      res.personalDetails = {
         ...res.personalDetails,
-        urls:urls.map((u,_)=>({value:u.url}))
+        urls: urls.map((u, _) => ({ value: u.url }))
       }
 
-      
+
 
       if (selectFields.includes("educations")) {
         res.educations = await fetchWithFallback("educations", defaultEducation, 3);
@@ -184,7 +189,7 @@ const SupabaseProvider = ({ children }) => {
               .map(a => ({ value: a.achievement })) || [{ value: "" }]
         })) || defaultExperiences;
       }
-    
+
       return res;
     } catch (error) {
       console.error("getSavedData error:", error);
@@ -192,7 +197,8 @@ const SupabaseProvider = ({ children }) => {
     }
   };
 
-  const values = {
+
+  const contextValues = useMemo(() => ({
     insertPersonalDetails: d => insertData("users", d, false, ["auth_id"]),
     insertURLs: d => insertData("urls", d, true, ["user_id", "url"]),
     insertEducations: d => insertData("educations", d, true, ["user_id", "university", "degree", "start_year", "end_year"]),
@@ -212,10 +218,16 @@ const SupabaseProvider = ({ children }) => {
     uploadFile: uploadFileWithProgress,
     getFiles,
     getSavedData,
-  };
+  }), [
+    insertData,
+    uploadFileWithProgress,
+    getFiles,
+    getSavedData,
+    retriveData
+  ])
 
   return (
-    <SupabaseContext.Provider value={values}>
+    <SupabaseContext.Provider value={contextValues}>
       {children}
     </SupabaseContext.Provider>
   );

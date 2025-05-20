@@ -22,7 +22,7 @@ export const PaginationProvider = ({ children }) => {
   }, [items, itemPerPage, itemsLength]);
 
   const handlePageChange = useCallback((page) => {
-    console.log("page change",page)
+    console.log("page change", page)
     if (page === currentPage) return; // Prevent updating if already on that page
     setCurrentPage(page);
   }, [currentPage]);
@@ -57,8 +57,18 @@ export const PaginationProvider = ({ children }) => {
     computePages();
   }, [computePages, itemsLength]); //  Re-run whenever itemsLength updates
 
-  const values = {
+
+  const contextValues = useMemo(() =>({
     currentPage,
+      handlePageChange,
+      PaginationButtons,
+      setItemsPerPage,
+      setItems,
+      setItemsLength,
+      itemPerPage,
+      itemsLength,
+      pages
+  }),[currentPage,
     handlePageChange,
     PaginationButtons,
     setItemsPerPage,
@@ -66,11 +76,10 @@ export const PaginationProvider = ({ children }) => {
     setItemsLength,
     itemPerPage,
     itemsLength,
-    pages,
-  };
+    pages,])
 
   return (
-    <PaginationContext.Provider value={values}>
+    <PaginationContext.Provider value={contextValues}>
       {children}
     </PaginationContext.Provider>
   );
