@@ -1,7 +1,9 @@
+
 import BaseLayoutRenderer from "../../BaseLayoutRenderer"
 import getLayout1OutputSectionData from "../resume-output/layout1-output";
 
 const ClassicalLayout1 = (props) => {
+
   return (
     <BaseLayoutRenderer
       layoutId={1}

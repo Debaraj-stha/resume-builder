@@ -1,240 +1,211 @@
 import { createContext, useContext } from "react";
 import supabase from "../../supabaseClient";
 import { useAuth } from "./AuthProvider";
-import { defaultAchievements, defaultEducation, defaultExperiences, defaultSkills } from "../components/helper/default_form_value";
+import {
+  defaultAchievements,
+  defaultEducation,
+  defaultExperiences,
+  defaultSkills,
+} from "../components/helper/default_form_value";
+import getSelectableFields from "../components/helper/selectableFields";
 
 const SupabaseContext = createContext();
 
 const SupabaseProvider = ({ children }) => {
   const { user } = useAuth();
 
-  const insertData = async (table, data, insertMultiple = false) => {
+  const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
-      if (insertMultiple) {
-        // Expecting 'data' to be an array of objects
-        const { data: res, error } = await supabase
-          .from(table)
-          .insert(data) // This handles bulk insert
-          .select("id");
-        if (error) throw error;
-        console.log(`Inserted multiple records into ${table}:`, res);
-        return res;
-      } else {
-        // Expecting 'data' to be a single object
-        const { data: res, error } = await supabase
-          .from(table)
-          .insert([data])
-          .select("id");
-        if (error) throw error;
-        console.log(`Inserted into ${table}:`, res);
-        return res;
-      }
-    } catch (error) {
-      console.error(`Insert error in table "${table}":`, error);
-      return null;
-    }
-  };
+      const payload = multiple ? data : [data];
+      const { data: res, error } = await supabase
+        .from(table)
+        .upsert(payload, {
+          onConflict: conflictKeys,
+          ignoreDuplicates: false,
+        })
+        .select("id");
 
-
-  const retriveData = async (table, fields = "*", filters = {}, limit = null, orderBy = null,
-    orderDesc = false) => {
-    try {
-      let query = supabase.from(table).select(fields);
-
-      // Apply filters
-      for (const [key, value] of Object.entries(filters)) {
-        query = query.eq(key, value);
-      }
-      if (limit != null) {
-        query = query.limit(limit)
-      }
-      if (orderBy) {
-        query = query.order(orderBy, { ascending: !orderDesc });
-      }
-
-      const { data: res, error } = await query;
-
-      if (error) {
-        console.log("Error retrieving data:", error);
-        return null;
-      }
-
-      console.log(`Retrieved from ${table}:`, res);
+      if (error) throw error;
       return res;
     } catch (error) {
-      console.log("Unexpected error while retrieving records from server", error);
+      console.error(`Upsert error in table "${table}":`, error);
       return null;
     }
   };
 
+  const retriveData = async (table, fields = "*", filters = {}, limit = null, orderBy = null, orderDesc = false) => {
+    try {
+      let query = supabase.from(table).select(fields);
+      Object.entries(filters).forEach(([key, val]) => query = query.eq(key, val));
+      if (limit) query = query.limit(limit);
+      if (orderBy) query = query.order(orderBy, { ascending: !orderDesc });
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error(`Retrieval error from "${table}":`, error);
+      return null;
+    }
+  };
 
   const uploadFileWithProgress = async (file, onProgress) => {
+    if (!file || !user?.id) return console.warn("Missing file or user");
+
+    const bucket = "files";
+    const path = `images/${user.id}/${file.name}`;
+
     try {
-      // Validate if file is provided
-      if (!file) return console.log("No file provided");
-
-      if (!user?.id) return console.log("User not logged in");
-
-      // Define your Supabase storage bucket and file path
-      const bucketName = "files";
-      const filePath = `images/${user.id}/${file.name}`;
-
-      // Step 1: Get a signed upload URL from Supabase
-      /*
-      You're calling Supabase's createSignedUploadUrl() method to get a temporary signed URL that
-       lets you upload a file securely to Supabase Storage without needing public write access.
-      */
-      const { data: urlData, error: urlError } = await supabase
-        .storage
-        .from(bucketName)
-        .createSignedUploadUrl(filePath);
-
-
+      const { data: urlData, error: urlError } = await supabase.storage.from(bucket).createSignedUploadUrl(path);
       if (urlError) throw urlError;
 
-      // Step 2: Use XMLHttpRequest to upload the file with progress tracking
       const xhr = new XMLHttpRequest();
-      xhr.open("PUT", urlData.signedUrl, true); // Use PUT method for the signed URL
-      // Step 3: Monitor upload progress and call callback
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable && onProgress) {
-          const percentComplete = Math.round((event.loaded / event.total) * 100);
-          onProgress(percentComplete); // Call the callback with progress %
+      xhr.open("PUT", urlData.signedUrl, true);
+
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable && onProgress) {
+          onProgress(Math.round((e.loaded / e.total) * 100));
         }
       };
 
-      // Step 4: Handle successful upload
       xhr.onload = () => {
-        if (xhr.status === 200) {
-          console.log("Upload complete");
-        } else {
-          console.error("Upload failed", xhr.responseText);
-        }
+        if (xhr.status !== 200) console.error("Upload failed:", xhr.responseText);
       };
+      xhr.onerror = () => console.error("XHR upload error");
 
-      // Step 5: Handle error during upload
-      xhr.onerror = () => {
-        console.error("Error during upload");
-      };
-
-      // Step 6: Send the file
       xhr.send(file);
-
-    } catch (error) {
-      console.log("Upload error:", error.message);
+    } catch (err) {
+      console.error("Upload error:", err.message);
     }
   };
 
   const getFiles = async () => {
+    if (!user?.id) return console.warn("User not logged in");
+
     try {
-      const userId = user?.id;
-      console.log("user id", userId)
-      if (!userId) return console.log("user id is null");
-
-      const { data, error } = await supabase
-        .storage
-        .from("files") // bucket name only
-        .list(`images/${userId}`); // path inside the bucket
-
+      const { data: files, error } = await supabase.storage.from("files").list(`images/${user.id}`);
       if (error) throw error;
-      //   const supabaseURL = import.meta.env.VITE_SUPABASE_URL;
-      //   const bucketURL = `${supabaseURL}/storage/v1/object/sign/files/images/${user.id}`;
-      const fileURLS = []
-      for (const file of data) {
-        const { data: signedData, error: signedError } = await supabase.storage.from("files").createSignedUrl(`images/${user.id}/${file.name}`, 60 * 60); // 1 hour
-        if (signedError) {
-          console.error("Error generating signed URL for", file.name, signedError.message);
-          continue;
-        }
-        fileURLS.push(signedData.signedUrl)
-      }
-      return fileURLS
 
-    } catch (error) {
-      console.log("Error while getting files from server:", error.message);
+      const urls = await Promise.all(
+        files.map(async (file) => {
+          const { data: signed, error: signedError } = await supabase.storage
+            .from("files")
+            .createSignedUrl(`images/${user.id}/${file.name}`, 3600);
+          if (signedError) {
+            console.error("Signed URL error for", file.name, signedError.message);
+            return null;
+          }
+          return signed.signedUrl;
+        })
+      );
+
+      return urls.filter(Boolean);
+    } catch (err) {
+      console.error("Error fetching files:", err.message);
     }
   };
 
- const getSavedData = async () => {
-  try {
-    if (!user?.id) return {};
+  const getSavedData = async () => {
+    try {
+      if (!user?.id) return {};
 
-    const orderBy = ["created_at", true];
-    const res = {};
-    
-    const [personalDetails] = await retriveData("users", "*", { auth_id: user.id }, 1, ...orderBy);
-    if (!personalDetails) return {};
+      const selectFields = getSelectableFields();
+      selectFields.push("personalDetails");
 
-    const user_id = personalDetails.id;
-    res.personalDetails = personalDetails;
+      const orderBy = ["created_at", true];
+      const res = {};
 
-    const fetchWithFallback = async (table, defaultValue, limit = null) => {
-      const data = await retriveData(table, "*", { user_id }, limit, ...orderBy);
-      return data.length > 0 ? data : defaultValue;
-    };
+      if (!selectFields.includes("personalDetails")) return res;
 
-    res.urls = await fetchWithFallback("urls", [{ value: "" }], 2);
-    res.educations = await fetchWithFallback("educations", defaultEducation, 3);
-    res.achievements = await fetchWithFallback("achievements", defaultAchievements);
-    res.skills = await fetchWithFallback("skills", defaultSkills);
+      const [personalDetails] = await retriveData("users", "*", { auth_id: user.id }, 1, ...orderBy);
+      if (!personalDetails) return {};
 
-    // Get experiences and their achievements
-    const experiences = await retriveData("experiences", "*", { user_id }, 5, ...orderBy);
-    const experienceIds = experiences.map(e => e.id);
+      const user_id = personalDetails.id;
+      res.personalDetails = personalDetails;
 
-    const { data: achievementsData, error } = await supabase
-      .from("experience_achievements")
-      .select("*")
-      .in("experience_id", experienceIds);
-
-    if (error) console.log("Error fetching experience achievements:", error);
-
-    const experienceMap = experiences.map(exp => {
-      const relatedAchievements = achievementsData
-        ?.filter(a => a.experience_id === exp.id)
-        .map(a => ({ value: a.achievement })) || [];
-
-      return {
-        company_name: exp.company_name || "",
-        position: exp.position || "",
-        about_company: exp.about_company || "",
-        start_date: exp.start_date || "",
-        end_date: exp.end_date || "",
-        location: exp.location || "",
-        achievements: relatedAchievements.length > 0 ? relatedAchievements : [{ value: "" }]
+      const fetchWithFallback = async (table, defaultValue, limit = null) => {
+        const data = await retriveData(table, "*", { user_id }, limit, ...orderBy);
+        return data?.length ? data : defaultValue;
       };
-    });
 
-    res.experiences = experienceMap.length > 0 ? experienceMap : defaultExperiences
+      if (selectFields.includes("urls")) {
+        res.urls = await fetchWithFallback("urls", [{ value: "" }], 2);
+      }
 
-    return res;
+      if (selectFields.includes("educations")) {
+        res.educations = await fetchWithFallback("educations", defaultEducation, 3);
+      }
 
-  } catch (error) {
-    console.log("Error in getSavedData:", error);
-    return {};
-  }
-};
+      if (selectFields.includes("achievements")) {
+        res.achievements = await fetchWithFallback("achievements", defaultAchievements);
+      }
 
+      if (selectFields.includes("skills")) {
+        const skills = await fetchWithFallback("skills", defaultSkills);
+        const skillIds = skills.map(s => s.id).filter(Boolean);
+
+        if (skillIds.length > 0) {
+          const { data: itemsData, error } = await supabase
+            .from("skill_items")
+            .select()
+            .in("field_id", skillIds);
+          if (error) console.error("skill_items fetch error:", error);
+
+          res.skills = skills.map(skill => ({
+            ...skill,
+            items: (itemsData?.filter(i => i.field_id === skill.id) || []).map(i => ({ value: i.skill }))
+          }));
+        } else {
+          res.skills = skills;
+        }
+      }
+
+      if (selectFields.includes("experiences")) {
+        const experiences = await retriveData("experiences", "*", { user_id }, 5, ...orderBy);
+        const expIds = experiences.map(e => e.id);
+
+        const { data: expAchieves, error } = await supabase
+          .from("experience_achievements")
+          .select("*")
+          .in("experience_id", expIds);
+        if (error) console.error("experience_achievements fetch error:", error);
+
+        res.experiences = experiences.map(exp => ({
+          ...exp,
+          achievements:
+            expAchieves
+              ?.filter(a => a.experience_id === exp.id)
+              .map(a => ({ value: a.achievement })) || [{ value: "" }]
+        })) || defaultExperiences;
+      }
+
+      return res;
+    } catch (error) {
+      console.error("getSavedData error:", error);
+      return {};
+    }
+  };
 
   const values = {
-    insertPersonalDetails: (details) => insertData("users", details),
-    insertURLs: (urls) => insertData("urls", urls, true),
-    insertEducations: (educations) => insertData("educations", educations, true),
-    insertExperiences: (experiences) => insertData("experiences", experiences, true),
-    insertAchievements: (achievements) => insertData("achievements", achievements, true),
-    insertSkills: (skills) => insertData("skills", skills, true),
-    insertPassions: (passions) => insertData("passions", passions, true),
-    insertLanguages: (languages) => insertData("languages", languages, true),
-    insertOpenSourceWork: (projects) => insertData("openSourcework", projects, true),
-    insertCertificates: (certs) => insertData("certificates", certs),
-    insertExperties: (expertise) => insertData("expertise", expertise, true),
-    insertMyTime: (entries) => insertData("myTime", entries, true),
-    insertExperienceAchievements: (achievements) => insertData("experience_achievements", achievements, true),
-    insertSkillItem:(items)=>insertData("skill_items",items,true),
+    insertPersonalDetails: d => insertData("users", d, false, ["auth_id"]),
+    insertURLs: d => insertData("urls", d, true, ["user_id", "url"]),
+    insertEducations: d => insertData("educations", d, true, ["user_id", "university", "degree", "start_year", "end_year"]),
+    insertExperiences: d => insertData("experiences", d, true, ["user_id", "company_name", "position", "location", "start_date", "end_date"]),
+    insertAchievements: d => insertData("achievements", d, true, ["user_id", "achievement", "field", "date"]),
+    insertSkills: d => insertData("skills", d, true, ["user_id", "field"]),
+    insertSkillItem: d => insertData("skill_items", d, true, ["field_id", "skill"]),
+    insertPassions: d => insertData("passions", d, true, ["user_id"]),
+    insertLanguages: d => insertData("languages", d, true, ["user_id", "language"]),
+    insertOpenSourceWork: d => insertData("openSourcework", d, true, ["user_id"]),
+    insertCertificates: d => insertData("certificates", d, true, ["user_id"]),
+    insertExperties: d => insertData("expertise", d, true, ["user_id"]),
+    insertMyTime: d => insertData("myTime", d, true, ["user_id"]),
+    insertExperienceAchievements: d => insertData("experience_achievements", d, true, ["experience_id", "achievement"]),
+    insertTrainings: d => insertData("trainings", d, true, ["user_id", "title", "organization", "year"]),
     retriveData,
     uploadFile: uploadFileWithProgress,
     getFiles,
-    getSavedData
+    getSavedData,
   };
 
   return (

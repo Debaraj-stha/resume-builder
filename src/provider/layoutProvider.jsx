@@ -52,6 +52,8 @@ const LayoutProvider = ({ children }) => {
   const [savedData, setSavedData] = useState({})
 
   const { getSavedData } = useSupabase()
+  const[isSavedLoaded,setIsSavedLoaded]=useState(false)
+  const[loadableFields,setLoadableFields]=useState([])
   const { user } = useAuth()
   const { getValues, reset } = methods
 
@@ -75,20 +77,25 @@ const LayoutProvider = ({ children }) => {
   }, []);
 
   //retriving saved data from database
-  useEffect(() => {
-    const loadSavedData = async () => {
-      const data = await getSavedData()
-      console.log("saved data", data)
-      setSavedData(data)
-    }
-    if (user) {
-      loadSavedData()
-    }
-  }, [user])
+useEffect(() => {
+  const loadSavedData = async () => {
+    const data = await getSavedData();
+    console.log("saved data", data);
+    setSavedData(data);
+    setIsSavedLoaded(true);
+  };
+
+
+  if (user && !isSavedLoaded ) {
+    loadSavedData();
+  }
+}, [user, isSavedLoaded]);
 
 
   //resetting form
   useEffect(() => {
+    //reset form only if saved data is valid
+    if (!savedData || Object.keys(savedData).length === 0) return;
     const savedPersonalDetail = savedData?.personalDetails || {};
     const savedSummary = savedPersonalDetail?.summary || "";
     const safePersonalDetails = {
@@ -126,10 +133,7 @@ const LayoutProvider = ({ children }) => {
       date: ""
     }];
 
-    const safeSkills = savedData?.skills || [{
-      field: "",
-      items: [{ value: "" }]
-    }];
+
 
     const safeLanguages = savedData?.languages || [{
       language: "",
@@ -188,7 +192,6 @@ const LayoutProvider = ({ children }) => {
       summary: savedSummary,
       experiences: safeExperiences,
       achievements: safeAchievements,
-      skills: safeSkills,
       languages: safeLanguages,
       trainings: safeTrainings,
       awards: safeAwards,
@@ -207,7 +210,6 @@ const LayoutProvider = ({ children }) => {
       summary: savedSummary,
       experiences: safeExperiences,
       achievements: safeAchievements,
-      skills: safeSkills,
       languages: safeLanguages,
       trainings: safeTrainings,
       awards: safeAwards,
@@ -333,6 +335,8 @@ const LayoutProvider = ({ children }) => {
     liveDetails,
     setLiveDetails,
     complie_input,
+    isSavedLoaded,
+    
   };
   return (
     <LayoutContext.Provider value={values}>
