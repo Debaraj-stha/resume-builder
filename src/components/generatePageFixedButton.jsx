@@ -29,7 +29,7 @@ const FixedIconWrapper = styled.div`
 const GeneratePageFixedButtons = memo(({ setShowIcons, saveData, showIcons }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
-    const { generatePDF, complie_input } = useLayout();
+    const { generatePDF, compileInput } = useLayout();
     const { uploadFile } = useSupabase();
 
     const uploadAndDownloadFile = async () => {
@@ -84,7 +84,7 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, saveData, showIcons }) =>
                         <ToolTip text="Compile Now">
                             <CircularIconHolder
                                 backgroundColor="#FBBC05"
-                                onClick={complie_input}
+                                onClick={compileInput}
                             >
                                 <FaCogs color="white" />
                             </CircularIconHolder>

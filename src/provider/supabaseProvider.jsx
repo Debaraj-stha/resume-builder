@@ -1,18 +1,19 @@
 import { createContext, useContext, useMemo } from "react";
 import supabase from "../../supabaseClient";
 import { useAuth } from "./AuthProvider";
-import {
-  defaultAchievements,
-  defaultEducation,
-  defaultExperiences,
-  defaultSkills,
-} from "../components/helper/default_form_value";
 import getSelectableFields from "../components/helper/selectableFields";
-
 const SupabaseContext = createContext();
-
+import defaultFormFields from "../components/helper/default_form_value";
 const SupabaseProvider = ({ children }) => {
   const { user } = useAuth();
+  const {
+    educations: defaultEducations,
+    experiences: defaultEeperiences,
+    achievements: defaultAchievements,
+    strengths: defaultStrengths,
+    certificates: defaultCertificates,
+  } =
+    defaultFormFields
 
   const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
@@ -34,11 +35,10 @@ const SupabaseProvider = ({ children }) => {
     }
   };
 
-  const retriveData = async (table, fields = "*", filters = {}, limit = null, orderBy = null, orderDesc = false) => {
+  const retriveData = async (table, fields = "*", filters = {}, orderBy = null, orderDesc = false) => {
     try {
       let query = supabase.from(table).select(fields);
       Object.entries(filters).forEach(([key, val]) => query = query.eq(key, val));
-      if (limit) query = query.limit(limit);
       if (orderBy) query = query.order(orderBy, { ascending: !orderDesc });
 
       const { data, error } = await query;
@@ -110,27 +110,26 @@ const SupabaseProvider = ({ children }) => {
       console.error("Error fetching files:", err.message);
     }
   };
+  const getSavedData = async (layout_details) => {
 
-  const getSavedData = async () => {
     try {
       if (!user?.id) return {};
 
-      const selectFields = getSelectableFields();
+      const selectFields = getSelectableFields(layout_details);
       selectFields.push("personalDetails");
-
       const orderBy = ["created_at", true];
       const res = {};
 
       if (!selectFields.includes("personalDetails")) return res;
 
-      const [personalDetails] = await retriveData("users", "*", { auth_id: user.id }, 1, ...orderBy);
+      const [personalDetails] = await retriveData("users", "*", { auth_id: user.id }, ...orderBy);
       if (!personalDetails) return {};
 
       const user_id = personalDetails.id;
       res.personalDetails = personalDetails;
 
-      const fetchWithFallback = async (table, defaultValue, limit = null) => {
-        const data = await retriveData(table, "*", { user_id }, limit, ...orderBy);
+      const fetchWithFallback = async (table, defaultValue) => {
+        const data = await retriveData(table, "*", { user_id }, ...orderBy);
         return data?.length ? data : defaultValue;
       };
 
@@ -144,35 +143,17 @@ const SupabaseProvider = ({ children }) => {
 
 
       if (selectFields.includes("educations")) {
-        res.educations = await fetchWithFallback("educations", defaultEducation, 3);
+        res.educations = await fetchWithFallback("educations", defaultEducations, 3);
       }
 
       if (selectFields.includes("achievements")) {
         res.achievements = await fetchWithFallback("achievements", defaultAchievements);
       }
 
-      if (selectFields.includes("skills")) {
-        const skills = await fetchWithFallback("skills", defaultSkills);
-        const skillIds = skills.map(s => s.id).filter(Boolean);
 
-        if (skillIds.length > 0) {
-          const { data: itemsData, error } = await supabase
-            .from("skill_items")
-            .select()
-            .in("field_id", skillIds);
-          if (error) console.error("skill_items fetch error:", error);
-
-          res.skills = skills.map(skill => ({
-            ...skill,
-            items: (itemsData?.filter(i => i.field_id === skill.id) || []).map(i => ({ value: i.skill }))
-          }));
-        } else {
-          res.skills = skills;
-        }
-      }
 
       if (selectFields.includes("experiences")) {
-        const experiences = await retriveData("experiences", "*", { user_id }, 5, ...orderBy);
+        const experiences = await retriveData("experiences", "*", { user_id }, ...orderBy);
         const expIds = experiences.map(e => e.id);
 
         const { data: expAchieves, error } = await supabase
@@ -187,7 +168,23 @@ const SupabaseProvider = ({ children }) => {
             expAchieves
               ?.filter(a => a.experience_id === exp.id)
               .map(a => ({ value: a.achievement })) || [{ value: "" }]
-        })) || defaultExperiences;
+        })) || defaultEeperiences;
+      }
+      if (selectFields.includes("strengths")) {
+        const strengths = await fetchWithFallback("strengths", defaultStrengths);
+        res.strengths = strengths.map(str => ({
+          title: str.title,
+          description: str.description
+        }));
+
+      }
+      if (selectFields.includes("certificates")) {
+        const certificates = await fetchWithFallback("certificates", defaultCertificates);
+        res.certificates = certificates.map(cert => ({
+          certificate: cert.certificate,
+          subject: cert.subject,
+          date: cert.date
+        }));
       }
 
       return res;
@@ -209,9 +206,10 @@ const SupabaseProvider = ({ children }) => {
     insertPassions: d => insertData("passions", d, true, ["user_id"]),
     insertLanguages: d => insertData("languages", d, true, ["user_id", "language"]),
     insertOpenSourceWork: d => insertData("openSourcework", d, true, ["user_id"]),
-    insertCertificates: d => insertData("certificates", d, true, ["user_id"]),
+    insertCertificates: d => insertData("certificates", d, true, ["user_id", "certificate", "subject", "date"]),
     insertExperties: d => insertData("expertise", d, true, ["user_id"]),
     insertMyTime: d => insertData("myTime", d, true, ["user_id"]),
+    insertStrengths: d => insertData("strengths", d, true, ["user_id", "title", "description"]),
     insertExperienceAchievements: d => insertData("experience_achievements", d, true, ["experience_id", "achievement"]),
     insertTrainings: d => insertData("trainings", d, true, ["user_id", "title", "organization", "year"]),
     retriveData,

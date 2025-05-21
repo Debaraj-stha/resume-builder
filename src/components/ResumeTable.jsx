@@ -38,48 +38,49 @@ const StyledRow = styled.tr.withConfig({
 `;
 //render only when props to this function changes
 const ResumeRow = React.memo(({ resume, index }) => {
-  
-  const [downloadProgress, setDownloadProgress] = useState(0);
-  const [downloading, setDownloading] = useState(false);
+
+    const [downloadProgress, setDownloadProgress] = useState(0);
+    const [downloading, setDownloading] = useState(false);
     const {
         handleEdit,
         confirmDelete,
         showPreview
     } = useDashboard()
 
-  const download = (url, filename) => {
-    setDownloading(true);
-    setDownloadProgress(0);
+    const download = (url, filename) => {
+        setDownloading(true);
+        setDownloadProgress(0);
 
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = "blob";
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = "blob";
 
-    xhr.onprogress = (event) => {
-      if (event.lengthComputable) {
-        const percent = Math.round((event.loaded / event.total) * 100);
-        setDownloadProgress(percent);
-      }
+        xhr.onprogress = (event) => {
+            if (event.lengthComputable) {
+                const percent = Math.round((event.loaded / event.total) * 100);
+                setDownloadProgress(percent);
+            }
+        };
+
+        xhr.onload = () => {
+            const blob = new Blob([xhr.response]);
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = downloadUrl;
+            a.download = filename || "file.pdf";
+            a.click();
+            window.URL.revokeObjectURL(downloadUrl);
+            setDownloading(false);
+        };
+
+        xhr.onerror = () => {
+            console.error("Download failed");
+            setDownloading(false);
+        };
+
+        xhr.open("GET", url);
+        xhr.send();
     };
 
-    xhr.onload = () => {
-      const blob = new Blob([xhr.response]);
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = filename || "file.pdf";
-      a.click();
-      window.URL.revokeObjectURL(downloadUrl);
-      setDownloading(false);
-    };
-
-    xhr.onerror = () => {
-      console.error("Download failed");
-      setDownloading(false);
-    };
-
-    xhr.open("GET", url);
-    xhr.send();
-  };
     return (
         <>
             <StyledRow key={index} isEven={index % 2 === 0}>
@@ -94,7 +95,7 @@ const ResumeRow = React.memo(({ resume, index }) => {
                 <StyledTD>
                     <div className="flex items-center justify-center gap-2">
                         <ToolTip text="Download">
-                            <Button onClick={() => download(resume.url,resume.name)}>
+                            <Button onClick={() => download(resume.url, resume.name)}>
                                 <BiDownload />
                             </Button>
                         </ToolTip>
@@ -115,7 +116,7 @@ const ResumeRow = React.memo(({ resume, index }) => {
                 </StyledTD>
             </StyledRow>
             {
-                downloading && <ProgressBarModal progress={downloadProgress} message="Downloading Resume..."/>
+                downloading && <ProgressBarModal progress={downloadProgress} message="Downloading Resume..." />
             }
         </>
     )
@@ -123,13 +124,13 @@ const ResumeRow = React.memo(({ resume, index }) => {
 
 const ResumeTable = () => {
     const {
-        
+
         resumes,
         filteredResumes
     } = useDashboard()
-    const theme=useTheme()
+    const theme = useTheme()
     const { itemPerPage, currentPage } = usePagination()
-    const currentReumes=filteredResumes.length>0 ? filteredResumes :resumes
+    const currentReumes = filteredResumes.length > 0 ? filteredResumes : resumes
     return (
         <div className="mt-5 overflow-x-auto">
             <table

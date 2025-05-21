@@ -13,6 +13,7 @@ import DashboardProvider from "../provider/DashboardProvider";
 import LayoutWrapper from "./LayoutWrapper";
 import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWithProvider, SimpleLayoutWithProvider } from "./LayoutsWithProvider";
 import Login from "../pages/Login";
+import LayoutProvider from "../provider/layoutProvider";
 
 const AppRoutes = () => {
     return (
@@ -29,11 +30,13 @@ const AppRoutes = () => {
                 <Route exact path="simple" element={<SimpleLayoutWithProvider />} />
                 <Route exact path="creative" element={<CreativeLayoutWithProvider />} />
             </Route>
-            <Route exact path="/login" element={<Login/>}/>
+            <Route exact path="/login" element={<Login />} />
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>
             <Route exact path="/about" element={<About />}></Route>
-            <Route exact path="/build-resume/:layout_type/:layout_id" element={<GenerateResume />}></Route>
+            <Route exact path="/build-resume/:layout_type/:layout_id" element={
+                <LayoutProvider> <GenerateResume />  </LayoutProvider>
+            }></Route>
             <Route path="*" element={<NotFound />}></Route>
 
 

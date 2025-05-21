@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { CTAButton, Hspace, Subtitle } from "../components/CustomComponents";
 
+import { CTAButton, Hspace, Subtitle } from "../components/CustomComponents";
 import UserThought from "../components/UserThought";
 import styled, { keyframes } from "styled-components";
 import "../css/home.css"
 import CTACard from "../components/CTACard";
 import FeatureCards from "../components/FeatureCard";
 import Container from "../components/Container";
+import useHomeHook from "../components/helper/hooks/scrollToTopHook";
+import { useGetStarted } from "../components/helper/hooks/useGetStartedHook";
+
 
 
 
@@ -55,49 +57,12 @@ background-color: ${({ theme }) => theme.colors.card.background};
 `
 
 const Home = () => {
-    const[loading,setLoading]=useState(true)
-    useEffect(() => {
-        const sections = document.querySelectorAll("section");
-        const handleScroll = () => {
-            sections.forEach((section) => {
-                const boundingRect = section.getBoundingClientRect().top;
-                if (boundingRect < window.innerHeight - 100) {
-                    section.classList.add("animate");
-                }
-            });
-        };
-        handleScroll(); // run once on mount
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setLoading(false);
-        }, 1000); 
-    
-        return () => clearTimeout(timeout);
-    }, []);
-    
-
-
-
-    const getStarted = () => {
-
-    }
-    const createCv = () => {
-
-    }
-
-
-
-
-      
+    useHomeHook()
     return (
         <Container>
 
             <div className="m-auto">
-                <Hspace height="200px"/>
+                <Hspace height="200px" />
                 <TopSection>
                     <div className="max-w-4xl mx-auto text-center">
                         <TextWrapper>
@@ -108,7 +73,7 @@ const Home = () => {
                         <Subtitle>
                             Easy to use, customizable templates. Download your resume instantly.
                         </Subtitle>
-                        <CTAButton onClick={getStarted}>
+                        <CTAButton onClick={useGetStarted()}>
                             Get Started
                         </CTAButton>
                     </div>
@@ -118,7 +83,7 @@ const Home = () => {
                 {/* user thought  to this site */}
                 <UserThought />
 
-                <CTACard />
+                <CTACard onClick={useGetStarted()} />
 
 
             </div>

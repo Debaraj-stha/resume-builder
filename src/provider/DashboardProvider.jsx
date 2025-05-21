@@ -19,6 +19,7 @@ const DashboardProvider = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isPreviewShow, setIsPreviewShow] = useState(false);
     const [previewResumeId, setPreviewResumeId] = useState(null);
+    const[isLoading, setIsLoading] = useState(true);
 
     const { getFiles } = useSupabase();
     const { user } = useAuth();
@@ -31,6 +32,7 @@ const DashboardProvider = ({ children }) => {
             const files = await getFiles();
             setResumes(files || []);
             console.log("resume files", files);
+            setIsLoading(false);
         };
         loadResumes();
     }, [user, getFiles]);
@@ -128,6 +130,7 @@ const DashboardProvider = ({ children }) => {
             handleSort,
             showPreview,
             closePreviewModal,
+            isLoading
         }),
         [
             resumes,
@@ -150,6 +153,7 @@ const DashboardProvider = ({ children }) => {
             handleSort,
             showPreview,
             closePreviewModal,
+            isLoading
         ]
     );
 

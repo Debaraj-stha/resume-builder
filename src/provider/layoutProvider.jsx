@@ -9,16 +9,12 @@ import {
   useMemo
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useSupabase } from "./supabaseProvider";
-import { useAuth } from "./AuthProvider";
 import defaultFormFields from "../components/helper/default_form_value";
+
 
 export const LayoutContext = createContext(null);
 
 const LayoutProvider = ({ children }) => {
-  const { user } = useAuth();
-  const { getSavedData } = useSupabase();
-
   const methods = useForm({ defaultValues: defaultFormFields });
   const { getValues, reset } = methods;
 
@@ -27,8 +23,11 @@ const LayoutProvider = ({ children }) => {
   const [liveDetails, setLiveDetails] = useState({});
   const [savedData, setSavedData] = useState({});
   const [isSavedLoaded, setIsSavedLoaded] = useState(false);
+
   const sectionRefs = useRef([]);
+
   const pdfRef = useRef(null);
+
 
   // Helper: Extract safe form data
   const buildSafeFormFields = (data) => {
@@ -134,17 +133,8 @@ const LayoutProvider = ({ children }) => {
     setMeasured(true);
   };
 
-  // Load saved data on login
-  useEffect(() => {
-    if (!user || isSavedLoaded) return;
 
-    (async () => {
-      const data = await getSavedData();
-      console.log("Saved data:", data);
-      setSavedData(data);
-      setIsSavedLoaded(true);
-    })();
-  }, [user, isSavedLoaded]);
+
 
   // Reset form when saved data is ready
   useEffect(() => {
@@ -158,6 +148,7 @@ const LayoutProvider = ({ children }) => {
   // Initial load
   useEffect(() => {
     setLiveDetails(getValues());
+
   }, []);
 
   // Simulate loading delay
@@ -166,8 +157,7 @@ const LayoutProvider = ({ children }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const contextValue = useMemo(
-    () => ({
+  const contextValue ={
       isLoading,
       generatePDF,
       ref: pdfRef,
@@ -178,20 +168,25 @@ const LayoutProvider = ({ children }) => {
       liveDetails,
       setLiveDetails,
       compileInput,
-      isSavedLoaded
-    }), [
-    isLoading,
-    generatePDF,
-    pdfRef,
-    measured,
-    setMeasured,
-    groupSectionsIntoPages,
-    sectionRefs,
-    liveDetails,
-    setLiveDetails,
-    compileInput,
-    isSavedLoaded
-  ]);
+      isSavedLoaded,
+      setIsSavedLoaded,
+      setSavedData,
+    }
+  // ), [
+  //   isLoading,
+  //   generatePDF,
+  //   pdfRef,
+  //   measured,
+  //   setMeasured,
+  //   groupSectionsIntoPages,
+  //   sectionRefs,
+  //   liveDetails,
+  //   setLiveDetails,
+  //   compileInput,
+  //   isSavedLoaded,
+  //   setIsSavedLoaded,
+  //   setSavedData,
+  // ]);
 
   return (
     <LayoutContext.Provider value={contextValue}>

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Heading, Hspace } from "../components/CustomComponents";
 import ClassicalLayout1 from "../components/layouts/classic/layout-1/layout"
-// import ClassicalLayout2 from "../components/layouts/classic/layout-2/layout"
 import ScrollableModal from "../components/ScrollableModal";
 import DashboardHeader from "../components/DashboardHeader";
 import ResumeTable from "../components/ResumeTable";
-import Pagination from "../components/Pagination";
+
 import DeleteModal from "../components/DeleteModal";
 import { useDashboard } from "../provider/DashboardProvider";
 import Container from "../components/Container";
-import { useSupabase } from "../provider/supabaseProvider";
 import { usePagination } from "../provider/paginationProvider";
+import Loading from "../components/Loading";
+
 
 
 
@@ -27,12 +27,15 @@ const Dashboard = () => {
   const {
     isModalShow,
     closePreviewModal,
+    isLoading,
     isPreviewShow } = useDashboard()
   const {
     PaginationButtons,
   } = usePagination()
 
-
+if(isLoading) {
+   return <Loading message="Loading dashboard..." />
+  }
 
   return (
     <Container>
@@ -40,7 +43,7 @@ const Dashboard = () => {
       {/* toots to add,search and sort resumes */}
       <DashboardHeader />
       {/* resumes table */}
-      <ResumeTable />
+      <ResumeTable />  
       {/* pagination buttons */}
       {/* <Pagination /> */}
       {PaginationButtons}

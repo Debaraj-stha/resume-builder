@@ -18,7 +18,7 @@ const getlayout5OutputSection = (data, layout_no) => {
 
     return [
         generateProfileDetails({
-            personalDetails: {...personalDetails,urls:personalDetails?.urls?.[0]}, 
+            personalDetails, 
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -33,7 +33,6 @@ const getlayout5OutputSection = (data, layout_no) => {
         }),
         ...generateAchievementsSections({
             achievements,
-            layout_no,
             style: {
                 sectionHeader: style.sectionHeader,
                 iconColor: style.primaryColor,
@@ -50,7 +49,6 @@ const getlayout5OutputSection = (data, layout_no) => {
         }),
         ...generateEducationSections({
             educations,
-            layout_no,
             style: {
                 h2: style.h2,
                 h3: style.h3,
@@ -61,7 +59,7 @@ const getlayout5OutputSection = (data, layout_no) => {
             },
         }),
         ...generateExperienceSections({
-            experiences, layout_no, style: {
+            experiences,  style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
@@ -76,7 +74,7 @@ const getlayout5OutputSection = (data, layout_no) => {
         }),
 
         generateSkill({
-            skills:skills.slice(0,3),
+            skills,
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,
@@ -89,7 +87,7 @@ const getlayout5OutputSection = (data, layout_no) => {
         }),
         ...generateCertipicates({
             certificates,
-            layout_no,
+           
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,

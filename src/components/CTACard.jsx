@@ -1,12 +1,12 @@
-import React from "react"
+import React, { memo } from "react"
 import { CTA, CTAButton, Heading } from "./CustomComponents"
-const CTACard=()=>{
+const CTACard=memo(({onClick})=>{
     return (
           <CTA>
                 <Heading>Ready to Build Your Resume?</Heading>
                 <p>Create a resume that gets noticed in just minutes.</p>
-                <CTAButton>Get Started Now</CTAButton>
+                <CTAButton onClick={onClick}>Get Started Now</CTAButton>
               </CTA>
     )
-}
+})
 export default  CTACard

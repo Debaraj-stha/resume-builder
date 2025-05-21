@@ -15,11 +15,11 @@ const BaseLayoutRenderer = memo(
   }) => {
     
 
-    const { liveDetails, complie_input } = useLayout()
+    const { liveDetails, compileInput } = useLayout()
     //listening the live values only if entered keyis pressed
     const handleEntered = (e) => {
       if (e.key === "Enter") {
-        complie_input()
+        compileInput()
       }
     };
 

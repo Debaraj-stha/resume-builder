@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Button } from "../components/CustomComponents";
+import { Button, Hspace } from "../components/CustomComponents";
 import { H1 } from "../components/elements/resumeSectionWrapper";
 import styled, { useTheme } from "styled-components";
 import { useDashboard } from "../provider/DashboardProvider";
@@ -53,6 +53,7 @@ const DashboardHeader = () => {
     const theme=useTheme()
   return (
     <>
+    <Hspace height="10px"/>
       <H1 color={theme.colors.text}>All Your Resumes</H1>
       <UtilityHolder>
         <Button onClick={handleCreate}>+ Create New Resume</Button>
