@@ -6,8 +6,8 @@ import "../css/home.css"
 import CTACard from "../components/CTACard";
 import FeatureCards from "../components/FeatureCard";
 import Container from "../components/Container";
-import useHomeHook from "../components/helper/hooks/scrollToTopHook";
-import { useGetStarted } from "../components/helper/hooks/useGetStartedHook";
+import useHomeHook from "../helper/hooks/scrollToTopHook";
+import { useGetStarted } from "../helper/hooks/useGetStartedHook";
 
 
 

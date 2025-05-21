@@ -1,9 +1,9 @@
 import { createContext, useContext, useMemo } from "react";
 import supabase from "../../supabaseClient";
 import { useAuth } from "./AuthProvider";
-import getSelectableFields from "../components/helper/selectableFields";
+import getSelectableFields from "../helper/selectableFields";
 const SupabaseContext = createContext();
-import defaultFormFields from "../components/helper/default_form_value";
+import defaultFormFields from "../helper/default_form_value";
 const SupabaseProvider = ({ children }) => {
   const { user } = useAuth();
   const {

@@ -4,7 +4,7 @@ import {
   ColumnFlexBox,
   FlexBox
 } from "../../CustomComponents";
-import capitalize from "../../helper/capitalize";
+import capitalize from "../../../helper/capitalize";
 
 const SkillCard = memo(({ skills, style, ...props }) => {
   const {

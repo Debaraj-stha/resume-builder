@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useLayout } from "../../../provider/layoutProvider";
-import { useSupabase } from "../../../provider/supabaseProvider";
-import { useAuth } from "../../../provider/AuthProvider";
+import { useLayout } from "../../provider/layoutProvider";
+import { useSupabase } from "../../provider/supabaseProvider";
+import { useAuth } from "../../provider/AuthProvider";
 
 const useLoadSavedData = () => {
   const { layout_type, layout_id } = useParams();

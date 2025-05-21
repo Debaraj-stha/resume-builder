@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import  {useLayout} from "../../../provider/layoutProvider";
-import  {useSupabase}  from "../../../provider/supabaseProvider";
-import  {useAuth}  from "../../../provider/AuthProvider";
+import  {useLayout} from "../../provider/layoutProvider";
+import  {useSupabase}  from "../../provider/supabaseProvider";
+import  {useAuth}  from "../../provider/AuthProvider";
 
 const  useAutoSave = () => {
   const { liveDetails } = useLayout();

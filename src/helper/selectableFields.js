@@ -1,4 +1,4 @@
-import { layout_type_map } from "../../constant";
+import { layout_type_map } from "../constant";
 const classicalLayoutSelectable = {
   1: ["experiences", "educations", "achievements"],
   2: ["experiences", "educations", "achievements", "strengths"],
