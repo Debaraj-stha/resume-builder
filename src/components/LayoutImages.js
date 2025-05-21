@@ -32,35 +32,43 @@ import simple_layout_5 from "../assets/layout-images/simple/simple_layout_5.png"
 
 
 export const classical_layouts_image_map = {
-  "Ivy League": classical_layout_1,
-  "Timeline": classical_layout_2,
-  "Elite": classical_layout_3,
-  "Single Column": classical_layout_4,
-  "Traditional": classical_layout_5,
-  "Monochrome": classical_layout_6
+  "classical": {
+    "Ivy League": classical_layout_1,
+    "Timeline": classical_layout_2,
+    "Elite": classical_layout_3,
+    "Single Column": classical_layout_4,
+    "Traditional": classical_layout_5,
+    "Monochrome": classical_layout_6
+  }
 };
 
 export const modern_layouts_image_map = {
-  "Elegan Modern": modern_layout_1,
-  "Stylish Modern": modern_layout_2,
-  "Double Colum Modern": modern_layout_3,
-  "Modern": modern_layout_4,
-  "creative": modern_layout_5,
-  "Compact Modern": modern_layout_6
+  "modern": {
+    "Elegan Modern": modern_layout_1,
+    "Stylish Modern": modern_layout_2,
+    "Double Colum Modern": modern_layout_3,
+    "Modern": modern_layout_4,
+    "creative": modern_layout_5,
+    "Compact Modern": modern_layout_6
+  }
 };
 export const creative_layouts_image_map = {
-  "Stylish": creative_layout_1,
-  "Double column": creative_layout_2,
-  "compact": creative_layout_3,
-  "Elegant": creative_layout_4,
-  "Creative": creative_layout_5
+  "creative": {
+    "Stylish": creative_layout_1,
+    "Double column": creative_layout_2,
+    "compact": creative_layout_3,
+    "Elegant": creative_layout_4,
+    "Creative": creative_layout_5
+  }
 };
-export const simple_layout_image_map={
-  'Ivy League':simple_layout_1,
-  'Double column':simple_layout_2,
-  'Single column refined':simple_layout_3,
-  'Single column':simple_layout_4,
-  'Timeline':simple_layout_5
+export const simple_layout_image_map = {
+  "simple": {
+    'Ivy League': simple_layout_1,
+    'Double column': simple_layout_2,
+    'Single column refined': simple_layout_3,
+    'Single column': simple_layout_4,
+    'Timeline': simple_layout_5
+  }
 }
 export const all_layouts_image_map = {
   ...classical_layouts_image_map,

@@ -45,7 +45,7 @@ const LayoutCardWithDetails = memo(({ imageSRC, layoutName, layoutDescription, u
   return (
     <LayoutCard>
       <ImageContainer>
-        <img src={imageSRC} alt={`layout`} loading="lazy" />
+        <img src={imageSRC} alt="layout" loading="lazy" />
         <Overlay>
           <Button onClick={handleButtonClick}>Customize This Template</Button>
         </Overlay>

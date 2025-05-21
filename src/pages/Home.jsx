@@ -11,15 +11,14 @@ import { useGetStarted } from "../helper/hooks/useGetStartedHook";
 
 
 
-
-
 const TypingAnimation = keyframes`
-        from {
-            width: 0;
-        }
-        to {
-            width: 100%;
-        }
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+
 `
 const TextWrapper = styled.div`
   color: ${({ theme }) => theme.colors.accent || "black"};
@@ -33,14 +32,16 @@ const TextWrapper = styled.div`
   height:max-content;
 `;
 
+
+
 const Span = styled.span`
-    width:0;
-    display:inline-block;
-    overflow:hidden;
-    word-wrap:nowrap;
-    height:100%;
-    animation: ${TypingAnimation} 2s steps(30) 1s  forwards;
-`
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  animation: ${TypingAnimation} 2s steps(30) 1s forwards;
+`;
+
 
 const TopSection = styled.section`
 background-color: ${({ theme }) => theme.colors.card.background};
@@ -64,7 +65,7 @@ const Home = () => {
             <div className="m-auto">
                 <Hspace height="200px" />
                 <TopSection>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-5xl mx-auto text-center">
                         <TextWrapper>
                             <Span>
                                 Build Your Professional CV in Minutes

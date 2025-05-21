@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import LayoutCardGrid from "../components/LayoutDescriptionGrid";
 import StartBuildingResumeButtton from "../components/StartBuildingResumeButton";
 import RenderLayoutImage from "../components/RenderLayoutImage";
-import { layout_type_map } from "../constant";
+
 
 
 
@@ -26,7 +26,7 @@ const AllLayouts = () => {
     setItemsLength(length)
   }, [])
   return (
-    <>
+    <PaginationProvider>
       <Hspace />
       <TemplatesdescriptionCard
         title={templateDescription.all.title}
@@ -51,7 +51,7 @@ const AllLayouts = () => {
       <LayoutCardGrid cardInfos={infoCardsData} />
       <StartBuildingResumeButtton onClick={() => console.log("clicked")} />
 
-    </>
+    </PaginationProvider>
   );
 };
 

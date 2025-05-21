@@ -10,9 +10,6 @@ const Nav = () => {
           <StyledNavLink to="/dashboard">Dashboard</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/build-resume">Build Resume</StyledNavLink>
-        </li>
-        <li>
           <StyledNavLink to="/templates">Templates</StyledNavLink>
         </li>
       </ul>
