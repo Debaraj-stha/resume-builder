@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import capitalize from "../../helper/capitalize";
+import capitalize from "../../../helper/capitalize";
 
 
 const ExpertiseWrapper = styled.div`

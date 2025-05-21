@@ -1,11 +1,15 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import supabase from "../../supabaseClient"
+import { createContext, use, useContext, useEffect, useMemo, useState } from "react";
+import supabase from "../../supabaseClient";
+import { useLocation, useNavigate } from "react-router-dom";
 const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true);
-    const isAuthenciated = !!user
+    let isAuthenciated = !!user
+    const navigate = useNavigate()
+    const location = useLocation()
+
 
 
     const getUser = async () => {
@@ -15,13 +19,20 @@ const AuthProvider = ({ children }) => {
             if (error) {
                 console.error("Error getting user:", error);
                 setUser(null);
-            } else {
+                isAuthenciated = false
+                // navigate("/login")
+            }
+            else if (data?.session === null) {
+                alert("Please check your email to confirm your account.");
+            }
+            else {
                 const user = {
                     id: data.user.id,
                     email: data.user.email,
                     name: data.user?.user_metadata?.name,
                     picture: data.user?.user_metadata?.picture,
                 };
+                isAuthenciated = true
 
                 setUser(user);
             }
@@ -53,7 +64,10 @@ const AuthProvider = ({ children }) => {
             }
             console.log("Logged in successfully:", user);
             if (user) {
-
+                const params = new URLSearchParams(location.search)
+                console.log("params", params)
+                const redirectTo = params.get("redirectTo") || "/"
+                navigate(`build-resume/${redirectTo}`);
             }
         } catch (error) {
             console.log("Unexpected error while login with google", error)
@@ -70,6 +84,9 @@ const AuthProvider = ({ children }) => {
             } else {
                 alert("Check your email for the login link.");
                 response.status = "success"
+                const params = new URLSearchParams(location.search)
+                const redirectTo = params.get("redirectTo") || "/"
+                navigate(`build-resume${redirectTo}`);
                 return response
             }
         } catch (e) {
@@ -77,43 +94,41 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+
     const loginWithEmailAndPassword = async (data, isLogin = true) => {
         try {
             const { email, password } = data;
-            let result;
-            const response = {}
+            let authResult;
+
             if (isLogin) {
-                result = await supabase.auth.signInWithPassword({ email, password });
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                authResult = data;
             } else {
-                result = await supabase.auth.signUp({ email, password });
+                const { data, error } = await supabase.auth.signUp({ email, password });
+                if (error) throw error;
+                authResult = data;
             }
-
-            const res = {
-                uuid: result.data.user.id,
-                email: result.data.user.email,
-                name: result.data.user.user_metadata
+            if (authResult?.session === null) {
+                alert("Please check your email to confirm your account.");
             }
-            const { data: authData, error } = result;
+            console.log("Auth result:", authResult);
 
-            if (error) {
-                alert(error.message);
-            } else {
-                response.status = "success"
-                alert(`${isLogin ? " Login" : "Signup"} successfull`);
+            // Extract redirectTo from query string
+            const params = new URLSearchParams(location.search);
+            const redirectTo = params.get("redirectTo") || "/";
+            console.log("Redirecting to:", redirectTo);
+            navigate(`build-resume${redirectTo}`);
 
-
-            }
         } catch (e) {
-            console.log("Unexpected error during auth:", e);
+            console.error("Auth error:", e.message);
+            alert(e.message || "Unexpected error during authentication");
         }
     };
 
 
+
     useEffect(() => {
-        // const fetchUser=async()=>{
-        //     await getUser()
-        // }
-        // fetchUser()
         getUser()
         const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
             if (session) {
@@ -129,7 +144,7 @@ const AuthProvider = ({ children }) => {
         };
     }, [])
 
-     const contextValue = useMemo(
+    const contextValue = useMemo(
         () => ({
             user,
             logout,
@@ -138,9 +153,11 @@ const AuthProvider = ({ children }) => {
             loginWithLink,
             loading,
             isAuthenciated,
-            setLoading
-    }),[
+            setLoading,
+            getUser
+        }), [
         user,
+        getUser,
         logout,
         loginWithEmailAndPassword,
         loginWithGoogle,

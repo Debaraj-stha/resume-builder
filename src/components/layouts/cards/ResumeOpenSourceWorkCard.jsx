@@ -9,7 +9,7 @@ const generateSimpleOpenSourceCard = ({ works,  style }) => {
         <>
             {
                 works.map((work, index) => {
-                    const { projectName, role, description, link, technologies, date } = work
+                    const {project_name:projectName, role, description, link, technologies, date } = work
                     return (
                         <div key={index}>
                             <h2 style={{ ...style.h2 }}>{projectName}</h2>

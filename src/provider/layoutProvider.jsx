@@ -157,36 +157,36 @@ const LayoutProvider = ({ children }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const contextValue ={
-      isLoading,
-      generatePDF,
-      ref: pdfRef,
-      measured,
-      setMeasured,
-      groupSectionsIntoPages,
-      sectionRefs,
-      liveDetails,
-      setLiveDetails,
-      compileInput,
-      isSavedLoaded,
-      setIsSavedLoaded,
-      setSavedData,
-    }
-  // ), [
-  //   isLoading,
-  //   generatePDF,
-  //   pdfRef,
-  //   measured,
-  //   setMeasured,
-  //   groupSectionsIntoPages,
-  //   sectionRefs,
-  //   liveDetails,
-  //   setLiveDetails,
-  //   compileInput,
-  //   isSavedLoaded,
-  //   setIsSavedLoaded,
-  //   setSavedData,
-  // ]);
+  const contextValue = useMemo(() => ({
+    isLoading,
+    generatePDF,
+    ref: pdfRef,
+    measured,
+    setMeasured,
+    groupSectionsIntoPages,
+    sectionRefs,
+    liveDetails,
+    setLiveDetails,
+    compileInput,
+    isSavedLoaded,
+    setIsSavedLoaded,
+    setSavedData,
+  }
+  ), [
+    isLoading,
+    generatePDF,
+    pdfRef,
+    measured,
+    setMeasured,
+    groupSectionsIntoPages,
+    sectionRefs,
+    liveDetails,
+    setLiveDetails,
+    compileInput,
+    isSavedLoaded,
+    setIsSavedLoaded,
+    setSavedData,
+  ]);
 
   return (
     <LayoutContext.Provider value={contextValue}>

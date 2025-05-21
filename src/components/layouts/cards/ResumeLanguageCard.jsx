@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { FlexBox } from "../../CustomComponents";
 import styled from "styled-components";
-import capitalize from "../../helper/capitalize";
+import capitalize from "../../../helper/capitalize";
 
 // Styled Components
 const LanguageWrapper = styled.div`
@@ -9,7 +9,7 @@ const LanguageWrapper = styled.div`
 `;
 
 const ProgressBarContainer = styled.div.withConfig({
-  shouldForwardProp:(props)=>!['borderRadius'].includes(props)
+  shouldForwardProp:(props)=>!['borderRadius',"backgroundColor"].includes(props)
 })`
   background: ${({ backgroundColor }) => backgroundColor || "#eee"};
   border-radius: ${({ borderRadius }) => borderRadius || "10px"};

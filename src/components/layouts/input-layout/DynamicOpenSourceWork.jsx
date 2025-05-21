@@ -1,6 +1,6 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import AppendRemoveButton, { AppendButton } from "./AppendDeleteButton";
-import {  GridFour,  GridTwo } from "./GridCards";
+import {  GridFour,  GridThree,  GridTwo } from "./GridCards";
 import { CardWrapper, H2, Input } from "../../CustomComponents";
 import { Textarea } from "../../elements/resumeSectionWrapper";
 import { useLayout } from "../../../provider/layoutProvider";
@@ -67,12 +67,12 @@ const DynamicOpenSourceWorkCard = ({ name }) => {
                     const base = `${name}[${index}]`
                     return (
                         <CardWrapper key={field.id} className="">
-                            <GridFour>
-                                <Input placeholder="Project Name" {...register(`${base}.projectName`)} />
+                            <GridTwo>
+                                <Input placeholder="Project Name" {...register(`${base}.project_name`)} />
                                 <Input placeholder="Role (e.g. Contributor)" {...register(`${base}.role`)} />
                                 <Input placeholder="Link to PR or Repo" {...register(`${base}.link`)} />
                                 <Input type="date" {...register(`${base}.date`)} />
-                            </GridFour>
+                            </GridTwo>
                             <H2 className="text-left">Techonogies used</H2>
                             <CardWrapper>
                                 {/* <GridFive> */}

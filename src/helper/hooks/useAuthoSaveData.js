@@ -1,9 +1,10 @@
 import { useCallback } from "react";
-import  {useLayout} from "../../provider/layoutProvider";
-import  {useSupabase}  from "../../provider/supabaseProvider";
-import  {useAuth}  from "../../provider/AuthProvider";
+import { useLayout } from "../../provider/layoutProvider";
+import { useSupabase } from "../../provider/supabaseProvider";
+import { useAuth } from "../../provider/AuthProvider";
+import { useNavigate, useParams } from "react-router-dom";
 
-const  useAutoSave = () => {
+const useAutoSave = () => {
   const { liveDetails } = useLayout();
   const { user } = useAuth();
   const {
@@ -14,14 +15,41 @@ const  useAutoSave = () => {
     insertExperienceAchievements,
     insertAchievements,
     insertStrengths,
-    insertCertificates
+    insertCertificates,
+    insertLanguages,
+    insertExperties,
+    insertOpenSourceWork,
+    insertPassions
   } = useSupabase();
+  const navigate = useNavigate();
+  const { layout_type, layout_id } = useParams()
 
   return useCallback(async () => {
     try {
+      if (!user) {
+        const confirm = window.confirm("You are not logged in. Do you want to save your data?");
+        if (confirm) {
+          navigate(`/redirecting?redirectTo=/${layout_type}/${layout_id}`);
+        } else {
+          alert("Data not saved.");
+        }
+        return;
+      }
       if (!user?.id || !liveDetails) return;
 
-      const { personalDetails, summary, educations, experiences, achievements, strengths,certificates } = liveDetails;
+      const {
+        personalDetails,
+        summary,
+        educations,
+        experiences,
+        achievements,
+        strengths,
+        certificates,
+        languages,
+        industryExpertise,
+        openSourceWork,
+        passions
+      } = liveDetails;
       const validPersonalDetails = Object.values(personalDetails).some(val => !!val?.toString().trim());
       if (!validPersonalDetails) return;
       const payload = {
@@ -84,6 +112,30 @@ const  useAutoSave = () => {
       if (validCertificates.length > 0) {
         await insertCertificates(validCertificates.map(c => ({ ...c, user_id: userId })));
       }
+      const validLanguages = (languages || []).filter(l => Object.values(l).some(v => !!v?.toString().trim()));
+      if (validLanguages.length > 0) {
+        await insertLanguages(validLanguages.map(l => ({ ...l, user_id: userId })));
+      }
+      const validExperties = (industryExpertise || []).filter(e => Object.values(e).some(v => !!v?.toString().trim()));
+      if (validExperties.length > 0) {
+        const values = validExperties.map(e => ({ ...e, user_id: userId }))
+        await insertExperties(values);
+      }
+      const validOpenSourceWork = (openSourceWork || []).filter(o => Object.values(o).some(v => !!v?.toString().trim()));
+
+      if (validOpenSourceWork.length > 0) {
+        const values=validOpenSourceWork.map(o => ({ ...o, user_id: userId }))
+        console.log("values", values)
+        await insertOpenSourceWork(values);
+      }
+      const validPassions = (passions || []).filter(p => Object.values(p).some(v => !!v?.toString().trim()));
+      if (validPassions.length > 0) {
+        const values=validPassions.map(p => ({ ...p, user_id: userId }))
+        console.log("values", values)
+        await insertPassions(values);
+      }
+
+
       console.log("All valid data saved successfully.");
     } catch (err) {
       console.error("Error in saveData:", err);

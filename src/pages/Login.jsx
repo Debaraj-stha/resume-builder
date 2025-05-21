@@ -173,13 +173,10 @@ const Login = () => {
   }
   const [selected, setSelected] = useState(modes.EMAIL_PASSWORD)
   const [show, setShow] = useState(false)
-
-
   const {
     loginWithEmailAndPassword,
     loginWithGoogle,
     loginWithLink,
-    getUser
   } = useAuth()
 
   const handleModeSelect = (mode) => {
@@ -193,9 +190,7 @@ const Login = () => {
 
   };
   useEffect(() => {
-
     handleResize();
-
     // Add resize listener
     window.addEventListener("resize", handleResize);
     //remove the listener
@@ -235,8 +230,11 @@ const Login = () => {
     else {
       response = await loginWithLink(data.email)
     }
-    if (response.status === "success") {
+    if (response?.status === "success") {
       reset()//clearing from field
+      // const params = new URLSearchParams(location.search)
+      // const redirectTo = params.get("redirectTo") || "/"
+      // navigate(redirectTo)
     }
   }
 

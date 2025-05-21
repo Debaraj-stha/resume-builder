@@ -6,20 +6,30 @@ import { useAuth } from "../../provider/AuthProvider";
 
 const useLoadSavedData = () => {
   const { layout_type, layout_id } = useParams();
-  const { user } = useAuth();
+  const { isAuthenciated } = useAuth();
   const { isSavedLoaded, setSavedData, setIsSavedLoaded } = useLayout();
   const { getSavedData } = useSupabase();
 
   useEffect(() => {
-    if (!user || isSavedLoaded) return;
+    let timer;
+    if (!isAuthenciated) {
+      //if not authenticate and exceeds 5 seconds, set isSavedLoaded to true
+      // this is to prevent infinite loading
+      timer = setTimeout(() => {
+        setIsSavedLoaded(true);
+      }, 5000); 
+    }
 
+    if (!isAuthenciated || isSavedLoaded) return;
     (async () => {
       const data = await getSavedData({ layout_type, layout_id });
       console.log("Saved data:", data);
       setSavedData(data);
       setIsSavedLoaded(true);
     })();
-  }, [user, isSavedLoaded, layout_type, layout_id]);
+    return () => clearTimeout(timer);
+
+  }, [isAuthenciated, isSavedLoaded, layout_type, layout_id]);
 };
 
 export default useLoadSavedData;

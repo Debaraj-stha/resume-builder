@@ -20,12 +20,12 @@ const DynamicPassionCard = ({ name }) => {
     return (
         <CardWrapper>
             {fields.length > 0 ? fields.map((field, index) => {
-                const base = `${name}[${index}].value`;
+                const base = `${name}[${index}].passion`;
                 return (
                     <GridTwo key={field.id}>
                         <Input
                             {...register(base)}
-                            placeholder={`passion[${index}] e.g. Tech Blogging, UI/UX Design`}
+                            placeholder={`e.g. Tech Blogging, UI/UX Design`}
                         />
                         <AppendRemoveButton handleAppend={handleAppend} handleRemove={handleRemove} />
                     </GridTwo>

@@ -21,7 +21,7 @@ export const defaultExperiences = [
     },
 ]
 export const defaultAchievements = [{ achievement: "", field: "", date: "" }]
-export const defaultSkills = [{ field: "basic", items: [{ value: "" }] }]
+export const defaultSkills = [{ field: " ", items: [{ value: "" }] }]
 export const defaultLanguages = [
     {
         language: "",
@@ -43,7 +43,7 @@ export const defaultAwards = [
         year: ""
     },
 ]
-export const defaultpassions = [{ value: "" }]
+export const defaultpassions = [{ passion: "" }]
 export const defaultstrengths = [
     {
         title: "",
@@ -52,7 +52,7 @@ export const defaultstrengths = [
 ]
 export const defaultOpenSourceWork = [
     {
-        projectName: "",
+        project_name: "",
         role: "",
         description: "",
         technologies: [{ value: "" }],

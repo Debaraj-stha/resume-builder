@@ -6,14 +6,7 @@ const SupabaseContext = createContext();
 import defaultFormFields from "../helper/default_form_value";
 const SupabaseProvider = ({ children }) => {
   const { user } = useAuth();
-  const {
-    educations: defaultEducations,
-    experiences: defaultEeperiences,
-    achievements: defaultAchievements,
-    strengths: defaultStrengths,
-    certificates: defaultCertificates,
-  } =
-    defaultFormFields
+
 
   const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
@@ -111,7 +104,6 @@ const SupabaseProvider = ({ children }) => {
     }
   };
   const getSavedData = async (layout_details) => {
-
     try {
       if (!user?.id) return {};
 
@@ -143,11 +135,11 @@ const SupabaseProvider = ({ children }) => {
 
 
       if (selectFields.includes("educations")) {
-        res.educations = await fetchWithFallback("educations", defaultEducations, 3);
+        res.educations = await fetchWithFallback("educations", defaultFormFields.educations);
       }
 
       if (selectFields.includes("achievements")) {
-        res.achievements = await fetchWithFallback("achievements", defaultAchievements);
+        res.achievements = await fetchWithFallback("achievements", defaultFormFields.achievements);
       }
 
 
@@ -168,10 +160,10 @@ const SupabaseProvider = ({ children }) => {
             expAchieves
               ?.filter(a => a.experience_id === exp.id)
               .map(a => ({ value: a.achievement })) || [{ value: "" }]
-        })) || defaultEeperiences;
+        })) || defaultFormFields.experiences;
       }
       if (selectFields.includes("strengths")) {
-        const strengths = await fetchWithFallback("strengths", defaultStrengths);
+        const strengths = await fetchWithFallback("strengths", defaultFormFields.strengths);
         res.strengths = strengths.map(str => ({
           title: str.title,
           description: str.description
@@ -179,13 +171,49 @@ const SupabaseProvider = ({ children }) => {
 
       }
       if (selectFields.includes("certificates")) {
-        const certificates = await fetchWithFallback("certificates", defaultCertificates);
+        const certificates = await fetchWithFallback("certificates", defaultFormFields.certificates);
         res.certificates = certificates.map(cert => ({
           certificate: cert.certificate,
           subject: cert.subject,
           date: cert.date
         }));
       }
+      if (selectFields.includes("languages")) {
+        res.languages = await fetchWithFallback("languages", defaultFormFields.languages);
+      }
+      if (selectFields.includes("industryExpertise")) {
+        res.industryExpertise = await fetchWithFallback("industry_expertise", defaultFormFields.industryExpertise);
+      }
+      if (selectFields.includes("openSourceWork")) {
+        const openSourceWork = await fetchWithFallback("open_source_work", defaultFormFields.openSourceWork);
+        console.log("openSourceWork", openSourceWork)
+        const technologies = openSourceWork.map(os => os.technologies).flat();
+        const parsedTechnologies = technologies
+          .map(t => {
+            try {
+              return JSON.parse(t);
+            } catch (e) {
+              return null; // skip invalid JSON
+            }
+          })
+          .filter(t => t && t.value?.toString().trim()) // removes nulls and empty values
+          .map(t => ({ value: t.value }));
+        res.openSourceWork = openSourceWork.map(os => ({
+          project_name: os.project_name,
+          role: os.role,
+          description: os.description,
+          technologies: parsedTechnologies,
+          link: os.link,
+          date: os.date
+        }));
+      }
+      if (selectFields.includes("passions")) {
+        const passions = await fetchWithFallback("passions", defaultFormFields.passions);
+        res.passions = passions.map(p => ({
+          passion: p.passion
+        }));
+      }
+      console.log("res", res)
 
       return res;
     } catch (error) {
@@ -203,11 +231,11 @@ const SupabaseProvider = ({ children }) => {
     insertAchievements: d => insertData("achievements", d, true, ["user_id", "achievement", "field", "date"]),
     insertSkills: d => insertData("skills", d, true, ["user_id", "field"]),
     insertSkillItem: d => insertData("skill_items", d, true, ["field_id", "skill"]),
-    insertPassions: d => insertData("passions", d, true, ["user_id"]),
+    insertPassions: d => insertData("passions", d, true, ["user_id", "passion"]),
     insertLanguages: d => insertData("languages", d, true, ["user_id", "language"]),
-    insertOpenSourceWork: d => insertData("openSourcework", d, true, ["user_id"]),
+    insertOpenSourceWork: d => insertData("open_source_work", d, true, ["user_id", "project_name", "role", "link"]),
     insertCertificates: d => insertData("certificates", d, true, ["user_id", "certificate", "subject", "date"]),
-    insertExperties: d => insertData("expertise", d, true, ["user_id"]),
+    insertExperties: d => insertData("industry_expertise", d, true, ["user_id", "tech", "value"]),
     insertMyTime: d => insertData("myTime", d, true, ["user_id"]),
     insertStrengths: d => insertData("strengths", d, true, ["user_id", "title", "description"]),
     insertExperienceAchievements: d => insertData("experience_achievements", d, true, ["experience_id", "achievement"]),

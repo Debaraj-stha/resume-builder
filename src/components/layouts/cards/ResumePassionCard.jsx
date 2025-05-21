@@ -9,7 +9,7 @@ const generateModernPassionCard = ({ passion, style, ...props }) => {
                {
                 shouldIncludeIcon && <FaFire color={style?.iconColor?style?.iconColor:"orange"}/>
                }
-                <h2 style={{ ...style.sectionSubHeader }}>{passion.value}</h2>
+                <h2 style={{ ...style.sectionSubHeader }}>{passion.passion}</h2>
             </FlexBox>
         </>
     )

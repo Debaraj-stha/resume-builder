@@ -15,6 +15,7 @@ const LayoutInputField = () => {
   const layout_type = params.layout_type
 
 const generatedProps = useMemo(() => {
+  console.log("layout_type",layout_type,layout_id)
     const props = {};
     const handleModernLayoutProps = () => {
       switch (layout_id) {
@@ -69,16 +70,13 @@ const generatedProps = useMemo(() => {
   const onSubmit = (data) => {
     console.log(data)
   }
-    const {  complie_input } = useLayout()
+  
   return (
     <div className="min-h-screen overflow-y-scroll">
       <form onSubmit={handleSubmit(onSubmit)}>
         <LayoutWrapperWithBorder padding="20px 20mm">
            <H3>Input Your Details</H3>
-          {/* <FlexBox alignItems="center">
-            <H3>Input Your Details</H3>
-             <TextIconButton  onClick={complie_input} id="modern" text="Compile Now" icon={<FaCogs color="white" />}></TextIconButton>
-          </FlexBox> */}
+  
           <ResumeInputFieldWrapper>
             {sectionData.map((section, i) => {
               const isExperienceSection = section.key === "experience-0";

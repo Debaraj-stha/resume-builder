@@ -7,7 +7,7 @@ import { GridOne, GridTwo } from "./GridCards";
 const HeaderSection = (props) => {
   const { control, register } = useFormContext();
 
-  const { acceptProfession = true,acceptImage=true } = props;
+  const { acceptProfession = false,acceptImage=false } = props;
   console.log(acceptProfession)
   return (
     <CardWrapper>
