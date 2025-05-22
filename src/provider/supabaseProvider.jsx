@@ -11,7 +11,6 @@ const SupabaseProvider = ({ children }) => {
   const insertData = async (table, data, multiple = false, conflictKeys = []) => {
     try {
       const payload = multiple ? data : [data];
-      console.log("payload", payload)
       const { data: res, error } = await supabase
         .from(table)
         .upsert(payload, {
@@ -28,11 +27,12 @@ const SupabaseProvider = ({ children }) => {
     }
   };
 
-  const retriveData = async (table, fields = "*", filters = {}, orderBy = null, orderDesc = false) => {
+  const retriveData = async (table, fields = "*", filters = {}, orderBy = null, orderDesc = false,limit) => {
     try {
       let query = supabase.from(table).select(fields);
       Object.entries(filters).forEach(([key, val]) => query = query.eq(key, val));
       if (orderBy) query = query.order(orderBy, { ascending: !orderDesc });
+      if (limit) query = query.limit(limit);
 
       const { data, error } = await query;
       if (error) throw error;
@@ -120,8 +120,8 @@ const SupabaseProvider = ({ children }) => {
       const user_id = personalDetails.id;
       res.personalDetails = personalDetails;
 
-      const fetchWithFallback = async (table, defaultValue) => {
-        const data = await retriveData(table, "*", { user_id }, ...orderBy);
+      const fetchWithFallback = async (table, defaultValue,limit) => {
+        const data = await retriveData(table, "*", { user_id }, ...orderBy,limit);
         return data?.length ? data : defaultValue;
       };
 
@@ -213,6 +213,52 @@ const SupabaseProvider = ({ children }) => {
           passion: p.passion
         }));
       }
+      if (selectFields.includes("trainings")) {
+        const trainings = await fetchWithFallback("trainings", defaultFormFields.trainings);
+        res.trainings = trainings.map(t => ({
+          title: t.title,
+          organization: t.organization,
+          year: t.year,
+          location: t.location
+        }));
+      }
+      if (selectFields.includes("awards")) {
+        const awards = await fetchWithFallback("awards", defaultFormFields.awards);
+        res.awards = awards.map(a => ({
+          title: a.title,
+          organization: a.organization,
+          year: a.year,
+
+        }));
+      }
+      if (selectFields.includes("my_time")) {
+        const my_time = await fetchWithFallback("my_time", defaultFormFields.my_time);
+        res.my_time = my_time.map(m => ({
+          activity: m.activity,
+          value: m.value
+        }));
+      }
+      if (selectFields.includes("skills")) {
+        const skills = await fetchWithFallback("skills", defaultFormFields.skills,1);
+        const skillItems = skills.map(s => s.items).flat();
+        console.log("skillItems", skillItems)
+        const parsedItems = skillItems
+          .filter(item => item !== null)
+          .flatMap(item => {
+            try {
+              return JSON.parse(item);
+            } catch (e) {
+              console.error('Invalid JSON:', item);
+              return [];
+            }
+          });
+        res.skills = skills.map(s => ({
+          field: s.field,
+          items: parsedItems,
+        }))
+
+        console.log("skills", skills)
+      }
       console.log("res", res)
 
       return res;
@@ -229,17 +275,17 @@ const SupabaseProvider = ({ children }) => {
     insertEducations: d => insertData("educations", d, true, ["user_id", "university", "degree", "start_year", "end_year"]),
     insertExperiences: d => insertData("experiences", d, true, ["user_id", "company_name", "position", "location", "start_date", "end_date"]),
     insertAchievements: d => insertData("achievements", d, true, ["user_id", "achievement", "field", "date"]),
-    insertSkills: d => insertData("skills", d, true, ["user_id", "field"]),
-    insertSkillItem: d => insertData("skill_items", d, true, ["field_id", "skill"]),
+    insertSkills: d => insertData("skills", d, true, ["user_id", "field","items"]),
     insertPassions: d => insertData("passions", d, true, ["user_id", "passion"]),
     insertLanguages: d => insertData("languages", d, true, ["user_id", "language"]),
     insertOpenSourceWork: d => insertData("open_source_work", d, true, ["user_id", "project_name", "role", "link"]),
     insertCertificates: d => insertData("certificates", d, true, ["user_id", "certificate", "subject", "date"]),
     insertExperties: d => insertData("industry_expertise", d, true, ["user_id", "tech", "value"]),
-    insertMyTime: d => insertData("myTime", d, true, ["user_id"]),
+    insertMyTime: d => insertData("my_time", d, true, ["user_id", "activity", "value"]),
     insertStrengths: d => insertData("strengths", d, true, ["user_id", "title", "description"]),
     insertExperienceAchievements: d => insertData("experience_achievements", d, true, ["experience_id", "achievement"]),
-    insertTrainings: d => insertData("trainings", d, true, ["user_id", "title", "organization", "year"]),
+    insertTrainings: d => insertData("trainings", d, true, ["user_id", "title", "organization", "year", "location"]),
+    insertAwards: d => insertData("awards", d, true, ["user_id", "title", "organization", "year"]),
     retriveData,
     uploadFile: uploadFileWithProgress,
     getFiles,

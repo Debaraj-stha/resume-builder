@@ -20,19 +20,13 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
         skills = [],
         trainings = [],
         awards = [],
-        languages = []
+        languages = [],
+        my_time = [],
     } = data;
     const divider = <TransparentLine />
 
     const layout_type = layout_type_map.CREATIVE
-    const items = [
-        { label: 'A', value: 1, activity: 'Learning new things' },
-        { label: 'B', value: 1, activity: 'Working with my team' },
-        { label: 'C', value: 1, activity: 'Hiring' },
-        { label: 'D', value: 1, activity: 'Meeting customers' },
-        { label: 'E', value: 1, activity: 'Time in nature' },
-        { label: 'F', value: 1, activity: 'Volunteering' },
-    ];
+
 
     return [
         generateProfileDetails({
@@ -150,7 +144,7 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
             }
         }),
         generateMyTimeSection({
-            items,
+            items:my_time,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

@@ -17,6 +17,7 @@ const getCreativeLayout1OuctputSectionData = (data, layout_no) => {
         skills = [],
         achievements = [],
         strengths = [],
+        my_time=[],
         summary = ""
     } = data;
     const divider = <TransparentLineWithAngleAtCenter />
@@ -146,7 +147,7 @@ const getCreativeLayout1OuctputSectionData = (data, layout_no) => {
 
         }),
         generateMyTimeSection({
-            items,
+            items:my_time,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

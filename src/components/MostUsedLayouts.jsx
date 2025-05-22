@@ -1,8 +1,9 @@
 import { memo, useEffect } from "react";
-import { Button, FlexBox, H1} from "./CustomComponents";
+import { H1 } from "./elements/resumeSectionWrapper";
+import { Button, FlexBox } from "./CustomComponents";
 import LayoutCardWithDetails from "./LayoutCardWithDetails";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { usePagination } from "../provider/paginationProvider";
 import ToolTip from "../components/Tooltip"
 import LayoutGridWrapper from "./layouts/wrappers/LayoutGridWrapper";
@@ -23,7 +24,7 @@ const PositionedDiv = styled.div`
 `;
 
 
-const MostUsedLayouts = memo(({layout_image_map,layout_descriptions}) => {
+const MostUsedLayouts = memo(({ layout_image_map, layout_descriptions }) => {
 
     const {
         currentPage,
@@ -51,12 +52,12 @@ const MostUsedLayouts = memo(({layout_image_map,layout_descriptions}) => {
         setItemsLength(length)
     }, [])
 
-
+    const theme = useTheme()
 
     return (
         <div className="my-5 relative">
             <div className="my-3">
-                <H1>Most popular among users</H1>
+                <H1 fontWeight="700" color={theme.colors.text}>Most popular among users</H1>
             </div>
             <FlexBox justifyContent="space-between">
                 <PositionedDiv left="-100px">

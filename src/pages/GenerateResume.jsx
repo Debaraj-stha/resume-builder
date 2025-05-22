@@ -8,6 +8,7 @@ import GeneratePageFixedButtons from "../components/generatePageFixedButton";
 import Loading from "../components/Loading";
 import useAutoSave from "../helper/hooks/useAuthoSaveData";
 import useLoadSavedData from "../helper/hooks/useLoadSavedData";
+import useAutoSaveWithDiff from "../helper/hooks/useAutoSaveWithDiff";
 
 const MainWrapper = styled.section`
   width: 100vw;
@@ -33,27 +34,23 @@ const GenerateResume = () => {
   const [showIcons, setShowIcons] = useState(false);
 
   const { isSavedLoaded } = useLayout()
+  const AUTOSAVE_INTERVAL = 1000 * 60; // 1 minute
 
 
-
-
+ useAutoSaveWithDiff(AUTOSAVE_INTERVAL)
   useEffect(() => {
-    const handleUnload = async (e) => {
-
-    };
+  
     const handleScroll = () => { setShowIcons(false) };
-    window.addEventListener("beforeunload", handleUnload);
     window.addEventListener("scroll", handleScroll)
     return () => {
       window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("beforeunload", handleUnload);
 
     }
   }, [])
 
 
   useLoadSavedData()
-  const saveData = useAutoSave()
+
 
   const setShowIconsCallback = useCallback(setShowIcons, [])
   //showing loading ui before loading old saved records from database if have
@@ -68,7 +65,7 @@ const GenerateResume = () => {
         <LayoutInputField />
         <LayoutPreview />
       </ResponsiveGrid>
-      <GeneratePageFixedButtons showIcons={showIcons} setShowIcons={setShowIconsCallback} saveData={saveData} />
+      <GeneratePageFixedButtons showIcons={showIcons} setShowIcons={setShowIconsCallback}  />
 
     </MainWrapper>
   );

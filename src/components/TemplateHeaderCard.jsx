@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import  { memo } from "react";
 import { H1,P } from "./elements/resumeSectionWrapper";
 import { useTheme } from "styled-components";
 const TemplatesdescriptionCard=memo(({title,description})=>{

@@ -26,7 +26,7 @@ const FixedIconWrapper = styled.div`
 // Progress fill bar that adjusts width based on progress prop
 
 
-const GeneratePageFixedButtons = memo(({ setShowIcons, saveData, showIcons }) => {
+const GeneratePageFixedButtons = memo(({ setShowIcons,  showIcons }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
     const { generatePDF, compileInput } = useLayout();
@@ -67,7 +67,7 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, saveData, showIcons }) =>
                     >
                         {showIcons ? <MdExpandLess /> : <MdExpandMore />}
                     </CircularIconHolder>
-                    <button onClick={() => saveData()}>Save data</button>
+
                 </ToolTip>
 
                 {showIcons && (

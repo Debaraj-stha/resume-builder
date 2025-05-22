@@ -45,6 +45,9 @@ const BaseLayoutRenderer = memo(
     const languages = staticProps.languages || liveDetails.languages;
     const openSourceWork = staticProps.openSourceWork || liveDetails.openSourceWork
     const passions = staticProps.passions || liveDetails.passions
+    const awards=staticProps.awards || liveDetails.awards
+    const trainings=staticProps.trainings || liveDetails.trainings
+    const my_time=staticProps.my_time || liveDetails.my_time
     const key_val = {
       personalDetails,
       educations,
@@ -57,7 +60,10 @@ const BaseLayoutRenderer = memo(
       industryExpertise,
       languages,
       openSourceWork,
-      passions
+      passions,
+      awards,
+      trainings,
+      my_time
 
     };
 

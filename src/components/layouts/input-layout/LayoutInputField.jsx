@@ -3,19 +3,17 @@ import { LayoutWrapperWithBorder, ResumeInputFieldWrapper } from "../../elements
 import { Section } from "../../elements/resumeSectionWrapper";
 import { useParams } from "react-router-dom";
 import { fetchSectionData } from "./section-data/fetch-section-data";
-import TextIconButton, { IconButton } from "../../IconButton";
 import { useFormContext } from "react-hook-form";
-import { H1,H2,H3,FlexBox } from "../../CustomComponents";
-import {useLayout} from "../../../provider/layoutProvider"
+import {H3 } from "../../CustomComponents";
+
 import { layout_type_map } from "../../../constant";
-import { FaCogs } from "react-icons/fa";
+
 const LayoutInputField = () => {
   const params = useParams()
   const layout_id = parseInt(params.layout_id, 10);
   const layout_type = params.layout_type
 
 const generatedProps = useMemo(() => {
-  console.log("layout_type",layout_type,layout_id)
     const props = {};
     const handleModernLayoutProps = () => {
       switch (layout_id) {
@@ -46,6 +44,12 @@ const generatedProps = useMemo(() => {
       return props
     }
     const handleSimpleLayoutProps = () => {
+      switch(layout_id){
+        case 1:
+          props.header={
+            acceptImage:true
+          }
+      }
       return props
     }
 

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // Colors assigned to each slice of the donut chart
 const COLORS = ['#4e79a7', '#6699cc', '#80b1d3', '#99c2eb', '#b3d3f4', '#cce5ff'];
 
 const DonutChart = ({ items, style }) => {
   // Total value of all slices to calculate percentage angles
-  const total = items.reduce((acc, item) => acc + item.value, 0);
+  const total = items.reduce((acc, item) => acc + parseInt(item?.value, 10), 0);
 
   const radius = 60;        // Radius of the donut circle
   const strokeWidth = 40;   // Thickness of each arc segment
@@ -21,7 +21,7 @@ const DonutChart = ({ items, style }) => {
   };
 
   // Return an SVG arc path string from startAngle to endAngle
-  const describeArc = (x, y, radius, startAngle, endAngle) => {
+  const describeArc = useCallback((x, y, radius, startAngle, endAngle) => {
     //convert angle plus radius to actual x,y coordinates
     const end = polarToCartesian(x, y, radius, startAngle);
     const start = polarToCartesian(x, y, radius, endAngle);
@@ -48,14 +48,19 @@ const DonutChart = ({ items, style }) => {
       'A', radius, radius, 0, largeArcFlag, 0,  // Arc parameters
       end.x, end.y                              // Draw to end point
     ].join(' ');
-  };
+  },[items,items.length]);
 
   // Generate all arcs and labels for each item
   const arcs = items.map((slice, index) => {
-    // Calculate start and end angles for the arc
     const startAngle = (cumulative / total) * 360;
-    const angle = (slice.value / total) * 360;
+
+    // Adjust the last angle to fill in the gap
+    const angle = (index === items.length - 1)
+      ? 360 - startAngle  // Use the remaining angle
+      : (slice.value / total) * 360;
+
     const endAngle = startAngle + angle;
+
     cumulative += slice.value; // Update cumulative for next slice
 
     // Generate arc path string for SVG <path> element
@@ -98,13 +103,13 @@ const DonutChart = ({ items, style }) => {
         {/* Label above the pin */}
         <text
           x={labelPos.x}
-          y={labelPos.y }
+          y={labelPos.y}
           textAnchor="middle"
           dominantBaseline="middle"
           fill="black"
-                   {...style.sectionSubHeader}
+          {...style.sectionSubHeader}
         >
-          {slice.label}
+          {slice?.activity?.charAt(0)}
         </text>
 
       </g>
@@ -124,7 +129,7 @@ const DonutChart = ({ items, style }) => {
       <ul style={{ listStyle: 'none', padding: 0, margin: "0 0 0 6px" }}>
         {items.map((item, idx) => (
           <li key={idx} style={{ marginBottom: '8px', ...style.p }}>
-            <strong>{item.label}</strong>: {item.activity}
+            <strong>{item?.activity?.charAt(0)}</strong>: {item.activity}
           </li>
         ))}
       </ul>
