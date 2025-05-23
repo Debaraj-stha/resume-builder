@@ -1,14 +1,10 @@
 
 import { generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_3_style as style } from "../layout-3/style"
-
-import { TransparentLine } from "../../../Divider/TransparentDividers";
-
 import generateSkill from "../../section-data/skill_section_data";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
-const getLayout3OutputSection = (data, layout_no) => {
-
+const getLayout3OutputSection = (data, divider)=>{
     const {
         personalDetails = {},
         summary = "",
@@ -16,8 +12,6 @@ const getLayout3OutputSection = (data, layout_no) => {
         educations = [],
         skills = [],
     } = data;
-    console.log("called layout no 3",layout_no)
-    const divider = <TransparentLine />
     return [
         generateProfileDetails({
             personalDetails,

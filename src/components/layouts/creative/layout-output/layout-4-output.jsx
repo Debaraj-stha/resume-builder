@@ -1,6 +1,3 @@
-import { layout_type_map } from "../../../../constant";
-import { TransparentLine } from "../../../Divider/TransparentDividers";
-
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateEducation from "../../section-data/education_secion_data";
 import generateExperience from "../../section-data/experience_section_data";
@@ -10,7 +7,7 @@ import generateProfileDetails from "../../section-data/profile_details";
 import generateStrength from "../../section-data/strength_section_data";
 import generateSummary from "../../section-data/summary";
 import { layout_4_style as style } from "../layout-4/style";
-const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
+const getCreativeLayout4OuctputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -22,16 +19,12 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
         achievements=[],
         passions=[]
     } = data;
-    const divider = <TransparentLine />
 
-    const layout_type = layout_type_map.CREATIVE
   
 
     return [
         generateProfileDetails({
             personalDetails: personalDetails,
-            layout_no: layout_no,
-            layout_type: layout_type,
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -55,9 +48,7 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
             }
         }),
         generateStrength({
-            strengths: strengths.slice(0, 2),
-            layout_no,
-            layout_type: layout_type,
+            strengths,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -73,9 +64,7 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
 
         }),
         generateExperience({
-            experiences: experiences.slice(0, 2),
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+            experiences,
             divider,
             style: {
                 h2: style.h2,
@@ -96,8 +85,6 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
 
@@ -117,8 +104,6 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
 
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -139,9 +124,7 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
      
         generateLanguage({
             languages,
-            layout_no,
-            layout_type: layout_type,
-            divider,
+           divider,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,
@@ -154,9 +137,8 @@ const getCreativeLayout4OuctputSectionData = (data, layout_no) => {
             }
         }),
         generatePassionSectionData({
-            passions:passions.slice(0,4),
-            layout_no,
-            layout_type: layout_type,
+            passions,
+            divider,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,

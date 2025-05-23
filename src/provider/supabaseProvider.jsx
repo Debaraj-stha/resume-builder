@@ -241,7 +241,7 @@ const SupabaseProvider = ({ children }) => {
       if (selectFields.includes("skills")) {
         const skills = await fetchWithFallback("skills", defaultFormFields.skills,1);
         const skillItems = skills.map(s => s.items).flat();
-        console.log("skillItems", skillItems)
+
         const parsedItems = skillItems
           .filter(item => item !== null)
           .flatMap(item => {
@@ -256,11 +256,7 @@ const SupabaseProvider = ({ children }) => {
           field: s.field,
           items: parsedItems,
         }))
-
-        console.log("skills", skills)
       }
-      console.log("res", res)
-
       return res;
     } catch (error) {
       console.error("getSavedData error:", error);

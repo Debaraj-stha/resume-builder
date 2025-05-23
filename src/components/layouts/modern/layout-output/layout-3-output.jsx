@@ -1,6 +1,5 @@
 
 import { layout_3_style as style } from "../layout-3/style";
-import { LineDivider } from "../../../Divider/TransparentDividers";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
 import generateEducation from "../../section-data/education_secion_data";
@@ -8,8 +7,8 @@ import generateExperience from "../../section-data/experience_section_data";
 import generateSkill from "../../section-data/skill_section_data";
 import generateLanguage from "../../section-data/language_section_data";
 import generateStrength from "../../section-data/strength_section_data";
-import { layout_type_map } from "../../../../constant";
-const getModernLayout3OutputSectionData = (data, layout_no) => {
+
+const getModernLayout3OutputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -23,11 +22,9 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
         strengths
     } = data;
 
-    const divider = <LineDivider height="3px" />
-    const layout_type = layout_type_map.MODERN
     return [
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] }, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] },
             shouldIncludeImage: true,
             style: {
                 nameStyle: style.nameStyle,
@@ -53,8 +50,6 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -73,8 +68,6 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
         }),
         generateExperience({
             experiences,
-            layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -96,14 +89,10 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 sectionSubHeader: style.sectionSubHeader
             },
-            layout_no: layout_no,
-            layout_type: layout_type
         }),
 
         generateLanguage({
             languages,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2, color: style.headerTextColor,
@@ -112,9 +101,7 @@ const getModernLayout3OutputSectionData = (data, layout_no) => {
             }
         }),
         generateStrength({
-            strengths:strengths.slice(0,4),
-            layout_no,
-            layout_type: layout_type,
+            strengths,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

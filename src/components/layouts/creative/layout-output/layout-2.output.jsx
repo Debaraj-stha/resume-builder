@@ -1,5 +1,3 @@
-import { layout_type_map } from "../../../../constant";
-import {TransparentLineWithBox} from "../../../Divider/TransparentDividers";
 
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateEducation from "../../section-data/education_secion_data";
@@ -10,7 +8,7 @@ import generateSkill from "../../section-data/skill_section_data";
 import generateStrength from "../../section-data/strength_section_data";
 import generateSummary from "../../section-data/summary";
 import { layout_2_style as style } from "../layout-2/style";
-const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
+const getCreativeLayout2OuctputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -22,15 +20,11 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         summary = "",
 
     } = data;
-    const divider = <TransparentLineWithBox />
 
-    const layout_type = layout_type_map.CREATIVE
 
     return [
         generateProfileDetails({
             personalDetails: { ...personalDetails, urls: [personalDetails.urls[1]] },
-            layout_no: layout_no,
-            layout_type: layout_type,
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -56,8 +50,6 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
 
@@ -73,8 +65,6 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -105,16 +95,12 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
-            layout_type: layout_type,
             props: {
                 borderBottom: true
             }
         }),
         generateExperience({
-            experiences: experiences.slice(0, 1),
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+            experiences,
             divider,
             style: {
                 h2: style.h2,
@@ -133,9 +119,7 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         }),
 
         generateStrength({
-            strengths: strengths.slice(0, 2),
-            layout_no,
-            layout_type: layout_type,
+            strengths,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -147,8 +131,7 @@ const getCreativeLayout2OuctputSectionData = (data, layout_no) => {
         }),
         generateIndustryExpertise({
             industryExpertise,
-            layout_no,
-            layout_type: layout_type,
+            divider,
             style: {
                 sectionHeader: style.sectionHeader,
                 sectionSubHeader: style.sectionSubHeader,

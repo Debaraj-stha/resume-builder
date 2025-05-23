@@ -1,9 +1,10 @@
 // Import React hooks for state management and side effects
 import { useState, useEffect } from "react";
 import { layout_type_map } from "../../constant";
-
+import { TransparentLine } from "../Divider/TransparentDividers";
+const defaultDivider=<TransparentLine/>
 // Custom hook to dynamically import and render layout sections based on layoutId
-const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical") => {
+const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical",divider=defaultDivider) => {
 
   // Initialize state to hold the output sections from the layout file
   //function to load modern layout sections
@@ -32,7 +33,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         break
     }
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData, layoutId)
+      const output = layoutModule.default(resumeData, divider)
       setSections(output)
     }
 
@@ -63,7 +64,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
 
     // If module is loaded and component is still mounted, update the sections state
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData, layoutId); // Call the default exported function with resume data
+      const output = layoutModule.default(resumeData, divider); // Call the default exported function with resume data
       setSections(output); // Set the resulting sections
     }
 
@@ -92,7 +93,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
 
     }
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData, layoutId)
+      const output = layoutModule.default(resumeData, divider)
       setSections(output)
     }
   }
@@ -117,7 +118,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
         break
     }
     if (layoutModule && isMounted) {
-      const output = layoutModule.default(resumeData, layoutId)
+      const output = layoutModule.default(resumeData, divider)
       setSections(output)
     }
   }
@@ -151,7 +152,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
     return () => {
       isMounted = false;
     };
-  }, [layoutId, resumeData]); // Re-run effect if layoutId or resumeData changes
+  }, [layoutId, resumeData,divider]); // Re-run effect if layoutId or resumeData changes
 
   // Return the loaded sections to be used in the UI
   return sections;

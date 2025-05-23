@@ -1,11 +1,9 @@
-import SkillCard from "../../cards/ResumeSkillCard"
-import ResumeHeader from "../../cards/ResumeHeader";
 import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_4_style as style } from "../layout-4/style"
 
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSkill from "../../section-data/skill_section_data";
-const getLayout4OutputSection = (data, layout_no) => {
+const getLayout4OutputSection = (data, divider)=>{
 
     const {
         personalDetails = {},
@@ -15,7 +13,6 @@ const getLayout4OutputSection = (data, layout_no) => {
         achievements = [],
         certificates = []
     } = data;
-console.log("called layout number 4",layout_no)
     return [
         generateProfileDetails({
             personalDetails,
@@ -36,7 +33,7 @@ console.log("called layout number 4",layout_no)
         }),
         ...generateAchievementsSections({
             achievements,
-            layout_no,
+        
             style: {
                 sectionHeader: style.sectionHeader,
                 iconColor: style.primaryColor,
@@ -52,7 +49,7 @@ console.log("called layout number 4",layout_no)
             sectionHeader: "key achievement"
         }),
         ...generateEducationSections({
-            educations, layout_no,
+            educations,
             style: {
                 h2: style.h2,
                 h3: style.h3,
@@ -66,8 +63,8 @@ console.log("called layout number 4",layout_no)
             }
         }),
         ...generateExperienceSections({
-            experiences: experiences.slice(0, 2), 
-            layout_no, 
+            experiences, 
+         
             style: {
                 h2: style.h2,
                 h3: style.h3,
@@ -82,7 +79,7 @@ console.log("called layout number 4",layout_no)
         }),
 
         generateSkill({
-            skills: skills.slice(0, 4),
+            skills,
 
             style: {
                 sectionHeader: style.sectionHeader,
@@ -91,7 +88,7 @@ console.log("called layout number 4",layout_no)
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
+        
             titleHeader: "technical skills",
             props: {
                 borderBottom: true
@@ -99,7 +96,7 @@ console.log("called layout number 4",layout_no)
         }),
         ...generateCertipicates({
             certificates,
-            layout_no,
+        
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,

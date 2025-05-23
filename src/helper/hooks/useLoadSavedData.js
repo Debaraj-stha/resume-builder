@@ -23,7 +23,7 @@ const useLoadSavedData = () => {
     if (!isAuthenciated || isSavedLoaded) return;
     (async () => {
       const data = await getSavedData({ layout_type, layout_id });
-      console.log("Saved data:", data);
+     
       setSavedData(data);
       setIsSavedLoaded(true);
     })();

@@ -10,9 +10,8 @@ import generateSummary from "../../section-data/summary";
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 
-const divider = <LineDivider height="3px" backgroundColor="#ccc8c8" />
 
-const getModernLayout4OutputSectionData = (data, layout_no) => {
+const getModernLayout4OutputSectionData = (data, layout_no,divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -23,10 +22,10 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         summary = "",
         passions
     } = data;
-    const layout_type = layout_type_map.MODERN
+
     return [
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [] }, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: { ...personalDetails, urls: [] },
             shouldIncludeImage: true,
             style: {
                 nameStyle: style.nameStyle,
@@ -54,8 +53,6 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 iconColor: style.primaryColor,
@@ -67,8 +64,6 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         }),
         generateExperience({
             experiences,
-            layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -86,8 +81,6 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -128,8 +121,6 @@ const getModernLayout4OutputSectionData = (data, layout_no) => {
         }),
         generatePassionSectionData({
             passions:passions.slice(0,4),
-            layout_no,
-            layout_type: layout_type,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2

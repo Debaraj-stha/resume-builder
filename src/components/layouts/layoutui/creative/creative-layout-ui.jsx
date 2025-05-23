@@ -1,11 +1,17 @@
 
-import { CreativeResumeWrapperWithLine } from "../../../elements/resumeWrapper";
+import { useEffect } from "react";
 import useDynamicLayoutSections from "../../loadResumeLayput";
 import renderLayout from "../render-ui";
+import { useDivider } from "../../../../provider/DividerProvider";
 
 
-const renderCreativeLayoutUI = ({ pages, layoutId, key_val, layout_type, sectionRefs, shouldImplementFlex }) => {
-    const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
+const renderCreativeLayoutUI = ({ pages, layoutId, key_val, layout_type, sectionRefs,dividerType }) => {
+    const {divider,changeDivider}=useDivider()
+    useEffect(()=>{
+        changeDivider(dividerType)
+    },[dividerType])
+
+    const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type,divider);
     switch (layoutId) {
         case 1:
             return renderLayout({

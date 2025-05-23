@@ -102,7 +102,7 @@ export const P = styled.p.withConfig({
     font-weight:${(props) => props.fontWeight || "normal"};
     font-size:${(props) => props.fontSize || "15px"};
     text-align:${(props) => props.textAlign || "left"};
-    color:${(props) => props.color || "#444"};
+    color:${(props,theme) => props.color ||props.theme.colors.text };
     `
 
 export const InnerContentWrapper = styled.div.withConfig({
@@ -137,8 +137,9 @@ export const CircularIconHolder = styled(IconHolder)`
   padding:10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
-     &:hover {
+  &:hover {
     transform: scale(1.05);
+    opacity: 0.8;
   }
 `
 export const SkillCardWrapper = styled.div`

@@ -343,3 +343,16 @@ border-radius:10px;
 padding:10px;
 margin:10px;
 `
+export const CloseButton=styled.button`
+background:red;
+opacity:0.6;
+border-radius:8px;
+padding:10px 20px;
+border:none;
+color:${({theme})=>theme.colors.text};
+cursor:pointer;
+transition: all 0.3s ease-in-out;
+&:hover{
+    opacity:1;
+}
+`

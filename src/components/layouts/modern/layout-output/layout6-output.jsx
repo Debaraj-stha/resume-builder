@@ -1,6 +1,5 @@
-import { LineDivider } from "../../../Divider/TransparentDividers";
+
 import { layout_6_style as style } from "../layout-6/style"
-import { layout_type_map } from "../../../../constant";
 import generateSkill from "../../section-data/skill_section_data";
 import generateEducation from "../../section-data/education_secion_data";
 import generateExperience from "../../section-data/experience_section_data";
@@ -8,8 +7,7 @@ import generateProfileDetails from "../../section-data/profile_details";
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateStrength from "../../section-data/strength_section_data";
 import generateLanguage from "../../section-data/language_section_data";
-
-const getModernLayout6OutputSectionData = (data, layout_no) => {
+const getModernLayout6OutputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -20,11 +18,9 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
         languages = [],
         strengths
     } = data;
-    const divider = <LineDivider height="3px" backgroundColor="#999" />
-    const layout_type = layout_type_map.MODERN
     return [
         generateProfileDetails({
-            personalDetails: personalDetails, layout_no: layout_no, layout_type: layout_type,
+            personalDetails: personalDetails,
             shouldIncludeImage: true,
             style: {
                 nameStyle: style.nameStyle,
@@ -42,9 +38,8 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
 
         }),
         generateExperience({
-            experiences:experiences.slice(0,2),
-            layout_no,
-            layout_type: layout_type,
+            experiences,
+    
             divider,
             style: {
                 h2: style.h2,
@@ -57,8 +52,6 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
         }),
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -82,8 +75,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
                 sectionSubHeader: style.sectionSubHeader,
                 borderColor:"#cfcbcb"
             },
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE,
+
             titleHeader: "technical skills",
             props:{
                 borderBox:true
@@ -93,8 +85,7 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
         generateAchievement({
             achievements,
             divider,
-            layout_no,
-            layout_type: layout_type,
+    
             style: {
                 sectionHeader: style.sectionHeader,
                 iconColor: style.primaryColor,
@@ -106,9 +97,8 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
         }),
        
         generateStrength({
-            strengths:strengths.slice(0,3),
-            layout_no,
-            layout_type: layout_type,
+            strengths,
+    
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -120,9 +110,8 @@ const getModernLayout6OutputSectionData = (data, layout_no) => {
 
         }),
         generateLanguage({
-            languages:languages.slice(0,2),
-            layout_no,
-            layout_type: layout_type,
+            languages,
+    
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2, color: style.headerTextColor,

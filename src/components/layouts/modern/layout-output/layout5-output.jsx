@@ -1,14 +1,13 @@
-import { LineDivider } from "../../../Divider/TransparentDividers";
+
 import { layout_5_style as style } from "../layout-5/style";
 import generateStrength from "../../section-data/strength_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import generateSkill from "../../section-data/skill_section_data";
 import generateEducation from "../../section-data/education_secion_data";
-import generateExperience from "../../section-data/experience_section_data";
+
 import generateProfileDetails from "../../section-data/profile_details";
-import { layout_type_map } from "../../../../constant";
 import { generateExperienceSections } from "../../helper";
-const getModernLayout5OutputSectionData = (data, layout_no) => {
+const getModernLayout5OutputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -17,7 +16,7 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
         industryExpertise = [],
         strengths
     } = data;
-    const divider = <LineDivider height="3px" backgroundColor="#999" />
+
     return [
         generateProfileDetails({
             personalDetails,
@@ -40,7 +39,7 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
 
         }),
       ...generateExperienceSections({
-                 experiences, layout_no,
+                 experiences,
                  divider,
                  style: {
                      h2: style.h2,
@@ -79,8 +78,7 @@ const getModernLayout5OutputSectionData = (data, layout_no) => {
                 h3: style.h3,
                 sectionSubHeader: style.sectionSubHeader
             },
-            layout_no: layout_no,
-            layout_type: layout_type_map.SIMPLE,
+
             titleHeader: "technical skills",
             props: {
                 borderBox: true

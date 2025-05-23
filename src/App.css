@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+input[type="file"]::-webkit-file-upload-button {
+  background-color: #2563eb; /* Tailwind's blue-600 */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #1d4ed8; /* Tailwind's blue-700 */
+}
+/* Entire scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Scrollbar thumb (the draggable handle) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

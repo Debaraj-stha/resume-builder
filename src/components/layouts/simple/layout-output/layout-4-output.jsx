@@ -9,7 +9,7 @@ import generateStrength from "../../section-data/strength_section_data";
 import generateCertification from "../../section-data/certification_section_data";
 import generateEducation from "../../section-data/education_secion_data";
 
-const getSimpleLayout4SectionData = (data, layout_no) => {
+const getSimpleLayout4SectionData = (data,divider)=>{
     const {
         personalDetails = {},
         experiences = [],
@@ -20,7 +20,6 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
         strengths = []
     } = data;
 
-    const divider = <LineDivider height="3px" />
 
     return [
         generateProfileDetails({
@@ -52,7 +51,7 @@ const getSimpleLayout4SectionData = (data, layout_no) => {
 
 
         ...generateExperienceSections({
-            experiences: experiences.slice(0, 2),
+            experiences,
             style: {
 
                 sectionHeader: style.sectionHeader,

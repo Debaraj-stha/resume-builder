@@ -4,7 +4,7 @@ import { generateAchievementsSections, generateExperienceSections, generateEduca
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSkill from "../../section-data/skill_section_data";
 import generateSummary from "../../section-data/summary"
-const getLayout1OutputSectionData = (data, layout_no) => {
+const getLayout1OutputSectionData = (data, divider)=>{
     const {
         personalDetails = {},
         summary = "",
@@ -14,12 +14,12 @@ const getLayout1OutputSectionData = (data, layout_no) => {
         skills = [],
     } = data;
 
-    const divider = <TransparentLine />
+
 
     return [
         generateProfileDetails({
             personalDetails
-            , layout_no: layout_no,
+            , 
             shouldIncludeImage: false,
             style: {
                 nameStyle: style.nameStyle,
@@ -45,7 +45,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
         }),
 
         ...generateExperienceSections({
-            experiences, layout_no,
+            experiences,
             divider,
             style: {
                 h2: style.h2,
@@ -62,7 +62,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
         }),
         ...generateEducationSections({
             educations,
-            layout_no,
+    
             divider,
             style: {
                 h2: style.h2,
@@ -77,7 +77,7 @@ const getLayout1OutputSectionData = (data, layout_no) => {
             }
         }),
         ...generateAchievementsSections({
-            achievements, layout_no,
+            achievements,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -103,7 +103,6 @@ const getLayout1OutputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
             props: {
                 shouldIncludeField: false
             }

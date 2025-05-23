@@ -6,9 +6,9 @@ import { useLayout } from "../provider/layoutProvider";
 import LayoutPreview from "../components/layouts/input-layout/LayoutPreview";
 import GeneratePageFixedButtons from "../components/generatePageFixedButton";
 import Loading from "../components/Loading";
-import useAutoSave from "../helper/hooks/useAuthoSaveData";
 import useLoadSavedData from "../helper/hooks/useLoadSavedData";
 import useAutoSaveWithDiff from "../helper/hooks/useAutoSaveWithDiff";
+import DividerProvider from "../provider/DividerProvider";
 
 const MainWrapper = styled.section`
   width: 100vw;
@@ -37,9 +37,9 @@ const GenerateResume = () => {
   const AUTOSAVE_INTERVAL = 1000 * 60; // 1 minute
 
 
- useAutoSaveWithDiff(AUTOSAVE_INTERVAL)
+  useAutoSaveWithDiff(AUTOSAVE_INTERVAL)
   useEffect(() => {
-  
+
     const handleScroll = () => { setShowIcons(false) };
     window.addEventListener("scroll", handleScroll)
     return () => {
@@ -59,15 +59,17 @@ const GenerateResume = () => {
   }
 
   return (
-    <MainWrapper>
-      <Hspace />
-      <ResponsiveGrid>
-        <LayoutInputField />
-        <LayoutPreview />
-      </ResponsiveGrid>
-      <GeneratePageFixedButtons showIcons={showIcons} setShowIcons={setShowIconsCallback}  />
+    <DividerProvider>
+      <MainWrapper>
+        <Hspace />
+        <ResponsiveGrid>
+          <LayoutInputField />
+          <LayoutPreview />
+        </ResponsiveGrid>
+        <GeneratePageFixedButtons showIcons={showIcons} setShowIcons={setShowIconsCallback} />
 
-    </MainWrapper>
+      </MainWrapper>
+    </DividerProvider>
   );
 };
 

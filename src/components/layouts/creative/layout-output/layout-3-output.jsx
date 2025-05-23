@@ -1,5 +1,3 @@
-import { layout_type_map } from "../../../../constant";
-import {  TransparentLine } from "../../../Divider/TransparentDividers";
 
 import generateAwardsSectionData from "../../section-data/awards_section_data";
 import generateEducation from "../../section-data/education_secion_data";
@@ -12,7 +10,7 @@ import generateSkill from "../../section-data/skill_section_data";
 
 import generateTrainingsectionData from "../../section-data/trainings_section_data";
 import { layout_3_style as style } from "../layout-3/style";
-const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
+const getCreativeLayout3OuctputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -23,16 +21,13 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
         languages = [],
         my_time = [],
     } = data;
-    const divider = <TransparentLine />
+ 
 
-    const layout_type = layout_type_map.CREATIVE
 
 
     return [
         generateProfileDetails({
             personalDetails: personalDetails,
-            layout_no: layout_no,
-            layout_type: layout_type,
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,
@@ -48,9 +43,7 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
 
         }),
         generateExperience({
-            experiences: experiences.slice(0, 1),
-            layout_no,
-            layout_type: layout_type_map.SIMPLE,
+            experiences,
             divider,
             style: {
                 h2: style.h2,
@@ -78,8 +71,6 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
-            layout_type: layout_type,
             props: {
                 borderBottom: true
             }
@@ -88,8 +79,6 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
 
         generateEducation({
             educations,
-            layout_no: layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 h2: style.h2,
@@ -131,8 +120,6 @@ const getCreativeLayout3OuctputSectionData = (data, layout_no) => {
         }),
         generateLanguage({
             languages,
-            layout_no,
-            layout_type: layout_type,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

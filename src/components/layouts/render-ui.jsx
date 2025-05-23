@@ -2,8 +2,8 @@ import { Section } from "../elements/resumeSectionWrapper";
 import { ResumeWrapper } from "../elements/resumeWrapper";
 import useDynamicLayoutSections from "./loadResumeLayput";
 
-const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs }) => {
-  const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
+const renderUI = ({ pages, key_val, layoutId, layout_type, sectionRefs,divider})=>{
+  const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type,divider)
 
 
   const shouldApplyMargin = (section) => {

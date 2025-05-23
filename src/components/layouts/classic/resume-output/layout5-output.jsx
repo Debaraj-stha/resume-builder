@@ -1,12 +1,8 @@
-import SkillCard from "../../cards/ResumeSkillCard"
 import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_5_style as style } from "../layout-5/style"
-
-import { SectionContent } from "../../../elements/resumeSectionWrapper";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSkill from "../../section-data/skill_section_data";
-const getlayout5OutputSection = (data, layout_no) => {
-
+const getlayout5OutputSection = (data, divider)=>{
     const {
         personalDetails = {},
         experiences = [],

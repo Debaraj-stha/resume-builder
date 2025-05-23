@@ -1,8 +1,4 @@
 import { TransparentLine } from "../../../Divider/TransparentDividers";
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
-import { Title } from "../../../Title";
-import SkillCard from "../../cards/ResumeSkillCard"
-import ResumeHeader from "../../cards/ResumeHeader";
 import { layout_2_style as style } from "../layout-2/style"
 import { generateEducationSections, generateExperienceSections } from "../../helper";
 import generateProfileDetails from "../../section-data/profile_details";
@@ -10,7 +6,7 @@ import generateSummary from "../../section-data/summary";
 import generateSkill from "../../section-data/skill_section_data";
 import generateStrength from "../../section-data/strength_section_data";
 
-const getLayout2OutputSectionData = (data, layout_no) => {
+const getLayout2OutputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         summary = "",
@@ -20,7 +16,6 @@ const getLayout2OutputSectionData = (data, layout_no) => {
         strengths=[]
     } = data;
 
-    const divider = <TransparentLine />
 
     return [
         generateProfileDetails({
@@ -48,7 +43,7 @@ const getLayout2OutputSectionData = (data, layout_no) => {
             divider: divider
         }),
         ...generateExperienceSections({
-            experiences, layout_no,
+            experiences,
 
             style: {
                 h2: style.h2,
@@ -63,7 +58,7 @@ const getLayout2OutputSectionData = (data, layout_no) => {
             }
         }),
         ...generateEducationSections({
-            educations, layout_no,
+            educations,
             style: {
                 h2: style.h2,
                 h3: style.h3,
@@ -74,7 +69,7 @@ const getLayout2OutputSectionData = (data, layout_no) => {
             },
         }),
         generateSkill({
-            skills:skills.slice(0,2),
+            skills,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,
@@ -83,13 +78,12 @@ const getLayout2OutputSectionData = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
             props:{
             borderBox:true
             }
         }),
         generateStrength({
-            strengths:strengths.slice(0,2),
+            strengths,
             divider,
             style:style,
             props:{

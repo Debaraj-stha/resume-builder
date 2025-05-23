@@ -1,15 +1,10 @@
 
-import ResumeHeader from "../../cards/ResumeHeader";
-import SkillCard from "../../cards/ResumeSkillCard"
-import { generateAchievementsSections, generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
+import { generateCertipicates, generateEducationSections, generateExperienceSections } from "../../helper";
 import { layout_6_style as style } from "../layout-6/style"
-
-import { DoubleLineDivider, LineDivider, TransparentLine } from "../../../Divider/TransparentDividers";
-import { P, SectionContent } from "../../../elements/resumeSectionWrapper";
 import generateSkill from "../../section-data/skill_section_data";
 import generateSummary from "../../section-data/summary";
 import generateProfileDetails from "../../section-data/profile_details";
-const getlayout6OutputSection = (data, layout_no) => {
+const getlayout6OutputSection = (data, divider) => {
 
     const {
         personalDetails = {},
@@ -20,7 +15,7 @@ const getlayout6OutputSection = (data, layout_no) => {
         certificates = [],
         summary = ""
     } = data;
-    const divider=<LineDivider/>
+
 
     return [
         generateProfileDetails({
@@ -35,8 +30,8 @@ const getlayout6OutputSection = (data, layout_no) => {
             props: {
                 shouldIncludeIcon: true,
                 applyFlex: true,
-                shouldIncludeAddress:true,
-                shouldIncludeProfession:false
+                shouldIncludeAddress: true,
+                shouldIncludeProfession: false
             }
 
         }),
@@ -46,12 +41,12 @@ const getlayout6OutputSection = (data, layout_no) => {
                 sectionHeader: style.sectionHeader,
                 p: style.p
             },
-            titleHeader:"summary of qualification",
+            titleHeader: "summary of qualification",
             divider: divider
         }),
         ...generateExperienceSections({
-            experiences, layout_no,
-             style: {
+            experiences,
+            style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
@@ -62,7 +57,7 @@ const getlayout6OutputSection = (data, layout_no) => {
             divider
         }),
         ...generateEducationSections({
-            educations, layout_no, style: {
+            educations, style: {
                 h2: style.h2,
                 h3: style.h3,
                 primaryColor: style.primaryColor,
@@ -73,17 +68,17 @@ const getlayout6OutputSection = (data, layout_no) => {
             divider
         }),
         ...generateCertipicates({
-            certificates, layout_no, style: {
+            certificates, style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,
                 h3: style.h3,
                 p: style.p
             },
             divider,
-            shouldPair:true
+            shouldPair: true
         }),
         generateSkill({
-            skills:skills.slice(0,3),
+            skills,
             style: {
                 sectionHeader: style.sectionHeader,
                 header: style.sectionHeader,
@@ -91,7 +86,7 @@ const getlayout6OutputSection = (data, layout_no) => {
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
+
             titleHeader: "technical skills"
         }),
 

@@ -1,8 +1,13 @@
 
+import { useDivider } from "../../../provider/DividerProvider";
 import useDynamicLayoutSections from "../loadResumeLayput";
 import renderLayout from "./render-ui";
-const getModernLayout5 = ({ pages, layoutId, key_val, layout_type, sectionRefs }) => {
-    const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type);
+const getModernLayout5 = ({ pages, layoutId, key_val, layout_type, sectionRefs,dividerType})=>{
+  const { divider, changeDivider } = useDivider()
+    useEffect(() => {
+        changeDivider(dividerType)
+    }, [dividerType])
+    const sectionData = useDynamicLayoutSections(layoutId, key_val, layout_type,divider)
     return renderLayout({
       pages,
       sectionData,

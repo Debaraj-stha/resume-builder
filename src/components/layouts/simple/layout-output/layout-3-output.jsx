@@ -1,15 +1,13 @@
 import { generateExperienceSections } from "../../helper";
 import { layout_3_style as style } from "../layout-3/style"
-import { LineDivider } from "../../../Divider/TransparentDividers";
-import { layout_type_map } from "../../../../constant";
 import generateProfileDetails from "../../section-data/profile_details";
 import generateSummary from "../../section-data/summary";
 import generateEducation from "../../section-data/education_secion_data";
 import generateSkill from "../../section-data/skill_section_data";
 import generateStrength from "../../section-data/strength_section_data";
-import generateLanguage from "../../section-data/language_section_data";
 
-const getSimpleLayout3SectionData = (data, layout_no) => {
+
+const getSimpleLayout3SectionData = (data, divider)=>{
     const {
         personalDetails = {},
         experiences = [],
@@ -21,7 +19,7 @@ const getSimpleLayout3SectionData = (data, layout_no) => {
     } = data;
 
 
-    const divider = <LineDivider height="3px" />
+   
     return [
         generateProfileDetails({
             personalDetails: { ...personalDetails, urls: [personalDetails.urls[0]] },
@@ -52,7 +50,7 @@ const getSimpleLayout3SectionData = (data, layout_no) => {
         }),
 
         ...generateExperienceSections({
-            experiences:experiences.slice(0,2),
+            experiences,
             style: {
                     sectionSubHeader:style.sectionSubHeader,
                     h2: style.h2,
@@ -96,7 +94,7 @@ const getSimpleLayout3SectionData = (data, layout_no) => {
             
         }),
         generateStrength({
-            strengths:strengths.slice(0,2),
+            strengths,
             
             divider,
             style: {

@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 export const LineDivider=styled.div.withConfig({
   shouldForwardProp:(props)=>!["backgroundColor"].includes(props)
@@ -132,22 +132,20 @@ export const TransparentLineWithBox = () => {
 
 export const TransparentLineWithSeperatorAtEnd = () => {
   return (
-    <div className="mt-6 pt-6">
+
       <Line backgroundColor="black" >
         <BoxWithLeftRightBorder borderTopColor="transparent" borderBottomColor="transparent"></BoxWithLeftRightBorder>
       </Line>
-
-    </div>
   )
 }
 
 export const TransparentLineWithAngleAtCenter = () => {
   return (
-    <div className="pb-3">
+   
       <Line backgroundColor="black">
         <BoxWithAngle borderLeftColor="transparent" borderTopColor="transparent"></BoxWithAngle>
       </Line>
-    </div>
+   
   )
 }
 
@@ -211,25 +209,16 @@ aspect-ration:1;
 }
 
 `;
-/**
-aspect-ratio: 1;
-
- * position:absolute;
-background:${(props)=>props.backgroundColor||"black"};
-width: ${(props)=>props.width||"100px"}
-; /* adjust to control the size 
- * 
- * clip-path: polygon(100% 50%,78.98% 57.76%,93.3% 75%,71.21% 71.21%,75% 93.3%,57.76% 78.98%,50% 100%,42.24% 78.98%,25% 93.3%,28.79% 71.21%,6.7% 75%,21.02% 57.76%,0% 50%,21.02% 42.24%,6.7% 25%,28.79% 28.79%,25% 6.7%,42.24% 21.02%,50% 0%,57.76% 21.02%,75% 6.7%,71.21% 28.79%,93.3% 25%,78.98% 42.24%);
-
- */
 
 
 
 
 export const DividerWithStarBorder = () => {
   return (
-    <Line>
+    <div className="py-2">
+      <Line>
      <StarCircle></StarCircle>
     </Line>
+    </div>
   );
 }

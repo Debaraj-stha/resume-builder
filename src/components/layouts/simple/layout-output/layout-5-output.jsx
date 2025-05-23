@@ -10,8 +10,8 @@ import generateSkill from "../../section-data/skill_section_data";
 import generateAchievement from "../../section-data/achievement_section_data";
 import generateLanguage from "../../section-data/language_section_data";
 
-const getSimpleLayout5SectionData = (data, layout_no) => {
-    const {
+const getSimpleLayout5SectionData = (data,divider)=>{
+        const {
         personalDetails = {},
         experiences = [],
         educations = [],
@@ -20,7 +20,7 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
         languages = [],
         summary = "",
     } = data;
-    const divider = <LineDivider height="3px" />
+
 
 
     return [
@@ -48,7 +48,7 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
         }),
 
         ...generateExperienceSections({
-            experiences: experiences.slice(0,1),
+            experiences,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,
@@ -101,7 +101,7 @@ const getSimpleLayout5SectionData = (data, layout_no) => {
         }),
 
         generateSkill({
-            skills: skills.slice(0, 2),
+            skills,
             divider,
             style: {
                 sectionHeader: style.sectionHeader,

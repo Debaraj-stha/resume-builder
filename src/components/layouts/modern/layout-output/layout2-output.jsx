@@ -4,11 +4,10 @@ import generateSkill from "../../section-data/skill_section_data";
 import generateIndustryExpertise from "../../section-data/industry_expertise_section_data";
 import generateExperience from "../../section-data/experience_section_data";
 import generateEducation from "../../section-data/education_secion_data";
-import { layout_type_map } from "../../../../constant";
+
 import generateProfileDetails from "../../section-data/profile_details";
-import { LineDivider } from "../../../Divider/TransparentDividers";
 import generateOpenSourceWork from "../../section-data/open_source_work_section_data";
-const getModernLayout2OutputSectionData = (data, layout_no) => {
+const getModernLayout2OutputSectionData = (data, divider) => {
     const {
         personalDetails = {},
         experiences = [],
@@ -18,7 +17,7 @@ const getModernLayout2OutputSectionData = (data, layout_no) => {
         summary = "",
         openSourceWork
     } = data;
-    const divider = <LineDivider />
+
     return [
 
         generateProfileDetails({
