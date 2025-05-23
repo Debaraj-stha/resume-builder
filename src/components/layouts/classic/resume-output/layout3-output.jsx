@@ -75,7 +75,7 @@ const getLayout3OutputSection = (data, divider)=>{
                 h3: style.h3,
                 sectionSubHeader:style.sectionSubHeader
             },
-            layout_no: layout_no,
+     
             props:{
                 shouldIncludeField:true
             }

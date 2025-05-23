@@ -17,12 +17,7 @@
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
-  #loading-text{
-    font-family: 'Roboto',sans-serif;
-    font-size: 20px;
-    color: #db2777;
-    font-weight: 600;
-  }
+
   
   @keyframes spin {
     to {

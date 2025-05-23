@@ -15,6 +15,7 @@ import { useDivider } from "../provider/DividerProvider";
 import BigModal from "./BigModal";
 import { GridTwo } from "./layouts/input-layout/GridCards";
 import { useParams } from "react-router-dom";
+import DifferentLayoutHolder from "./DifferentLayoutHolder";
 
 const FixedIconWrapper = styled.div`
   position: fixed;
@@ -28,7 +29,7 @@ const FixedIconWrapper = styled.div`
   background:#2c00ff33;
   padding: 10px;
   border-radius: 10px;
-  z-index: 1;
+  z-index: 111111;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -38,20 +39,15 @@ const FixedIconWrapper = styled.div`
 `;
 
 
-
-// Progress fill bar that adjusts width based on progress prop
-
-
-const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons }) => {
+const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons,setIsTemplateChangeModelOpen }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
-    const [isTemplateChangeModelOpen, setIsTemplateChangeModelOpen] = useState(false)
+
     const { generatePDF, compileInput } = useLayout();
     const { uploadFile } = useSupabase();
     const { dividers, changeDivider } = useDivider()
-    const params = useParams()
-    const { layout_type, layput_id } = params
+    
 
     const uploadAndDownloadFile = async () => {
         try {
@@ -109,13 +105,14 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons }) => {
 
 
 
+
     return (
         <>
             <FixedIconWrapper>
                 <ToolTip text="Show more icons">
                     <CircularIconHolder
                         backgroundColor="#1A73E8"
-                        onClick={() => setShowIcons((prev) => !prev)}
+                        onClick={setShowIcons}
                     >
                         {showIcons ? <MdExpandLess /> : <MdExpandMore />}
                     </CircularIconHolder>
@@ -152,6 +149,7 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons }) => {
             </FixedIconWrapper>
             {fileGenerating && <ProgressBarModal peogress={progress} />}
             {isDividerChangeModelOpen && dividerChooseModal}
+           
 
         </>
     );

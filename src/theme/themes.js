@@ -99,7 +99,6 @@ export const lightTheme = {
       }
     },
     card: {
-      background: "#ffffff",         // same as overall background, or optionally:
       background: "#f9fafb",     // a subtle off-white if you want a soft card feel
       text: "#111827",               // for high contrast text
       border: "#505664",             // soft gray border

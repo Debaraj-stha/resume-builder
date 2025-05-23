@@ -9,6 +9,7 @@ import Loading from "../components/Loading";
 import useLoadSavedData from "../helper/hooks/useLoadSavedData";
 import useAutoSaveWithDiff from "../helper/hooks/useAutoSaveWithDiff";
 import DividerProvider from "../provider/DividerProvider";
+import DifferentLayoutHolder from "../components/DifferentLayoutHolder";
 
 const MainWrapper = styled.section`
   width: 100vw;
@@ -19,7 +20,7 @@ const MainWrapper = styled.section`
   background: ${({ theme }) => theme.colors.bg};
 `;
 
-const ResponsiveGrid = styled.div`
+const ResponsiveGrid = styled.div.withConfig({ shouldForwardProp: (prop) => !['isOpen'].includes(prop) })`
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 1.5rem;
@@ -32,45 +33,59 @@ const ResponsiveGrid = styled.div`
 
 const GenerateResume = () => {
   const [showIcons, setShowIcons] = useState(false);
+  const [isTemplateChangeModelOpen, setIsTemplateChangeModelOpen] = useState(false);
+  const { isSavedLoaded } = useLayout();
+  const AUTOSAVE_INTERVAL = 1000 * 60;
 
-  const { isSavedLoaded } = useLayout()
-  const AUTOSAVE_INTERVAL = 1000 * 60; // 1 minute
+  useLoadSavedData();
+  useAutoSaveWithDiff(AUTOSAVE_INTERVAL);
 
-
-  useAutoSaveWithDiff(AUTOSAVE_INTERVAL)
   useEffect(() => {
-
-    const handleScroll = () => { setShowIcons(false) };
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => {
+      setShowIcons(false);
+    };
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-    }
-  }, [])
+  const handleShowIcon = useCallback(() => {
+    setShowIcons((prev) => !prev)
+  }, [showIcons]);
+
+  const openTemplateChangeModal = useCallback(() => {
+    setIsTemplateChangeModelOpen((prev) => !prev);
+  }, [isTemplateChangeModelOpen,showIcons]);
 
 
-  useLoadSavedData()
-
-
-  const setShowIconsCallback = useCallback(setShowIcons, [])
-  //showing loading ui before loading old saved records from database if have
   if (!isSavedLoaded) {
-    return <Loading message="Loading saved records from database" />
+    return <Loading message="Loading saved records from database" />;
   }
 
   return (
     <DividerProvider>
       <MainWrapper>
         <Hspace />
-        <ResponsiveGrid>
+        <ResponsiveGrid isOpen={isTemplateChangeModelOpen}>
+          {/* {
+            !isTemplateChangeModelOpen  && <LayoutInputField />
+          } */}
           <LayoutInputField />
           <LayoutPreview />
-        </ResponsiveGrid>
-        <GeneratePageFixedButtons showIcons={showIcons} setShowIcons={setShowIconsCallback} />
 
+        </ResponsiveGrid>
+        <GeneratePageFixedButtons
+          showIcons={showIcons}
+          setShowIcons={handleShowIcon}
+          setIsTemplateChangeModelOpen={openTemplateChangeModal}
+        />
       </MainWrapper>
+      <DifferentLayoutHolder isOpen={isTemplateChangeModelOpen} onHide={openTemplateChangeModal} />
+
     </DividerProvider>
   );
 };
+
 
 export default GenerateResume;

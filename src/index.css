@@ -38,8 +38,16 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 20px;
+}
+h2{
+  font-size: 18px;
+}
+h3{
+  font-size: 16px;
+}
+p{
+  font-size: 14px;
 }
 
 button {

@@ -8,7 +8,6 @@ const HeaderSection = (props) => {
   const { control, register } = useFormContext();
 
   const { acceptProfession = false,acceptImage=false } = props;
-  console.log(acceptProfession)
   return (
     <CardWrapper>
       <GridTwo>

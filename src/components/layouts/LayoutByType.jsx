@@ -15,33 +15,33 @@ import Loading from "../Loading"
 
 const LayoutByType = () => {
   const { layout_id, layout_type } = useParams();
-  const parsedId = parseInt(layout_id);
+  const parsedId = parseInt(layout_id, 10);
 
-  const data = {
-    personalDetails,
-    educations,
-    summary,
-    experiences,
-    achievements,
-    skills,
-  };
-
-  const LayoutComponent = useMemo(() => {
+  const layoutElement = useMemo(() => {
     if (layout_type === layout_type_map.MODERN) {
-      return modernLayoutById(parsedId);
+      const Comp = modernLayoutById(parsedId);
+     
+      return <Comp shouldMeasureHeight={true} key={`${layout_type}-${layout_id}`} />;
     }
     if (layout_type === layout_type_map.CREATIVE) {
-      return creativeLayoutById(parsedId)
+      const Comp = creativeLayoutById(parsedId);
+      
+      return <Comp shouldMeasureHeight={true} key={`${layout_type}-${layout_id}`} />;
     }
     if (layout_type === layout_type_map.SIMPLE) {
-      return simpleLayoutById(parsedId)
+      const Comp = simpleLayoutById(parsedId);
+     
+      return <Comp shouldMeasureHeight={true} key={`${layout_type}-${layout_id}`} />;
     }
-    return classicalLayoutById(parsedId);
+
+    const Comp = classicalLayoutById(parsedId);
+  
+    return <Comp shouldMeasureHeight={true} key={`${layout_type}-${layout_id}`} />;
   }, [layout_type, parsedId]);
 
   return (
-    <Suspense fallback={<Loading message="Preparing Input fields"/>}>
-      <LayoutComponent shouldMeasureHeight={true} />
+    <Suspense fallback={<Loading message="Preparing Input fields" />}>
+      {layoutElement}
     </Suspense>
   );
 };

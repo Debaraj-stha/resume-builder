@@ -1,5 +1,3 @@
-
-import React from "react";
 import getModernLayout1OutputSectionData from "../layout-output/layout-1-output";
 import BaseLayoutRenderer from "../../BaseLayoutRenderer";
 import { layout_type_map } from "../../../../constant";

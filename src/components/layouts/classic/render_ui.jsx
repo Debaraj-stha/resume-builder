@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { useDivider } from "../../../provider/DividerProvider";
 import renderUI from "../render-ui";
 const renderClassicalUI = ({ pages, key_val, layout_type, layoutId, sectionRefs, dividerType }) => {
