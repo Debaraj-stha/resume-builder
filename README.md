@@ -1,15 +1,6 @@
-Got it! Here’s an updated **README.md** file for your Resume Builder project incorporating:
-
-* The new FastAPI backend with pdfplumber + spaCy parsing
-* Auto-save feature storing input to Supabase every 1 minute
-* Resume PDF upload and parsing flow
-* All your existing features and tech stack
 
 ---
 
-# Updated README.md
-
-````markdown
 # 🧾 Resume Builder – React + Supabase + Vite + FastAPI
 
 A powerful, modern resume builder built with **React**, **Supabase**, **Vite**, **Tailwind CSS**, and **styled-components**, now with a FastAPI backend for resume PDF upload and parsing using **pdfplumber** and **spaCy**.
@@ -20,43 +11,45 @@ Includes Google Sign-In, email/password auth, multiple template styles (Classica
 
 ## 🚀 Features
 
-- ✅ Google Sign-In & Email/Password Authentication (via Supabase Auth)
-- 📝 Create and Edit Resumes with multiple templates:
-  - Classical
-  - Modern
-  - Simple
-  - Creative
-- 🎨 Theme support (light/dark) using styled-components ThemeProvider
-- 💾 Save resumes to Supabase (PostgreSQL) database
-- ⏳ Auto-save: Resume input data is automatically saved to Supabase every **1 minute**
-- ⬆️ Upload resume PDF files to create or update resume data:
-  - FastAPI backend parses PDF with **pdfplumber**
-  - Text processed with **spaCy** NLP for intelligent section extraction
-  - Dynamic divider selection splits resume into sections like Education, Experience, Skills, etc.
-- 🖼️ Upload profile images or attachments to Supabase Storage
-- 📄 Export resumes to PDF (html2canvas + jspdf)
-- ⚡ Built with Vite for blazing-fast development
-- ❤️ Live preview of resume as you type on the other side
+* ✅ Google Sign-In & Email/Password Authentication (via Supabase Auth)
+* 📝 Create and Edit Resumes with multiple templates:
+
+  * Classical
+  * Modern
+  * Simple
+  * Creative
+* 🎨 Theme support (light/dark) using styled-components ThemeProvider
+* 💾 Save resumes to Supabase (PostgreSQL) database
+* ⏳ Auto-save: Resume input data is automatically saved to Supabase every **1 minute**
+* ⬆️ Upload resume PDF files to create or update resume data:
+
+  * FastAPI backend parses PDF with **pdfplumber**
+  * Text processed with **spaCy** NLP for intelligent section extraction
+  * Dynamic divider selection splits resume into sections like Education, Experience, Skills, etc.
+* 🖼️ Upload profile images or attachments to Supabase Storage
+* 📄 Export resumes to PDF (html2canvas + jspdf)
+* ⚡ Built with Vite for blazing-fast development
+* ❤️ Live preview of resume as you type on the other side
 
 ---
 
 ## 🛠 Tech Stack
 
-| Tech               | Description                                     |
-|--------------------|-------------------------------------------------|
-| React              | UI Framework                                    |
-| Vite               | Build Tool + HMR                                |
-| Supabase           | Backend-as-a-Service (Auth, Database, Storage)  |
-| styled-components  | Theming and component styling                   |
-| Tailwind CSS       | Utility-first CSS framework                     |
-| React Hook Form    | Form management                                 |
-| React Router       | Navigation                                      |
-| Zustand / Redux    | State management (optional)                     |
-| html2canvas        | Converts HTML to canvas for PDF export          |
-| jspdf              | Creates PDF files from canvas                   |
-| FastAPI            | Backend server for resume PDF upload and parsing|
-| pdfplumber         | PDF text extraction on backend                  |
-| spaCy              | NLP parsing and section extraction              |
+| Tech              | Description                                      |
+| ----------------- | ------------------------------------------------ |
+| React             | UI Framework                                     |
+| Vite              | Build Tool + HMR                                 |
+| Supabase          | Backend-as-a-Service (Auth, Database, Storage)   |
+| styled-components | Theming and component styling                    |
+| Tailwind CSS      | Utility-first CSS framework                      |
+| React Hook Form   | Form management                                  |
+| React Router      | Navigation                                       |
+| Zustand / Redux   | State management (optional)                      |
+| html2canvas       | Converts HTML to canvas for PDF export           |
+| jspdf             | Creates PDF files from canvas                    |
+| FastAPI           | Backend server for resume PDF upload and parsing |
+| pdfplumber        | PDF text extraction on backend                   |
+| spaCy             | NLP parsing and section extraction               |
 
 ---
 
@@ -67,7 +60,7 @@ Includes Google Sign-In, email/password auth, multiple template styles (Classica
 ```bash
 git clone https://github.com/Debaraj-stha/resume-builder.git
 cd resume-builder
-````
+```
 
 ### 2. Install frontend dependencies
 
@@ -156,6 +149,9 @@ Open `http://localhost:5173` (or your configured port) to access the app.
 
 ```
 resume-builder/
+├── backend/               # FastAPI backend for PDF parsing
+│   ├── main.py
+│   └── requirements.txt
 ├── node_modules/
 ├── public/
 ├── src/
@@ -166,7 +162,7 @@ resume-builder/
 │   ├── provider/          # Context and global providers (theme, auth)
 │   ├── theme/             # Styled-components theme config (light/dark)
 │   ├── static-data/       # Dummy resume content, descriptions, options
-│   ├── helper/            # Helper fucnations and Custom hooks (including auto-save, file upload)
+│   ├── helper/            # Helper functions and custom hooks (auto-save, file upload)
 ├── .env
 ├── .gitignore
 ├── CONTRIBUTING.md
@@ -178,6 +174,8 @@ resume-builder/
 ├── README.md
 ├── supabaseClient.js
 └── vite.config.js
+```
+
 ---
 
 ## 🧑‍💻 Author
@@ -185,8 +183,12 @@ resume-builder/
 Built with ❤️ by [Debaraj-stha](https://github.com/Debaraj-stha/)
 
 ---
+
 ## Server repository
+
 [Server](https://github.com/Debaraj-stha/resume-builder/tree/server)
+
+---
 
 ## 📬 Feedback & Contributions
 
@@ -194,5 +196,4 @@ Feel free to open issues or pull requests. Contributions are welcome!
 
 ---
 
-```
-
+---
