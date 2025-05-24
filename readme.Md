@@ -1,4 +1,3 @@
-Here’s a clear and concise README file for your FastAPI resume PDF extraction project, including setup instructions and virtual environment guidance for different platforms:
 
 ---
 
@@ -110,4 +109,4 @@ curl -X POST "http://127.0.0.1:8000/extract" -F "file=@/path/to/resume.pdf"
 
 ---
 
-If you want me to help you set up Docker or deploy the app, just ask!
+
