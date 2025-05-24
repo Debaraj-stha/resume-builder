@@ -6,7 +6,13 @@ import { LiaMapMarkerSolid } from "react-icons/lia";
 
 const EducationCard = memo(({ education, style, ...props }) => {
   const { degree, university, start_year,end_year, address,gpa } = education;
-  let start_complete=start_year + "-" + end_year
+  let start_complete=""
+  if(start_year){
+    start_complete+=" " + start_year
+  }
+  if(end_year){
+    start_complete+=" "+ end_year
+  }
   const {
     swapPosition,
     applyFlex,

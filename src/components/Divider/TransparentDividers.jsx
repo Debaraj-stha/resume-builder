@@ -8,14 +8,15 @@ width:100%;
 position:relative;
 height:${({height})=>height||"2px"};
 `
-export const Line = styled.div`
+export const Line = styled.div.withConfig({shouldForwardProp:(props)=>!["backgroundColor"].includes(props)})`
 width:100%;
 max-width:100%;
 position:relative;
 background:linear-gradient(to right,transparent,${(props) => props.backgroundColor || "black"},${(props) => props.backgroundColor || "black"},transparent);
 height:2px;
 `
-const Box = styled.div`
+const Box = styled.div.withConfig({shouldForwardProp:(props)=>
+  !["borderLeftColor","backgroundColor","borderTopColor","borderBottomColor","borderRightColor"].includes(props)})`
 position:relative;
 &::before{
 content:"";
@@ -44,7 +45,7 @@ const BoxWithAngle = styled(Box)`
   }
 `;
 
-const DottedLine = styled(Line)`
+const DottedLine = styled(Line).withConfig({shouldForwardProp:(props)=>!["backgroundColor"].includes(props)})`
   background: repeating-linear-gradient(
     to right,
     ${(props) => props.backgroundColor} 0px,
@@ -53,7 +54,7 @@ const DottedLine = styled(Line)`
     transparent 6px
   );
 `;
-const DashedLine = styled(Line)`
+const DashedLine = styled(Line).withConfig({shouldForwardProp:(props)=>!["backgroundColor"].includes(props)})`
   background: none;
   border-top: 2px dashed ${(props) => props.backgroundColor || "black"};
   height: 0;

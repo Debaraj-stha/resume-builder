@@ -23,7 +23,7 @@ const DynamicMyTimeCard=({name})=>{
                 fields.length>0 ? fields.map((field,index)=>{
                     const base=`${name}[${index}]`
                     return(
-                        <GridThree>
+                        <GridThree key={field.id}>
                             <Input {...register(`${base}.activity`)} placeholder="Learning new things,Time in nature"/>
                             <Input {...register(`${base}.value`)} placeholder="how much portion of  time you spent  on this activity on a day e.g 1,2"/>
                             <AppendRemoveButton handleAppend={handleAppend} handleRemove={handleRemove}/>

@@ -30,6 +30,7 @@ const LayoutProvider = ({ children }) => {
   const [isSavedLoaded, setIsSavedLoaded] = useState(false);
   const [isExtractingResumeInfo, setIsExtractingResumeInfo] = useState(false)
   const [isLayoutChooseModalOpen, setIsLayoutModalOpen] = useState()
+  const[isDetailsUpdating,setDetailsUpdating]=useState(false)
   const fileInputRef = useRef(null)
   const sectionRefs = useRef([]);
   const pdfRef = useRef(null);
@@ -154,6 +155,7 @@ const LayoutProvider = ({ children }) => {
       const file = e.target.files[0];
       if (file) {
         setIsExtractingResumeInfo(true)
+        setDetailsUpdating(true)
         const extractedDetails = await extractText(file)
         console.log("extractedDetails", extractedDetails)
         const ele=fileInputRef.current
@@ -162,6 +164,8 @@ const LayoutProvider = ({ children }) => {
         if(!(layout_type && layout_id)){
           setIsLayoutModalOpen(true)
         }
+        setLiveDetails(extractedDetails)
+        setDetailsUpdating(false)
       }
     } catch (error) {
       console.error("Error while uploading file", error)
@@ -213,7 +217,9 @@ const LayoutProvider = ({ children }) => {
     isExtractingResumeInfo,
     setIsExtractingResumeInfo,
     closeLayoutChooseModal,
-    isLayoutChooseModalOpen
+    isLayoutChooseModalOpen,
+    setDetailsUpdating,
+    isDetailsUpdating
   }
   ), [
     isLoading,
@@ -235,7 +241,9 @@ const LayoutProvider = ({ children }) => {
     isExtractingResumeInfo,
     setIsExtractingResumeInfo,
     closeLayoutChooseModal,
-    isLayoutChooseModalOpen
+    isLayoutChooseModalOpen,
+    isDetailsUpdating,
+    setDetailsUpdating
   ]);
 
   return (

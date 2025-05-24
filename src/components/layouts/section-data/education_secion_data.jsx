@@ -6,7 +6,7 @@ import generateTitle from "./titleGenerater"
 const generateEducation = ({ educations, divider, style,  titleHeader = "education", props = {} }) => {
 
     return {
-        key: "education",
+        key: "educations",
         content: () => (
             <>
                 {

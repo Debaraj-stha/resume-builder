@@ -84,6 +84,7 @@ const generatedProps = useMemo(() => {
           <ResumeInputFieldWrapper>
             {sectionData.map((section, i) => {
               const isExperienceSection = section.key === "experience-0";
+              console.log("section key",section.key,i)
               return (
                 <Section key={section.key} data-section={isExperienceSection ? "experience" : section.key}>
                   {section.content()}

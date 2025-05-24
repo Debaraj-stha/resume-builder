@@ -66,7 +66,6 @@ const GenerateResume = () => {
           } */}
           <LayoutInputField />
           <LayoutPreview />
-
         </ResponsiveGrid>
         <GeneratePageFixedButtons
           showIcons={showIcons}

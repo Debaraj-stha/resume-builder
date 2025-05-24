@@ -20,11 +20,11 @@ const getCreativeLayout1OuctputSectionData = (data, divider) => {
         summary = ""
     } = data;
   
-
+console.log("called section 1 creative")
 
     return [
         generateProfileDetails({
-            personalDetails: { ...personalDetails, urls: [personalDetails.urls[1]] },
+            personalDetails,
             style: {
                 nameStyle: style.nameStyle,
                 h2: style.h2,

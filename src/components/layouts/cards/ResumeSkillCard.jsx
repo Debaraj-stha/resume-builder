@@ -75,7 +75,7 @@ const SkillCard = memo(({ skills, style, ...props }) => {
               {capitalize(skill.field)}:
             </h3>
           )}
-          {skill.items.map((item, i) =>
+          {skill?.items?.map((item, i) =>
             renderSkillItem(item.value, `${index}-${i}`)
           )}
         </FlexBox>

@@ -82,18 +82,18 @@ const DonutChart = ({ items, style }) => {
         />
         {/* Connector line from arc midpoint to pin */}
         <line
-          x1={arcMidpoint.x}
-          y1={arcMidpoint.y}
-          x2={labelPos.x}
-          y2={labelPos.y}
+          x1={arcMidpoint.x||0}
+          y1={arcMidpoint.y||0}
+          x2={labelPos.x||0}
+          y2={labelPos.y||0}
           stroke={COLORS[index]}
           strokeWidth={2}
         />
 
         {/* Thumb pin */}
         <circle
-          cx={labelPos.x}
-          cy={labelPos.y}
+          cx={labelPos.x||0}
+          cy={labelPos.y||0}
           r={14}
           fill={COLORS[index]}
           // stroke="white"
@@ -102,12 +102,12 @@ const DonutChart = ({ items, style }) => {
 
         {/* Label above the pin */}
         <text
-          x={labelPos.x}
-          y={labelPos.y}
+          x={labelPos.x||0}
+          y={labelPos.y||0}
           textAnchor="middle"
           dominantBaseline="middle"
           fill="black"
-          {...style.sectionSubHeader}
+          
         >
           {slice?.activity?.charAt(0)}
         </text>

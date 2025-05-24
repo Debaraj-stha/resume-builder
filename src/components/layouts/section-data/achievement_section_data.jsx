@@ -11,7 +11,7 @@ const generateAchievement = ({
     titleHeader = "achievement",
     props = {} }) => {
     const { shouldApplyGrid,side } = props
-    const Achievement = achievements.map((achievement, index) => (
+    const Achievement = achievements?.map((achievement, index) => (
         <AcheivementCard
             key={index}
             my_acheivement={achievement} 
