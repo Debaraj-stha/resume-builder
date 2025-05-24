@@ -42,21 +42,21 @@ Includes Google Sign-In, email/password auth, multiple template styles (Classica
 
 ## 🛠 Tech Stack
 
-| Tech               | Description                                       |
+| Tech               | Description                                     |
 |--------------------|-------------------------------------------------|
 | React              | UI Framework                                    |
 | Vite               | Build Tool + HMR                                |
-| Supabase           | Backend-as-a-Service (Auth, Database, Storage) |
+| Supabase           | Backend-as-a-Service (Auth, Database, Storage)  |
 | styled-components  | Theming and component styling                   |
-| Tailwind CSS       | Utility-first CSS framework                      |
+| Tailwind CSS       | Utility-first CSS framework                     |
 | React Hook Form    | Form management                                 |
 | React Router       | Navigation                                      |
-| Zustand / Redux    | State management (optional)                      |
-| html2canvas        | Converts HTML to canvas for PDF export           |
-| jspdf              | Creates PDF files from canvas                     |
+| Zustand / Redux    | State management (optional)                     |
+| html2canvas        | Converts HTML to canvas for PDF export          |
+| jspdf              | Creates PDF files from canvas                   |
 | FastAPI            | Backend server for resume PDF upload and parsing|
-| pdfplumber         | PDF text extraction on backend                    |
-| spaCy              | NLP parsing and section extraction               |
+| pdfplumber         | PDF text extraction on backend                  |
+| spaCy              | NLP parsing and section extraction              |
 
 ---
 
@@ -166,8 +166,7 @@ resume-builder/
 │   ├── provider/          # Context and global providers (theme, auth)
 │   ├── theme/             # Styled-components theme config (light/dark)
 │   ├── static-data/       # Dummy resume content, descriptions, options
-│   ├── hooks/             # Custom hooks (including auto-save, file upload)
-│   └── utils/             # Helpers, e.g., API clients, parsing logic
+│   ├── helper/            # Helper fucnations and Custom hooks (including auto-save, file upload)
 ├── .env
 ├── .gitignore
 ├── CONTRIBUTING.md
