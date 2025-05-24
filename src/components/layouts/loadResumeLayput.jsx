@@ -138,8 +138,6 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
       else if (layout_type === layout_type_map.CREATIVE) {
         await loadCreativeLayout(isMounted)
       }
-
-
       else {
         await loadClassicLayout(isMounted);
       }

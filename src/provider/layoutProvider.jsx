@@ -6,10 +6,13 @@ import {
   useState,
   useEffect,
   useRef,
-  useMemo
+  useMemo,
+  useCallback
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import defaultFormFields from "../helper/default_form_value";
+import usePDFTextExtracter from "../helper/hooks/usePDFTextExtracter";
+
 
 
 export const LayoutContext = createContext(null);
@@ -17,16 +20,25 @@ export const LayoutContext = createContext(null);
 const LayoutProvider = ({ children }) => {
   const methods = useForm({ defaultValues: defaultFormFields });
   const { getValues, reset } = methods;
+ 
+
 
   const [isLoading, setIsLoading] = useState(true);
   const [measured, setMeasured] = useState(false);
   const [liveDetails, setLiveDetails] = useState({});
   const [savedData, setSavedData] = useState({});
   const [isSavedLoaded, setIsSavedLoaded] = useState(false);
-
+  const [isExtractingResumeInfo, setIsExtractingResumeInfo] = useState(false)
+  const [isLayoutChooseModalOpen, setIsLayoutModalOpen] = useState()
+  const fileInputRef = useRef(null)
   const sectionRefs = useRef([]);
-
   const pdfRef = useRef(null);
+  const extractText = usePDFTextExtracter()
+
+  const closeLayoutChooseModal = useCallback(() => {
+    setIsLayoutModalOpen((prev) => !prev)
+  }, [isLayoutChooseModalOpen])
+
 
 
   // Helper: Extract safe form data
@@ -132,6 +144,30 @@ const LayoutProvider = ({ children }) => {
     setPages(grouped);
     setMeasured(true);
   };
+  //click event on current fileref
+  const handleFilePick = () => {
+    fileInputRef.current?.click();
+  };
+  //handling file change
+  const handleFileChange = async (e) => {
+    try {
+      const file = e.target.files[0];
+      if (file) {
+        setIsExtractingResumeInfo(true)
+        const extractedDetails = await extractText(file)
+        console.log("extractedDetails", extractedDetails)
+        const ele=fileInputRef.current
+        const layout_type=ele.getAttribute("data-layout-type")
+        const layout_id=ele.getAttribute("data-layout-id")
+        if(!(layout_type && layout_id)){
+          setIsLayoutModalOpen(true)
+        }
+      }
+    } catch (error) {
+      console.error("Error while uploading file", error)
+    }
+  };
+
 
 
 
@@ -171,6 +207,13 @@ const LayoutProvider = ({ children }) => {
     isSavedLoaded,
     setIsSavedLoaded,
     setSavedData,
+    fileInputRef,
+    handleFilePick,
+    handleFileChange,
+    isExtractingResumeInfo,
+    setIsExtractingResumeInfo,
+    closeLayoutChooseModal,
+    isLayoutChooseModalOpen
   }
   ), [
     isLoading,
@@ -186,6 +229,13 @@ const LayoutProvider = ({ children }) => {
     isSavedLoaded,
     setIsSavedLoaded,
     setSavedData,
+    fileInputRef,
+    handleFileChange,
+    handleFilePick,
+    isExtractingResumeInfo,
+    setIsExtractingResumeInfo,
+    closeLayoutChooseModal,
+    isLayoutChooseModalOpen
   ]);
 
   return (

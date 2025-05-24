@@ -3,10 +3,10 @@ import { CgClose } from "react-icons/cg";
 import { CloseButton } from "./CustomComponents";
 import { LineDivider } from "./Divider/TransparentDividers";
 
-const BigModal = memo(({ children, onClose, header, footer }) => {
+const BigModal = memo(({ children, onClose, header, footer,bgClass="bg-white" }) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">
-            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div className={`${bgClass} bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-5xl max-h-[90vh] flex flex-col`}>
                 {/* Header (static) */}
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold">{header}</h2>

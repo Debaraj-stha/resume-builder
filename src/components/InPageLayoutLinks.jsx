@@ -63,7 +63,7 @@ const InPageLayoutLinks = () => {
   const icons = theme.colors.icons;
 
   return (
-    <div className="fixed top-24 left-0  w-full z-[999] shadow-md py-4 px-4 flex flex-wrap gap-4 justify-center"
+    <div className="fixed top-30 left-0  w-full z-40 shadow-md py-4 px-4 flex flex-wrap gap-4 justify-center"
          style={{ backgroundColor: theme.colors.navBackground }}>
       {iconData.map(({ id, label, icon, href }) => {
         const iconStyles = icons[id] || icons.default;

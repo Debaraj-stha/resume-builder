@@ -228,7 +228,7 @@ export const H1=styled.h1`
 color:${({theme})=>theme.colors.text||"black"};
 `
 export const H2=styled.h2`
-color:${({theme})=>theme.colors.text||"black"};
+color:${({theme,color})=>color||theme.colors.text||"black"};
 font-size:22px;
 margin:10px auto;
 `

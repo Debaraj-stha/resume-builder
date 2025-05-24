@@ -19,7 +19,7 @@ const ToolTipBox = styled.div.withConfig({
   bottom: -115%;
   left: 50%;
   transform: translateX(-50%);
-  padding: ${(props) => props.padding || "10px"};
+  padding: ${(props) => props.padding || "5px"};
   background: ${(props) => props.backgroundColor || "white"};
   border-radius: 10px;
   color: ${(props) => props.color || "black"};
@@ -29,6 +29,7 @@ const ToolTipBox = styled.div.withConfig({
   opacity: ${(props) => (props.show ? 1 : 0)};
   pointer-events: none;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
+  font-size:14px;
   &::before {
     content: "";
     position: absolute;

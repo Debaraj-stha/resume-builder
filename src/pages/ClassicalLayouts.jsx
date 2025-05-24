@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { templateDescription } from "../static-data/template_description";
 import TemplatesdescriptionCard from "../components/TemplateHeaderCard";
-import {  Hspace } from "../components/CustomComponents";
+import { Hspace } from "../components/CustomComponents";
 import { classical_layouts_image_map, mostPopularClassicalLayouts } from "../components/LayoutImages";
 import { classicalLayoutDescription } from "../static-data/layout_description";
 import ContainerWrapper from "../components/layouts/wrappers/ContainerWrapper";
@@ -14,6 +14,8 @@ import MostUsedLayouts from "../components/MostUsedLayouts";
 import StartBuildingResumeButtton from "../components/StartBuildingResumeButton";
 import RenderLayoutImage from "../components/RenderLayoutImage";
 import { layout_type_map } from "../constant";
+import UploadResumeCardAndIcon from "../components/UploadResumeCardAndIcon";
+import LayoutsModal from "../components/LayoutsModal";
 const ClassicalLayouts = () => {
     const itemsPerPage = 3
     const { currentPage, PaginationButtons, setItemsLength } = usePagination()
@@ -22,6 +24,10 @@ const ClassicalLayouts = () => {
         //setting items length to calculate pages
         setItemsLength(length)
     }, [])
+    const handleButtonClick = () => {
+
+    }
+  
     return (
 
         <>
@@ -44,11 +50,12 @@ const ClassicalLayouts = () => {
                     <PaginationProvider>
                         <MostUsedLayouts layout_descriptions={classicalLayoutDescription} layout_image_map={mostPopularClassicalLayouts} />
                     </PaginationProvider>
+
                 </ContainerWrapper>
-                <StartBuildingResumeButtton />
-
-            </Container>
-
+                <UploadResumeCardAndIcon />
+                <StartBuildingResumeButtton onClick={handleButtonClick} />
+                   <LayoutsModal/>
+            </Container> 
         </>
     )
 }

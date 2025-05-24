@@ -1,5 +1,3 @@
-
-
 import { layout_1_style as style } from "../layout-1/style"
 import generateExperience from "../../section-data/experience_section_data";
 import generateEducation from "../../section-data/education_secion_data";

@@ -4,6 +4,8 @@ import { Hspace } from "../components/CustomComponents";
 import AllLayouts from "./AllTemplates";
 
 import Container from "../components/Container";
+import LayoutsModal from "../components/LayoutsModal";
+
 
 
 const Templates = () => {
@@ -24,11 +26,11 @@ const Templates = () => {
     }, [])
     return (
         <Container>
-
             <Hspace></Hspace>
             <div className="items-center max-w-7xl mx-auto px-4">
                 <AllLayouts />
             </div>
+            <LayoutsModal/>
         </Container>
     )
 }

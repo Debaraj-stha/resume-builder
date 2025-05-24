@@ -15,7 +15,7 @@ width:100vw;
 font-family:'Roboto',Sans serif;
 `
 
-const Loader = styled.div`
+export const Loader = styled.div`
   border: 4px solid ${({ theme }) => theme.colors.border || "#ccc"};
   border-top: 4px solid ${({ theme }) => theme.colors.accent || "#007BFF"};
   border-radius: 50%;

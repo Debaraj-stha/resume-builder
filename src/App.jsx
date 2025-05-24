@@ -4,8 +4,7 @@ import Header from './components/Header'
 import GlobalStyle from './theme/global_styles'
 import ErrorBoundary from './components/ErrorBoundary'
 import AppRoutes from './components/AppRoutes'
-import { useEffect } from 'react'
-import { useAuth } from './provider/AuthProvider'
+
 
 
 function App() {

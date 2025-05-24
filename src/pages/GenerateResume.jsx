@@ -10,6 +10,8 @@ import useLoadSavedData from "../helper/hooks/useLoadSavedData";
 import useAutoSaveWithDiff from "../helper/hooks/useAutoSaveWithDiff";
 import DividerProvider from "../provider/DividerProvider";
 import DifferentLayoutHolder from "../components/DifferentLayoutHolder";
+import useHideOnScroll from "../helper/hooks/useHideOnScroll";
+import UploadResumeCard from "../components/UploadResumeCard";
 
 const MainWrapper = styled.section`
   width: 100vw;
@@ -39,16 +41,7 @@ const GenerateResume = () => {
 
   useLoadSavedData();
   useAutoSaveWithDiff(AUTOSAVE_INTERVAL);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowIcons(false);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  useHideOnScroll(setShowIcons)
 
   const handleShowIcon = useCallback(() => {
     setShowIcons((prev) => !prev)
@@ -80,6 +73,7 @@ const GenerateResume = () => {
           setShowIcons={handleShowIcon}
           setIsTemplateChangeModelOpen={openTemplateChangeModal}
         />
+        <UploadResumeCard/>
       </MainWrapper>
       <DifferentLayoutHolder isOpen={isTemplateChangeModelOpen} onHide={openTemplateChangeModal} />
 

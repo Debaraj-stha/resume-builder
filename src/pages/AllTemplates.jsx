@@ -9,8 +9,9 @@ import MostUsedLayouts from "../components/MostUsedLayouts";
 import { PaginationProvider, usePagination } from "../provider/paginationProvider";
 import { useEffect } from "react";
 import LayoutCardGrid from "../components/LayoutDescriptionGrid";
-import StartBuildingResumeButtton from "../components/StartBuildingResumeButton";
 import RenderLayoutImage from "../components/RenderLayoutImage";
+import UploadResumeCardAndIcon from "../components/UploadResumeCardAndIcon";
+
 
 
 
@@ -49,8 +50,8 @@ const AllLayouts = () => {
 
       {/* info card section */}
       <LayoutCardGrid cardInfos={infoCardsData} />
-      <StartBuildingResumeButtton onClick={() => console.log("clicked")} />
-
+      {/* upload old resume card */}
+      <UploadResumeCardAndIcon />
     </PaginationProvider>
   );
 };

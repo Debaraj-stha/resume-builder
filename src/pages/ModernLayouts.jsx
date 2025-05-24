@@ -15,6 +15,8 @@ import { modernLayoutCardInfos } from "../static-data/modern_layout_card_info";
 import StartBuildingResumeButtton from "../components/StartBuildingResumeButton";
 import RenderLayoutImage from "../components/RenderLayoutImage";
 import { layout_type_map } from "../constant";
+import UploadResumeCardAndIcon from "../components/UploadResumeCardAndIcon";
+import LayoutsModal from "../components/LayoutsModal";
 const ModernLayouts = () => {
     const itemsPerPage = 3
     const { currentPage, PaginationButtons, setItemsLength } = usePagination()
@@ -48,8 +50,9 @@ const ModernLayouts = () => {
                         <MostUsedLayouts layout_descriptions={modernLayoutDescription} layout_image_map={mostPopularModernLayouts} />
                     </PaginationProvider>
                 </ContainerWrapper>
+                <UploadResumeCardAndIcon/>
                 <StartBuildingResumeButtton />
-
+   <LayoutsModal/>
             </Container>
 
         </>

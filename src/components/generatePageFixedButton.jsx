@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import styled from "styled-components";
 import { useLayout } from "../provider/layoutProvider";
 import { CircularIconHolder, P } from "./elements/resumeSectionWrapper";
 import ToolTip from "./Tooltip";
@@ -14,32 +13,13 @@ import { H3 } from "./CustomComponents";
 import { useDivider } from "../provider/DividerProvider";
 import BigModal from "./BigModal";
 import { GridTwo } from "./layouts/input-layout/GridCards";
-import { useParams } from "react-router-dom";
-import DifferentLayoutHolder from "./DifferentLayoutHolder";
-
-const FixedIconWrapper = styled.div`
-  position: fixed;
-  right: 3%;
-  bottom:10%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  background:#2c00ff33;
-  padding: 10px;
-  border-radius: 10px;
-  z-index: 111111;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    &:hover {
-    opacity: 0.8;
-    }
-`;
+import FixedIconWrapper from "./FixedIconWrapper";
 
 
-const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons,setIsTemplateChangeModelOpen }) => {
+
+
+
+const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateChangeModelOpen }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
@@ -102,22 +82,9 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons,setIsTemplateCh
             </div>
         </BigModal>
     );
-
-
-
-
     return (
         <>
-            <FixedIconWrapper>
-                <ToolTip text="Show more icons">
-                    <CircularIconHolder
-                        backgroundColor="#1A73E8"
-                        onClick={setShowIcons}
-                    >
-                        {showIcons ? <MdExpandLess /> : <MdExpandMore />}
-                    </CircularIconHolder>
-
-                </ToolTip>
+            <FixedIconWrapper showIcons={showIcons} setShowIcons={setShowIcons}>
                 {showIcons && (
                     <>
                         <ToolTip text="Generate Resume">

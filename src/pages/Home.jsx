@@ -8,6 +8,8 @@ import FeatureCards from "../components/FeatureCard";
 import Container from "../components/Container";
 import useHomeHook from "../helper/hooks/scrollToTopHook";
 import { useGetStarted } from "../helper/hooks/useGetStartedHook";
+import UploadResumeCardAndIcon from "../components/UploadResumeCardAndIcon";
+import LayoutsModal from "../components/LayoutsModal";
 
 
 
@@ -58,37 +60,38 @@ background-color: ${({ theme }) => theme.colors.card.background};
 `
 
 const Home = () => {
-    useHomeHook()
-    return (
-        <Container>
+  useHomeHook()
+  return (
+    <Container>
 
-            <div className="m-auto">
-                <Hspace height="200px" />
-                <TopSection>
-                    <div className="max-w-5xl mx-auto text-center">
-                        <TextWrapper>
-                            <Span>
-                                Build Your Professional CV in Minutes
-                            </Span>
-                        </TextWrapper>
-                        <Subtitle>
-                            Easy to use, customizable templates. Download your resume instantly.
-                        </Subtitle>
-                        <CTAButton onClick={useGetStarted()}>
-                            Get Started
-                        </CTAButton>
-                    </div>
-                </TopSection>
-                {/* features of cv builder */}
-                <FeatureCards />
-                {/* user thought  to this site */}
-                <UserThought />
+      <div className="m-auto">
+        <Hspace height="200px" />
+        <TopSection>
+          <div className="max-w-5xl mx-auto text-center">
+            <TextWrapper>
+              <Span>
+                Build Your Professional CV in Minutes
+              </Span>
+            </TextWrapper>
+            <Subtitle>
+              Easy to use, customizable templates. Download your resume instantly.
+            </Subtitle>
+            <CTAButton onClick={useGetStarted()}>
+              Get Started
+            </CTAButton>
+          </div>
+        </TopSection>
+        {/* features of cv builder */}
+        <FeatureCards />
+        {/* user thought  to this site */}
+        <UserThought />
 
-                <CTACard onClick={useGetStarted()} />
-
-
-            </div>
-        </Container>
-    )
+        <CTACard onClick={useGetStarted()} />
+        <UploadResumeCardAndIcon />
+      <LayoutsModal/>
+      </div>
+   
+    </Container>
+  )
 }
 export default Home
