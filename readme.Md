@@ -29,9 +29,9 @@ A FastAPI-based web service to extract structured resume information (name, cont
 ### 1. Clone the repository
 
 ```bash
+git clone git@github.com:Debaraj-stha/resume-builder.git
+cd resume-builder
 git checkout -b server
-git clone <git@github.com:Debaraj-stha/resume-builder.git>
-cd <repo-folder>
 ```
 
 ### 2. Create and activate a virtual environment

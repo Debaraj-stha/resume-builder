@@ -2,7 +2,3 @@ pdfplumber
 spacy
 fastapi
 uvicorn
-
-
-
-
