@@ -20,7 +20,6 @@ const CreativeLayouts = () => {
     const itemsPerPage = 3
     const { currentPage, PaginationButtons, setItemsLength } = usePagination()
     useEffect(() => {
-        console.log("ca;llled pdppd")
         const length = Object.keys(creative_layouts_image_map).length
         //setting items length to calculate pages
         setItemsLength(length)
