@@ -12,7 +12,7 @@ const usePDFTextExtracter = () => {
       const jsonRes = await res.json()
       const obj = {
         
-        "personalDetails": jsonRes["personaletails"],
+        "personalDetails": jsonRes["personalDetails"],
         "educations": jsonRes["education"],
         "experiences": jsonRes["experience"],
         "skills": jsonRes["skills"],

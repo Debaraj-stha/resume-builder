@@ -15,6 +15,7 @@ import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWi
 import Login from "../pages/Login";
 import LayoutProvider from "../provider/layoutProvider";
 import RedirectMessagePage from "../pages/RedirectMessagePage";
+import DirectPDF from "../pages/DirectPDF";
 
 const AppRoutes = () => {
     return (
@@ -39,6 +40,7 @@ const AppRoutes = () => {
             <Route exact path="/build-resume/:layout_type/:layout_id" element={
                 <LayoutProvider> <GenerateResume />  </LayoutProvider>
             }></Route>
+            <Route exact path="/direct-pdf" element={<DirectPDF/>}/>
             <Route path="*" element={<NotFound />}></Route>
 
 

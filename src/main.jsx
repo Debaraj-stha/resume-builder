@@ -9,6 +9,7 @@ import LayoutProvider from './provider/layoutProvider.jsx'
 import { PaginationProvider } from './provider/paginationProvider.jsx'
 import AuthProvider from './provider/AuthProvider.jsx'
 import SupabaseProvider from './provider/supabaseProvider.jsx'
+import DirectPDFWriterProvider from './provider/DirectPDFWriter.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -17,11 +18,13 @@ createRoot(document.getElementById('root')).render(
       <Router>
         <AuthProvider>
           <SupabaseProvider>
-            <LayoutProvider>
-              <PaginationProvider>
-                <App />
-              </PaginationProvider>
-            </LayoutProvider>
+            <DirectPDFWriterProvider>
+              <LayoutProvider>
+                <PaginationProvider>
+                  <App />
+                </PaginationProvider>
+              </LayoutProvider>
+            </DirectPDFWriterProvider>
           </SupabaseProvider>
         </AuthProvider>
       </Router>

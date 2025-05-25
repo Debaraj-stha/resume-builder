@@ -89,6 +89,7 @@ const Home = () => {
         <CTACard onClick={useGetStarted()} />
         <UploadResumeCardAndIcon />
       <LayoutsModal/>
+      
       </div>
    
     </Container>
