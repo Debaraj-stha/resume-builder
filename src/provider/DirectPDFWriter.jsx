@@ -1,50 +1,115 @@
 import { createContext, useCallback, useContext, useMemo } from "react";
-import { personalDetails } from "../static-data/resume-sample-data";
+
 import jsPDF from "jspdf";
-import { drawCircle, drawRectangle, drawStyledText,drawLine, drawImage, drawIcon, drawDoubleLine, drawLineWithDotAtCenter, drawLineWithBoxAtCenter, drawZigZagLine } from "../helper/helper-functions";
-import { FaLinkedinIn } from "react-icons/fa";
-
-const image=`data:image/jpeg;base64,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`
+import { nameStyle, headerStyle, subHeaderStyle, normalStyle, subsubHeaderStyle } from "../helper/pdf/style";
+import renderPersonalDetailsSection from "../helper/pdf/render/renderPersonalDetails";
+import renderExperienceSection from "../helper/pdf/render/renderExperiences";
 const DirectPDFContext = createContext()
+
 const DirectPDFWriterProvider = ({ children }) => {
-
-    const titleStyle = {
-        font: { style: 'bold' },
-        fontSize: 25,
-        color: [0, 0, 0],
-        fillColor: [50, 50, 150],
-        align: 'center'
+    const defaultSectionProps = {
+        personalDetailsProps: {},
+        experiencesProps: {},
+        educationsProps: {},
+        achievementsProps: {},
+        trainingsProps: {},
+        awardsProps: {},
+        skillsProps: {},
+        certificatesProps: {},
+        myTimeProps: {},
+        industryExpertiseProps: {},
+        openSourceWorkProps: {},
+        strengthsProps: {},
+        languagesProps: {},
+        summaryProps: {}
     };
-    const normalStyle = {
-        color: [0, 0, 0],
-        font: { family: "times", style: "normal" },
-        fontSize: 12,
-        align: 'center'
+    const defaultStyles = {
+        nameStyle,
+        headerStyle,
+        subHeaderStyle,
+        subsubHeaderStyle,
+        normalStyle
+    };
+    const pagePadding = {
+        top: 40,
+        left: 40,
+        right: 40,
+        bottom: 40
     }
+    const xPadding = pagePadding.left + pagePadding.right
+    const yPadding = pagePadding.top + pagePadding.bottom
+    const { top, left, right, bottom } = pagePadding
+    let currentPos
+    const createPDF = useCallback(async (sections = {}, styles = {}, props = {}) => {
+        const {
+            personalDetails,
+            experiences,
+            educations,
+            achievements,
+            trainings,
+            awards,
+            skills,
+            certificates,
+            my_time,
+            industryExpertise,
+            openSourceWork,
+            strengths,
+            languages,
+            summary
+        } = sections
+        const {
+            nameStyle: appliedNameStyle = defaultStyles.nameStyle,
+            headerStyle: appliedHeaderStyle = defaultStyles.headerStyle,
+            subHeaderStyle: appliedSubHeaderStyle = defaultStyles.subHeaderStyle,
+            subsubHeaderStyle: appliedSubsubHeaderStyle = defaultStyles.subsubHeaderStyle,
+            normalStyle: appliedNormalStyle = defaultStyles.normalStyle
+        } = styles;
 
-    const createPDF = useCallback(async () => {
+
+        const {
+            personalDetailsProps = defaultSectionProps.personalDetailsProps,
+            experiencesProps = defaultSectionProps.experiencesProps,
+            educationsProps = defaultSectionProps.educationsProps,
+            achievementsProps = defaultSectionProps.achievementsProps,
+            trainingsProps = defaultSectionProps.trainingsProps,
+            awardsProps = defaultSectionProps.awardsProps,
+            skillsProps = defaultSectionProps.skillsProps,
+            certificatesProps = defaultSectionProps.certificatesProps,
+            myTimeProps = defaultSectionProps.myTimeProps,
+            industryExpertiseProps = defaultSectionProps.industryExpertiseProps,
+            openSourceWorkProps = defaultSectionProps.openSourceWorkProps,
+            strengthsProps = defaultSectionProps.strengthsProps,
+            languagesProps = defaultSectionProps.languagesProps,
+            summaryProps = defaultSectionProps.summaryProps
+        } = props;
+
+
         console.log("creating pdf...")
         const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
-        const pdfWidth = pdf.internal.pageSize.getWidth()
-        const pdfHeight = pdf.internal.pageSize.getHeight()
-        const centerPosition = (text) => pdf.getTextWidth(text)
+        if (personalDetails)
+            currentPos = await renderPersonalDetailsSection(
+                pdf,
+                personalDetails,
+                { top, left },
+                { nameStyle: appliedNameStyle, subHeaderStyle: appliedSubHeaderStyle, subsubHeaderStyle: appliedSubsubHeaderStyle },
+                { xPadding, yPadding },
+                personalDetailsProps
+            )
+        if (experiences)
+            currentPos = renderExperienceSection(pdf,
+                experiences,
+                { left, xPadding, y: currentPos.y },
+                {
+                    normalStyle: appliedNormalStyle,
+                    headerStyle: appliedHeaderStyle, subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" }
+                },
+                experiencesProps
+            )
         
-        // drawStyledText(pdf, personalDetails.name, pdfWidth / 2, 60, titleStyle);
-        // drawStyledText(pdf, personalDetails.profession, pdfWidth / 2, 80, normalStyle);
-        // drawRectangle(pdf,100,100,40,40)
-        // drawCircle(pdf,150,180,50)
-        // drawLine(pdf,220,0,400,0)
-        // await drawImage(pdf,image,{y:230})
-        // await drawIcon(pdf,FaLinkedinIn,{color:"blue"})
-        drawLine(pdf,{},{dash:[4,2]})
-        drawDoubleLine(pdf,{x1:10,y1:20,x2:100,y2:20})
-        drawLineWithDotAtCenter(pdf,{x1:150,y1:50,x2:300,y2:50})
-        drawLineWithBoxAtCenter(pdf,{x1:10,y1:70,x2:100,y2:70})
-        drawZigZagLine(pdf,{x1:80,y1:80,x2:300,y2:80})
-
-     
-
-        pdf.save("resume.pdf")
+        const now = Date.now()
+        const filename = `resume-${now}.pdf`
+        pdf.save(filename)
+        console.log("pdf saved with filename", filename)
 
     }, [])
 

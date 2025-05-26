@@ -1,0 +1,1 @@
+export const renderTrainingsSection = (pdf, trainingsArray, coords = {}, style = {}, props = {}) => { }

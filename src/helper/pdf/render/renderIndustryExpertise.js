@@ -1,0 +1,1 @@
+export const renderIndustryExpertiseSection = (pdf, industryExpertiseArray, coords = {}, style = {}, props = {}) => { }

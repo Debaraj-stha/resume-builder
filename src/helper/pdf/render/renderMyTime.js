@@ -1,0 +1,1 @@
+export const renderMyTimeSection = (pdf, myTimeData, coords = {}, style = {}, props = {}) => { }

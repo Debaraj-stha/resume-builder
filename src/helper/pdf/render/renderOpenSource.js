@@ -1,0 +1,1 @@
+export const renderOpenSourceWorkSection = (pdf, openSourceWorkArray, coords = {}, style = {}, props = {}) => { }

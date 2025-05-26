@@ -1,0 +1,1 @@
+export const renderCertificatesSection = (pdf, certificatesArray, coords = {}, style = {}, props = {}) => { }

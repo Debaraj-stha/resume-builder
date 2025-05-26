@@ -1,0 +1,1 @@
+export const renderSkillsSection = (pdf, skillsArray, coords = {}, style = {}, props = {}) => { }

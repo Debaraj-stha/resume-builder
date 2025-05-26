@@ -1,16 +1,16 @@
 export const experiences = [
   {
-    "companyName": "TechVision Analytics Pvt. Ltd.",
+    "company_name": "TechVision Analytics Pvt. Ltd.",
     "position": "Business Data Analyst",
-    "aboutCompany": "TechVision Analytics is a mid-sized firm that provides AI-driven business intelligence solutions to e-commerce and retail clients.",
+    "about_company": "TechVision Analytics is a mid-sized firm that provides AI-driven business intelligence solutions to e-commerce and retail clients.",
     "achievements": [
       { value: "Identified and reported key insights that led to a 15% increase in customer retention." },
       { value: "Built automated dashboards using Power BI and SQL to visualize business metrics." },
 
     ],
-    location: "Dharan",
-    "startDate": "2022",
-    "endDate": "2023"
+    "location": "Dharan",
+    "start_date": "2022",
+    "end_date": "2023"
   },
   {
     "companyName": "InfoTech company ",

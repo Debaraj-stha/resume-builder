@@ -1,0 +1,1 @@
+export const renderAwardsSection = (pdf, awardsArray, coords = {}, style = {}, props = {}) => { }

@@ -1,0 +1,1 @@
+export const renderLanguagesSection = (pdf, languagesArray, coords = {}, style = {}, props = {}) => { }

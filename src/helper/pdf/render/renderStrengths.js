@@ -1,0 +1,1 @@
+export const renderStrengthsSection = (pdf, strengthsArray, coords = {}, style = {}, props = {}) => { }

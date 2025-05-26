@@ -7,7 +7,7 @@ import { createRoot } from "react-dom/client";
  * @param {Object} style - Optional styles including fontSize and color.
  * @returns {Promise<string>} Base64 PNG data URL of the rendered icon.
  */
-export const renderIconToBase64 = async (IconComponent, style = {}) => {
+const renderIconToBase64 = async (IconComponent, style = {}) => {
     // Create a hidden container off-screen to hold the icon during rendering
     const container = document.createElement('div');
     container.style.position = 'absolute';
@@ -38,3 +38,4 @@ export const renderIconToBase64 = async (IconComponent, style = {}) => {
     document.body.removeChild(container);
     return dataUrl;
 };
+export default renderIconToBase64;
