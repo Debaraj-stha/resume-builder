@@ -1,5 +1,6 @@
 import jsPDF from "jspdf";
 import { pdfSize } from "./core";
+import { drawBulletText, drawStyledText, drawWrappedLongText } from "./text";
 
 /**
  * @function drawTwoColumnsLayout
@@ -38,48 +39,141 @@ import { pdfSize } from "./core";
 
 
 export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coords = {}) => {
-    const {
-        leftColor = [255, 255, 255],
-        rightColor = [255, 255, 255],
-        padding = {
-            xPadding: 20,
-            yPadding: 20
-        },
-    } = style;
+  const {
+    leftColor = [255, 255, 255],
+    rightColor = [255, 255, 255],
+    padding = {
+      xPadding: 20,
+      yPadding: 20
+    },
+  } = style;
 
-    const {
-        leftContent = () => { },
-        rightContent = () => { }
-    } = contents;
-    const { x1 = 0, y1 = 0, y2 = 0 } = coords
+  const {
+    leftContent = () => { },
+    rightContent = () => { }
+  } = contents;
+  const { x1 = 0, y1 = 0, y2 = 0 } = coords
 
-    const { leftSize, rightSize } = size
-    const { xPadding, yPadding } = padding;
+  const { leftSize, rightSize } = size
+  const { xPadding, yPadding } = padding;
 
-   const { pdfWidth, pdfHeight } = pdfSize()
+  const { pdfWidth, pdfHeight } = pdfSize()
 
-    const leftWidth = leftSize || pdfWidth * 0.5;
-    const rightWidth = rightSize || (pdfWidth - leftWidth);
+  const leftWidth = leftSize || pdfWidth * 0.5;
+  const rightWidth = rightSize || (pdfWidth - leftWidth);
 
-    // Draw left column
-    pdf.setFillColor(...leftColor);
-    pdf.rect(x1, y1, leftWidth, pdfHeight, "F");
+  // Draw left column
+  pdf.setFillColor(...leftColor);
+  pdf.rect(x1, y1, leftWidth, pdfHeight, "F");
 
-    // Draw right column
-    pdf.setFillColor(...rightColor);
-    pdf.rect(leftWidth, y2, rightWidth, pdfHeight, "F");
+  // Draw right column
+  pdf.setFillColor(...rightColor);
+  pdf.rect(leftWidth, y2, rightWidth, pdfHeight, "F");
 
 
-    // Left column content
-    const leftX = xPadding;
-    const leftY = yPadding;
-    const leftMaxWidth = leftWidth - 2 * xPadding;
-    // Right column content
-    const rightX = leftWidth + xPadding;
-    const rightY = yPadding;
-    const rightMaxWidth = rightWidth - 2 * xPadding;
-    const leftFinalY = leftContent(pdf, { x: leftX, y: leftY, width: leftMaxWidth });
-    const rightFinalY = rightContent(pdf, { x: rightX, y: rightY, width: rightMaxWidth });
+  // Left column content
+  const leftX = xPadding;
+  const leftY = yPadding;
+  const leftMaxWidth = leftWidth - 2 * xPadding;
+  // Right column content
+  const rightX = leftWidth + xPadding;
+  const rightY = yPadding;
+  const rightMaxWidth = rightWidth - 2 * xPadding;
+  const leftFinalY = leftContent(pdf, { x: leftX, y: leftY, width: leftMaxWidth });
+  const rightFinalY = rightContent(pdf, { x: rightX, y: rightY, width: rightMaxWidth });
 
-    return { leftFinalY, rightFinalY };
+  return { leftFinalY, rightFinalY };
+};
+
+/**
+ * Renders a vertical divider layout with two main columns and a line between them.
+ * 
+ * @param {jsPDF} pdf - The jsPDF instance.
+ * @param {object} content - The content to render.
+ * @param {Array} content.leftSection - Array of { text, style } for the left column.
+ * @param {Array} content.mainSection - Array of { text, style } for the right column.
+ * @param {Array} content.achievements - Array of { value } objects for the right column list.
+ * @param {object} config - Configuration for positioning.
+ * @param {number} config.x - Left starting x-coordinate.
+ * @param {number} config.y - Starting y-coordinate.
+ * @param {number} config.maxWidth - Total width available for rendering.
+ * @param {object} config.styles - Object with bullet style.
+ * @param {string|null} config.listStyle - e.g., "bullet"
+ * @returns {{x: number, y: number}} - The new cursor position after rendering
+ */
+
+export const drawVerticalDividerLayout = async (pdf, content, config) => {
+
+  const {
+    leftSection = [],
+    mainSection = [],
+    achievements = [],
+  } = content;
+
+  const {
+    x,
+    y,
+    maxWidth,
+    styles,
+    listStyle,
+    lineWidth = 1
+  } = config;
+
+  const leftWidth = maxWidth * 0.2;
+  const dividerWidth = 10;
+  const rightWidth = maxWidth * 0.7;
+  const gap = 10;
+
+  let currentLeftPos = {
+    x, y
+  };
+  let currentRightPos = { x, y };
+
+  // Render left section
+  for (const { text, style } of leftSection) {
+    currentLeftPos = drawStyledText(pdf, text, { x: x, y: currentLeftPos.y }, style);
+  }
+
+  // Render right section
+  const rightStartX = leftWidth + gap + dividerWidth + x;
+  let currentX = rightStartX;
+  currentRightPos.y = y
+
+  for (const { text, style } of mainSection) {
+    currentRightPos = await drawWrappedLongText(pdf, text, currentX, currentRightPos.y, rightWidth, style);
+  }
+
+  // Render achievements
+  for (const { value } of achievements) {
+    if (listStyle === "bullet") {
+      currentRightPos = await drawBulletText(
+        pdf,
+        value,
+        currentX,
+        currentRightPos.y - 10,
+        rightWidth,
+        styles.bullet
+      );
+    } else {
+      currentRightPos = await drawWrappedLongText(
+        pdf,
+        value,
+        currentX,
+        currentRightPos.y,
+        rightWidth,
+        styles.bullet
+      );
+    }
+  }
+  // Draw vertical divider line
+  const dividerX = x + leftWidth + gap / 2;
+  const lineTop = y;
+  const lineBottom = Math.max(currentLeftPos.y, currentRightPos.y + 5) + 5;
+  pdf.setDrawColor(0o00);
+  pdf.setLineWidth(lineWidth);
+  pdf.circle(dividerX, lineTop - 6, 2, "F");
+  pdf.line(dividerX, lineTop - 4, dividerX, lineBottom - 25);
+
+  const finalY = Math.max(currentLeftPos.y, currentRightPos.y);
+  return { x, y: finalY + 10 };
 };

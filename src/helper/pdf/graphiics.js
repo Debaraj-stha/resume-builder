@@ -341,8 +341,8 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
                 drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor, borderStyle: "F" });
             }
 
-            const textX = includeIcon ? x + 20 : x + 10;
-            const textY = y + itemHeight / 2 + fontSize / 2.5 - (includeIcon ? 2 : 0);
+            const textX = includeIcon ? x + 22 : x + 10;
+            const textY = y + itemHeight / 2 + fontSize / 3 - (includeIcon ? 2 : 0);
             pdf.text(displayText, textX, textY);
 
             x += itemWidth + gapX;

@@ -10,7 +10,7 @@ const DirectPDF = () => {
       {},
       {
         personalDetailsProps:{},
-        experiencesProps:{listStyle:"bullet",applyFlex:true,}
+        experiencesProps:{listStyle:"bullet",applyVerticalDivider:true}
       },
     )
     }

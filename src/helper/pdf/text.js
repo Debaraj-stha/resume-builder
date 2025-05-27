@@ -60,15 +60,18 @@ export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {})
   // Handle multiple paragraphs (split on newlines)
   const paragraphs = text.split('\n');
   let cursorY = y;
+    console.log("cursor y first",y)
   for (const para of paragraphs) {
     const lines = pdf.splitTextToSize(para, maxWidth);
-
     lines.forEach(line => {
+      console.log("line",line)
+      console.log("x",x)
+      console.log("cursorY",cursorY)  
       pdf.text(line, x, cursorY);
       cursorY += lineHeight;
     });
 
-    cursorY += lineHeight * 0.5; // spacing between paragraphs
+    cursorY += lineHeight * 0.1; // spacing between paragraphs
   }
   return { y: cursorY ,x:x + maxWidth + 10};
 };
