@@ -1,9 +1,9 @@
- import { BiMobile } from "react-icons/bi"
+import { BiMobile } from "react-icons/bi"
 import { MdEmail } from "react-icons/md"
 import { LiaLinkedin, LiaMapMarkerSolid } from "react-icons/lia"
 import { BsGithub, BsGlobe } from "react-icons/bs"
 import { pdfSize } from "../core"
-import { drawStyledText } from "../text"
+import { drawStyledText, drawTextWithIcon } from "../text"
 import { drawFlexWrappedItems } from "../graphiics"
 
 const contactIconsMap = {
@@ -33,18 +33,18 @@ const contactIconsMap = {
  * It uses the provided styles and coordinates to format the text and icons.
  * The function also supports padding and additional properties like including icons for contact items.
  */
- const renderPersonalDetailsSection = async(pdf, personalDetails, coords = {}, style = {}, padding = {}, props = {}) => {
+const renderPersonalDetailsSection = async (pdf, personalDetails, coords = {}, style = {}, padding = {}, props = {}) => {
     const { pdfWidth, _ } = pdfSize(pdf)
     const { top, left } = coords
     const { nameStyle, subHeaderStyle, normalStyle } = style
-    const { includeIcon,addressOnNextLine } = props
+    const { includeIcon = false, addressOnNextLine = false } = props
     const { xPadding = 20, yPadding = 20 } = padding
     let currentPos
     currentPos = drawStyledText(pdf, personalDetails.name, { x: pdfWidth / 2, y: top }, nameStyle)
     currentPos = drawStyledText(pdf, personalDetails.profession, { x: pdfWidth / 2, y: currentPos.y }, subHeaderStyle)
-    const urls = personalDetails.urls.map(url => url.value)
+    const urls = personalDetails?.urls?.map(url => url.value)
     const { email, phone, address } = personalDetails
-    const urlItems = urls.map(url => {
+    const urlItems = (urls || []).map(url => {
         const lower = url.toLowerCase()
         if (lower.includes('linkedin')) {
             return { type: 'linkedin', value: url }
@@ -54,21 +54,27 @@ const contactIconsMap = {
             return { type: 'website', value: url }
         }
     })
-    const contactItems = [
+    let contactItems = [
         { type: 'phone', value: phone },
         { type: 'email', value: email },
         ...urlItems,
         { type: 'address', value: address }
     ]
-    if (addressOnNextLine && address) {
-        contactItems.filter(item => item.type !== 'address')
+    console.log("addressOnNextLine", addressOnNextLine)
+    if (addressOnNextLine) {
+        contactItems = contactItems.filter(item => item.type !== 'address')
     }
-    currentPos =await  drawFlexWrappedItems(
+    currentPos = await drawFlexWrappedItems(
         pdf,
         contactItems,
         { x: left, y: currentPos.y, maxWidth: pdfWidth - xPadding },
-        normalStyle, { includeIcon, iconMap: contactIconsMap })
-    if (addressOnNextLine && address) {
+
+        { ...normalStyle, gapX: 2,align:"center",gapY: 5 },
+        { includeIcon, iconMap: contactIconsMap, listStyle: "bullet" })
+    if (addressOnNextLine && address && includeIcon) {
+        currentPos = drawTextWithIcon(pdf, contactIconsMap.address, address, { x: left, y: currentPos.y }, normalStyle)
+    }
+    else if (addressOnNextLine && address) {
         currentPos = drawStyledText(pdf, address, { x: left, y: currentPos.y }, normalStyle)
     }
     return currentPos;

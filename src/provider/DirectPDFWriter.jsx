@@ -96,12 +96,12 @@ const DirectPDFWriterProvider = ({ children }) => {
                 personalDetailsProps
             )
         if (experiences)
-            currentPos = renderExperienceSection(pdf,
+            currentPos =await renderExperienceSection(pdf,
                 experiences,
                 { left, xPadding, y: currentPos.y },
                 {
                     normalStyle: appliedNormalStyle,
-                    headerStyle: appliedHeaderStyle, subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" }
+                    headerStyle: appliedHeaderStyle, subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" },subsubHeaderStyle
                 },
                 experiencesProps
             )

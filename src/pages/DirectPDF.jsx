@@ -3,14 +3,16 @@ import { useDirectPDFWriter } from '../provider/DirectPDFWriter'
 import {personalDetails,experiences,educations} from "../static-data/resume-sample-data"
 const DirectPDF = () => {
     const{createPDF}=useDirectPDFWriter()
-    const createPDFDirectly = () => {
-      createPDF({
+    const createPDFDirectly = async() => {
+      await createPDF({
         personalDetails,experiences,educations
       },
       {},
       {
-        personalDetailsProps:{includeIcon:true}
-      })
+        personalDetailsProps:{},
+        experiencesProps:{listStyle:"bullet",applyFlex:true,}
+      },
+    )
     }
   return (
     <div>

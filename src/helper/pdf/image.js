@@ -123,7 +123,7 @@ export const drawImage = async (pdf, src, style = {}) => {
         }
 
         pdf.addImage(base64, format, x, y, width, height);
-        return { y: y + height, x: x + width }
+        return { y: y + height, x: x + width+2 }
     } catch (err) {
         console.error("Failed to load image:", err);
         return { y: y, x: x }

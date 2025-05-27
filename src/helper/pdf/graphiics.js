@@ -33,8 +33,17 @@ export const drawRectangle = (pdf, coords = {}, style = {}) => {
  * Draws a circle with optional fill and border styling.
  * 
  * @param {jsPDF} pdf - An instance of jsPDF.
- * @param {object} coords - Circle position and radius ({ x, y, r }).
- * @param {object} style - Style settings ({ borderColor, borderStyle, borderWidth, fillColor }).
+ * @param {{
+ * x:number=100,
+ * y:number=100,
+ * r:number=50
+ * }} coords - Circle position and radius ({ x, y, r }).
+ * @param {{
+ * borderColor: [number, number, number]=[0,0,0],
+ * borderStyle: string='S',
+ * borderWidth: number=1,
+ * fillColor: [number, number, number]|null=null
+ * }} style - Style settings ({ borderColor, borderStyle, borderWidth, fillColor }).
  * @returns {{x: number, y: number}} New coordinates after drawing.
  * @description
  * Renders a circle on the PDF with customizable border and fill styles.
@@ -232,18 +241,37 @@ export const drawZigZagLine = (pdf, coords = {}, style = {}) => {
  * 
  * @param {jsPDF} pdf - An instance of jsPDF.
  * @param {Array} items - Array of strings or objects representing label-value pairs.
- * @param {object} coords - Starting coordinates ({ x, y }).
- * @param {object} style - Styling options ({ gapX, gapY, padding, fontSize, colors, itemHeight, align }).
- * @param {object} props - Additional properties ({ includeIcon, listStyle, iconMap }).
+ * @param {{
+ * x: number,
+ * y: number,
+ * }} coords
+
+ * }} coords - Starting coordinates ({ x, y }).
+ * @param {{ 
+ *  gapX: number,
+ * gapY: number,
+ * padding: { xPadding: number, yPadding: number },
+ * maxWidth: number,
+ * itemHeight: number,
+ * fontSize: number,
+ * textColor: [number, number, number],
+ * backgroundColor: [number, number, number],
+ * align: string,
+ * fillColor: [number, number, number] }} style - Styling options ({ gapX, gapY, padding, fontSize, colors, itemHeight, align }).
+ * @param {{
+ * includeIcon: boolean,
+ * listStyle: string|null,
+ * iconMap: object
+ * }} props - Additional properties ({ includeIcon, listStyle, iconMap }).
  * @returns {{x: number, y: number}} New coordinates after drawing.
  * @description
  * Renders a grid of "pills" or badges with flexible wrapping, similar to CSS flex-wrap.
  * Can include icons (via `iconMap`) or bullets. Ideal for rendering skill lists, tags, or categories.
  */
-
-export const drawFlexWrappedItems = async(pdf, items = [], coords = {}, style = {}, props = {}) => {
-    const { x: startX = 20, y: startY = 20 } = coords
-    const { gapX = 8,
+export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style = {}, props = {}) => {
+    const { x: startX = 20, y: startY = 20 } = coords;
+    const {
+        gapX = 8,
         gapY = 8,
         padding = {},
         maxWidth = 500,
@@ -252,48 +280,76 @@ export const drawFlexWrappedItems = async(pdf, items = [], coords = {}, style = 
         textColor = [0, 0, 0],
         backgroundColor = [255, 255, 255],
         align = "left",
-        fillColor = [0, 0, 0]
-    } = style
-    const { includeIcon = false, listStyle = null, iconMap } = props
+        fillColor = [0, 0, 0],
+    } = style;
+    const { includeIcon = false, listStyle = null, iconMap = {} } = props;
+    const { xPadding = 40, yPadding = 20 } = padding;
+
     if (!items || items.length === 0) {
         console.warn("No items to draw");
         return { y: startY, x: startX };
     }
-    const { xPadding = 40, yPadding = 20 } = padding
-    pdf.setFontSize(fontSize)
-    let x = startX
-    let y = startY
+
+    pdf.setFontSize(fontSize);
+
+    let y = startY;
+    let rows = [];
+    let currentRow = [];
+    let currentRowWidth = 0;
+
+    //Break into rows
     for (let item of items) {
-        let displayText
-        if (typeof item === "string") {
-            displayText = item.trim();
-        } else {
-            displayText = item.value || item.label || item.toString();
+        // Normalize item to string or object with value/label
+        const displayText = typeof item === "string" ? item.trim() : item.value || item.label || item.toString();
+        //compute width of the item
+        const itemWidth = pdf.getTextWidth(displayText) + xPadding;
+        // Check if the item is too wide to fit in a single row
+        const spacing = currentRow.length > 0 ? gapX : 0;
+        const predictedWidth = currentRowWidth + spacing + itemWidth;
+
+        if (predictedWidth > maxWidth && currentRow.length > 0) {
+            rows.push(currentRow);
+            currentRow = [];
+            currentRowWidth = 0;
         }
-        const itemWidth = pdf.getTextWidth(displayText) + xPadding
-        if (itemWidth + x > startX + maxWidth) {
-            x = startX
-            y += itemHeight + gapY
-        }
-        pdf.setFillColor(...backgroundColor)
-        pdf.rect(x, y, itemWidth, itemHeight, "F")
-        pdf.setTextColor(...textColor)
-        if (includeIcon) {
-            const icon = iconMap?.[item.type] || iconMap?.[item.toLowerCase()] || null;
-            await drawIcon(pdf, icon,{x:x+10,y:y+itemHeight/2-5},{width:10,height:10})
-        }
-        else if (listStyle) {
-            drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor: fillColor, borderStyle: "F" })
-        }
-        if (align === "left") {
-            const textX = includeIcon?x+20: x + 10;
-            const textY = y + itemHeight / 2 + fontSize / 2.5-(includeIcon?2:0)
-            pdf.text(displayText, textX, textY);
-        }
-        else {
-            pdf.text(displayText, x + (xPadding / 2)+10, y + itemHeight / 2 + fontSize / 2.5, { align });
-        }
-        x += itemWidth + gapX
+
+        currentRow.push({ item, displayText, width: itemWidth });
+        currentRowWidth += itemWidth + spacing;
     }
-    return { y: y + itemHeight + fontSize + 10 }
-}
+    // Add the last row if it has items
+    if (currentRow.length > 0) {
+        rows.push(currentRow);
+    }
+
+    //  Render each row
+    for (let row of rows) {
+        const rowWidth = row.reduce((acc, { width }) => acc + width, 0) + gapX * (row.length - 1);
+        // Center only if align is center and row is not full
+        let x = align === "center"
+            ? startX + (maxWidth - rowWidth) / 2 - xPadding
+            : startX;
+
+        for (let { item, displayText, width: itemWidth } of row) {
+            pdf.setFillColor(...backgroundColor);
+            pdf.rect(x, y, itemWidth, itemHeight, "F");
+            pdf.setTextColor(...textColor);
+
+            if (includeIcon) {
+                const icon = iconMap?.[item.type] || iconMap?.[item.toLowerCase()] || null;
+                await drawIcon(pdf, icon, { x: x + 10, y: y + itemHeight / 2 - 5 }, { width: 10, height: 10 });
+            } else if (listStyle) {
+                drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor, borderStyle: "F" });
+            }
+
+            const textX = includeIcon ? x + 20 : x + 10;
+            const textY = y + itemHeight / 2 + fontSize / 2.5 - (includeIcon ? 2 : 0);
+            pdf.text(displayText, textX, textY);
+
+            x += itemWidth + gapX;
+        }
+
+        y += itemHeight + gapY;
+    }
+
+    return { x: startX, y: y + itemHeight };
+};

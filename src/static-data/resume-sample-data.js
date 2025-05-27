@@ -13,22 +13,22 @@ export const experiences = [
     "end_date": "2023"
   },
   {
-    "companyName": "InfoTech company ",
+    "company_name": "InfoTech company ",
     "position": "Software Engineer",
-    "aboutCompany": "InfoTech company is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
+    "about_company": "InfoTech company is a global software company specializing in scalable SaaS applications for healthcare and finance sectors.",
     "achievements": [
       { value: "Built reusable React components that improved UI development speed by 40%." },
       { value: "Refactored backend APIs in Node.js, improving response time by 30%." },
 
     ],
     "location": "Dharan",
-    "startDate": "2022",
-    "endDate": "2023"
+    "start_date": "2022",
+    "end_date": "2023"
   },
   {
-    "companyName": "NexaEdge Solutions",
+    "company_name": "NexaEdge Solutions",
     "position": "Business Data Analyst",
-    "aboutCompany": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics",
+    "about_company": "NexaEdge Solutions offers data analytics consulting and enterprise software for logistics",
     "achievements": [
       { value: "Conducted cost-efficiency analysis that saved the company $200K annually in operations." },
       { value: "Created predictive models in Python to forecast shipment delays with 85% accuracy." },
@@ -37,8 +37,8 @@ export const experiences = [
 
     ],
     location: "Dharan",
-    "startDate": "2022",
-    "endDate": "2023"
+    "start_date": "2022",
+    "end_date": "2023"
   }
 ]
 
