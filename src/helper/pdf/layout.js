@@ -1,6 +1,8 @@
 import jsPDF from "jspdf";
 import { pdfSize } from "./core";
 import { drawBulletText, drawStyledText, drawWrappedLongText } from "./text";
+import { justifyType } from "../../constant";
+
 
 /**
  * @function drawTwoColumnsLayout
@@ -177,3 +179,103 @@ export const drawVerticalDividerLayout = async (pdf, content, config) => {
   const finalY = Math.max(currentLeftPos.y, currentRightPos.y);
   return { x, y: finalY + 10 };
 };
+/**
+ * Generic grid layout renderer for jsPDF
+ * @param {jsPDF} pdf - jsPDF instance
+ * @param {Array} items - items to render (can be anything)
+ * @param {{ x: number, y: number }} coords - starting position
+ * @param {{
+ *   gridSize: number, // number of cells per row
+ *   gapX?: number,
+ *   gapY?: number
+ * }} gridConfig
+ * @param {{
+ *   width?: number,
+ *   height?: number,
+ *   borderColor?: string,
+ *   fillColor?: string
+ * }} gridStyle
+ * @param {{
+ *   xPadding?: number,
+ *   yPadding?: number
+ * }} padding
+ * @param {Function} renderCell - (pdf, item, x, y, width, height) => void | Promise<void>
+ * @returns {Promise<{ x: number, y: number }>}
+ */
+export const drawGridLayout = async (
+  pdf,
+  items,
+  coords,
+  gridConfig,
+  gridStyle = {},
+  padding = {},
+  renderCell
+) => {
+  const {
+    gridSize,
+    gapX = 10,
+    gapY = 10,
+  } = gridConfig;
+
+  const {
+    width = 80,
+    height = 40,
+    borderColor = '#000000',
+    fillColor = null,
+  } = gridStyle;
+
+  const {
+    xPadding = 5,
+    yPadding = 5,
+  } = padding;
+
+  let x = coords.x;
+  let y = coords.y;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+
+    // Background
+    if (fillColor) {
+      pdf.setFillColor(fillColor);
+      pdf.rect(x, y, width, height, 'F');
+    }
+    // Border
+    if (borderColor) {
+      pdf.setDrawColor(borderColor);
+      pdf.rect(x, y, width, height);
+    }
+
+    // Render content using user-defined function
+    await renderCell(pdf, item, x + xPadding, y + yPadding, width - 2 * xPadding, height - 2 * yPadding);
+    // Move to next cell
+    const isLastInRow = (i + 1) % gridSize === 0;
+    if (isLastInRow) {
+      x = coords.x;
+      y += height + gapY;
+    } else {
+      x += width + gapX;
+    }
+  }
+  return { x, y };
+};
+
+/**
+ * a function that wuill render items justified accordingly to given justify type
+ * @param {jsPDF} pdf -jsPDF instance
+ * @param {Array<object>} items -array of objcet with property icon,text and style
+ * @param {{
+ * x:number,
+ * y:number
+ * }} coords -coordinate position 
+ * @param {justifyType} justify -justify types 
+ */
+export const drawJustifyItems = async (pdf, items, coords, justify = justifyType.BETWEEN) => {
+  console.log("coords of display ",coords)
+  let currentPos
+  if (justify === justifyType.BETWEEN) {
+
+  }
+  return currentPos
+}
+

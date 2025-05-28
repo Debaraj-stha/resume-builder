@@ -19,6 +19,7 @@ import { drawCircle } from "./graphiics";
  * The function applies the given style to the text, draws a background rectangle if specified,
  */
 export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
+  console.log("display stye text", coords, text)
   const { x = 40, y = 40 } = coords;
   applyStyle(pdf, style);
   const height = style.fontSize || 12;
@@ -60,20 +61,16 @@ export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {})
   // Handle multiple paragraphs (split on newlines)
   const paragraphs = text.split('\n');
   let cursorY = y;
-    console.log("cursor y first",y)
   for (const para of paragraphs) {
     const lines = pdf.splitTextToSize(para, maxWidth);
     lines.forEach(line => {
-      console.log("line",line)
-      console.log("x",x)
-      console.log("cursorY",cursorY)  
       pdf.text(line, x, cursorY);
       cursorY += lineHeight;
     });
 
     cursorY += lineHeight * 0.1; // spacing between paragraphs
   }
-  return { y: cursorY ,x:x + maxWidth + 10};
+  return { y: cursorY, x: x + maxWidth + 10 };
 };
 /**
  * 
@@ -87,15 +84,15 @@ export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {})
 export const drawTextWithIcon = async (pdf, icon, text, coords = {}, style = {}) => {
   const { x = 40, y = 40 } = coords;
   const { iconSize = 12, iconPadding = 5, ...rest } = style;
-  applyStyle(pdf,rest);
+  applyStyle(pdf, rest);
 
   // Draw the icon
 
-  const currentPos = await drawIcon(pdf, icon, { x:x-2, y }, { width: iconSize, height: iconSize })
+  const currentPos = await drawIcon(pdf, icon, { x: x - 2, y }, { width: iconSize, height: iconSize })
   // Draw the text
-  pdf.text(text, currentPos.x, currentPos.y-2);
+  pdf.text(text, currentPos.x, currentPos.y - 2);
 
-  return { x: x + pdf.getTextWidth(text)+6, y: y + iconSize+10 };
+  return { x: x + pdf.getTextWidth(text) + 6, y: y + iconSize + 10 };
 }
 
 
@@ -149,18 +146,19 @@ export const drawBulletText = async (
  * 
  * @param {jsPDF} pdf - The jsPDF instance.
  * @param {Array<string>} items - Array of text items to draw.
- * @param {object} area - Drawing area { x, y, maxWidth }.
+ * @param {{x:number,y:number,maxWidth:number}} area - Drawing area { x, y, maxWidth }.
  * @param {Array<object>} style - Style object: { font, fontStyle, fontSize, textColor }.
  * @param {number} lineHeightFactor - Line height multiplier.
  * @returns {{x: number, y: number}} - Updated position after rendering.
  */
-export const drawJustifyItems = (
+export const drawJustifyTextItems = (
   pdf,
   items,
   area,
   style,
   lineHeightFactor = 1.2
 ) => {
+  console.log(area, items)
   const { x, y, maxWidth } = area;
   let fontSize
   if (Array.isArray(style)) {

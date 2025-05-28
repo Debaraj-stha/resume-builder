@@ -100,8 +100,8 @@ const renderPersonalDetailsSection = async (
         const boxWidth = 50;
         const boxHeight = 50;
 
-        drawRectangle(pdf, { x: boxX, y: boxY, width: boxWidth, height: boxHeight }, {...nameInitialStyle,borderStyle:"F"});
-        const name=personalDetails.name
+        drawRectangle(pdf, { x: boxX, y: boxY, width: boxWidth, height: boxHeight }, { ...nameInitialStyle, borderStyle: "F" });
+        const name = personalDetails.name
         const initials = (name || "")
             .split(" ")
             .map((n) => n[0])

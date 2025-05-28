@@ -4,13 +4,17 @@ import jsPDF from "jspdf";
 import { nameStyle, headerStyle, subHeaderStyle, normalStyle, subsubHeaderStyle } from "../helper/pdf/style";
 import renderPersonalDetailsSection from "../helper/pdf/render/renderPersonalDetails";
 import renderExperienceSection from "../helper/pdf/render/renderExperiences";
+import { renderSummarySection } from "../helper/pdf/render/renderSummary";
+import { pdfSize } from "../helper/pdf/core";
+import { renderAchievementsSection } from "../helper/pdf/render/renderAchievements";
+import renderEducationSection from "../helper/pdf/render/renderEducation";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
     const defaultSectionProps = {
         personalDetailsProps: {},
         experiencesProps: {},
-        educationsProps: {},
+        educationProps: {},
         achievementsProps: {},
         trainingsProps: {},
         awardsProps: {},
@@ -39,7 +43,7 @@ const DirectPDFWriterProvider = ({ children }) => {
     const xPadding = pagePadding.left + pagePadding.right
     const yPadding = pagePadding.top + pagePadding.bottom
     const { top, left, right, bottom } = pagePadding
-    let currentPos
+    let currentPos = { x: 0, y: 0 }
     const createPDF = useCallback(async (sections = {}, styles = {}, props = {}) => {
         const {
             personalDetails,
@@ -69,7 +73,7 @@ const DirectPDFWriterProvider = ({ children }) => {
         const {
             personalDetailsProps = defaultSectionProps.personalDetailsProps,
             experiencesProps = defaultSectionProps.experiencesProps,
-            educationsProps = defaultSectionProps.educationsProps,
+            educationProps = defaultSectionProps.educationProps,
             achievementsProps = defaultSectionProps.achievementsProps,
             trainingsProps = defaultSectionProps.trainingsProps,
             awardsProps = defaultSectionProps.awardsProps,
@@ -86,26 +90,70 @@ const DirectPDFWriterProvider = ({ children }) => {
 
         console.log("creating pdf...")
         const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
+        const { pdfWidth: width, pdfHeight: height } = pdfSize(pdf)
         if (personalDetails)
             currentPos = await renderPersonalDetailsSection(
                 pdf,
                 personalDetails,
                 { top, left },
-                { nameStyle: appliedNameStyle, subHeaderStyle: appliedSubHeaderStyle, subsubHeaderStyle: appliedSubsubHeaderStyle },
+                {
+                    nameStyle: appliedNameStyle,
+                    subHeaderStyle: appliedSubHeaderStyle,
+                    subSubHeaderStyle: appliedSubsubHeaderStyle
+                },
                 { xPadding, yPadding },
                 personalDetailsProps
             )
-        if (experiences)
-            currentPos =await renderExperienceSection(pdf,
-                experiences,
-                { left, xPadding, y: currentPos.y },
+        if (summary) {
+            currentPos = await renderSummarySection(pdf, summary,
+                { x: left, y: currentPos.y }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
-                    headerStyle: appliedHeaderStyle, subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" },subsubHeaderStyle
+                    headerStyle: appliedHeaderStyle
+                })
+        }
+        // if (experiences)
+        //     currentPos = await renderExperienceSection(pdf,
+        //         experiences,
+        //         { left, y: currentPos.y, xPadding },
+        //         {
+        //             normalStyle: appliedNormalStyle,
+        //             headerStyle:appliedHeaderStyle,
+        //             subSubHeaderStyle:appliedSubsubHeaderStyle,
+        //             subHeaderStyle: {...appliedSubHeaderStyle,align:"left"}
+
+        //         },
+        //         experiencesProps
+        //     )
+        if (educations) {
+            currentPos = await renderEducationSection(
+                pdf,
+                educations,
+                { x: left, y: currentPos.y },
+                {
+                    headerStyle: appliedHeaderStyle,
+                    normalStyle: appliedNormalStyle,
+                    subHeaderStyle: {...appliedSubHeaderStyle,align:"left"},
+                    subSubHeaderStyle: {...appliedSubsubHeaderStyle,align:"left"}
                 },
-                experiencesProps
+                pagePadding,
+                educationProps
             )
-        
+        }
+        // if (achievements)
+        //     currentPos = await renderAchievementsSection(pdf,
+        //         achievements,
+        //         { x: left, y: currentPos.y },
+        //         {
+        //             headerStyle: appliedHeaderStyle,
+        //             normalStyle: appliedNameStyle,
+        //             subHeaderStyle: appliedSubHeaderStyle,
+        //             subsubHeaderStyle: appliedSubsubHeaderStyle
+        //         },
+
+
+        //     )
+
         const now = Date.now()
         const filename = `resume-${now}.pdf`
         pdf.save(filename)

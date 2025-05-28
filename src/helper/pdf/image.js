@@ -61,6 +61,7 @@ export const drawElementByClassToPDF = async (pdf, className, options = {}) => {
  */
 
 export const drawIcon = async (pdf, icon, coords = {}, style = {}) => {
+    console.log("icon is called",coords,icon)
     const {
         width = 10,
         height = 10,
@@ -72,8 +73,10 @@ export const drawIcon = async (pdf, icon, coords = {}, style = {}) => {
         return { y, x };
     }
     const finalStyle = { width, height, x, y, ...rest };
+    console.log("final style",finalStyle)
     const iconData = await renderIconToBase64(icon, finalStyle);
     const currentPos = await drawImage(pdf, iconData, { ...finalStyle ,format: 'PNG' });
+    console.log("icon is drawn",currentPos)
     return currentPos
 };
 

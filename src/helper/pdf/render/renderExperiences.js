@@ -3,7 +3,7 @@ import { LiaMapMarkerSolid } from "react-icons/lia";
 import { BiCalendar } from "react-icons/bi";
 import {
   drawBulletText,
-  drawJustifyItems,
+  drawJustifyTextItems,
   drawStyledText,
   drawTextWithIcon,
   drawWrappedLongText,
@@ -21,6 +21,12 @@ import { drawVerticalDividerLayout } from "../layout";
  * xPadding: number
  * }} coords  - Coordinates for rendering the section.
  * @param {object<object>} style  - Styles for the section, including header, subheader, and normal text styles.
+ * @param {{
+ * top:number,
+ * left:number,
+ * right:number,
+ * bottom:number
+ * }} padding -page padding
  * @param {object} props  - Additional properties to customize the rendering, such as:
  * @returns 
  */
@@ -30,12 +36,13 @@ const renderExperienceSection = async (
   experiencesArray,
   coords = {},
   style = {},
+  padding={},
   props = {}
 ) => {
   const {
     headerStyle,
     subHeaderStyle,
-    subsubHeaderStyle,
+    subSubHeaderStyle,
     normalStyle,
   } = style;
   const { left, xPadding } = coords;
@@ -78,7 +85,7 @@ const renderExperienceSection = async (
           ],
           mainSection: [
             { text: position, style: subHeaderStyle },
-            { text: companyName, style: subsubHeaderStyle },
+            { text: companyName, style: subSubHeaderStyle },
             { text: aboutCompany, style: normalStyle },
           ],
           achievements,
@@ -102,11 +109,12 @@ const renderExperienceSection = async (
     const positionText = swapPosition ? companyName : position;
     const companyText = swapPosition ? position : companyName;
 
-    currentPos = drawStyledText(pdf, positionText, { x: left, y: currentPos.y }, subHeaderStyle);
-    currentPos = drawStyledText(pdf, companyText, { x: left, y: currentPos.y }, subsubHeaderStyle);
+
 
     // Icons / Date + Location
     if (!applyFlex) {
+      currentPos = drawStyledText(pdf, positionText, { x: left, y: currentPos.y }, subHeaderStyle);
+      currentPos = drawStyledText(pdf, companyText, { x: left, y: currentPos.y }, subSubHeaderStyle);
       if (includeDateAndAddress) {
         currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y }, normalStyle);
         currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
@@ -135,17 +143,17 @@ const renderExperienceSection = async (
         }
       }
     } else {
-      currentPos = drawJustifyItems(
+      currentPos = drawJustifyTextItems(
         pdf,
         [positionText, location],
         { x: left, y: currentPos.y, maxWidth },
         [subHeaderStyle, normalStyle]
       );
-      currentPos = drawJustifyItems(
+      currentPos = drawJustifyTextItems(
         pdf,
         [companyText, date],
         { x: left, y: currentPos.y, maxWidth },
-        [subsubHeaderStyle, normalStyle]
+        [subSubHeaderStyle, normalStyle]
       );
     }
 

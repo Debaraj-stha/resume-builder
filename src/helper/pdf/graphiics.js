@@ -70,7 +70,12 @@ export const drawCircle = (pdf, coords = {}, style = {}) => {
  * Draws a straight line between two points with optional dash pattern.
  * 
  * @param {jsPDF} pdf - An instance of jsPDF.
- * @param {object} coords - Coordinates of the line ({ x1, y1, x2, y2 }).
+ * @param {{
+ * x1:number,
+ * y1:number,
+ * x2:number,
+ * y2:number
+ * }} coords - Coordinates of the line ({ x1, y1, x2, y2 }).
  * @param {object} style - Style settings ({ width, color, dash }).
  * @returns {{x: number, y: number}} New coordinates after drawing.
  * @description
@@ -84,6 +89,7 @@ export const drawLine = (pdf, coords = {}, style = {}) => {
         color = [0, 0, 0], // more visible
         dash = []//dashed line [2,2] 4 dash 2 gap
     } = style;
+    console.log(coords)
     const { x1 = 10,
         y1 = 10,
         x2 = 100,
@@ -97,7 +103,7 @@ export const drawLine = (pdf, coords = {}, style = {}) => {
     if (dash.length > 0) {
         pdf.setLineDashPattern([], 0);
     }
-    return { y: y2 + width, x: x2 }
+    return { y: y2 + width+20, x: x2 }
 };
 /**
  * Draws two horizontal lines spaced vertically.
@@ -275,7 +281,7 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
         gapY = 8,
         padding = {},
         maxWidth = 500,
-        itemHeight = 15,
+        itemHeight = 12,
         fontSize = 12,
         textColor = [0, 0, 0],
         backgroundColor = [255, 255, 255],

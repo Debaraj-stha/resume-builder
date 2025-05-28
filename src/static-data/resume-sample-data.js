@@ -46,14 +46,18 @@ export const educations = [
   {
     university: "Massachusetts Institute of Technology (MIT)",
     degree: "Bachelor of Science in Computer Science",
-    start_complete: "2014 - 2018",
-    address: "Nepal,Kathmandu"
+    start_year: "2014",
+    end_year:"2018",
+    address: "Nepal,Kathmandu",
+    gpa:"3.05"
   },
   {
     university: "Stanford University",
     degree: "Master of Science in Data Science",
-    start_complete: "2018 - 2020",
-    address: "Nepal,Kathmandu"
+    start_year: "2018",
+    end_year:"2022",
+    address: "Nepal,Kathmandu",
+    gpa:"3.05"
   },
   // {
   //     university: "Harvard Business School",
@@ -104,11 +108,7 @@ export const skills = [
   //     items: ["Problem Solving", "Team Collaboration", "Communication", "Agile Methodology"]
   // }
 ];
-export const summary = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
-                        totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto
-                        totam voluptate natus. Nobis atque suscipit minima. Commodi eligendi
-                        voluptatibus qui quae ut ratione. Beatae in recusandae earum! Distinctio!`
+export const summary = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architecto totam voluptate natus. Nobis atque suscipit minima. Commodi eligendiLorem ipsum dolor sit amet consectetur adipisicing elit. Vero velit architectototam voluptate natus. Nobis atque suscipit minima. Commodi eligendivoluptatibus qui quae ut ratione. Beatae in recusandae earum! Distinctio!`
 
 export const personalDetails = {
   name: "Manish Jha",
