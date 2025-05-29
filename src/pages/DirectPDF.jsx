@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDirectPDFWriter } from '../provider/DirectPDFWriter'
-import { personalDetails, experiences, educations, summary, achievements } from "../static-data/resume-sample-data"
+import { personalDetails, experiences, educations, summary, achievements, skills } from "../static-data/resume-sample-data"
 const DirectPDF = () => {
   const { createPDF } = useDirectPDFWriter()
   const createPDFDirectly = async () => {
@@ -9,7 +9,8 @@ const DirectPDF = () => {
       experiences,
       educations,
       summary,
-      achievements
+      achievements,
+      skills
     },
       {},
       {
@@ -21,14 +22,20 @@ const DirectPDF = () => {
           shouldIncludeIcon: true,
           shouldIncludeAddress: true,
           shouldIncludeDate: true,
-          shouldIncludeGPA:true,
-          applyVerticalDivider:true
+          shouldIncludeGPA: true,
+          applyVerticalDivider: true
         },
-        achievementsProps:{
-          shouldIncludeDate:true,
+        achievementsProps: {
+          shouldIncludeDate: true,
           // displayGrid:true,
-          shouldIncludeIcon:true
+          shouldIncludeIcon: true
+        },
+        skillsProps: {
+          // shouldIncludeField:true,
+          //  borderBox:true,
+        borderBottom:true,
         }
+
       },
     )
   }

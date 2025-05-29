@@ -155,16 +155,16 @@ export const drawJustifyTextItems = (
   pdf,
   items,
   area,
-  style,
+  style = [],
   lineHeightFactor = 1.2
 ) => {
   console.log(area, items)
   const { x, y, maxWidth } = area;
   let fontSize
   if (Array.isArray(style)) {
-    fontSize = style[0].fontSize || 12;
+    fontSize = style[0]?.fontSize || 12;
   } else {
-    fontSize = style.fontSize || 12;
+    fontSize = style?.fontSize || 12;
   }
 
   // Measure all text widths
@@ -186,6 +186,7 @@ export const drawJustifyTextItems = (
         fontSize = style[i].fontSize;
       }
     }
+    console.log(items[i], currentX, y)
     pdf.text(items[i], currentX, y);
     currentX += textWidths[i] + space;
   }
@@ -194,4 +195,70 @@ export const drawJustifyTextItems = (
     x,
     y: y + fontSize * lineHeightFactor
   };
+};
+/**
+ * Draws multiple text items horizontally in the same row, wrapping to the next line if maxWidth is exceeded.
+ *
+ * @param {jsPDF} pdf - jsPDF instance
+ * @param {Array<string>} textItems - Array of text strings to render
+ * @param {{x:number,y:number}} coords - Starting coordinates
+ * @param {object} style - Style object passed to drawStyledText (supports fontSize and optional gap)
+ * @param {number} [maxWidth=pdf.internal.pageSize.getWidth()] - Maximum width before wrapping to next line
+ * @param {object} props -opional props
+ * @returns {{x:number, y:number}} - Final coordinates after rendering
+ */
+export const drawTextItems = (
+  pdf,
+  textItems,
+  coords,
+  style = {},
+  maxWidth = pdf.internal.pageSize.getWidth(),
+  props = {}
+) => {
+  console.log(style)
+  let { x, y } = coords;
+  const {
+    borderBox,
+    borderBottom
+  } = props
+  const startX = x;
+  const gap = style.gapX ?? 8;
+  const fontSize = style.fontSize ?? 12;
+  pdf.setFontSize(fontSize);
+  const lineHeight = fontSize * 1.2;
+  const drawColor = style?.borderColor || "#000000"
+  const fillColor = style?.fillColor || "#333333"
+  for (const item of textItems) {
+    const textWidth = pdf.getTextWidth(item);
+    // If adding this item exceeds the max width, wrap to next line
+    const maxRight = startX + maxWidth; // where text drawing must stop
+
+    if (x + textWidth > maxRight) {
+      x = startX;
+      y += lineHeight + (style?.gapY || 0)
+    }
+    if (borderBottom || borderBox) {
+      pdf.setDrawColor(...drawColor)
+      pdf.setFillColor(...fillColor)
+    }
+    if (borderBox) {
+      pdf.rect(x, y - lineHeight / 1.5, textWidth + 6, lineHeight)
+      drawStyledText(pdf, item, { x: x + 3, y }, style);
+    }
+    else if (borderBottom) {
+      pdf.line(x, y + (style?.gapY / 2 || 4), x + textWidth + 6, y + (style.gapY / 2|| 4));
+      drawStyledText(pdf, item, { x: x + 3, y }, style);
+
+    }
+    else {
+
+      drawStyledText(pdf, item, { x: x, y }, style);
+    }
+
+
+    // Advance x for the next item
+    x += textWidth + gap;
+  }
+
+  return { x, y: y + lineHeight };
 };

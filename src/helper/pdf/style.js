@@ -20,7 +20,7 @@
         ...nameStyle,
         fontSize: 14,
         align: "left",
-        font: { style: "normal" }
+        font: { style: "normal" ,family: "times"}
     }
     const normalStyle = {
         color: [0, 0, 0],

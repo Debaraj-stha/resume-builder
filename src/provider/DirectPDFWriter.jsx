@@ -5,9 +5,10 @@ import { nameStyle, headerStyle, subHeaderStyle, normalStyle, subsubHeaderStyle 
 import renderPersonalDetailsSection from "../helper/pdf/render/renderPersonalDetails";
 import renderExperienceSection from "../helper/pdf/render/renderExperiences";
 import { renderSummarySection } from "../helper/pdf/render/renderSummary";
-import { pdfSize } from "../helper/pdf/core";
+import { measureAndRenderSection, pdfSize } from "../helper/pdf/core";
 import { renderAchievementsSection } from "../helper/pdf/render/renderAchievements";
 import renderEducationSection from "../helper/pdf/render/renderEducation";
+import { renderSkillsSection } from "../helper/pdf/render/renderSkills";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
@@ -40,9 +41,9 @@ const DirectPDFWriterProvider = ({ children }) => {
         right: 40,
         bottom: 40
     }
-    const xPadding = pagePadding.left + pagePadding.right
-    const yPadding = pagePadding.top + pagePadding.bottom
     const { top, left, right, bottom } = pagePadding
+    const xPadding = left + right
+    const yPadding = top + bottom
     let currentPos = { x: 0, y: 0 }
     /**
      * function which create and download pdf using jsPDF package
@@ -99,70 +100,95 @@ const DirectPDFWriterProvider = ({ children }) => {
 
         console.log("creating pdf...")
         const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
+        const dummyPDF = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
         const { pdfWidth: width, pdfHeight: height } = pdfSize(pdf)
-        // if (personalDetails)
-        //     currentPos = await renderPersonalDetailsSection(
-        //         pdf,
-        //         personalDetails,
-        //         { top, left },
-        //         {
-        //             nameStyle: appliedNameStyle,
-        //             subHeaderStyle: appliedSubHeaderStyle,
-        //             subSubHeaderStyle: appliedSubsubHeaderStyle
-        //         },
-        //         { xPadding, yPadding },
-        //         personalDetailsProps
-        //     )
-        // if (summary) {
-        //     currentPos = await renderSummarySection(pdf, summary,
-        //         { x: left, y: currentPos.y }, width - xPadding,
-        //         {
-        //             normalStyle: appliedNormalStyle,
-        //             headerStyle: appliedHeaderStyle
-        //         })
-        // }
-        // if (experiences)
-        //     currentPos = await renderExperienceSection(pdf,
-        //         experiences,
-        //         { left, y: currentPos.y, xPadding },
-        //         {
-        //             normalStyle: appliedNormalStyle,
-        //             headerStyle:appliedHeaderStyle,
-        //             subSubHeaderStyle:appliedSubsubHeaderStyle,
-        //             subHeaderStyle: {...appliedSubHeaderStyle,align:"left"}
-
-        //         },
-        //         experiencesProps
-        //     )
-        // if (educations) {
-        //     currentPos = await renderEducationSection(
-        //         pdf,
-        //         educations,
-        //         { x: left, y: currentPos.y },
-        //         {
-        //             headerStyle: appliedHeaderStyle,
-        //             normalStyle: appliedNormalStyle,
-        //             subHeaderStyle: {...appliedSubHeaderStyle,align:"left"},
-        //             subSubHeaderStyle: {...appliedSubsubHeaderStyle,align:"left"}
-        //         },
-        //         pagePadding,
-        //         educationProps
-        //     )
-        // }
-        if (achievements)
-            currentPos = await renderAchievementsSection(pdf,
-                achievements,
-                { x: left, y: currentPos.y },
+        if (personalDetails)
+            currentPos = await renderPersonalDetailsSection(
+                pdf,
+                personalDetails,
+                { top, left },
                 {
+                    nameStyle: appliedNameStyle,
+                    subHeaderStyle: appliedSubHeaderStyle,
+                    subSubHeaderStyle: appliedSubsubHeaderStyle
+                },
+                { xPadding, yPadding },
+                personalDetailsProps
+            )
+        if (summary) {
+            currentPos = await renderSummarySection(pdf, summary,
+                { x: left, y: currentPos.y }, width - xPadding,
+                {
+                    normalStyle: appliedNormalStyle,
+                    headerStyle: appliedHeaderStyle
+                })
+        }
+        if (experiences)
+            currentPos = await measureAndRenderSection({
+                renderFn: renderExperienceSection,
+                pdf,
+                dummyPdf: dummyPDF,
+                data: experiences,
+                coords: { left, y: currentPos.y, xPadding },
+                style: {
+                    normalStyle: appliedNormalStyle,
+                    headerStyle: appliedHeaderStyle,
+                    subSubHeaderStyle: appliedSubsubHeaderStyle,
+                    subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" }
+                },
+                padding: pagePadding,
+                props: experiencesProps
+            })
+        if (educations) {
+            currentPos = await measureAndRenderSection({
+                renderFn: renderEducationSection,
+                pdf,
+                dummyPdf: dummyPDF,
+                data: educations,
+                coords: { left, y: currentPos.y, xPadding },
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    normalStyle: appliedNormalStyle,
+                    subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" },
+                    subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" }
+                },
+                padding: pagePadding,
+                props: educationProps
+            })
+
+        }
+        if (achievements)
+            currentPos = await measureAndRenderSection({
+                renderFn: renderAchievementsSection,
+                pdf,
+                dummyPdf: dummyPDF,
+                data: achievements,
+                coords: { x: left, y: currentPos.y },
+                style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
                     subHeaderStyle: appliedSubHeaderStyle,
                     subSubHeaderStyle: appliedSubsubHeaderStyle
                 },
-                pagePadding,
-                achievementsProps
-            )
-
+                padding: pagePadding,
+                props: achievementsProps
+            })
+        if (skills)
+            currentPos = await measureAndRenderSection({
+                renderFn: renderSkillsSection,
+                pdf,
+                dummyPdf: dummyPDF,
+                data: skills,
+                coords: { x: left, y: currentPos.y },
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    normalStyle: appliedNormalStyle,
+                    subHeaderStyle: appliedSubHeaderStyle,
+                    subSubHeaderStyle: appliedSubsubHeaderStyle
+                },
+                padding: pagePadding,
+                props: skillsProps
+            })
         const now = Date.now()
         const filename = `resume-${now}.pdf`
         pdf.save(filename)
