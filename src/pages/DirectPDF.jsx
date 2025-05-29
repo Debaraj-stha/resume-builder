@@ -23,20 +23,16 @@ const DirectPDF = () => {
           shouldIncludeDate: true,
           shouldIncludeGPA:true,
           applyVerticalDivider:true
+        },
+        achievementsProps:{
+          shouldIncludeDate:true,
+          // displayGrid:true,
+          shouldIncludeIcon:true
         }
       },
     )
   }
-  /*
-      swapPosition = false,
-        applyFlex = false,
-        shouldIncludeIcon = false,
-        applyVerticalDivider = false,
-        side = false,
-        shouldIncludeGPA = false,
-        flexIcons = false,
-        shouldIncludeAddress = false,
-        shouldIncludeDate=false*/
+
   return (
     <div>
       <h1>Createing pdf directly</h1>

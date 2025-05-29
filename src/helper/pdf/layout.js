@@ -214,49 +214,59 @@ export const drawGridLayout = async (
   const {
     gridSize,
     gapX = 10,
-    gapY = 10,
+    gapY = 20,
   } = gridConfig;
-
+  const { pdfWidth } = pdfSize(pdf)
   const {
-    width = 80,
+    xPadding = 5,
+    yPadding = 5,
+  } = padding;
+  const {
+    width = (pdfWidth - xPadding) / gridSize,
     height = 40,
     borderColor = '#000000',
     fillColor = null,
   } = gridStyle;
 
-  const {
-    xPadding = 5,
-    yPadding = 5,
-  } = padding;
-
   let x = coords.x;
   let y = coords.y;
-
+  let maxRowHeight = 0;
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    // Background
+    const cellX = x + xPadding;
+    const cellY = y + yPadding;
+    const cellWidth = width - 2 * xPadding;
+
+    const cellPos = await renderCell(pdf, item, cellX, cellY, cellWidth);
+    const contentHeight = cellPos.y - y + yPadding;
+    const cellHeight = Math.max(contentHeight + yPadding, height); // ensure minimum
+
+
+
+    // Draw background and border using actual height
     if (fillColor) {
       pdf.setFillColor(fillColor);
-      pdf.rect(x, y, width, height, 'F');
+      pdf.rect(x, y - 12, width, cellHeight + 12, 'F');
     }
-    // Border
     if (borderColor) {
       pdf.setDrawColor(borderColor);
-      pdf.rect(x, y, width, height);
+      pdf.rect(x, y - 12, width, cellHeight + 12);
     }
 
-    // Render content using user-defined function
-    await renderCell(pdf, item, x + xPadding, y + yPadding, width - 2 * xPadding, height - 2 * yPadding);
-    // Move to next cell
+    // Track max height for this row
+    maxRowHeight = Math.max(maxRowHeight, cellHeight);
+
     const isLastInRow = (i + 1) % gridSize === 0;
     if (isLastInRow) {
       x = coords.x;
-      y += height + gapY;
+      y += maxRowHeight + gapY;
+      maxRowHeight = 0;
     } else {
       x += width + gapX;
     }
   }
+
   return { x, y };
 };
 
@@ -271,7 +281,7 @@ export const drawGridLayout = async (
  * @param {justifyType} justify -justify types 
  */
 export const drawJustifyItems = async (pdf, items, coords, justify = justifyType.BETWEEN) => {
-  console.log("coords of display ",coords)
+  console.log("coords of display ", coords)
   let currentPos
   if (justify === justifyType.BETWEEN) {
 

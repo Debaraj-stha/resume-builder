@@ -44,6 +44,15 @@ const DirectPDFWriterProvider = ({ children }) => {
     const yPadding = pagePadding.top + pagePadding.bottom
     const { top, left, right, bottom } = pagePadding
     let currentPos = { x: 0, y: 0 }
+    /**
+     * function which create and download pdf using jsPDF package
+     * @param {{
+     * personalDetails,
+     * educations,
+     * achievements,
+     * summary,
+     * }} sections
+     */
     const createPDF = useCallback(async (sections = {}, styles = {}, props = {}) => {
         const {
             personalDetails,
@@ -91,27 +100,27 @@ const DirectPDFWriterProvider = ({ children }) => {
         console.log("creating pdf...")
         const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
         const { pdfWidth: width, pdfHeight: height } = pdfSize(pdf)
-        if (personalDetails)
-            currentPos = await renderPersonalDetailsSection(
-                pdf,
-                personalDetails,
-                { top, left },
-                {
-                    nameStyle: appliedNameStyle,
-                    subHeaderStyle: appliedSubHeaderStyle,
-                    subSubHeaderStyle: appliedSubsubHeaderStyle
-                },
-                { xPadding, yPadding },
-                personalDetailsProps
-            )
-        if (summary) {
-            currentPos = await renderSummarySection(pdf, summary,
-                { x: left, y: currentPos.y }, width - xPadding,
-                {
-                    normalStyle: appliedNormalStyle,
-                    headerStyle: appliedHeaderStyle
-                })
-        }
+        // if (personalDetails)
+        //     currentPos = await renderPersonalDetailsSection(
+        //         pdf,
+        //         personalDetails,
+        //         { top, left },
+        //         {
+        //             nameStyle: appliedNameStyle,
+        //             subHeaderStyle: appliedSubHeaderStyle,
+        //             subSubHeaderStyle: appliedSubsubHeaderStyle
+        //         },
+        //         { xPadding, yPadding },
+        //         personalDetailsProps
+        //     )
+        // if (summary) {
+        //     currentPos = await renderSummarySection(pdf, summary,
+        //         { x: left, y: currentPos.y }, width - xPadding,
+        //         {
+        //             normalStyle: appliedNormalStyle,
+        //             headerStyle: appliedHeaderStyle
+        //         })
+        // }
         // if (experiences)
         //     currentPos = await renderExperienceSection(pdf,
         //         experiences,
@@ -125,34 +134,34 @@ const DirectPDFWriterProvider = ({ children }) => {
         //         },
         //         experiencesProps
         //     )
-        if (educations) {
-            currentPos = await renderEducationSection(
-                pdf,
-                educations,
+        // if (educations) {
+        //     currentPos = await renderEducationSection(
+        //         pdf,
+        //         educations,
+        //         { x: left, y: currentPos.y },
+        //         {
+        //             headerStyle: appliedHeaderStyle,
+        //             normalStyle: appliedNormalStyle,
+        //             subHeaderStyle: {...appliedSubHeaderStyle,align:"left"},
+        //             subSubHeaderStyle: {...appliedSubsubHeaderStyle,align:"left"}
+        //         },
+        //         pagePadding,
+        //         educationProps
+        //     )
+        // }
+        if (achievements)
+            currentPos = await renderAchievementsSection(pdf,
+                achievements,
                 { x: left, y: currentPos.y },
                 {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
-                    subHeaderStyle: {...appliedSubHeaderStyle,align:"left"},
-                    subSubHeaderStyle: {...appliedSubsubHeaderStyle,align:"left"}
+                    subHeaderStyle: appliedSubHeaderStyle,
+                    subSubHeaderStyle: appliedSubsubHeaderStyle
                 },
                 pagePadding,
-                educationProps
+                achievementsProps
             )
-        }
-        // if (achievements)
-        //     currentPos = await renderAchievementsSection(pdf,
-        //         achievements,
-        //         { x: left, y: currentPos.y },
-        //         {
-        //             headerStyle: appliedHeaderStyle,
-        //             normalStyle: appliedNameStyle,
-        //             subHeaderStyle: appliedSubHeaderStyle,
-        //             subsubHeaderStyle: appliedSubsubHeaderStyle
-        //         },
-
-
-        //     )
 
         const now = Date.now()
         const filename = `resume-${now}.pdf`

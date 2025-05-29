@@ -1,6 +1,10 @@
 import jsPDF from "jspdf";
 import { pdfSize } from "../core";
-import { drawStyledText } from "../text";
+import { drawStyledText, drawWrappedLongText } from "../text";
+import { drawLine } from "../graphiics";
+import { drawGridLayout } from "../layout";
+import { drawIcon } from "../image";
+import { FaTrophy } from "react-icons/fa";
 
 /**
  * function to render achivement
@@ -18,16 +22,96 @@ import { drawStyledText } from "../text";
  * 
  * @returns {Promise<{x:number,y:number}>}
  */
-export const renderAchievementsSection = async (pdf, achievementsArray, coords = {}, style = {},padding={}, props = {}) => {
-    const { x, y } = coords
-    const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style
-    const { displayGrid, gridSize, applyVirticalDivider } = props
-    const { pdfWidth } = pdfSize(pdf)
-    let currentPos;
-    currentPos = drawStyledText(pdf, "Achievements", { x: pdfWidth / 2, y }, headerStyle)
-    for (let achievements of achievementsArray) {
+export const renderAchievementsSection = async (
+    pdf,
+    achievementsArray,
+    coords = {},
+    style = {},
+    padding = {},
+    props = {}
+) => {
+    const { x, y } = coords;
+    const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style;
+    const { left, right } = padding;
+    const {
+        displayGrid = false,
+        gridSize = 3,
+        shouldIncludeDate = false,
+        shouldIncludeIcon = false,
+    } = props;
 
+    const { pdfWidth } = pdfSize(pdf);
+    const maxWidth = pdfWidth - left - right;
+
+    // Draw Section Header
+    let currentPos = drawStyledText(pdf, "Achievements", { x: pdfWidth / 2, y }, headerStyle);
+    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
+
+    // Grid Layout Mode
+    if (displayGrid) {
+        const gridCoords = { x, y: currentPos.y + 5 };
+        const gridConfig = { gridSize, gapX: 10, gapY: 10 }
+        const gridStyle = {
+            width: (maxWidth - (gridSize - 1) * gridConfig.gapX) / gridSize, // Equal cell width with 10px gap
+        };
+        const cellPadding = { xPadding: 5, yPadding: 5 };
+
+        currentPos = await drawGridLayout(
+            pdf,
+            achievementsArray,
+            gridCoords,
+            gridConfig,
+            gridStyle,
+            cellPadding,
+            async (pdf, achievement, x, y, width) => {
+                const { acheivement, field, date } = achievement;
+
+                // Render wrapped text
+                let pos = await drawWrappedLongText(pdf, acheivement, x, y, width, subHeaderStyle);
+
+                // Render field
+                pos = drawStyledText(pdf, field, { x, y: pos.y }, subSubHeaderStyle);
+
+                // Optional date
+                if (shouldIncludeDate) {
+                    pos = drawStyledText(pdf, date, { x, y: pos.y }, normalStyle);
+                }
+
+                return pos;
+            }
+        );
+
+        currentPos.y += 10;
+        return currentPos;
     }
 
-    return currentPos
-}
+    // Standard Vertical List Mode
+    for (let achievement of achievementsArray) {
+        const { acheivement, field, date } = achievement;
+
+        let iconX = x;
+        let iconY = currentPos.y;
+
+        // Optional icon
+        if (shouldIncludeIcon) {
+            const iconPos = await drawIcon(pdf, FaTrophy, { x, y: currentPos.y }, { color: "orange" });
+            iconX = iconPos.x;
+            iconY = iconPos.y;
+        }
+        currentPos = await drawWrappedLongText(pdf, acheivement, iconX, iconY, maxWidth, {
+            ...subHeaderStyle,
+            align: "left",
+        });
+
+        currentPos = drawStyledText(pdf, field, { x: iconX, y: currentPos.y }, subSubHeaderStyle);
+
+        if (shouldIncludeDate) {
+            currentPos = drawStyledText(pdf, date, { x: iconX, y: currentPos.y }, normalStyle);
+        }
+
+        currentPos.y += 10; // space after each achievement
+    }
+
+    currentPos.y += 5; // bottom padding
+    return currentPos;
+};

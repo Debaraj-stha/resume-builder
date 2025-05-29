@@ -64,3 +64,4 @@ export const drawJustifyContentItems = async (
     y: y + fontSize * lineHeightFactor,
   };
 };
+

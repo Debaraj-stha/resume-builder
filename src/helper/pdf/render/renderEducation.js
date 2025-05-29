@@ -138,7 +138,7 @@ const renderEducationSection = async (pdf, educationsArray, coords = {}, style =
             let offsetX = left
             const baseLineY = currentPos.y;
             if (flexIcons) {
-                shouldIncludeIcon = true
+                // shouldIncludeIcon = true
 
                 if (shouldIncludeDate) {
                     const iconSize = 10;

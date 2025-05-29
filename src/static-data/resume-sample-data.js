@@ -47,17 +47,17 @@ export const educations = [
     university: "Massachusetts Institute of Technology (MIT)",
     degree: "Bachelor of Science in Computer Science",
     start_year: "2014",
-    end_year:"2018",
+    end_year: "2018",
     address: "Nepal,Kathmandu",
-    gpa:"3.05"
+    gpa: "3.05"
   },
   {
     university: "Stanford University",
     degree: "Master of Science in Data Science",
     start_year: "2018",
-    end_year:"2022",
+    end_year: "2022",
     address: "Nepal,Kathmandu",
-    gpa:"3.05"
+    gpa: "3.05"
   },
   // {
   //     university: "Harvard Business School",
@@ -76,11 +76,21 @@ export const achievements = [
     field: "Software Engineering",
     date: "October 2023"
   },
-  // {
-  //     acheivement: "Presented predictive modeling insights at a national data science conference",
-  //     field: "Machine Learning",
-  //     date: "March 2024"
-  // }
+  {
+    acheivement: "Presented predictive modeling insights at a national data science conference",
+    field: "Machine Learning",
+    date: "March 2024"
+  },
+  {
+    acheivement: "Improved TypeScript types and wrote unit tests for custom hooks. Opened multiple PRs to enhance developer experience",
+    field: "backend developer",
+    date: "March 2024"
+  },
+  {
+    acheivement: "Contributed to improving JavaScript curriculum documentation and resolved multiple grammatical and formatting issues",
+    field: "front end development",
+    date: "March 2024"
+  }
 ];
 export const skills = [
   {
@@ -116,9 +126,9 @@ export const personalDetails = {
   phone: "+9779812111121",
   email: "example@gmail.com",
   profile: [
-      "https://images.unsplash.com/photo-1568316280532-71d1baad0986?q=80&w=2063&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1568316280532-71d1baad0986?q=80&w=2063&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://cdn-icons-png.flaticon.com/512/194/194931.png",
-  
+
   ],
   urls: [
     {

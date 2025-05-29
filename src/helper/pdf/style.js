@@ -14,13 +14,12 @@
         ...nameStyle,
         fontSize: 16,
         align: "center",
-        font:{style:"normal"}
+        font:{style:"bold"}
     }
     const subsubHeaderStyle = {
         ...nameStyle,
         fontSize: 14,
         align: "left",
-        
         font: { style: "normal" }
     }
     const normalStyle = {

@@ -53,6 +53,7 @@ export const drawElementByClassToPDF = async (pdf, className, options = {}) => {
  * @param {object} style - Style configuration for the icon.
  * @param {number} style.width - Width of the icon (default: 10).
  * @param {number} style.height - Height of the icon (default: 10).
+ * @param {string} style.color -color of the icon(default :black)
  * @returns {{x:number,y:number}} Coordinates after drawing the icon.
  * 
  * @description Converts a given icon (component or identifier) to a base64 image using
