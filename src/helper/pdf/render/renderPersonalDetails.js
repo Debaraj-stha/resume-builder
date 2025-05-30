@@ -1,6 +1,6 @@
 import { pdfSize } from "../core";
 import { drawStyledText, drawTextWithIcon } from "../text";
-import { drawFlexWrappedItems, drawRectangle } from "../graphiics";
+import { drawFlexWrappedItems, drawRectangle } from "../graphics";
 
 import { BiMobile } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
@@ -23,7 +23,8 @@ const contactIconsMap = {
  * @param {object} personalDetails - personal details object 
  * @param {{
  * top:number,
- * left:number
+ * left:number,
+ * centeredWidth:number
  * }} coords - object contaning top and left position
  * @param {{
  * headerBgStyle,
@@ -75,7 +76,7 @@ const renderPersonalDetailsSection = async (
         includeNameInitial = false
     } = props;
 
-    const { top = 20, left = 20 } = coords;
+    const { top = 20, left = 20 ,centeredWidth} = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
 
     const {
@@ -92,7 +93,7 @@ const renderPersonalDetailsSection = async (
 
     let currentY = top;
     // Draw name (centered)
-    const namePos = drawStyledText(pdf, name, { x: pdfWidth / 2, y: currentY + nameStyle?.fontSize || 0 }, nameStyle);
+    const namePos = drawStyledText(pdf, name, { x: centeredWidth , y: currentY + nameStyle?.fontSize || 0 }, nameStyle);
     // Draw name initials if enabled
     if (includeNameInitial) {
         const boxX = pdfWidth - 75;

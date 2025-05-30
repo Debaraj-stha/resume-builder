@@ -224,7 +224,7 @@ export const drawGridLayout = async (
   const {
     width = (pdfWidth - xPadding) / gridSize,
     height = 40,
-    borderColor = '#000000',
+    borderColor = '#fff',
     fillColor = null,
   } = gridStyle;
 

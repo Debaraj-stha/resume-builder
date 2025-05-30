@@ -9,6 +9,8 @@ import { measureAndRenderSection, pdfSize } from "../helper/pdf/core";
 import { renderAchievementsSection } from "../helper/pdf/render/renderAchievements";
 import renderEducationSection from "../helper/pdf/render/renderEducation";
 import { renderSkillsSection } from "../helper/pdf/render/renderSkills";
+import { renderStrengthsSection } from "../helper/pdf/render/renderStrengths";
+import { renderPassionsSection } from "../helper/pdf/render/renderPassionsSection";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
@@ -26,7 +28,8 @@ const DirectPDFWriterProvider = ({ children }) => {
         openSourceWorkProps: {},
         strengthsProps: {},
         languagesProps: {},
-        summaryProps: {}
+        summaryProps: {},
+        passionProps:{}
     };
     const defaultStyles = {
         nameStyle,
@@ -69,7 +72,8 @@ const DirectPDFWriterProvider = ({ children }) => {
             openSourceWork,
             strengths,
             languages,
-            summary
+            summary,
+            passions
         } = sections
         const {
             nameStyle: appliedNameStyle = defaultStyles.nameStyle,
@@ -94,7 +98,8 @@ const DirectPDFWriterProvider = ({ children }) => {
             openSourceWorkProps = defaultSectionProps.openSourceWorkProps,
             strengthsProps = defaultSectionProps.strengthsProps,
             languagesProps = defaultSectionProps.languagesProps,
-            summaryProps = defaultSectionProps.summaryProps
+            summaryProps = defaultSectionProps.summaryProps,
+            passionProps=defaultSectionProps.passionProps
         } = props;
 
 
@@ -102,11 +107,12 @@ const DirectPDFWriterProvider = ({ children }) => {
         const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
         const dummyPDF = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
         const { pdfWidth: width, pdfHeight: height } = pdfSize(pdf)
+        const centeredWidth=width/2
         if (personalDetails)
             currentPos = await renderPersonalDetailsSection(
                 pdf,
                 personalDetails,
-                { top, left },
+                { top, left,centeredWidth:centeredWidth },
                 {
                     nameStyle: appliedNameStyle,
                     subHeaderStyle: appliedSubHeaderStyle,
@@ -117,7 +123,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             )
         if (summary) {
             currentPos = await renderSummarySection(pdf, summary,
-                { x: left, y: currentPos.y }, width - xPadding,
+                { x: left, y: currentPos.y,centeredWidth }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
@@ -129,7 +135,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: experiences,
-                coords: { left, y: currentPos.y, xPadding },
+                coords: { left, y: currentPos.y, xPadding,centeredWidth },
                 style: {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle,
@@ -145,7 +151,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: educations,
-                coords: { left, y: currentPos.y, xPadding },
+                coords: { left, y: currentPos.y, xPadding,centeredWidth },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -163,7 +169,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: achievements,
-                coords: { x: left, y: currentPos.y },
+                coords: { x: left, y: currentPos.y,centeredWidth},
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -179,7 +185,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
-                coords: { x: left, y: currentPos.y },
+                coords: { x: left, y: currentPos.y ,centeredWidth},
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -189,6 +195,38 @@ const DirectPDFWriterProvider = ({ children }) => {
                 padding: pagePadding,
                 props: skillsProps
             })
+        if (strengths)
+            currentPos = await measureAndRenderSection({
+                renderFn: renderStrengthsSection,
+                data: strengths,
+                pdf,
+                coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+                padding: pagePadding,
+                props: strengthsProps,
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    normalStyle: appliedNormalStyle,
+                    subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" },
+                  
+                },
+                
+            })
+
+        if(passions){
+            currentPos = await measureAndRenderSection({
+                renderFn: renderPassionsSection,
+                data: passions,
+                pdf,
+                coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+                padding: pagePadding,
+                props: passionProps,
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
+                }
+            })
+
+        }
         const now = Date.now()
         const filename = `resume-${now}.pdf`
         pdf.save(filename)

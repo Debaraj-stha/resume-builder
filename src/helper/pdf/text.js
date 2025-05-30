@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import { applyStyle } from "./core";
 import { drawIcon } from "./image";
-import { drawCircle } from "./graphiics";
+import { drawCircle } from "./graphics";
 /**
  * 
  * @param {jsPDF} pdf an instance of jsPDF
@@ -55,6 +55,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * at the specified coordinates, adjusting the Y position for each line.
  */
 export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {}) => {
+  console.log(text,x,y,maxWidth,)
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;
   const lineHeight = style.lineHeight || fontSize * 1.1;

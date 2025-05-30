@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import { pdfSize } from "../core";
 import { drawStyledText, drawWrappedLongText } from "../text";
-import { drawLine } from "../graphiics";
+import { drawLine } from "../graphics";
 import { drawGridLayout } from "../layout";
 import { drawIcon } from "../image";
 import { FaTrophy } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { FaTrophy } from "react-icons/fa";
  * function to render achivement
  * @param {jsPDF} pdf -instance of jsPDF
  * @param {Array<object>} achievementsArray  -array of achievements
- * @param {{x:number,y:number}} coords -coordinates position
+ * @param {{x:number,y:number,centeredWidth:number}} coords -coordinates position
  * @param {object} style -style object
  * @param {{
  * top:number,
@@ -30,7 +30,7 @@ export const renderAchievementsSection = async (
     padding = {},
     props = {}
 ) => {
-    const { x, y } = coords;
+    const { x, y, centeredWidth } = coords;
     const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style;
     const { left, right } = padding;
     const {
@@ -38,24 +38,28 @@ export const renderAchievementsSection = async (
         gridSize = 3,
         shouldIncludeDate = false,
         shouldIncludeIcon = false,
+        gapX = 10,
+        gapY = 20,
+        cellPadding = {
+            xPadding: 5,
+            yPadding: 5
+        }
     } = props;
 
     const { pdfWidth } = pdfSize(pdf);
     const maxWidth = pdfWidth - left - right;
 
     // Draw Section Header
-    let currentPos = drawStyledText(pdf, "Achievements", { x: pdfWidth / 2, y }, headerStyle);
+    let currentPos = drawStyledText(pdf, "Achievements", { x: centeredWidth, y }, headerStyle);
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
 
     // Grid Layout Mode
     if (displayGrid) {
         const gridCoords = { x, y: currentPos.y + 5 };
-        const gridConfig = { gridSize, gapX: 10, gapY: 10 }
+        const gridConfig = { gridSize, gapX, gapY }
         const gridStyle = {
             width: (maxWidth - (gridSize - 1) * gridConfig.gapX) / gridSize, // Equal cell width with 10px gap
         };
-        const cellPadding = { xPadding: 5, yPadding: 5 };
-
         currentPos = await drawGridLayout(
             pdf,
             achievementsArray,

@@ -18,6 +18,7 @@ import { drawVerticalDividerLayout } from "../layout";
  * @param {{
  * left: number,
  * y: number,
+ * centeredWidth:number
  * xPadding: number
  * }} coords  - Coordinates for rendering the section.
  * @param {object<object>} style  - Styles for the section, including header, subheader, and normal text styles.
@@ -45,7 +46,7 @@ const renderExperienceSection = async (
     subSubHeaderStyle,
     normalStyle,
   } = style;
-  const { left, xPadding } = coords;
+  const { left, xPadding ,centeredWidth} = coords;
   const {
     listStyle = null,
     applyFlex = false,
@@ -58,7 +59,7 @@ const renderExperienceSection = async (
   } = props;
 
   const { pdfWidth } = pdfSize(pdf);
-  let currentPos = drawStyledText(pdf, "Experiences", { x: pdfWidth / 2, y: coords.y }, headerStyle);
+  let currentPos = drawStyledText(pdf, "Experiences", { x: centeredWidth, y: coords.y }, headerStyle);
 
   for (const exp of experiencesArray) {
     const {

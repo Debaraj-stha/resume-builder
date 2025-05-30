@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import { drawJustifyTextItems, drawStyledText } from "../text";
-import { drawLine } from "../graphiics";
+import { drawLine } from "../graphics";
 import { pdfSize } from "../core";
 
 import { LiaMapMarkerSolid } from "react-icons/lia";
@@ -17,7 +17,8 @@ import { drawVerticalDividerLayout } from "../layout";
  * @param {Array<object>} educationsArray -array of object of educations
  * @param {{
  * x:number,
- * y:number
+ * y:number,
+ * centeredWidth:number
  * }} coords  -coordinate position
  * @param {{
  * headerStyle:object,
@@ -34,7 +35,7 @@ import { drawVerticalDividerLayout } from "../layout";
  * @param {object} props -optional properties
  */
 const renderEducationSection = async (pdf, educationsArray, coords = {}, style = {}, padding = {}, props = {}) => {
-    const { x, y } = coords
+    const { x, y ,centeredWidth} = coords
     const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style
     const { top, left, bottom, right } = padding
     const {
@@ -50,7 +51,7 @@ const renderEducationSection = async (pdf, educationsArray, coords = {}, style =
     } = props
     let currentPos;
     const { pdfWidth } = pdfSize(pdf)
-    currentPos = drawStyledText(pdf, "Education", { x: pdfWidth / 2, y: y }, headerStyle)
+    currentPos = drawStyledText(pdf, "Education", { x: centeredWidth, y: y }, headerStyle)
     const x2 = pdfWidth - (left + right)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
 
