@@ -313,5 +313,6 @@ export const trainings = [
     organization: "Virgin Business Start-Up",
     year: "2019 - 2021",
     location: "New York, NYC"
-  }
+  },
+  
 ];

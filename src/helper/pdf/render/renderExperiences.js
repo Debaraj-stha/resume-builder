@@ -15,6 +15,7 @@ import { drawVerticalDividerLayout } from "../layout";
  *  Renders a section of experiences in a PDF document using jsPDF.
  * @param {jsPDF} pdf - The jsPDF instance to render the experiences on.
  * @param {Array<object>} experiencesArray  - Array of experience objects to render.
+ * @param {string} [header="Experiences"] - Header text for the section.
  * @param {{
  * left: number,
  * y: number,
@@ -35,6 +36,7 @@ import { drawVerticalDividerLayout } from "../layout";
 const renderExperienceSection = async (
   pdf,
   experiencesArray,
+  header,
   coords = {},
   style = {},
   padding={},
@@ -59,7 +61,7 @@ const renderExperienceSection = async (
   } = props;
 
   const { pdfWidth } = pdfSize(pdf);
-  let currentPos = drawStyledText(pdf, "Experiences", { x: centeredWidth, y: coords.y }, headerStyle);
+  let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: coords.y }, headerStyle);
 
   for (const exp of experiencesArray) {
     const {

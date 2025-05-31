@@ -10,6 +10,7 @@ import { FaTrophy } from "react-icons/fa";
  * function to render achivement
  * @param {jsPDF} pdf -instance of jsPDF
  * @param {Array<object>} achievementsArray  -array of achievements
+ * @param {string} [header="Achievement"] - Header text for the section.
  * @param {{x:number,y:number,centeredWidth:number}} coords -coordinates position
  * @param {object} style -style object
  * @param {{
@@ -25,6 +26,7 @@ import { FaTrophy } from "react-icons/fa";
 export const renderAchievementsSection = async (
     pdf,
     achievementsArray,
+    header="Achievement",
     coords = {},
     style = {},
     padding = {},
@@ -50,7 +52,7 @@ export const renderAchievementsSection = async (
     const maxWidth = pdfWidth - left - right;
 
     // Draw Section Header
-    let currentPos = drawStyledText(pdf, "Achievements", { x: centeredWidth, y }, headerStyle);
+    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
 
     // Grid Layout Mode

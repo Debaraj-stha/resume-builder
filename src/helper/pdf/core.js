@@ -94,15 +94,15 @@ export const addPageIfNeeded = (pdf, currentY, requiredHeight = 50, topPadding =
  *+
  */
 
-export const measureAndRenderSection = async ({ renderFn, pdf, data, coords, style, padding, props, dummyPdf }) => {
+export const measureAndRenderSection = async ({ renderFn, pdf, data, coords, style, padding, props, dummyPdf, header }) => {
   const startY = coords.y;
   const simulatedPdf = dummyPdf || new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
-  const posAfterRender = await renderFn(simulatedPdf, data, { ...coords }, style, padding, props);
+  const posAfterRender = await renderFn(simulatedPdf, data, header, { ...coords }, style, padding, props);
   const usedHeight = posAfterRender.y - startY;
   const pageHeight = pdf.internal.pageSize.getHeight();
   if (startY + usedHeight > pageHeight - 30) {
     pdf.addPage();
     coords.y = padding.top || 40;
   }
-  return await renderFn(pdf, data, coords, style, padding, props);
+  return await renderFn(pdf, data, header, coords, style, padding, props);
 };

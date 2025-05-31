@@ -44,6 +44,7 @@ const drawStrengthItem = async ({
  *
  * @param {jsPDF} pdf - Instance of jsPDF
  * @param {Array<object>} strengthsArray - An array of strength objects to display.
+ * @param {string} [header="Strength"] - Header text for the section.
  * @param {{x:number,y:number,centeredWidth:number}} [coords={}] - Coordinates with `x`, `y`, and `centeredWidth` to define position and alignment.
  * @param {{headerStyle:object,normalStyle:object,subHeaderStyle:object,subSubHeaderStyle:object}} [style={}] - Style configuration object.
  * @param {{top:number,left:number,right:number,bottom:number}} [padding={}] - Padding around the section.
@@ -52,6 +53,7 @@ const drawStrengthItem = async ({
 export const renderStrengthsSection = async (
     pdf,
     strengthsArray,
+    header="Strength",
     coords = {},
     style = {},
     padding = {},
@@ -76,7 +78,7 @@ export const renderStrengthsSection = async (
     } = props;
 
     const { pdfWidth } = pdfSize(pdf);
-    let currentPos = drawStyledText(pdf, "Strength", { x: centeredWidth, y }, headerStyle);
+    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
 
     // Draw line under header
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });

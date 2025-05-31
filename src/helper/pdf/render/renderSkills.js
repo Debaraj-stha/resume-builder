@@ -6,6 +6,7 @@ import { drawLine } from "../graphics"
  * function to render skill section
  * @param {jsPDF} pdf -jsPDF instance
  * @param {Array<object>} skillsArray  -array of object of skills
+ * @param {string} [header="Skill"] - Header text for the section.
  * @param {{x:number,y:number,centeredWidth:number}} coords  -coordinates position
  * @param {{
  * headerStyle:object,
@@ -17,16 +18,16 @@ import { drawLine } from "../graphics"
  * @param {object} props -optional properties
  * @returns {Promise<{x:number,y:number}>}
  */
-export const renderSkillsSection = (pdf, skillsArray, coords = {}, style = {}, padding, props = {}) => {
+export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}, style = {}, padding, props = {}) => {
     const {
         shouldIncludeField = false,
         borderBox = false,
         borderBottom = false } = props
     const { x, y } = coords
-    const { headerStyle, subHeaderStyle, subSubHeaderStyle, normalStyle } = style
+    const { headerStyle,  subSubHeaderStyle, normalStyle } = style
     const { pdfWidth } = pdfSize(pdf)
     const { right, left } = padding
-    let currentPos = drawStyledText(pdf, "Skills", { x: centeredWidth, y }, headerStyle)
+    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y },)
     if (!shouldIncludeField) {
         const items = skillsArray.flatMap(skill => skill.items)

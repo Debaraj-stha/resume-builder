@@ -15,6 +15,7 @@ import { drawVerticalDividerLayout } from "../layout";
  * function to render education  section
  * @param {jsPDF} pdf -instance of jsPDF
  * @param {Array<object>} educationsArray -array of object of educations
+ * @param {string} [header="Education"] - Header text for the section.
  * @param {{
  * x:number,
  * y:number,
@@ -33,8 +34,9 @@ import { drawVerticalDividerLayout } from "../layout";
  * bottom:number
  * }} padding -page padding
  * @param {object} props -optional properties
+ * @returns {Promise<{x:number,y:number}>} -updates coordinates after rendering this section
  */
-const renderEducationSection = async (pdf, educationsArray, coords = {}, style = {}, padding = {}, props = {}) => {
+const renderEducationSection = async (pdf, educationsArray, header="Education",coords = {}, style = {}, padding = {}, props = {}) => {
     const { x, y ,centeredWidth} = coords
     const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style
     const { top, left, bottom, right } = padding
@@ -51,7 +53,7 @@ const renderEducationSection = async (pdf, educationsArray, coords = {}, style =
     } = props
     let currentPos;
     const { pdfWidth } = pdfSize(pdf)
-    currentPos = drawStyledText(pdf, "Education", { x: centeredWidth, y: y }, headerStyle)
+    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: y }, headerStyle)
     const x2 = pdfWidth - (left + right)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
 

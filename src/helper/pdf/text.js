@@ -187,7 +187,6 @@ export const drawJustifyTextItems = (
         fontSize = style[i].fontSize;
       }
     }
-    console.log(items[i], currentX, y)
     pdf.text(items[i], currentX, y);
     currentX += textWidths[i] + space;
   }
