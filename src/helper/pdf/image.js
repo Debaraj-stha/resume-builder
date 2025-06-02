@@ -62,7 +62,6 @@ export const drawElementByClassToPDF = async (pdf, className, options = {}) => {
  */
 
 export const drawIcon = async (pdf, icon, coords = {}, style = {}) => {
-    console.log("icon is called",coords,icon)
     const {
         width = 10,
         height = 10,

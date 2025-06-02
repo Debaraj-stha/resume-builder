@@ -19,7 +19,6 @@ import { drawCircle } from "./graphics";
  * The function applies the given style to the text, draws a background rectangle if specified,
  */
 export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
-  console.log("display stye text", coords, text)
   const { x = 40, y = 40 } = coords;
   applyStyle(pdf, style);
   const height = style.fontSize || 12;
@@ -55,7 +54,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * at the specified coordinates, adjusting the Y position for each line.
  */
 export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {}) => {
-  console.log(text,x,y,maxWidth,)
+  
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;
   const lineHeight = style.lineHeight || fontSize * 1.1;
@@ -159,7 +158,6 @@ export const drawJustifyTextItems = (
   style = [],
   lineHeightFactor = 1.2
 ) => {
-  console.log(area, items)
   const { x, y, maxWidth } = area;
   let fontSize
   if (Array.isArray(style)) {
@@ -215,7 +213,6 @@ export const drawTextItems = (
   maxWidth = pdf.internal.pageSize.getWidth(),
   props = {}
 ) => {
-  console.log(style)
   let { x, y } = coords;
   const {
     borderBox,

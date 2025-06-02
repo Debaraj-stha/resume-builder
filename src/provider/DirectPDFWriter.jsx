@@ -13,6 +13,8 @@ import { renderStrengthsSection } from "../helper/pdf/render/renderStrengths";
 import { renderPassionsSection } from "../helper/pdf/render/renderPassionsSection";
 import { renderTrainingsSection } from "../helper/pdf/render/renderTraining";
 import { renderAwardsSection } from "../helper/pdf/render/renderAwards";
+import { renderCertificateSection } from "../helper/pdf/render/renderCertificates";
+import { renderOpenSourceWorkSection } from "../helper/pdf/render/renderOpenSource";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
@@ -263,6 +265,44 @@ const DirectPDFWriterProvider = ({ children }) => {
             
 
             })
+
+        if(certificates){
+             currentPos = await measureAndRenderSection({
+                renderFn: renderCertificateSection,
+                data: certificates,
+                pdf,
+                coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+                padding: pagePadding,
+                props: certificatesProps,
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
+                    normalStyle: appliedNormalStyle
+                },
+            
+
+            })
+
+        }
+        if(openSourceWork){
+             currentPos = await measureAndRenderSection({
+                renderFn: renderOpenSourceWorkSection,
+                data: openSourceWork,
+                pdf,
+                coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+                padding: pagePadding,
+                props: openSourceWorkProps,
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
+                    normalStyle: appliedNormalStyle,
+                },
+            
+
+            })
+
+        }
+
         const now = Date.now()
         const filename = `resume-${now}.pdf`
         pdf.save(filename)

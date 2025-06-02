@@ -89,7 +89,6 @@ export const drawLine = (pdf, coords = {}, style = {}) => {
         color = [0, 0, 0], // more visible
         dash = []//dashed line [2,2] 4 dash 2 gap
     } = style;
-    console.log(coords)
     const { x1 = 10,
         y1 = 10,
         x2 = 100,

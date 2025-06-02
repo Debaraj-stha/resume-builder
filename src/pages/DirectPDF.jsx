@@ -1,6 +1,20 @@
 import React from 'react'
 import { useDirectPDFWriter } from '../provider/DirectPDFWriter'
-import { personalDetails, experiences, educations, summary, achievements, skills, strengths, passions, trainings, awards } from "../static-data/resume-sample-data"
+import {
+  personalDetails,
+  experiences,
+  educations,
+  summary,
+  achievements,
+  skills,
+  strengths,
+  passions,
+  trainings,
+  awards,
+  certificates,
+  openSourceWork
+
+} from "../static-data/resume-sample-data"
 const DirectPDF = () => {
   const { createPDF } = useDirectPDFWriter()
   const createPDFDirectly = async () => {
@@ -13,8 +27,12 @@ const DirectPDF = () => {
       // skills,
       // strengths,
       // passions,
-      trainings,
-      awards
+      // trainings,
+      // awards,
+      // certificates,
+      openSourceWork
+
+
     },
       {},
       {
@@ -44,18 +62,28 @@ const DirectPDF = () => {
           // grid: true,
           side: ""
         },
-        passionProps:{
-          shouldIncludeIcon:true,
+        passionProps: {
+          shouldIncludeIcon: true,
           // grid:true
         },
-        trainingsProps:{
-          includeLocation:true,
-          includeDate:true,
-          grid:true
+        trainingsProps: {
+          includeLocation: true,
+          includeDate: true,
+          grid: true
         },
-        awardsProps:{
-          grid:true,
-          includeDate:true
+        awardsProps: {
+          grid: true,
+          includeDate: true
+        },
+        certificatesProps: {
+          grid: true,
+          shouldIncludeDate: true
+        },
+        openSourceWorkProps: {
+          flexLinkAndDate: true,
+          includeDate: true,
+          includeLink: true,
+          includeRole: false
         }
 
       },

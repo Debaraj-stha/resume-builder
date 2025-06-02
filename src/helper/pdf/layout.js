@@ -281,7 +281,6 @@ export const drawGridLayout = async (
  * @param {justifyType} justify -justify types 
  */
 export const drawJustifyItems = async (pdf, items, coords, justify = justifyType.BETWEEN) => {
-  console.log("coords of display ", coords)
   let currentPos
   if (justify === justifyType.BETWEEN) {
 

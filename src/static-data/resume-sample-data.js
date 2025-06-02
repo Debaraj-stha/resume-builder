@@ -194,7 +194,12 @@ export const openSourceWork = [
     projectName: "React Hook Form",
     role: "Contributor",
     description: "Improved TypeScript types and wrote unit tests for custom hooks. Opened multiple PRs to enhance developer experience.",
-    technologies: ["TypeScript", "React", "Jest", "Open Source"],
+    technologies: [
+      { value: "TypeScript" },
+      { value: "React" },
+      { value: "Jest" },
+      { value: "Open Source" }
+    ],
     link: "https://github.com/react-hook-form/react-hook-form/pull/1234",
     date: "2024-09"
   },
@@ -202,7 +207,11 @@ export const openSourceWork = [
     projectName: "FreeCodeCamp",
     role: "Documentation Contributor",
     description: "Contributed to improving JavaScript curriculum documentation and resolved multiple grammatical and formatting issues.",
-    technologies: ["Markdown", "GitHub", "JavaScript"],
+    technologies: [
+      { value: "Markdown" },
+      { value: "GitHub" },
+      { value: "JavaScript" }
+    ],
     link: "https://github.com/freeCodeCamp/freeCodeCamp/pull/5678",
     date: "2023-11"
   },
@@ -210,11 +219,16 @@ export const openSourceWork = [
     projectName: "Node.js",
     role: "Issue Triage & Feedback",
     description: "Provided detailed feedback on open issues and tested bug fixes related to event loop and asynchronous operations.",
-    technologies: ["Node.js", "JavaScript", "GitHub"],
+    technologies: [
+      { value: "Node.js" },
+      { value: "JavaScript" },
+      { value: "GitHub" }
+    ],
     link: "https://github.com/nodejs/node/issues/9876",
     date: "2024-01"
   }
-];
+]
+
 
 export const strengths = [
   {
