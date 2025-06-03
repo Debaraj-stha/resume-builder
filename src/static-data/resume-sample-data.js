@@ -176,7 +176,7 @@ export const industryExpertise = [
     value: "69"
   }
 ]
-const PROFICIENCY = {
+export const PROFICIENCY = {
   BEGINNER: "Beginner",
   INTERMEDIATE: "Intermediate",
   PROFICIENT: "Proficient",

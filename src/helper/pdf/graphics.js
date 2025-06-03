@@ -102,7 +102,7 @@ export const drawLine = (pdf, coords = {}, style = {}) => {
     if (dash.length > 0) {
         pdf.setLineDashPattern([], 0);
     }
-    return { y: y2 + width+20, x: x2 }
+    return { y: y2 + width + 20, x: x2 }
 };
 /**
  * Draws two horizontal lines spaced vertically.
@@ -357,4 +357,59 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
     }
 
     return { x: startX, y: y + itemHeight };
+};
+/**
+ * Draws a progress bar on the PDF.
+ * @param {jsPDF} pdf - Instance of jsPDF
+ * @param {number} [progress=0] - Progress value (0 to 1)
+ * @param {number} [height=5] - Height of the progress bar
+ * @param {number} [width=50] - Total width of the progress bar
+ * @param {{ x1: number, y1: number, x2?: number, y2?: number }} coords - Coordinates for bar (uses x1, y1)
+ * @param {{ drawColor?: number[], fillColor?: number[], completedColor?: number[],labelColor?:number[],borderRadius?:number }} style - Optional style config
+ * @param {boolean} showLabel -optional flag to include label in progressbar
+ * @returns {{ x: number, y: number }} - Next coordinates
+ */
+export const drawProgressBar = (
+    pdf,
+    progress = 0,
+    height = 5,
+    width = 50,
+    coords = {},
+    style = {},
+    showLabel = false,
+) => {
+    const { x1 = 10, y1 = 10 } = coords;
+    const {
+        drawColor = [0, 0, 0],
+        fillColor = [255, 255, 255],
+        completedColor = [70, 255, 167],
+        borderRadius = 2,
+        labelColor = [0, 0, 0],
+    } = style;
+
+    const lineWidth = 0.5;
+    pdf.setLineWidth(lineWidth);
+    pdf.setDrawColor(...drawColor);
+    pdf.setFillColor(...fillColor);
+
+    // Draw background with rounded corners
+    pdf.roundedRect(x1, y1, width, height, borderRadius, borderRadius, 'FD');
+
+    // Draw filled portion
+    const clampedProgress = Math.max(0, Math.min(progress, 100));
+    const filledWidth = (clampedProgress / 100) * width;
+    pdf.setFillColor(...completedColor);
+    pdf.roundedRect(x1, y1, filledWidth, height, borderRadius, borderRadius, 'F');
+
+    // Optional text label inside the bar
+    if (showLabel) {
+        pdf.setTextColor(...labelColor);
+        pdf.setFontSize(8);
+        pdf.text(`${clampedProgress}%`, x1 + width + 2, y1 + height - 1); // right of bar
+    }
+
+    return {
+        x: x1 + width + 5,
+        y: y1 + height + 5,
+    };
 };

@@ -65,3 +65,18 @@ export const drawJustifyContentItems = async (
   };
 };
 
+export const getProficiencyPercent = (level) => {
+  switch (level?.toLowerCase?.()) {
+    case "beginner":
+      return 25;
+    case "intermediate":
+      return 50;
+    case "proficient":
+      return 75;
+    case "native":
+    case "fluent":
+      return 100;
+    default:
+      return 0;
+  }
+};

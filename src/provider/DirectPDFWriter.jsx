@@ -15,6 +15,7 @@ import { renderTrainingsSection } from "../helper/pdf/render/renderTraining";
 import { renderAwardsSection } from "../helper/pdf/render/renderAwards";
 import { renderCertificateSection } from "../helper/pdf/render/renderCertificates";
 import { renderOpenSourceWorkSection } from "../helper/pdf/render/renderOpenSource";
+import { renderLanguagesSection } from "../helper/pdf/render/renderLanguages";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
@@ -262,12 +263,12 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
                     normalStyle: appliedNormalStyle
                 },
-            
+
 
             })
 
-        if(certificates){
-             currentPos = await measureAndRenderSection({
+        if (certificates) {
+            currentPos = await measureAndRenderSection({
                 renderFn: renderCertificateSection,
                 data: certificates,
                 pdf,
@@ -279,13 +280,13 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
                     normalStyle: appliedNormalStyle
                 },
-            
+
 
             })
 
         }
-        if(openSourceWork){
-             currentPos = await measureAndRenderSection({
+        if (openSourceWork)
+            currentPos = await measureAndRenderSection({
                 renderFn: renderOpenSourceWorkSection,
                 data: openSourceWork,
                 pdf,
@@ -297,11 +298,29 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
                     normalStyle: appliedNormalStyle,
                 },
-            
+
 
             })
 
-        }
+        if (languages)
+            currentPos = await measureAndRenderSection({
+                renderFn: renderLanguagesSection,
+                data: languages,
+                pdf,
+                coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+                padding: pagePadding,
+                props: languagesProps,
+                style: {
+                    headerStyle: appliedHeaderStyle,
+                    subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
+                    normalStyle: appliedNormalStyle,
+                },
+
+
+            })
+
+
+
 
         const now = Date.now()
         const filename = `resume-${now}.pdf`

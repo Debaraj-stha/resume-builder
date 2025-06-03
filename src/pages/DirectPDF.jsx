@@ -12,7 +12,8 @@ import {
   trainings,
   awards,
   certificates,
-  openSourceWork
+  openSourceWork,
+  languages
 
 } from "../static-data/resume-sample-data"
 const DirectPDF = () => {
@@ -30,7 +31,8 @@ const DirectPDF = () => {
       // trainings,
       // awards,
       // certificates,
-      openSourceWork
+      // openSourceWork,
+      languages
 
 
     },
@@ -84,6 +86,9 @@ const DirectPDF = () => {
           includeDate: true,
           includeLink: true,
           includeRole: false
+        },
+        languagesProps:{
+          
         }
 
       },

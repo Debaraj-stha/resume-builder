@@ -2,6 +2,7 @@ import { memo } from "react";
 import { FlexBox } from "../../CustomComponents";
 import styled from "styled-components";
 import capitalize from "../../../helper/capitalize";
+import { getProficiencyPercent } from "../../../helper/helper";
 
 // Styled Components
 const LanguageWrapper = styled.div`
@@ -27,22 +28,6 @@ const ProgressBar = styled.div.withConfig({
   transition: width 0.3s ease;
 `;
 
-// Utility
-const getProficiencyPercent = (level) => {
-  switch (level?.toLowerCase?.()) {
-    case "beginner":
-      return 25;
-    case "intermediate":
-      return 50;
-    case "proficient":
-      return 75;
-    case "native":
-    case "fluent":
-      return 100;
-    default:
-      return 0;
-  }
-};
 
 // Component
 const LanguageCard = ({ language, layout_no, style = {}, ...props }) => {
