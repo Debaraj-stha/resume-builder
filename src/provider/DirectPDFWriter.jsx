@@ -16,6 +16,7 @@ import { renderAwardsSection } from "../helper/pdf/render/renderAwards";
 import { renderCertificateSection } from "../helper/pdf/render/renderCertificates";
 import { renderOpenSourceWorkSection } from "../helper/pdf/render/renderOpenSource";
 import { renderLanguagesSection } from "../helper/pdf/render/renderLanguages";
+import { renderIndustryExpertiseSection } from "../helper/pdf/render/renderIndustryExpertise";
 const DirectPDFContext = createContext()
 
 const DirectPDFWriterProvider = ({ children }) => {
@@ -302,14 +303,30 @@ const DirectPDFWriterProvider = ({ children }) => {
 
             })
 
-        if (languages)
+        // if (languages)
+        //     currentPos = await measureAndRenderSection({
+        //         renderFn: renderLanguagesSection,
+        //         data: languages,
+        //         pdf,
+        //         coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
+        //         padding: pagePadding,
+        //         props: languagesProps,
+        //         style: {
+        //             headerStyle: appliedHeaderStyle,
+        //             subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
+        //             normalStyle: appliedNormalStyle,
+        //         },
+
+
+        //     })
+             if (industryExpertise)
             currentPos = await measureAndRenderSection({
-                renderFn: renderLanguagesSection,
-                data: languages,
+                renderFn: renderIndustryExpertiseSection,
+                data: industryExpertise,
                 pdf,
                 coords: { x: left, y: currentPos.y, centeredWidth: width / 2 },
                 padding: pagePadding,
-                props: languagesProps,
+                props: industryExpertiseProps,
                 style: {
                     headerStyle: appliedHeaderStyle,
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },

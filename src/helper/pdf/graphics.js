@@ -407,6 +407,18 @@ export const drawProgressBar = (
         pdf.setFontSize(8);
         pdf.text(`${clampedProgress}%`, x1 + width + 2, y1 + height - 1); // right of bar
     }
+    // Inside drawProgressBar after filled bar
+    if (style.thumbSize) {
+        const thumbSize = style.thumbSize || 14;
+        const thumbColor = style?.thumbColor || "#ffffff";
+        const thumbBorderColor = style?.thumbBorderColor || fillColor;
+        const thumbX = x1 + filledWidth - thumbSize / 2;
+        const thumbY = y1 + height / 2 - thumbSize / 2;
+        pdf.setFillColor(...thumbColor);
+        pdf.setDrawColor(...thumbBorderColor);
+        pdf.circle(thumbX + thumbSize / 2, thumbY + thumbSize / 2, thumbSize / 2, "FD");
+    }
+
 
     return {
         x: x1 + width + 5,

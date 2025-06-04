@@ -80,3 +80,7 @@ export const getProficiencyPercent = (level) => {
       return 0;
   }
 };
+
+export const getDivider=(dividerType)=>{
+  
+}
