@@ -40,6 +40,7 @@ export const drawElementByClassToPDF = async (pdf, className, options = {}) => {
         return { y: y + height, x: x + width }
     } catch (error) {
         console.error("Error drawing element to PDF:", error);
+        return {x,y}
     }
 };
 
