@@ -14,12 +14,14 @@ import { useDivider } from "../provider/DividerProvider";
 import BigModal from "./BigModal";
 import { GridTwo } from "./layouts/input-layout/GridCards";
 import FixedIconWrapper from "./FixedIconWrapper";
+import { useParams } from "react-router-dom";
+import { getSectionAndSectionprops } from "../helper/helper";
 
 
 
 
 
-const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateChangeModelOpen }) => {
+const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateChangeModelOpen }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
@@ -27,12 +29,13 @@ const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateCha
     const { generatePDF, compileInput } = useLayout();
     const { uploadFile } = useSupabase();
     const { dividers, changeDivider } = useDivider()
-    
-
+    const { layout_type, layout_id } = useParams()
     const uploadAndDownloadFile = async () => {
         try {
             setFileGenerating(true);
-            const file = await generatePDF();
+            const { sectionNames, props:sectionProps } = getSectionAndSectionprops(layout_id,layout_type)
+            return
+            const file = await generatePDF(sectionNames, sectionProps);
             await uploadFile(file, (progressValue) => {
                 setProgress(progressValue);
                 if (progressValue >= 100) {
@@ -52,7 +55,7 @@ const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateCha
     const handleTemplatesChoose = () => {
         setIsTemplateChangeModelOpen(true)
     }
-  
+
     const handleDividerChange = (key) => {
         changeDivider(key);
         setIsDividerChangeModelOpen(false); //  auto-close on selection
@@ -106,7 +109,7 @@ const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateCha
                         </ToolTip>
 
                         <ToolTip text="Change Divider">
-                            <CircularIconHolder backgroundColor="#5F6368" onClick={()=> setIsDividerChangeModelOpen(true)}>
+                            <CircularIconHolder backgroundColor="#5F6368" onClick={() => setIsDividerChangeModelOpen(true)}>
                                 <RxDividerHorizontal color="white" />
                             </CircularIconHolder>
                         </ToolTip>
@@ -116,7 +119,7 @@ const GeneratePageFixedButtons = memo(({setShowIcons,showIcons, setIsTemplateCha
             </FixedIconWrapper>
             {fileGenerating && <ProgressBarModal peogress={progress} />}
             {isDividerChangeModelOpen && dividerChooseModal}
-           
+
 
         </>
     );

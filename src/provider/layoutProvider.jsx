@@ -73,13 +73,13 @@ const LayoutProvider = ({ children }) => {
   };
 
   // Helper: Compile form data to liveDetails
-  const compileInput = () => {
+  const compileInput = useCallback(() => {
     setLiveDetails(getValues());
-  };
+  });
 
   // PDF generation
   // Function to generate a multi-page PDF from a DOM element
-  const generatePDF = async (filename_prefix = "new_") => {
+  const generatePDF = useCallback(async (filename_prefix = "new_") => {
     const element = pdfRef.current;
     // Convert the DOM element to a high-resolution canvas using html2canvas
     const canvas = await html2canvas(element, { scale: 2 });
@@ -120,11 +120,11 @@ const LayoutProvider = ({ children }) => {
     //create file from blob
     const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
     return pdfFile
-  };
+  });
 
 
   // Group sections into printable pages
-  const groupSectionsIntoPages = (refs, setMeasured, setPages) => {
+  const groupSectionsIntoPages = useCallback((refs, setMeasured, setPages) => {
     const PAGE_HEIGHT = 970;
     let grouped = [], currentGroup = [], currentHeight = 0;
 
@@ -144,13 +144,13 @@ const LayoutProvider = ({ children }) => {
     if (currentGroup.length > 0) grouped.push(currentGroup);
     setPages(grouped);
     setMeasured(true);
-  };
+  });
   //click event on current fileref
   const handleFilePick = () => {
     fileInputRef.current?.click();
   };
   //handling file change
-  const handleFileChange = async (e) => {
+  const handleFileChange = useCallback(async (e) => {
     try {
       const file = e.target.files[0];
       if (file) {
@@ -170,7 +170,7 @@ const LayoutProvider = ({ children }) => {
     } catch (error) {
       console.error("Error while uploading file", error)
     }
-  };
+  });
 
 
 

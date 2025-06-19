@@ -144,6 +144,7 @@ const ModeButton = styled.button.withConfig({
   // shouldForwardProp: (props) => !['selected'].includes(props)
 })`
   background: ${({ selected }) => (selected ? "blue" : "#f0f0f0")};
+  margin:0;
   color: ${({ selected }) => (selected ? "white" : "#333")};
    @media (max-width: 768px) {
     font-size: 14px;

@@ -3,6 +3,7 @@ import { drawElementByClassToPDF, drawIcon } from "./pdf/image";
 import { drawLine } from "./pdf/graphics"
 import { drawStyledText } from "./pdf/text"
 import jsPDF from "jspdf";
+import { classical_keys, creative_keys, modern_keys, simple_keys } from "../components/layouts/input-layout/section-data/layout_keys";
 
 /**
  * Draws multiple items (text and/or icon) spaced evenly across a line.
@@ -128,9 +129,43 @@ export const getDivider = async (divider_type, ...args) => {
  * @returns {Promise<{x: number, y: number}>} The updated position after drawing the title (typically bottom Y coordinate).
  */
 
-export const drawSectionTitle = async (pdf, title="Section Header", coords, style = {},divider_type="line",...args) => {
+export const drawSectionTitle = async (pdf, title = "Section Header", coords, style = {}, divider_type = "line", ...args) => {
   let currentPos;
   currentPos = drawStyledText(pdf, title, coords, style)
-  currentPos=await getDivider(pdf,coords,style,...args)
+  currentPos = await getDivider(pdf, coords, style, ...args)
   return currentPos
 }
+/**
+ * A function to get the section names to include in the PDF and the props of each particular section.
+ *
+ * @param {string} layout_id - The ID of the specific layout type.
+ * @param {string} layout_type - The name of the layout type (e.g., "modern", "classical").
+ * @returns {{
+ *   sectionNames: array,
+ *   props: Object<string, any>             // keys as section names, values as section-specific props
+ * }} An object containing:
+ * - sectionNames: An ayyay containing section name to include.
+ * - props: An object with section-specific props keyed by section name.
+ */
+export const getSectionAndSectionprops = (layout_id, layout_type) => {
+  layout_id="layout_"+layout_id
+  const props = {};
+  const keys = {
+    classical: classical_keys,
+    modern: modern_keys,
+    simple: simple_keys,
+    creative: creative_keys,
+  };
+  const layouts = keys[layout_type];
+  if (!layouts) {
+    console.warn(`Unknown layout type: ${layout_type}`);
+    return { sectionNames: [], props };
+  }
+  const sectionNames = layouts[layout_id];
+  if (!sectionNames) {
+    console.warn(`Unknown layout ID "${layout_id}" for layout type "${layout_type}"`);
+    return { sectionNames: [], props };
+  }
+  console.log("section", sectionNames, "props", props)
+  return { sectionNames, props };
+};
