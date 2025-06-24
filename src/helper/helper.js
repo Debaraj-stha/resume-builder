@@ -4,6 +4,9 @@ import { drawLine } from "./pdf/graphics"
 import { drawStyledText } from "./pdf/text"
 import jsPDF from "jspdf";
 import { classical_keys, creative_keys, modern_keys, simple_keys } from "../components/layouts/input-layout/section-data/layout_keys";
+import { sectionPropsByLayout } from "./sectionPropsByLayout";
+import { defaultSectionStyle } from "./defaultStyles";
+import { stylesByLayout } from "./stylesByLayout";
 
 /**
  * Draws multiple items (text and/or icon) spaced evenly across a line.
@@ -147,25 +150,64 @@ export const drawSectionTitle = async (pdf, title = "Section Header", coords, st
  * - sectionNames: An ayyay containing section name to include.
  * - props: An object with section-specific props keyed by section name.
  */
+
+const getLayoutProps = (layout_type, layout_id) => {
+  const propsBySection = sectionPropsByLayout[layout_type] || {};
+  const props = propsBySection[layout_id] || {};
+  return props;
+}
+
+const getLayoutSectionStyles = (layout_type, layout_id) => {
+  const {
+    headerStyle,
+    subHeaderStyle,
+    subSubHeaderStyle,
+    normalStyle,
+    nameStyle
+  }
+    = defaultSectionStyle
+  const styleByLayout = stylesByLayout[layout_type] || {}
+  const layoutStyles = styleByLayout[layout_id] || {};
+  layoutStyles.headerStyle = { ...headerStyle, ...layoutStyles.headerStyle };
+  layoutStyles.subHeaderStyle = { ...subHeaderStyle, ...layoutStyles.subHeaderStyle };
+  layoutStyles.subSubHeaderStyle = { ...subSubHeaderStyle, ...layoutStyles.subSubHeaderStyle };
+  layoutStyles.normalStyle = { ...normalStyle, ...layoutStyles.normalStyle };
+  layoutStyles.nameStyle = { ...nameStyle, ...layoutStyles.nameStyle };
+  return layoutStyles
+
+}
+
 export const getSectionAndSectionprops = (layout_id, layout_type) => {
-  layout_id="layout_"+layout_id
-  const props = {};
-  const keys = {
-    classical: classical_keys,
-    modern: modern_keys,
-    simple: simple_keys,
-    creative: creative_keys,
-  };
-  const layouts = keys[layout_type];
-  if (!layouts) {
-    console.warn(`Unknown layout type: ${layout_type}`);
-    return { sectionNames: [], props };
+  try {
+    layout_id = "layout_" + layout_id
+    const keys = {
+      classical: classical_keys,
+      modern: modern_keys,
+      simple: simple_keys,
+      creative: creative_keys,
+    };
+    const layouts = keys[layout_type];
+    if (!layouts) {
+      console.warn(`Unknown layout type: ${layout_type}`);
+      return { sectionNames: [], props };
+    }
+    const sectionNames = layouts[layout_id];
+    //getting section props by layout type and layout id
+    const props = getLayoutProps(layout_type, layout_id);
+    const layoutStyle = getLayoutSectionStyles(layout_type, layout_id)
+
+    if (!sectionNames) {
+      console.warn(`Unknown layout ID "${layout_id}" for layout type "${layout_type}"`);
+      return {
+        sectionNames: [], props,
+        layoutStyle
+      };
+    }
+    return { sectionNames, props, layoutStyle };
+
+  } catch (error) {
+    console.error("Error in getSectionAndSectionprops:", error);
+    return { sectionNames: [], props: {}, layoutStyle: {} };
   }
-  const sectionNames = layouts[layout_id];
-  if (!sectionNames) {
-    console.warn(`Unknown layout ID "${layout_id}" for layout type "${layout_type}"`);
-    return { sectionNames: [], props };
-  }
-  console.log("section", sectionNames, "props", props)
-  return { sectionNames, props };
+
 };

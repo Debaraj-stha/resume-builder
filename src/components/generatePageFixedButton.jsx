@@ -33,18 +33,21 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
     const uploadAndDownloadFile = async () => {
         try {
             setFileGenerating(true);
-            const { sectionNames, props:sectionProps } = getSectionAndSectionprops(layout_id,layout_type)
-            return
-            const file = await generatePDF(sectionNames, sectionProps);
-            await uploadFile(file, (progressValue) => {
-                setProgress(progressValue);
-                if (progressValue >= 100) {
-                    setTimeout(() => {
-                        setFileGenerating(false);
-                        setProgress(0);
-                    }, 800);
-                }
-            });
+            const { sectionNames, props:sectionProps ,
+                layoutStyle
+            } = getSectionAndSectionprops(layout_id,layout_type)
+            console.log("sectionNames", sectionNames, "sectionProps", sectionProps,"layoutStyle", layoutStyle);
+            
+            // const file = await generatePDF(sectionNames, sectionProps);
+            // await uploadFile(file, (progressValue) => {
+            //     setProgress(progressValue);
+            //     if (progressValue >= 100) {
+            //         setTimeout(() => {
+            //             setFileGenerating(false);
+            //             setProgress(0);
+            //         }, 800);
+            //     }
+            // });
 
         } catch (error) {
             console.log("Error while uploading and downloading file", error);

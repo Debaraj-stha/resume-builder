@@ -13,6 +13,7 @@ export default class ErrorBoundary extends Component {
       errorInfo,
     });
   }
+  
 
   render() {
     return (

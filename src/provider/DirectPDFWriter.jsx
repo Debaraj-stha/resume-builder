@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo } from "react";
 
 import jsPDF from "jspdf";
-import { nameStyle, headerStyle, subHeaderStyle, normalStyle, subsubHeaderStyle } from "../helper/pdf/style";
+import { nameStyle, headerStyle, subHeaderStyle, normalStyle, subSubHeaderStyle } from "../helper/pdf/style";
 import renderPersonalDetailsSection from "../helper/pdf/render/renderPersonalDetails";
 import renderExperienceSection from "../helper/pdf/render/renderExperiences";
 import { renderSummarySection } from "../helper/pdf/render/renderSummary";
@@ -41,7 +41,7 @@ const DirectPDFWriterProvider = ({ children }) => {
         nameStyle,
         headerStyle,
         subHeaderStyle,
-        subsubHeaderStyle,
+        subSubHeaderStyle,
         normalStyle
     };
     const pagePadding = {
@@ -85,7 +85,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             nameStyle: appliedNameStyle = defaultStyles.nameStyle,
             headerStyle: appliedHeaderStyle = defaultStyles.headerStyle,
             subHeaderStyle: appliedSubHeaderStyle = defaultStyles.subHeaderStyle,
-            subsubHeaderStyle: appliedSubsubHeaderStyle = defaultStyles.subsubHeaderStyle,
+            subSubHeaderStyle: appliedSubsubHeaderStyle = defaultStyles.subSubHeaderStyle,
             normalStyle: appliedNormalStyle = defaultStyles.normalStyle
         } = styles;
 
