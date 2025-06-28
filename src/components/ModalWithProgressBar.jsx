@@ -18,8 +18,8 @@ const ProgressBarContainer = styled.div`
   overflow: hidden;
   margin: 20px 0;
 `;
-const ProgressBarModal = memo(({progress,message="Resume Generating..."}) => {
-    return  <Modal header={<H3>{message}</H3>} onClose={() => { }}>
+const ProgressBarModal = memo(({progress,onClose=()=>{},message="Resume Generating..."}) => {
+    return  <Modal header={<H3>{message}</H3>} onClose={onClose} >
         <div style={{ textAlign: "center" }}>
             <ProgressBarContainer>
                 <ProgressFill progress={progress} />

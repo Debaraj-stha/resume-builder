@@ -75,7 +75,6 @@ const renderPersonalDetailsSection = async (
         isStatic = false,
         includeNameInitial = false
     } = props;
-
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
     console.log("rendering personal details", personalDetails);
@@ -119,22 +118,27 @@ const renderPersonalDetailsSection = async (
     // Draw profession
     const professionPos = drawStyledText(pdf, profession, { x: pdfWidth / 2, y: currentY }, subHeaderStyle);
     currentY = professionPos.y;
+    const contactItems = [];
+    if (phone != null && phone.trim() !== "")
+        contactItems.push({ type: "phone", value: phone })
+    if (email != null && email.trim() !== "")
+        contactItems.push({ type: "email", value: email });
 
     // Prepare contact items
-    const contactItems = [
-        { type: "phone", value: phone },
-        { type: "email", value: email },
+    contactItems.push(
         ...urls.map((url) => {
-            const lower = url.toLowerCase();
-            const type = lower.includes("linkedin")
+            const lower = url?.toLowerCase();
+            const type = lower?.includes("linkedin")
                 ? "linkedin"
                 : lower.includes("github")
                     ? "github"
                     : "website";
             return { type, value: url };
-        }),
-        { type: "address", value: address },
-    ];
+        })
+    )
+    if (address != null && address.trim() !== "")
+        contactItems.push({ type: "address", value: address });
+
 
     // Handle address separately if needed
     let filteredItems = contactItems;

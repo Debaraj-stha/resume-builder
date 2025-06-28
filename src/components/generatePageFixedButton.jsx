@@ -128,7 +128,7 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
                 )}
 
             </FixedIconWrapper>
-            {fileGenerating && <ProgressBarModal peogress={progress} />}
+            {fileGenerating && <ProgressBarModal peogress={progress} onClose={setFileGenerating(false)} />}
             {isDividerChangeModelOpen && dividerChooseModal}
 
 

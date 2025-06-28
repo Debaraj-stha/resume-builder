@@ -2,9 +2,7 @@ export const sectionPropsByLayout = {
   classical: {
     layout_1: {
       personalDetailsProps: {
-        showProfilePicture: true,
-        showName: true,
-        showContactInfo: true
+        includeIcon:false
       },
       summaryProps: { showSummary: true },
       experiencesProps: { showExperience: true },

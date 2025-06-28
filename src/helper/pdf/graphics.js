@@ -274,21 +274,21 @@ export const drawZigZagLine = (pdf, coords = {}, style = {}) => {
  * Can include icons (via `iconMap`) or bullets. Ideal for rendering skill lists, tags, or categories.
  */
 export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style = {}, props = {}) => {
-    const { x: startX = 20, y: startY = 20 } = coords;
+    const { x: startX = 20, y: startY = 20, maxWidth = 500 } = coords;
     const {
         gapX = 8,
         gapY = 8,
         padding = {},
-        maxWidth = 500,
         itemHeight = 12,
         fontSize = 12,
         textColor = [0, 0, 0],
-        backgroundColor = [255, 255, 255],
+        backgroundColor = [255, 255, 2],
         align = "left",
         fillColor = [0, 0, 0],
     } = style;
     const { includeIcon = false, listStyle = null, iconMap = {} } = props;
-    const { xPadding = 40, yPadding = 20 } = padding;
+    const { xPadding = 40, yPadding = 20, } = padding;
+    console.log("max width",maxWidth)
 
     if (!items || items.length === 0) {
         console.warn("No items to draw");

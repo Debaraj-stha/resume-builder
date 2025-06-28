@@ -158,7 +158,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: educations,
-                coords: { left, y: currentPos.y, xPadding, centeredWidth },
+                coords: { x:left, y: currentPos.y, xPadding, centeredWidth },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,

@@ -54,7 +54,7 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
     let currentPos;
     const { pdfWidth } = pdfSize(pdf)
     currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: y }, headerStyle)
-    const x2 = pdfWidth - (left + right)
+    const x2 = pdfWidth - right
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
 
 

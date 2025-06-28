@@ -40,6 +40,7 @@ const generatedProps = useMemo(() => {
       return props
     }
     const handleClassicLayoutProps = () => {
+      
       props.header={acceptImage:false}
       return props
     }

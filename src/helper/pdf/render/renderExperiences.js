@@ -10,6 +10,7 @@ import {
 } from "../text";
 import jsPDF from "jspdf";
 import { drawVerticalDividerLayout } from "../layout";
+import { drawLine } from "../graphics";
 
 /**
  *  Renders a section of experiences in a PDF document using jsPDF.
@@ -36,10 +37,10 @@ import { drawVerticalDividerLayout } from "../layout";
 const renderExperienceSection = async (
   pdf,
   experiencesArray,
-  header="Experience",
+  header = "Experience",
   coords = {},
   style = {},
-  padding={},
+  padding = {},
   props = {}
 ) => {
   const {
@@ -48,7 +49,7 @@ const renderExperienceSection = async (
     subSubHeaderStyle,
     normalStyle,
   } = style;
-  const { left, xPadding ,centeredWidth} = coords;
+  const { left, xPadding, centeredWidth } = coords;
   const {
     listStyle = null,
     applyFlex = false,
@@ -62,7 +63,8 @@ const renderExperienceSection = async (
 
   const { pdfWidth } = pdfSize(pdf);
   let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: coords.y }, headerStyle);
-
+  const x2 = pdfWidth - xPadding/2
+  currentPos = drawLine(pdf, { x1: left, y1: currentPos.y, x2: x2, y2: currentPos.y },)
   for (const exp of experiencesArray) {
     const {
       company_name: companyName = "Unknown Company",
