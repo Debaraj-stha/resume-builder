@@ -19,25 +19,32 @@ import { drawCircle } from "./graphics";
  * The function applies the given style to the text, draws a background rectangle if specified,
  */
 export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
-  const { x = 40, y = 40 } = coords;
-  applyStyle(pdf, style);
-  const height = style.fontSize || 12;
-  const width = pdf.getTextWidth(text) + 4;
+  try {
 
-  if (style.background) {
-    pdf.rect(x - 2, y - height + 4, width, height, 'F');
+    const { x = 40, y = 40 } = coords;
+    applyStyle(pdf, style);
+    const height = style.fontSize || 12;
+    const width = pdf.getTextWidth(text) + 4;
+
+    if (style.background) {
+      pdf.rect(x - 2, y - height + 4, width, height, 'F');
+    }
+
+    const align = style.align || 'left';
+    const xPos = align === 'center'
+      ? x
+      : align === 'right'
+        ? x - pdf.getTextWidth(text)
+        : x;
+
+    pdf.text(text, xPos, y, { align });
+    return { y: y + height, x: x + width };
   }
-
-  const align = style.align || 'left';
-  const xPos = align === 'center'
-    ? x
-    : align === 'right'
-      ? x - pdf.getTextWidth(text)
-      : x;
-
-  pdf.text(text, xPos, y, { align });
-  return { y: y + height, x: x + width };
-};
+  catch (error) {
+    console.error("Error in drawStyledText:", error);
+    return { y: coords.y, x: coords.x };
+  };
+}
 
 /**
  * 
@@ -54,13 +61,16 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * at the specified coordinates, adjusting the Y position for each line.
  */
 export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {}) => {
-  
+
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;
   const lineHeight = style.lineHeight || fontSize * 1.1;
   // Handle multiple paragraphs (split on newlines)
-  const paragraphs = text.split('\n');
+  const paragraphs = text?.split('\n');
   let cursorY = y;
+  if(!paragraphs || paragraphs.length === 0) {
+    return { y: cursorY, x: x + maxWidth + 10 };
+  }
   for (const para of paragraphs) {
     const lines = pdf.splitTextToSize(para, maxWidth);
     lines.forEach(line => {
@@ -243,7 +253,7 @@ export const drawTextItems = (
       drawStyledText(pdf, item, { x: x + 3, y }, style);
     }
     else if (borderBottom) {
-      pdf.line(x, y + (style?.gapY / 2 || 4), x + textWidth + 6, y + (style.gapY / 2|| 4));
+      pdf.line(x, y + (style?.gapY / 2 || 4), x + textWidth + 6, y + (style.gapY / 2 || 4));
       drawStyledText(pdf, item, { x: x + 3, y }, style);
 
     }

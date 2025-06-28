@@ -23,7 +23,7 @@ export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}
         shouldIncludeField = false,
         borderBox = false,
         borderBottom = false } = props
-    const { x, y } = coords
+    const { x, y,centeredWidth } = coords
     const { headerStyle,  subSubHeaderStyle, normalStyle } = style
     const { pdfWidth } = pdfSize(pdf)
     const { right, left } = padding

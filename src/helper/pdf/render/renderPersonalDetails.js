@@ -76,9 +76,9 @@ const renderPersonalDetailsSection = async (
         includeNameInitial = false
     } = props;
 
-    const { top = 20, left = 20 ,centeredWidth} = coords;
+    const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
-
+    console.log("rendering personal details", personalDetails);
     const {
         name,
         profession,
@@ -93,7 +93,7 @@ const renderPersonalDetailsSection = async (
 
     let currentY = top;
     // Draw name (centered)
-    const namePos = drawStyledText(pdf, name, { x: centeredWidth , y: currentY + nameStyle?.fontSize || 0 }, nameStyle);
+    const namePos = drawStyledText(pdf, name, { x: centeredWidth, y: currentY + nameStyle?.fontSize || 0 }, nameStyle);
     // Draw name initials if enabled
     if (includeNameInitial) {
         const boxX = pdfWidth - 75;

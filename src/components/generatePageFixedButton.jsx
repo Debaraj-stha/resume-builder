@@ -16,6 +16,7 @@ import { GridTwo } from "./layouts/input-layout/GridCards";
 import FixedIconWrapper from "./FixedIconWrapper";
 import { useParams } from "react-router-dom";
 import { getSectionAndSectionprops } from "../helper/helper";
+import { useDirectPDFWriter } from "../provider/DirectPDFWriter";
 
 
 
@@ -26,18 +27,25 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
     const [progress, setProgress] = useState(0);
     const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
 
-    const { generatePDF, compileInput } = useLayout();
+    const { generatePDF, compileInput,liveDetails } = useLayout();
     const { uploadFile } = useSupabase();
     const { dividers, changeDivider } = useDivider()
     const { layout_type, layout_id } = useParams()
+    const { createPDF } = useDirectPDFWriter()
     const uploadAndDownloadFile = async () => {
         try {
             setFileGenerating(true);
-            const { sectionNames, props:sectionProps ,
+            const { sectionNames, props: sectionProps,
                 layoutStyle
-            } = getSectionAndSectionprops(layout_id,layout_type)
-            console.log("sectionNames", sectionNames, "sectionProps", sectionProps,"layoutStyle", layoutStyle);
-            
+            } = getSectionAndSectionprops(layout_id, layout_type)
+            const sections = {};
+            for (const key of sectionNames) {
+                sections[key] = liveDetails[key];
+            }
+
+            console.log("sectionNames", sectionNames, "sectionProps", sectionProps, "layoutStyle", layoutStyle);
+            createPDF(sections, layoutStyle, sectionProps)
+
             // const file = await generatePDF(sectionNames, sectionProps);
             // await uploadFile(file, (progressValue) => {
             //     setProgress(progressValue);

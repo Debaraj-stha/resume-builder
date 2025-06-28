@@ -36,7 +36,7 @@ import { drawVerticalDividerLayout } from "../layout";
 const renderExperienceSection = async (
   pdf,
   experiencesArray,
-  header,
+  header="Experience",
   coords = {},
   style = {},
   padding={},

@@ -176,6 +176,24 @@ const getLayoutSectionStyles = (layout_type, layout_id) => {
   return layoutStyles
 
 }
+const sectionKeyMap = {
+  header: "personalDetails",
+  experience: "experiences",
+  education: "educations",
+  achievement: "achievements",
+  skills1: "skills",
+  skills2: "skills",
+  certificate: "certificates",
+  award: "awards",
+  training: "trainings",
+  strength: "strengths",
+  language: "languages",
+  expertise: "industryExpertise",
+  open_source_work: "openSourceWork",
+  my_time: "my_time",
+  passion: "passions",
+  summary: "summary",
+};
 
 export const getSectionAndSectionprops = (layout_id, layout_type) => {
   try {
@@ -203,7 +221,9 @@ export const getSectionAndSectionprops = (layout_id, layout_type) => {
         layoutStyle
       };
     }
-    return { sectionNames, props, layoutStyle };
+    const mappedSectionNames = sectionNames.map(name => sectionKeyMap[name] || name);
+
+    return { sectionNames:mappedSectionNames, props, layoutStyle };
 
   } catch (error) {
     console.error("Error in getSectionAndSectionprops:", error);

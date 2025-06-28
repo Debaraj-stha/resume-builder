@@ -1,12 +1,16 @@
 export const sectionPropsByLayout = {
   classical: {
     layout_1: {
-      header: { showProfilePicture: true, showName: true, showContactInfo: true },
-      summary: { showSummary: true },
-      experience: { showExperience: true },
-      education: { showEducation: true },
-      achievement: { showAchievements: true },
-      skills1: { showSkills1: true }
+      personalDetailsProps: {
+        showProfilePicture: true,
+        showName: true,
+        showContactInfo: true
+      },
+      summaryProps: { showSummary: true },
+      experiencesProps: { showExperience: true },
+      educationProps: { showEducation: true },
+      achievementsProps: { showAchievements: true },
+      skillsProps: { showSkills1: true }
     },
     layout_2: {},
     layout_3: {},

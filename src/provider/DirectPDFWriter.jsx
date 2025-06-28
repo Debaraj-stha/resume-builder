@@ -81,6 +81,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             summary,
             passions
         } = sections
+        console.log("personal details",personalDetails)
         const {
             nameStyle: appliedNameStyle = defaultStyles.nameStyle,
             headerStyle: appliedHeaderStyle = defaultStyles.headerStyle,
@@ -191,7 +192,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
-                coords: { x: left, y: currentPos.y, centeredWidth },
+                coords: { x: left, y: currentPos.y, centeredWidth :centeredWidth},
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
