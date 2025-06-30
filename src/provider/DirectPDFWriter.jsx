@@ -108,6 +108,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             summaryProps = defaultSectionProps.summaryProps,
             passionProps = defaultSectionProps.passionProps
         } = props;
+   
 
 
         console.log("creating pdf...")

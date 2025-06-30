@@ -2,7 +2,10 @@ export const sectionPropsByLayout = {
   classical: {
     layout_1: {
       personalDetailsProps: {
-        includeIcon:false
+        includeIcon:false,
+        headerListStyle:{
+          listStyle:"disc",
+        }
       },
       summaryProps: { showSummary: true },
       experiencesProps: { showExperience: true },

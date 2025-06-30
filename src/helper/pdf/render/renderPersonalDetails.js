@@ -73,7 +73,8 @@ const renderPersonalDetailsSection = async (
         rectangularImage = false,
         addressOnNextLine = false,
         isStatic = false,
-        includeNameInitial = false
+        includeNameInitial = false,
+        headerListStyle={}
     } = props;
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
@@ -150,9 +151,9 @@ const renderPersonalDetailsSection = async (
     const contactPos = await drawFlexWrappedItems(
         pdf,
         filteredItems,
-        { x: left, y: currentY, maxWidth: pdfWidth - xPadding },
-        { ...normalStyle, gapX: 5, gapY: 5, align: "center" },
-        { includeIcon, iconMap: contactIconsMap }
+        { x: left, y: currentY, maxWidth: pdfWidth-xPadding/2 },
+        { ...normalStyle, gapX: 5, gapY: 5,...headerListStyle  },
+        { includeIcon, iconMap: contactIconsMap,}
     );
     currentY = contactPos.y;
 
