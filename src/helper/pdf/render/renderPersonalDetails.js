@@ -31,7 +31,8 @@ const contactIconsMap = {
  * nameStyle,
  * subHeaderStyle,
  * normalStyle,
- * nameInitialStyle
+ * nameInitialStyle,
+ * contactStyle
  * }} style  -style object 
  * @param {{
  * xPadding:number,
@@ -65,7 +66,8 @@ const renderPersonalDetailsSection = async (
             fillColor: [255, 0, 0],
             textColor: [255, 255, 255],
             borderColor: [255, 255, 200]
-        }
+        },
+        contactStyle
     } = style;
     const {
         includeIcon = true,
@@ -74,7 +76,7 @@ const renderPersonalDetailsSection = async (
         addressOnNextLine = false,
         isStatic = false,
         includeNameInitial = false,
-        headerListStyle={}
+        
     } = props;
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
@@ -152,7 +154,7 @@ const renderPersonalDetailsSection = async (
         pdf,
         filteredItems,
         { x: left, y: currentY, maxWidth: pdfWidth-xPadding/2 },
-        { ...normalStyle, gapX: 5, gapY: 5,...headerListStyle  },
+        { ...normalStyle, gapX: 5, gapY: 5,...contactStyle,  },
         { includeIcon, iconMap: contactIconsMap,}
     );
     currentY = contactPos.y;

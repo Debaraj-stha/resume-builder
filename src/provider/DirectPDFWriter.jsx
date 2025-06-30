@@ -82,6 +82,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             passions
         } = sections
         console.log("personal details",personalDetails)
+        console.log("summary",summary)
         const {
             nameStyle: appliedNameStyle = defaultStyles.nameStyle,
             headerStyle: appliedHeaderStyle = defaultStyles.headerStyle,
@@ -124,7 +125,8 @@ const DirectPDFWriterProvider = ({ children }) => {
                 {
                     nameStyle: appliedNameStyle,
                     subHeaderStyle: appliedSubHeaderStyle,
-                    subSubHeaderStyle: appliedSubsubHeaderStyle
+                    subSubHeaderStyle: appliedSubsubHeaderStyle,
+                    contactStyle:appliedHeaderStyle.contactStyle
                 },
                 { xPadding, yPadding },
                 personalDetailsProps
@@ -135,7 +137,8 @@ const DirectPDFWriterProvider = ({ children }) => {
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
-                })
+                }
+            )
         }
         if (experiences)
             currentPos = await measureAndRenderSection({

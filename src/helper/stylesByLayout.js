@@ -5,6 +5,10 @@ export const stylesByLayout = {
         layout_1: {
             headerStyle: {
                 fontFamily: 'Arial, sans-serif',
+                contactStyle:{
+                    align:"center",
+                    listStyle:"disc"
+                }
             },
             subHeaderStyle: {
                 fontSize: 20,

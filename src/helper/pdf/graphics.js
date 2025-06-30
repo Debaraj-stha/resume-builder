@@ -275,6 +275,7 @@ export const drawZigZagLine = (pdf, coords = {}, style = {}) => {
  */
 export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style = {}, props = {}) => {
     const { x: startX = 20, y: startY = 20, maxWidth = 500 } = coords;
+    console.log("style",style)
     const {
         gapX = 5,
         gapY = 8,
@@ -282,7 +283,7 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
         itemHeight = 12,
         fontSize = 12,
         textColor = [0, 0, 0],
-        backgroundColor = [255, 255, 2],
+        backgroundColor = [255, 255, 255],
         align = "left",
         fillColor = [0, 0, 0],
         listStyle = null, 

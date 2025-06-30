@@ -20,7 +20,7 @@ import { drawCircle } from "./graphics";
  */
 export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
   try {
-
+    console.log("drawing styled text", text)
     const { x = 40, y = 40 } = coords;
     applyStyle(pdf, style);
     const height = style.fontSize || 12;
@@ -68,7 +68,7 @@ export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {})
   // Handle multiple paragraphs (split on newlines)
   const paragraphs = text?.split('\n');
   let cursorY = y;
-  if(!paragraphs || paragraphs.length === 0) {
+  if (!paragraphs || paragraphs.length === 0) {
     return { y: cursorY, x: x + maxWidth + 10 };
   }
   for (const para of paragraphs) {
@@ -236,7 +236,8 @@ export const drawTextItems = (
   const drawColor = style?.borderColor || "#000000"
   const fillColor = style?.fillColor || "#333333"
   for (const item of textItems) {
-    const textWidth = pdf.getTextWidth(item);
+    const textItem = typeof item === 'string' ? item : item.text || '';
+    const textWidth = pdf.getTextWidth(textItem);
     // If adding this item exceeds the max width, wrap to next line
     const maxRight = startX + maxWidth; // where text drawing must stop
 
@@ -248,18 +249,19 @@ export const drawTextItems = (
       pdf.setDrawColor(...drawColor)
       pdf.setFillColor(...fillColor)
     }
+    const drawItem = () => {
+      drawStyledText(pdf, textItem, { x: x + 3, y }, style);
+    }
     if (borderBox) {
       pdf.rect(x, y - lineHeight / 1.5, textWidth + 6, lineHeight)
-      drawStyledText(pdf, item, { x: x + 3, y }, style);
+      drawItem()
     }
     else if (borderBottom) {
       pdf.line(x, y + (style?.gapY / 2 || 4), x + textWidth + 6, y + (style.gapY / 2 || 4));
-      drawStyledText(pdf, item, { x: x + 3, y }, style);
-
+      drawItem()
     }
     else {
-
-      drawStyledText(pdf, item, { x: x, y }, style);
+      drawStyledText(pdf, textItem, { x: x, y }, style);
     }
 
 

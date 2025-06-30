@@ -7,11 +7,11 @@ export const sectionPropsByLayout = {
           listStyle:"disc",
         }
       },
-      summaryProps: { showSummary: true },
-      experiencesProps: { showExperience: true },
-      educationProps: { showEducation: true },
-      achievementsProps: { showAchievements: true },
-      skillsProps: { showSkills1: true }
+      summaryProps: {},
+      experiencesProps: { },
+      educationProps: { },
+      achievementsProps: { },
+      skillsProps: { }
     },
     layout_2: {},
     layout_3: {},

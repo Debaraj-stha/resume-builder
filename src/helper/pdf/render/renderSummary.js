@@ -21,7 +21,7 @@ import { drawStyledText, drawWrappedLongText } from "../text"
  * @param {object} props  -optional props
  * @returns {x:number,y:number}
  */
-export const renderSummarySection = async (pdf, summary,header="Summary", coords = {}, maxWidth, style = {}, padding = {}, props = {}) => {
+export const renderSummarySection = async (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {},header="Summary",) => {
     const { } = props
     const { x, y,centeredWidth } = coords
     const { normalStyle, headerStyle } = style
