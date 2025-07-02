@@ -1,5 +1,7 @@
 import jsPDF from "jspdf"
 import { drawStyledText, drawWrappedLongText } from "../text"
+import { drawLine } from "../graphics"
+import { pdfSize } from "../core"
 /**
  * render summary 
  * @param {jsPDF} pdf -jsPDF instance
@@ -21,12 +23,15 @@ import { drawStyledText, drawWrappedLongText } from "../text"
  * @param {object} props  -optional props
  * @returns {x:number,y:number}
  */
-export const renderSummarySection = async (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {},header="Summary",) => {
+export const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {}, header = "Summary",) => {
     const { } = props
-    const { x, y,centeredWidth } = coords
+    const { x, y, centeredWidth ,xPadding} = coords
     const { normalStyle, headerStyle } = style
     let currentPos;
     currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
-    currentPos = await drawWrappedLongText(pdf, summary, x, currentPos.y, maxWidth, normalStyle)
+    const{pdfWidth}=pdfSize(pdf)
+    const x2 = pdfWidth - xPadding / 2
+    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+    currentPos = drawWrappedLongText(pdf, summary, x, currentPos.y, maxWidth, normalStyle)
     return currentPos
 }

@@ -94,15 +94,58 @@ export const addPageIfNeeded = (pdf, currentY, requiredHeight = 50, topPadding =
  *+
  */
 
-export const measureAndRenderSection = async ({ renderFn, pdf, data, coords, style, padding, props, dummyPdf, header }) => {
+export const measureAndRenderSection = async ({
+  renderFn,
+  pdf,
+  data,
+  coords,
+  style,
+  padding = {},
+  props,
+  dummyPdf,
+  header
+}) => {
+
+  const { eachItemAsSection } = props;
   const startY = coords.y;
   const simulatedPdf = dummyPdf || new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
+  let currentY = coords.y;
+  console.log("initial current y", currentY)
+  if (eachItemAsSection) {
+    let index = 0;
+    for (let item of data) {
+      item = [item];
+      // MEASUREMENT
+      const measureCoords = { ...coords, y: currentY };
+      const posAfterRender = await renderFn(simulatedPdf, item, header, measureCoords, style, padding, { ...props,index });
+      let usedHeight = posAfterRender.y - currentY;
+      const pageHeight = simulatedPdf.internal.pageSize.getHeight();
+      if (currentY + usedHeight > pageHeight - 30) {
+        pdf.addPage();
+        currentY = padding.top || 40;
+        // // re-measure at new page start!
+        const measureCoordsAfterPageBreak = { ...coords, y: currentY };
+        const posAfterBreak = await renderFn(simulatedPdf, item, header, measureCoordsAfterPageBreak, style, padding, { ...props,index });
+        usedHeight = posAfterBreak.y - currentY;
+      }
+      // Now real render
+      const realCoords = { ...coords, y: currentY };
+      const pos = await renderFn(pdf, item, header, realCoords, style, padding, { ...props, index, real: true });
+      
+      currentY = pos.y;
+      console.log("position",currentY)
+      index++;
+    }
+    return { y: currentY };
+  }
   const posAfterRender = await renderFn(simulatedPdf, data, header, { ...coords }, style, padding, props);
   const usedHeight = posAfterRender.y - startY;
   const pageHeight = pdf.internal.pageSize.getHeight();
+
   if (startY + usedHeight > pageHeight - 30) {
     pdf.addPage();
     coords.y = padding.top || 40;
   }
+
   return await renderFn(pdf, data, header, coords, style, padding, props);
 };

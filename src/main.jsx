@@ -18,13 +18,14 @@ createRoot(document.getElementById('root')).render(
       <Router>
         <AuthProvider>
           <SupabaseProvider>
-            <DirectPDFWriterProvider>
-              <LayoutProvider>
+            <LayoutProvider>
+              <DirectPDFWriterProvider>
                 <PaginationProvider>
                   <App />
                 </PaginationProvider>
-              </LayoutProvider>
-            </DirectPDFWriterProvider>
+              </DirectPDFWriterProvider>
+            </LayoutProvider>
+
           </SupabaseProvider>
         </AuthProvider>
       </Router>

@@ -42,7 +42,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
   }
   catch (error) {
     console.error("Error in drawStyledText:", error);
-    return { y: coords.y, x: coords.x };
+    // return { y: coords.y, x: coords.x };
   };
 }
 
@@ -60,7 +60,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * It splits the text into lines that fit within the maximum width and draws each line
  * at the specified coordinates, adjusting the Y position for each line.
  */
-export const drawWrappedLongText = async (pdf, text, x, y, maxWidth, style = {}) => {
+export const drawWrappedLongText = (pdf, text, x, y, maxWidth, style = {}) => {
 
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;

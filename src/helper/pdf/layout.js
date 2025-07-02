@@ -104,7 +104,7 @@ export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coord
  * @returns {{x: number, y: number}} - The new cursor position after rendering
  */
 
-export const drawVerticalDividerLayout = async (pdf, content, config) => {
+export const drawVerticalDividerLayout =  (pdf, content, config) => {
 
   const {
     leftSection = [],
@@ -142,13 +142,13 @@ export const drawVerticalDividerLayout = async (pdf, content, config) => {
   currentRightPos.y = y
 
   for (const { text, style } of mainSection) {
-    currentRightPos = await drawWrappedLongText(pdf, text, currentX, currentRightPos.y, rightWidth, style);
+    currentRightPos =  drawWrappedLongText(pdf, text, currentX, currentRightPos.y, rightWidth, style);
   }
 
   // Render achievements
   for (const { value } of achievements) {
     if (listStyle === "bullet") {
-      currentRightPos = await drawBulletText(
+      currentRightPos =  drawBulletText(
         pdf,
         value,
         currentX,
@@ -157,7 +157,7 @@ export const drawVerticalDividerLayout = async (pdf, content, config) => {
         styles.bullet
       );
     } else {
-      currentRightPos = await drawWrappedLongText(
+      currentRightPos =  drawWrappedLongText(
         pdf,
         value,
         currentX,

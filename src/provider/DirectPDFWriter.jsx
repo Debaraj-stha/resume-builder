@@ -107,7 +107,10 @@ const DirectPDFWriterProvider = ({ children }) => {
             strengthsProps = defaultSectionProps.strengthsProps,
             languagesProps = defaultSectionProps.languagesProps,
             summaryProps = defaultSectionProps.summaryProps,
-            passionProps = defaultSectionProps.passionProps
+            passionProps = defaultSectionProps.passionProps,
+            commonProps={
+                eachItemAsSection: false
+            }
         } = props;
    
 
@@ -132,8 +135,8 @@ const DirectPDFWriterProvider = ({ children }) => {
                 personalDetailsProps
             )
         if (summary) {
-            currentPos = await renderSummarySection(pdf, summary,
-                { x: left, y: currentPos.y, centeredWidth }, width - xPadding,
+            currentPos =  renderSummarySection(pdf, summary,
+                { x: left, y: currentPos.y, centeredWidth,xPadding }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
@@ -154,7 +157,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" }
                 },
                 padding: pagePadding,
-                props: experiencesProps
+                props: {...experiencesProps,...commonProps}
             })
         if (educations) {
             currentPos = await measureAndRenderSection({

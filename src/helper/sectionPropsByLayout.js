@@ -8,10 +8,15 @@ export const sectionPropsByLayout = {
         }
       },
       summaryProps: {},
-      experiencesProps: { },
+      experiencesProps: {
+       
+       },
       educationProps: { },
       achievementsProps: { },
-      skillsProps: { }
+      skillsProps: { },
+      commonProps:{
+        eachItemAsSection: true,
+      }
     },
     layout_2: {},
     layout_3: {},

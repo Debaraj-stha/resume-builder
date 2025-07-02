@@ -49,7 +49,8 @@ const renderExperienceSection = async (
     subSubHeaderStyle,
     normalStyle,
   } = style;
-  const { left, xPadding, centeredWidth } = coords;
+ 
+  const { left, xPadding, centeredWidth,y } = coords;
   const {
     listStyle = null,
     applyFlex = false,
@@ -59,12 +60,21 @@ const renderExperienceSection = async (
     includeDate = false,
     includeAddrss = false,
     includeDateAndAddress = false,
+    index=0,
+    real=false
   } = props;
+  if(real){
+     console.log("experience section coords",coords)
+   
+  }
 
   const { pdfWidth } = pdfSize(pdf);
-  let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: coords.y }, headerStyle);
-  const x2 = pdfWidth - xPadding/2
-  currentPos = drawLine(pdf, { x1: left, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+  let currentPos= { x: left, y: y || 40 };
+  if (index == 0) {
+    currentPos= drawStyledText(pdf, header, { x: centeredWidth, y: coords.y }, headerStyle);
+    const x2 = pdfWidth - xPadding / 2
+    currentPos = drawLine(pdf, { x1: left, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+  }
   for (const exp of experiencesArray) {
     const {
       company_name: companyName = "Unknown Company",
@@ -81,7 +91,7 @@ const renderExperienceSection = async (
 
     // Vertical Divider Layout
     if (applyVerticalDivider) {
-      currentPos = await drawVerticalDividerLayout(
+      currentPos =  drawVerticalDividerLayout(
         pdf,
         {
           leftSection: [
@@ -164,7 +174,7 @@ const renderExperienceSection = async (
 
     // About company
     if (aboutCompany) {
-      currentPos = await drawWrappedLongText(
+      currentPos =  drawWrappedLongText(
         pdf,
         aboutCompany,
         left,
@@ -186,7 +196,7 @@ const renderExperienceSection = async (
           normalStyle
         );
       } else {
-        currentPos = await drawWrappedLongText(
+        currentPos = drawWrappedLongText(
           pdf,
           value,
           left,
