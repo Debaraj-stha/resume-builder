@@ -236,7 +236,7 @@ export const drawTextItems = (
   const drawColor = style?.borderColor || "#000000"
   const fillColor = style?.fillColor || "#333333"
   for (const item of textItems) {
-    const textItem = typeof item === 'string' ? item : item.text || '';
+    const textItem = typeof item === 'string' ? item : item.text || item.value || " "
     const textWidth = pdf.getTextWidth(textItem);
     // If adding this item exceeds the max width, wrap to next line
     const maxRight = startX + maxWidth; // where text drawing must stop

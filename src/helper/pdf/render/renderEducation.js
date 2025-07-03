@@ -73,7 +73,7 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
 
         if (applyVerticalDivider) {
             const maxWidth = pdfWidth - left * 2;
-            currentPos = await drawVerticalDividerLayout(
+            currentPos = drawVerticalDividerLayout(
                 pdf,
                 {
                     leftSection: [
@@ -113,7 +113,7 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
                 if (shouldIncludeDate) {
                     itemIconMapArr.push({ icon: BiCalendarAlt, text: start_complete })
                 }
-                currentPos = await drawJustifyContentItems(pdf,
+                currentPos =  drawJustifyContentItems(pdf,
                     itemIconMapArr,
                     { x, y: currentPos.y, maxWidth: pdfWidth - (left + right) },
                     [normalStyle, normalStyle]

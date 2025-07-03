@@ -9,14 +9,19 @@ export const sectionPropsByLayout = {
       },
       summaryProps: {},
       experiencesProps: {
-       
+        eachItemAsSection: true,
+        // groupItems: true,
+        // itemPerGroup:3
        },
       educationProps: { },
-      achievementsProps: { },
+      achievementsProps: {
+        displayGrid:true,
+        gridSize:2
+       },
       skillsProps: { },
-      commonProps:{
-        eachItemAsSection: true,
-      }
+      
+       
+      
     },
     layout_2: {},
     layout_3: {},

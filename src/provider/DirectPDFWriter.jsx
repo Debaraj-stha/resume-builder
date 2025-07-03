@@ -22,7 +22,9 @@ const DirectPDFContext = createContext()
 const DirectPDFWriterProvider = ({ children }) => {
     const defaultSectionProps = {
         personalDetailsProps: {},
-        experiencesProps: {},
+        experiencesProps: {
+       
+        },
         educationProps: {},
         achievementsProps: {},
         trainingsProps: {},
@@ -108,9 +110,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             languagesProps = defaultSectionProps.languagesProps,
             summaryProps = defaultSectionProps.summaryProps,
             passionProps = defaultSectionProps.passionProps,
-            commonProps={
-                eachItemAsSection: false
-            }
+            
         } = props;
    
 
@@ -157,7 +157,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subHeaderStyle: { ...appliedSubHeaderStyle, align: "left" }
                 },
                 padding: pagePadding,
-                props: {...experiencesProps,...commonProps}
+                props: experiencesProps
             })
         if (educations) {
             currentPos = await measureAndRenderSection({

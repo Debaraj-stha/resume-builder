@@ -19,6 +19,7 @@ import { drawLine } from "../graphics"
  * @returns {Promise<{x:number,y:number}>}
  */
 export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}, style = {}, padding, props = {}) => {
+    console.log("renderinhg skill   section", skillsArray)
     const {
         shouldIncludeField = false,
         borderBox = false,
@@ -31,6 +32,7 @@ export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y },)
     if (!shouldIncludeField) {
         const items = skillsArray.flatMap(skill => skill.items)
+        console.log("items", items)
         currentPos = drawTextItems(pdf,
             items,
             { x: x, y: currentPos.y },
@@ -43,13 +45,14 @@ export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}
     }
     for (let skill of skillsArray) {
         const { field, items } = skill
+        console.log("skill", skill)
         let rowPos
         if (shouldIncludeField) {
             rowPos = drawStyledText(pdf, field + ": ", { x, y: currentPos.y }, subSubHeaderStyle)
             currentPos = drawTextItems(pdf, items, { x: rowPos.x, y: currentPos.y }, normalStyle, pdfWidth - (left + right))
         }
 
-        // currentPos = drawJustifyTextItems(pdf, items, { x: rowPos.x, y: currentPos.y, maxWidth: pdfWidth - (left + right) - rowPos.x }, normalStyle)
+        currentPos = drawJustifyTextItems(pdf, items, { x: rowPos.x, y: currentPos.y, maxWidth: pdfWidth - (left + right) - rowPos.x }, normalStyle)
 
     }
 

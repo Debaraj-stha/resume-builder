@@ -94,6 +94,138 @@ export const addPageIfNeeded = (pdf, currentY, requiredHeight = 50, topPadding =
  *+
  */
 
+
+/**
+ * Group items based on itemPerGroup value
+ */
+const groupItemData = (data, itemPerGroup) => {
+  const groupedData = [];
+  for (let i = 0; i < data.length; i += itemPerGroup) {
+    groupedData.push(data.slice(i, i + itemPerGroup));
+  }
+  return groupedData;
+};
+
+/**
+ * Measure and render a section (either an item or group), with page break logic
+ */
+const measureAndRenderGroupOrItem = async ({
+  pdf,
+  simulatedPdf,
+  renderFn,
+  item,
+  coords,
+  style,
+  padding,
+  props,
+  header,
+  index,
+  currentY,
+}) => {
+  const measureCoords = { ...coords, y: currentY };
+  let posAfterRender = await renderFn(simulatedPdf, item, header, measureCoords, style, padding, {
+    ...props,
+    index,
+  });
+  let usedHeight = posAfterRender.y - currentY;
+  const pageHeight = simulatedPdf.internal.pageSize.getHeight();
+
+  if (currentY + usedHeight > pageHeight - 30) {
+    pdf.addPage();
+    currentY = padding.top || 40;
+
+    const remeasureCoords = { ...coords, y: currentY };
+    posAfterRender = await renderFn(simulatedPdf, item, header, remeasureCoords, style, padding, {
+      ...props,
+      index,
+    });
+    usedHeight = posAfterRender.y - currentY;
+  }
+
+  // Real render
+  const realCoords = { ...coords, y: currentY };
+  const pos = await renderFn(pdf, item, header, realCoords, style, padding, {
+    ...props,
+    index,
+    real: true,
+  });
+
+  return pos.y;
+};
+
+/**
+ * Render each item as a separate section
+ */
+const renderEachItemAsSection = async ({
+  data,
+  pdf,
+  simulatedPdf,
+  renderFn,
+  coords,
+  style,
+  padding,
+  props,
+  header,
+  currentY,
+}) => {
+  let index = 0;
+  for (const item of data) {
+    currentY = await measureAndRenderGroupOrItem({
+      pdf,
+      simulatedPdf,
+      renderFn,
+      item: [item],
+      coords,
+      style,
+      padding,
+      props,
+      header,
+      index,
+      currentY,
+    });
+    index++;
+  }
+  return currentY;
+};
+
+/**
+ * Render each group as a separate section
+ */
+const renderEachGroupAsSection = async ({
+  groupedData,
+  pdf,
+  simulatedPdf,
+  renderFn,
+  coords,
+  style,
+  padding,
+  props,
+  header,
+  currentY,
+}) => {
+  let index = 0;
+  for (const group of groupedData) {
+    currentY = await measureAndRenderGroupOrItem({
+      pdf,
+      simulatedPdf,
+      renderFn,
+      item: group,
+      coords,
+      style,
+      padding,
+      props,
+      header,
+      index,
+      currentY,
+    });
+    index++;
+  }
+  return currentY;
+};
+
+/**
+ * Main section rendering function
+ */
 export const measureAndRenderSection = async ({
   renderFn,
   pdf,
@@ -103,42 +235,83 @@ export const measureAndRenderSection = async ({
   padding = {},
   props,
   dummyPdf,
-  header
+  header,
 }) => {
-
-  const { eachItemAsSection } = props;
+  const { eachItemAsSection, groupItems, itemPerGroup = 2 } = props;
   const startY = coords.y;
-  const simulatedPdf = dummyPdf || new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
   let currentY = coords.y;
-  console.log("initial current y", currentY)
+
+  const simulatedPdf =
+    dummyPdf || new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
+
+  // CASE 1: Grouped items with each group as a section
+  if (groupItems && eachItemAsSection) {
+    const groupedData = groupItemData(data, itemPerGroup);
+    currentY = await renderEachGroupAsSection({
+      groupedData,
+      pdf,
+      simulatedPdf,
+      renderFn,
+      coords,
+      style,
+      padding,
+      props,
+      header,
+      currentY,
+    });
+    return { x: coords.x, y: currentY };
+  }
+
+  // CASE 2: Each item as its own section
   if (eachItemAsSection) {
-    let index = 0;
-    for (let item of data) {
-      item = [item];
-      // MEASUREMENT
-      const measureCoords = { ...coords, y: currentY };
-      const posAfterRender = await renderFn(simulatedPdf, item, header, measureCoords, style, padding, { ...props,index });
-      let usedHeight = posAfterRender.y - currentY;
-      const pageHeight = simulatedPdf.internal.pageSize.getHeight();
-      if (currentY + usedHeight > pageHeight - 30) {
-        pdf.addPage();
-        currentY = padding.top || 40;
-        // // re-measure at new page start!
-        const measureCoordsAfterPageBreak = { ...coords, y: currentY };
-        const posAfterBreak = await renderFn(simulatedPdf, item, header, measureCoordsAfterPageBreak, style, padding, { ...props,index });
-        usedHeight = posAfterBreak.y - currentY;
-      }
-      // Now real render
-      const realCoords = { ...coords, y: currentY };
-      const pos = await renderFn(pdf, item, header, realCoords, style, padding, { ...props, index, real: true });
-      
-      currentY = pos.y;
-      console.log("position",currentY)
-      index++;
-    }
+    currentY = await renderEachItemAsSection({
+      data,
+      pdf,
+      simulatedPdf,
+      renderFn,
+      coords,
+      style,
+      padding,
+      props,
+      header,
+      currentY,
+    });
     return { y: currentY };
   }
-  const posAfterRender = await renderFn(simulatedPdf, data, header, { ...coords }, style, padding, props);
+
+  // CASE 3: Grouped items but render all together
+  if (groupItems) {
+    const groupedData = groupItemData(data, itemPerGroup);
+    const posAfterRender = await renderFn(
+      simulatedPdf,
+      groupedData,
+      header,
+      { ...coords, y: currentY },
+      style,
+      padding,
+      props
+    );
+    const usedHeight = posAfterRender.y - currentY;
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    if (currentY + usedHeight > pageHeight - 30) {
+      pdf.addPage();
+      coords.y = padding.top || 40;
+    }
+
+    return await renderFn(pdf, groupedData, header, coords, style, padding, props);
+  }
+
+  // CASE 4: Normal render (all data together)
+  const posAfterRender = await renderFn(
+    simulatedPdf,
+    data,
+    header,
+    { ...coords },
+    style,
+    padding,
+    props
+  );
   const usedHeight = posAfterRender.y - startY;
   const pageHeight = pdf.internal.pageSize.getHeight();
 
@@ -149,3 +322,4 @@ export const measureAndRenderSection = async ({
 
   return await renderFn(pdf, data, header, coords, style, padding, props);
 };
+

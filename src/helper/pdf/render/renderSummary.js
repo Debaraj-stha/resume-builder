@@ -24,14 +24,19 @@ import { pdfSize } from "../core"
  * @returns {x:number,y:number}
  */
 export const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {}, header = "Summary",) => {
-    const { } = props
-    const { x, y, centeredWidth ,xPadding} = coords
-    const { normalStyle, headerStyle } = style
-    let currentPos;
-    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
-    const{pdfWidth}=pdfSize(pdf)
-    const x2 = pdfWidth - xPadding / 2
-    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
-    currentPos = drawWrappedLongText(pdf, summary, x, currentPos.y, maxWidth, normalStyle)
-    return currentPos
+    try {
+        const { } = props
+        const { x, y, centeredWidth, xPadding } = coords
+        const { normalStyle, headerStyle } = style
+        let currentPos;
+        currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+        const { pdfWidth } = pdfSize(pdf)
+        const x2 = pdfWidth - xPadding / 2
+        currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+        currentPos = drawWrappedLongText(pdf, summary, x, currentPos.y, maxWidth, normalStyle)
+        return currentPos
+    } catch (error) {
+        console.error("Error rendering summary section:", error);
+        return { x: coords.x, y: coords.y };
+    }
 }

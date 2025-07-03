@@ -69,11 +69,11 @@ export const renderAchievementsSection = async (
             gridConfig,
             gridStyle,
             cellPadding,
-            async (pdf, achievement, x, y, width) => {
-                const { acheivement, field, date } = achievement;
+            async (pdf, achievements,x, y, width) => {            
+                const {achievement, field, date } = achievements
 
                 // Render wrapped text
-                let pos = await drawWrappedLongText(pdf, acheivement, x, y, width, subHeaderStyle);
+                let pos =  drawWrappedLongText(pdf, achievement, x, y, width, subHeaderStyle);
 
                 // Render field
                 pos = drawStyledText(pdf, field, { x, y: pos.y }, subSubHeaderStyle);

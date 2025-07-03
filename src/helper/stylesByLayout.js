@@ -4,32 +4,26 @@ export const stylesByLayout = {
     classical: {
         layout_1: {
             headerStyle: {
-                fontFamily: 'Arial, sans-serif',
-                contactStyle:{
-                    align:"center",
-                    listStyle:"disc"
+                font: {
+                    family: 'helvetica'
+                },
+                contactStyle: {
+                    align: "center",
+                    listStyle: "disc"
                 }
             },
             subHeaderStyle: {
-                fontSize: 20,
-                fontWeight: 'normal',
-                color: '#333',
-                marginBottom: 8,
+                
             },
             subSubHeaderStyle: {
-                fontSize: 18,
-                fontWeight: 'normal',
-                color: '#555',
-                marginBottom: 6,
+
             },
             normalStyle: {
-                fontSize: 16,
-                color: '#666',
+
             },
             nameStyle: {
-                fontSize: 22,
-                fontWeight: 'bold',
-                color: '#000',
+                // fontFamily: "Arial, sans-serif",
+
             }
         },
         layout_2: {
