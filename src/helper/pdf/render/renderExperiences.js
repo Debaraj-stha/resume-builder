@@ -11,6 +11,7 @@ import {
 import jsPDF from "jspdf";
 import { drawVerticalDividerLayout } from "../layout";
 import { drawLine } from "../graphics";
+import capitalize from "../../capitalize";
 
 /**
  *  Renders a section of experiences in a PDF document using jsPDF.
@@ -85,6 +86,7 @@ const renderExperienceSection = async (
       end_date: endDate = "N/A",
       achievements = [],
     } = exp;
+    
 
     const maxWidth = pdfWidth - left * 2;
     const date = `${startDate} - ${endDate}`;
@@ -99,7 +101,7 @@ const renderExperienceSection = async (
             { text: location, style: normalStyle },
           ],
           mainSection: [
-            { text: position, style: subHeaderStyle },
+            { text: capitalize(position), style: subHeaderStyle },
             { text: companyName, style: subSubHeaderStyle },
             { text: aboutCompany, style: normalStyle },
           ],

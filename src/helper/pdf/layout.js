@@ -234,16 +234,13 @@ export const drawGridLayout = async (
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    const cellX = x + xPadding;
+    const cellX = x ;
     const cellY = y + yPadding;
     const cellWidth = width - 2 * xPadding;
 
     const cellPos = await renderCell(pdf, item, cellX, cellY, cellWidth);
     const contentHeight = cellPos.y - y + yPadding;
-    const cellHeight = Math.max(contentHeight + yPadding, height); // ensure minimum
-
-
-
+    const cellHeight = Math.min(contentHeight + yPadding, height); // ensure minimum
     // Draw background and border using actual height
     if (fillColor) {
       pdf.setFillColor(fillColor);
@@ -253,10 +250,8 @@ export const drawGridLayout = async (
       pdf.setDrawColor(borderColor);
       pdf.rect(x, y - 12, width, cellHeight + 12);
     }
-
     // Track max height for this row
     maxRowHeight = Math.max(maxRowHeight, cellHeight);
-
     const isLastInRow = (i + 1) % gridSize === 0;
     if (isLastInRow) {
       x = coords.x;

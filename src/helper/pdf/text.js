@@ -36,7 +36,6 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
       : align === 'right'
         ? x - pdf.getTextWidth(text)
         : x;
-
     pdf.text(text, xPos, y, { align });
     return { y: y + height, x: x + width };
   }

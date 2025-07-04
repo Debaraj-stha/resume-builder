@@ -1,3 +1,4 @@
+import { headerStyle } from "./pdf/style";
 
 
 export const stylesByLayout = {
@@ -13,7 +14,7 @@ export const stylesByLayout = {
                 }
             },
             subHeaderStyle: {
-                
+
             },
             subSubHeaderStyle: {
 
@@ -27,7 +28,22 @@ export const stylesByLayout = {
             }
         },
         layout_2: {
+            headerStyle: {
+                align: "left",
+                contactStyle: {
+                    color: "blue",
+                    iconSize:7,
+                
+                }
 
+            },
+            subHeaderStyle: {
+                color: [0, 0, 255],
+                align: "left"
+            },
+            nameStyle: {
+                align: "left"
+            }
         },
         layout_3: {
 

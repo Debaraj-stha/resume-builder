@@ -5,7 +5,8 @@ export const sectionPropsByLayout = {
         includeIcon:false,
         headerListStyle:{
           listStyle:"disc",
-        }
+        },
+        includeAddress: false,
       },
       summaryProps: {},
       experiencesProps: {
@@ -20,10 +21,30 @@ export const sectionPropsByLayout = {
        },
       skillsProps: { },
       
-       
+  
       
     },
-    layout_2: {},
+    layout_2: {
+      experiencesProps:{
+        //  eachItemAsSection: true,
+         includeIcon:true,
+        //  includeDateAndAddress:true
+      },
+      strengthsProps:{
+        eachItemAsSection: true,
+      },
+      skillsProps: {
+        borderBox:true,
+      },
+      strengthsProps:{
+        eachItemAsSection: true,
+        grid:true,
+         groupItems: true,
+      },
+      commonProps:{
+        align: "left",
+      }
+    },
     layout_3: {},
     layout_4: {},
     layout_5: {},

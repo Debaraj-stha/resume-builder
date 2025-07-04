@@ -75,9 +75,11 @@ const renderPersonalDetailsSection = async (
         rectangularImage = false,
         addressOnNextLine = false,
         isStatic = false,
+        includeAddress=false,
         includeNameInitial = false,
         
     } = props;
+    const { gapX = 5,gapY=5} = contactStyle || {};
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
     console.log("rendering personal details", personalDetails);
@@ -119,7 +121,7 @@ const renderPersonalDetailsSection = async (
     currentY = namePos.y;
 
     // Draw profession
-    const professionPos = drawStyledText(pdf, profession, { x: pdfWidth / 2, y: currentY }, subHeaderStyle);
+    const professionPos = drawStyledText(pdf, profession, { x: centeredWidth, y: currentY }, subHeaderStyle);
     currentY = professionPos.y;
     const contactItems = [];
     if (phone != null && phone.trim() !== "")
@@ -139,13 +141,13 @@ const renderPersonalDetailsSection = async (
             return { type, value: url };
         })
     )
-    if (address != null && address.trim() !== "")
+    if (includeAddress && (address != null && address.trim() !== ""))
         contactItems.push({ type: "address", value: address });
 
 
     // Handle address separately if needed
     let filteredItems = contactItems;
-    if (addressOnNextLine) {
+    if (includeAddress && addressOnNextLine) {
         filteredItems = contactItems.filter((item) => item.type !== "address");
     }
 
@@ -154,13 +156,13 @@ const renderPersonalDetailsSection = async (
         pdf,
         filteredItems,
         { x: left, y: currentY, maxWidth: pdfWidth-xPadding/2 },
-        { ...normalStyle, gapX: 5, gapY: 5,...contactStyle,  },
+        { ...normalStyle, gapX: gapX, gapY: gapY,...contactStyle },
         { includeIcon, iconMap: contactIconsMap,}
     );
     currentY = contactPos.y;
 
     // Draw address below if on a new line
-    if (addressOnNextLine && address) {
+    if (addressOnNextLine && address && includeAddress) {
         if (includeIcon) {
             currentY = drawTextWithIcon(
                 pdf,

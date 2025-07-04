@@ -12,17 +12,18 @@ import { drawGridLayout } from "../layout";
  * @returns 
  */
 const drawStrengthItem = async ({
-    pdf: jsPDF,
-    title: string,
+    pdf,
+    title,
     description,
-    x: number,
+    x,
     y,
     width,
-    subHeaderStyle: object,
+    subHeaderStyle,
     normalStyle,
-    shouldIncludeIcon: bolean,
+    shouldIncludeIcon,
     iconsStyle
 }) => {
+    console.log("drawing strength item", title, description, x, y, width);
     let iconX = x;
     if (shouldIncludeIcon) {
         const iconPos = await drawIcon(pdf, FaChessKnight, {
@@ -31,9 +32,9 @@ const drawStrengthItem = async ({
         }, iconsStyle);
         iconX = iconPos.x;
     }
-
     let pos = drawStyledText(pdf, title, { x: iconX, y }, subHeaderStyle);
-    pos = await drawWrappedLongText(pdf, description, iconX, pos.y, width - (iconX - x), normalStyle);
+    pos =  drawWrappedLongText(pdf, description, iconX, pos.y, width - (iconX - x), normalStyle);
+    pos.y-=10
     return pos;
 };
 /**
@@ -53,7 +54,7 @@ const drawStrengthItem = async ({
 export const renderStrengthsSection = async (
     pdf,
     strengthsArray,
-    header="Strength",
+    header = "Strength",
     coords = {},
     style = {},
     padding = {},
@@ -62,31 +63,34 @@ export const renderStrengthsSection = async (
     const { x = 0, y = 0, centeredWidth = x } = coords;
     const { left = 0, right = 0 } = padding;
     const { headerStyle = {}, normalStyle = {}, subHeaderStyle = {} } = style;
-
     const {
         side = "left",
         shouldIncludeIcon = false,
         grid = false,
         gridSize = 2,
         gapX = 10,
-        gapY = 20,
+        gapY = 10,
         cellPadding = {
             xPadding: 5,
             yPadding: 5
         },
-        iconsStyle = {}
+        iconsStyle = {},
+        index
     } = props;
 
     const { pdfWidth } = pdfSize(pdf);
-    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
+    let currentPos = { x, y };
+    if (index == 0) {
+        currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
 
-    // Draw line under header
-    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
+        // Draw line under header
+        currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
+    }
 
     if (grid) {
         const gridCoords = { x, y: currentPos.y + 5 };
         const gridConfig = { gridSize, gapX, gapY };
-        const maxWidth = pdfWidth - right - left;
+        const maxWidth = pdfWidth -( right + left);
 
         const gridStyle = {
             width: (maxWidth - (gridSize - 1) * gridConfig.gapX) / gridSize
@@ -99,7 +103,7 @@ export const renderStrengthsSection = async (
             gridConfig,
             gridStyle,
             cellPadding,
-            async (pdf, strength, cellX, cellY, cellWidth) => drawStrengthItem({
+            async (pdf, strength, cellX, cellY, cellWidth) => await drawStrengthItem({
                 pdf,
                 ...strength,
                 x: cellX,

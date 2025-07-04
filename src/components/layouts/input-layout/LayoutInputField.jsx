@@ -40,8 +40,15 @@ const generatedProps = useMemo(() => {
       return props
     }
     const handleClassicLayoutProps = () => {
-      
       props.header={acceptImage:false}
+      switch (layout_id) {
+        case 2:
+          props.header = {
+            ...props.header,
+            shouldAcceptAddress: false,
+          }
+      }
+      
       return props
     }
     const handleSimpleLayoutProps = () => {

@@ -6,8 +6,7 @@ import { GridOne, GridTwo } from "./GridCards";
 
 const HeaderSection = (props) => {
   const { control, register } = useFormContext();
-
-  const { acceptProfession = true,acceptImage=true } = props;
+  const { acceptProfession = true, acceptImage = true, shouldAcceptAddress = true } = props;
   return (
     <CardWrapper>
       <GridTwo>
@@ -44,11 +43,15 @@ const HeaderSection = (props) => {
         />
       </GridOne>
       <GridTwo>
-        <Input
-          type="text"
-          placeholder="Address"
-          {...register("personalDetails.address")} // Registering the 'email' field inside 'personalDetails'
-        />
+        {
+          shouldAcceptAddress &&
+
+          <Input
+            type="text"
+            placeholder="Address"
+            {...register("personalDetails.address")} // Registering the 'email' field inside 'personalDetails'
+          />
+        }
         {
           acceptImage && (
             < Input

@@ -133,7 +133,6 @@ const measureAndRenderGroupOrItem = async ({
   if (currentY + usedHeight > pageHeight - 30) {
     pdf.addPage();
     currentY = padding.top || 40;
-
     const remeasureCoords = { ...coords, y: currentY };
     posAfterRender = await renderFn(simulatedPdf, item, header, remeasureCoords, style, padding, {
       ...props,

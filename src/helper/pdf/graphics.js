@@ -286,8 +286,11 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
         backgroundColor = [255, 255, 255],
         align = "left",
         fillColor = [0, 0, 0],
-        listStyle = null, 
+        listStyle = null,
+        iconSize=6,
+        color
     } = style;
+    console.log("style", style)
     const { includeIcon = false, iconMap = {} } = props;
     const { xPadding = 10, yPadding = 20, } = padding;
     console.log("max width",maxWidth)
@@ -343,12 +346,12 @@ export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style =
 
             if (includeIcon) {
                 const icon = iconMap?.[item.type] || iconMap?.[item.toLowerCase()] || null;
-                await drawIcon(pdf, icon, { x: x + 10, y: y + itemHeight / 2 - 5 }, { width: 10, height: 10 });
+                await drawIcon(pdf, icon, { x: x , y: y + itemHeight / 2 - 5 }, { width: iconSize, height: iconSize,color });
             } else if (listStyle) {
                 drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor, borderStyle: "F" });
             }
 
-            const textX = includeIcon ? x + 22 : x + 10;
+            const textX = includeIcon ? x + iconSize+1 : x + 10;
             const textY = y + itemHeight / 2 + fontSize / 3 - (includeIcon ? 2 : 0);
             pdf.text(displayText, textX, textY);
 
