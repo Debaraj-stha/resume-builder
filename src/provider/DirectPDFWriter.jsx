@@ -23,7 +23,7 @@ const DirectPDFWriterProvider = ({ children }) => {
     const defaultSectionProps = {
         personalDetailsProps: {},
         experiencesProps: {
-       
+
         },
         educationProps: {},
         achievementsProps: {},
@@ -83,8 +83,8 @@ const DirectPDFWriterProvider = ({ children }) => {
             summary,
             passions
         } = sections
-        console.log("personal details",personalDetails)
-        console.log("summary",summary)
+        console.log("personal details", personalDetails)
+        console.log("summary", summary)
         const {
             nameStyle: appliedNameStyle = defaultStyles.nameStyle,
             headerStyle: appliedHeaderStyle = defaultStyles.headerStyle,
@@ -110,10 +110,10 @@ const DirectPDFWriterProvider = ({ children }) => {
             languagesProps = defaultSectionProps.languagesProps,
             summaryProps = defaultSectionProps.summaryProps,
             passionProps = defaultSectionProps.passionProps,
-            commonProps={}
-            
+            commonProps = {}
+
         } = props;
-   
+
 
 
         console.log("creating pdf...")
@@ -121,12 +121,12 @@ const DirectPDFWriterProvider = ({ children }) => {
         const dummyPDF = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
         const { pdfWidth: width } = pdfSize(pdf)
         const centeredWidth = width / 2
-        
-        const{align="center",...rest}=commonProps
-        console.log("common props",commonProps)
+
+        const { align = "center", ...rest } = commonProps
+        console.log("common props", commonProps)
         const isAlignedLeft = align === "left"
         console.log("isAlignedLeft", isAlignedLeft)
-        const widthToUse=isAlignedLeft? left:centeredWidth
+        const widthToUse = isAlignedLeft ? left : centeredWidth
         console.log("width to use", widthToUse)
         console.log("centered width", centeredWidth)
         if (personalDetails)
@@ -138,14 +138,14 @@ const DirectPDFWriterProvider = ({ children }) => {
                     nameStyle: appliedNameStyle,
                     subHeaderStyle: appliedSubHeaderStyle,
                     subSubHeaderStyle: appliedSubsubHeaderStyle,
-                    contactStyle:appliedHeaderStyle.contactStyle
+                    contactStyle: appliedHeaderStyle.contactStyle
                 },
                 { xPadding, yPadding },
                 personalDetailsProps
             )
         if (summary) {
-            currentPos =  renderSummarySection(pdf, summary,
-                { x: left, y: currentPos.y, centeredWidth:widthToUse,xPadding }, width - xPadding,
+            currentPos = renderSummarySection(pdf, summary,
+                { x: left, y: currentPos.y, centeredWidth: widthToUse, xPadding }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
@@ -158,7 +158,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: experiences,
-                coords: { left, y: currentPos.y, xPadding, centeredWidth:widthToUse },
+                coords: { left, y: currentPos.y, xPadding, centeredWidth: widthToUse },
                 style: {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle,
@@ -174,7 +174,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: educations,
-                coords: { x:left, y: currentPos.y, xPadding, centeredWidth:widthToUse },
+                coords: { x: left, y: currentPos.y, xPadding, centeredWidth: widthToUse },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -192,7 +192,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: achievements,
-                coords: { x: left, y: currentPos.y, centeredWidt:widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidt: widthToUse },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -208,7 +208,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
-                coords: { x: left, y: currentPos.y, centeredWidth :widthToUse},
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -240,7 +240,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderPassionsSection,
                 data: passions,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth:widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
                 padding: pagePadding,
                 props: passionProps,
                 style: {
@@ -308,7 +308,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderOpenSourceWorkSection,
                 data: openSourceWork,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth:widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
                 padding: pagePadding,
                 props: openSourceWorkProps,
                 style: {
@@ -336,7 +336,7 @@ const DirectPDFWriterProvider = ({ children }) => {
 
 
         //     })
-             if (industryExpertise)
+        if (industryExpertise)
             currentPos = await measureAndRenderSection({
                 renderFn: renderIndustryExpertiseSection,
                 data: industryExpertise,
@@ -358,9 +358,9 @@ const DirectPDFWriterProvider = ({ children }) => {
 
         const now = Date.now()
         const filename = `resume-${now}.pdf`
-        pdf.save(filename)
-        console.log("pdf saved with filename", filename)
-
+        const blob = pdf.output("blob")
+        const pdfFile = new File([blob], filename, { type: 'application/pdf' });
+        return pdfFile
     }, [])
 
 
