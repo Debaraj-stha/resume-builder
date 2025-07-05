@@ -51,6 +51,8 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
         shouldIncludeAddress = false,
         shouldIncludeDate = false
     } = props
+
+    console.log("education props", props)
     let currentPos;
     const { pdfWidth } = pdfSize(pdf)
     currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: y }, headerStyle)
@@ -98,10 +100,10 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
 
             continue
         }
-        currentPos = drawStyledText(pdf, universityText, { x, y: currentPos.y }, subSubHeaderStyle)
+        currentPos = drawStyledText(pdf, universityText, { x, y: currentPos.y }, subHeaderStyle)
         if (applyFlex) {
             if (!shouldIncludeAddress && !shouldIncludeDate && !address && !start_complete) {
-                currentPos = drawStyledText(pdf, degreeText, { x, y: currentPos.y }, subSubHeaderStyle)
+                currentPos = drawStyledText(pdf, degreeText, { x, y: currentPos.y }, subHeaderStyle)
                 continue
             }
 
@@ -120,8 +122,9 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
                 )
             }
             else {
+
                 const items = [degreeText]
-                const styles = [normalStyle]
+                const styles = [subSubHeaderStyle]
                 if (shouldIncludeDate) {
                     items.push(start_complete)
                     styles.push(normalStyle)

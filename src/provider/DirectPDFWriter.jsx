@@ -122,13 +122,12 @@ const DirectPDFWriterProvider = ({ children }) => {
         const { pdfWidth: width } = pdfSize(pdf)
         const centeredWidth = width / 2
 
-        const { align = "center", ...rest } = commonProps
-        console.log("common props", commonProps)
+        const { align = "center", alignHeadingLeft = false } = commonProps
+
         const isAlignedLeft = align === "left"
-        console.log("isAlignedLeft", isAlignedLeft)
+        const isHeadingLeft = alignHeadingLeft || isAlignedLeft
         const widthToUse = isAlignedLeft ? left : centeredWidth
-        console.log("width to use", widthToUse)
-        console.log("centered width", centeredWidth)
+        const widthToUseForHeading = isHeadingLeft ? left : centeredWidth
         if (personalDetails)
             currentPos = await renderPersonalDetailsSection(
                 pdf,
@@ -145,7 +144,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             )
         if (summary) {
             currentPos = renderSummarySection(pdf, summary,
-                { x: left, y: currentPos.y, centeredWidth: widthToUse, xPadding }, width - xPadding,
+                { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading, xPadding }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
@@ -158,7 +157,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: experiences,
-                coords: { left, y: currentPos.y, xPadding, centeredWidth: widthToUse },
+                coords: { left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
                 style: {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle,
@@ -174,7 +173,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: educations,
-                coords: { x: left, y: currentPos.y, xPadding, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -192,7 +191,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: achievements,
-                coords: { x: left, y: currentPos.y, centeredWidt: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidt: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -208,7 +207,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -223,7 +222,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderStrengthsSection,
                 data: strengths,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: strengthsProps,
                 style: {
@@ -240,7 +239,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderPassionsSection,
                 data: passions,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: passionProps,
                 style: {
@@ -256,7 +255,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderTrainingsSection,
                 data: trainings,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: trainingsProps,
                 style: {
@@ -273,7 +272,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderAwardsSection,
                 data: awards,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: awardsProps,
                 style: {
@@ -290,7 +289,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderCertificateSection,
                 data: certificates,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: certificatesProps,
                 style: {
@@ -308,7 +307,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderOpenSourceWorkSection,
                 data: openSourceWork,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: openSourceWorkProps,
                 style: {
@@ -325,7 +324,7 @@ const DirectPDFWriterProvider = ({ children }) => {
         //         renderFn: renderLanguagesSection,
         //         data: languages,
         //         pdf,
-        //         coords: { x: left, y: currentPos.y, centeredWidth: widthToUse},
+        //         coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading},
         //         padding: pagePadding,
         //         props: languagesProps,
         //         style: {
@@ -341,7 +340,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderIndustryExpertiseSection,
                 data: industryExpertise,
                 pdf,
-                coords: { x: left, y: currentPos.y, centeredWidth: widthToUse },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: industryExpertiseProps,
                 style: {
@@ -352,15 +351,12 @@ const DirectPDFWriterProvider = ({ children }) => {
 
 
             })
-
-
-
-
         const now = Date.now()
         const filename = `resume-${now}.pdf`
-        const blob = pdf.output("blob")
-        const pdfFile = new File([blob], filename, { type: 'application/pdf' });
-        return pdfFile
+        pdf.save(filename)
+        // const blob = pdf.output("blob")
+        // const pdfFile = new File([blob], filename, { type: 'application/pdf' });
+        // return pdfFile
     }, [])
 
 

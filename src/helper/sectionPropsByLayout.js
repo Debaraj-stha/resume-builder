@@ -2,10 +2,8 @@ export const sectionPropsByLayout = {
   classical: {
     layout_1: {
       personalDetailsProps: {
-        includeIcon:false,
-        headerListStyle:{
-          listStyle:"disc",
-        },
+        includeIcon: false,
+  
         includeAddress: false,
       },
       summaryProps: {},
@@ -13,39 +11,62 @@ export const sectionPropsByLayout = {
         eachItemAsSection: true,
         // groupItems: true,
         // itemPerGroup:3
-       },
-      educationProps: { },
+      },
+      educationProps: {},
       achievementsProps: {
-        displayGrid:true,
-        gridSize:2
-       },
-      skillsProps: { },
-      
-  
-      
+        displayGrid: true,
+        gridSize: 2
+      },
+      skillsProps: {},
+
+
+
     },
     layout_2: {
-      experiencesProps:{
+      experiencesProps: {
         //  eachItemAsSection: true,
-         includeIcon:true,
+        includeIcon: true,
         //  includeDateAndAddress:true
       },
-      strengthsProps:{
+      strengthsProps: {
         eachItemAsSection: true,
       },
       skillsProps: {
-        borderBox:true,
+        borderBox: true,
       },
-      strengthsProps:{
+      strengthsProps: {
         eachItemAsSection: true,
-        grid:true,
-         groupItems: true,
+        grid: true,
+        groupItems: true,
       },
-      commonProps:{
+      commonProps: {
         align: "left",
       }
     },
-    layout_3: {},
+    layout_3: {
+      personalDetailsProps: {
+        includeIcon: false,
+        includeAddress:true,
+        centeredProfession:true
+
+      },
+      experiencesProps: {
+        eachItemAsSection: true,
+        // applyFlex:true,
+        includeDate: true,
+        onSameLine: true,
+      },
+      educationProps:{
+        shouldIncludeDate: true,
+        applyFlex:true
+      },
+      skillsProps:{
+        shouldIncludeField:true
+      },
+      commonProps: {
+        alignHeadingLeft: true,
+      }
+    },
     layout_4: {},
     layout_5: {},
     layout_6: {},

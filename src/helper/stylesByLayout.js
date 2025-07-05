@@ -24,7 +24,6 @@ export const stylesByLayout = {
             },
             nameStyle: {
                 // fontFamily: "Arial, sans-serif",
-
             }
         },
         layout_2: {
@@ -32,8 +31,7 @@ export const stylesByLayout = {
                 align: "left",
                 contactStyle: {
                     color: "blue",
-                    iconSize:7,
-                
+                    iconSize: 7,
                 }
 
             },
@@ -46,7 +44,19 @@ export const stylesByLayout = {
             }
         },
         layout_3: {
+            headerStyle: {
+                align: "left",
+               contactStyle: {
+                    align: "center",
+                    listStyle: "disc"
+                }
 
+            },
+            subSubHeaderStyle:{
+                 color: [0, 0, 255],
+                //  align: "center"
+                 
+            }
         },
         layout_4: {
 

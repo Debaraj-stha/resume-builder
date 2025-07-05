@@ -47,15 +47,15 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
           
 
             const file =   createPDF(sections, layoutStyle, sectionProps)
-            await uploadFile(file, (progressValue) => {
-                setProgress(progressValue);
-                if (progressValue >= 100) {
-                    setTimeout(() => {
-                        setFileGenerating(false);
-                        setProgress(0);
-                    }, 800);
-                }
-            });
+            // await uploadFile(file, (progressValue) => {
+            //     setProgress(progressValue);
+            //     if (progressValue >= 100) {
+            //         setTimeout(() => {
+            //             setFileGenerating(false);
+            //             setProgress(0);
+            //         }, 800);
+            //     }
+            // });
 
         } catch (error) {
             console.log("Error while uploading and downloading file", error);

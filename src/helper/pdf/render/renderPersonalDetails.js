@@ -8,6 +8,7 @@ import { LiaLinkedin, LiaMapMarkerSolid } from "react-icons/lia";
 import { BsGithub, BsGlobe } from "react-icons/bs";
 import jsPDF from "jspdf";
 
+
 const contactIconsMap = {
     phone: BiMobile,
     email: MdEmail,
@@ -67,6 +68,7 @@ const renderPersonalDetailsSection = async (
             textColor: [255, 255, 255],
             borderColor: [255, 255, 200]
         },
+        subSubHeaderStyle,
         contactStyle
     } = style;
     const {
@@ -75,11 +77,14 @@ const renderPersonalDetailsSection = async (
         rectangularImage = false,
         addressOnNextLine = false,
         isStatic = false,
-        includeAddress=false,
+        includeAddress = false,
         includeNameInitial = false,
-        
+        listStyle = null,
+        centeredProfession = false
+
+
     } = props;
-    const { gapX = 5,gapY=5} = contactStyle || {};
+    const { gapX = 5, gapY = 5 } = contactStyle || {};
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
     console.log("rendering personal details", personalDetails);
@@ -121,7 +126,11 @@ const renderPersonalDetailsSection = async (
     currentY = namePos.y;
 
     // Draw profession
-    const professionPos = drawStyledText(pdf, profession, { x: centeredWidth, y: currentY }, subHeaderStyle);
+    const professionPos = drawStyledText(pdf, profession, { x: centeredWidth, y: currentY }, {
+        ...subSubHeaderStyle,
+        ...(centeredProfession ? { align: "center" } : {})
+    }
+    );
     currentY = professionPos.y;
     const contactItems = [];
     if (phone != null && phone.trim() !== "")
@@ -155,9 +164,9 @@ const renderPersonalDetailsSection = async (
     const contactPos = await drawFlexWrappedItems(
         pdf,
         filteredItems,
-        { x: left, y: currentY, maxWidth: pdfWidth-xPadding/2 },
-        { ...normalStyle, gapX: gapX, gapY: gapY,...contactStyle },
-        { includeIcon, iconMap: contactIconsMap,}
+        { x: left, y: currentY, maxWidth: pdfWidth - xPadding / 2 },
+        { ...normalStyle, gapX: gapX, gapY: gapY, ...contactStyle, },
+        { includeIcon, iconMap: contactIconsMap, listStyle }
     );
     currentY = contactPos.y;
 
