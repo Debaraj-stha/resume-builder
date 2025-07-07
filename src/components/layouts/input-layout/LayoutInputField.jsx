@@ -47,6 +47,9 @@ const generatedProps = useMemo(() => {
             ...props.header,
             shouldAcceptAddress: false,
           }
+          case 4:{
+          props.header = {...props.header,acceptProfession:false}
+          }
       }
       
       return props

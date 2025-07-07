@@ -142,6 +142,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 { xPadding, yPadding },
                 personalDetailsProps
             )
+            
         if (summary) {
             currentPos = renderSummarySection(pdf, summary,
                 { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading, xPadding }, width - xPadding,
@@ -191,7 +192,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: achievements,
-                coords: { x: left, y: currentPos.y, centeredWidt: widthToUseForHeading },
+                coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
                     normalStyle: appliedNormalStyle,
@@ -207,6 +208,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
+                header:"Technical Skills",
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
@@ -297,6 +299,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
                     normalStyle: appliedNormalStyle
                 },
+
 
 
             })

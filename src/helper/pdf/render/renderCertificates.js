@@ -58,6 +58,7 @@ export const renderCertificateSection = async (
         },
         shouldIncludeDate = false
     } = props
+    console.log("certificate props",props)
     const { headerStyle, subSubHeaderStyle, normalStyle } = style
     const {  left, right } = padding
     let currentPos;

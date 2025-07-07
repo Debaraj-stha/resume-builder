@@ -275,93 +275,102 @@ export const drawZigZagLine = (pdf, coords = {}, style = {}) => {
  */
 export const drawFlexWrappedItems = async (pdf, items = [], coords = {}, style = {}, props = {}) => {
     const { x: startX = 20, y: startY = 20, maxWidth = 500 } = coords;
-    console.log("style",style)
-    const {
-        gapX = 5,
-        gapY = 8,
-        padding = {},
-        itemHeight = 12,
-        fontSize = 12,
-        textColor = [0, 0, 0],
-        backgroundColor = [255, 255, 255],
-        align = "left",
-        fillColor = [0, 0, 0],
-        listStyle = null,
-        iconSize=6,
-        color
-    } = style;
-    console.log("style", style)
-    const { includeIcon = false, iconMap = {} } = props;
-    const { xPadding = 10, yPadding = 20, } = padding;
-    console.log("max width",maxWidth)
+    try {
+        const {
+            gapX = 5,
+            gapY = 8,
+            padding = {},
+            itemHeight = 12,
+            fontSize = 12,
+            textColor = [0, 0, 0],
+            backgroundColor = [255, 255, 255],
+            align = "left",
+            fillColor = [0, 0, 0],
+            listStyle = null,
+            iconSize = 6,
+            color
+        } = style;
 
-    if (!items || items.length === 0) {
-        console.warn("No items to draw");
-        return { y: startY, x: startX };
-    }
+        const { includeIcon = false, iconMap = {} } = props;
+        const { xPadding = 10, yPadding = 20, } = padding;
+        console.log("max width", maxWidth)
 
-    pdf.setFontSize(fontSize);
-
-    let y = startY;
-    let rows = [];
-    let currentRow = [];
-    let currentRowWidth = 0;
-
-    //Break into rows
-    for (let item of items) {
-        // Normalize item to string or object with value/label
-        const displayText = typeof item === "string" ? item.trim() : item.value || item.label || item.toString();
-        //compute width of the item
-        const itemWidth = pdf.getTextWidth(displayText) + xPadding;
-        // Check if the item is too wide to fit in a single row
-        const spacing = currentRow.length > 0 ? gapX : 0;
-        const predictedWidth = currentRowWidth + spacing + itemWidth;
-
-        if (predictedWidth > maxWidth && currentRow.length > 0) {
-            rows.push(currentRow);
-            currentRow = [];
-            currentRowWidth = 0;
+        if (!items || items.length === 0) {
+            console.warn("No items to draw");
+            return { y: startY, x: startX };
         }
 
-        currentRow.push({ item, displayText, width: itemWidth });
-        currentRowWidth += itemWidth + spacing;
-    }
-    // Add the last row if it has items
-    if (currentRow.length > 0) {
-        rows.push(currentRow);
-    }
+        pdf.setFontSize(fontSize);
 
-    //  Render each row
-    for (let row of rows) {
-        const rowWidth = row.reduce((acc, { width }) => acc + width, 0) + gapX * (row.length - 1);
-        // Center only if align is center and row is not full
-        let x = align === "center"
-            ? startX + (maxWidth - rowWidth) / 2 - xPadding
-            : startX;
+        let y = startY;
+        let rows = [];
+        let currentRow = [];
+        let currentRowWidth = 0;
 
-        for (let { item, displayText, width: itemWidth } of row) {
-            pdf.setFillColor(...backgroundColor);
-            pdf.rect(x, y, itemWidth, itemHeight, "F");
-            pdf.setTextColor(...textColor);
+        //Break into rows
+        for (let item of items) {
+            // Normalize item to string or object with value/label
+            const displayText = typeof item === "string" ? item.trim() : item.value || item.label || item.toString();
+            //compute width of the item
+            const itemWidth = pdf.getTextWidth(displayText) + xPadding;
+            // Check if the item is too wide to fit in a single row
+            const spacing = currentRow.length > 0 ? gapX : 0;
+            const predictedWidth = currentRowWidth + spacing + itemWidth;
 
-            if (includeIcon) {
-                const icon = iconMap?.[item.type] || iconMap?.[item.toLowerCase()] || null;
-                await drawIcon(pdf, icon, { x: x , y: y + itemHeight / 2 - 5 }, { width: iconSize, height: iconSize,color });
-            } else if (listStyle) {
-                drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor, borderStyle: "F" });
+            if (predictedWidth > maxWidth && currentRow.length > 0) {
+                rows.push(currentRow);
+                currentRow = [];
+                currentRowWidth = 0;
             }
 
-            const textX = includeIcon ? x + iconSize+1 : x + 10;
-            const textY = y + itemHeight / 2 + fontSize / 3 - (includeIcon ? 2 : 0);
-            pdf.text(displayText, textX, textY);
-
-            x += itemWidth + gapX;
+            currentRow.push({ item, displayText, width: itemWidth });
+            currentRowWidth += itemWidth + spacing;
+        }
+        // Add the last row if it has items
+        if (currentRow.length > 0) {
+            rows.push(currentRow);
         }
 
-        y += itemHeight + gapY;
+        //  Render each row
+        for (let row of rows) {
+            const rowWidth = row.reduce((acc, { width }) => acc + width, 0) + gapX * (row.length - 1);
+            // Center only if align is center and row is not full
+            let x = align === "center"
+                ? startX + (maxWidth - rowWidth) / 2 - xPadding
+                : startX;
+
+            for (let { item, displayText, width: itemWidth } of row) {
+                pdf.setFillColor(...backgroundColor);
+                console.log("x",x)
+                console.log("y",y)
+                console.log("item width",itemWidth)
+                console.log("item height",itemHeight)
+                pdf.rect(x, y, itemWidth, itemHeight, "F");
+                pdf.setTextColor(...textColor);
+
+                if (includeIcon) {
+                    const icon = iconMap?.[item.type] || iconMap?.[item.toLowerCase()] || null;
+                    await drawIcon(pdf, icon, { x: x, y: y + itemHeight / 2 - 5 }, { width: iconSize, height: iconSize, color });
+                } else if (listStyle) {
+                    drawCircle(pdf, { x: x + 5, y: y + itemHeight / 2 + 1, r: 2 }, { fillColor, borderStyle: "F" });
+                }
+
+                const textX = includeIcon ? x + iconSize + 1 : x + 10;
+                const textY = y + itemHeight / 2 + fontSize / 3 - (includeIcon ? 2 : 0);
+                pdf.text(displayText, textX, textY);
+
+                x += itemWidth + gapX;
+            }
+
+            y += itemHeight + gapY;
+        }
+
+        return { x: startX, y: y + itemHeight };
+    } catch (error) {
+        console.log("error while drawing flex wrapped items", error)
+        return { x: startX, y: startY }
     }
 
-    return { x: startX, y: y + itemHeight };
 };
 /**
  * Draws a progress bar on the PDF.

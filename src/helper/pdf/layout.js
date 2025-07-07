@@ -104,7 +104,7 @@ export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coord
  * @returns {{x: number, y: number}} - The new cursor position after rendering
  */
 
-export const drawVerticalDividerLayout =  (pdf, content, config) => {
+export const drawVerticalDividerLayout = async (pdf, content, config) => {
 
   const {
     leftSection = [],
@@ -142,13 +142,13 @@ export const drawVerticalDividerLayout =  (pdf, content, config) => {
   currentRightPos.y = y
 
   for (const { text, style } of mainSection) {
-    currentRightPos =  drawWrappedLongText(pdf, text, currentX, currentRightPos.y, rightWidth, style);
+    currentRightPos = drawWrappedLongText(pdf, text, currentX, currentRightPos.y, rightWidth, style);
   }
 
   // Render achievements
   for (const { value } of achievements) {
     if (listStyle === "bullet") {
-      currentRightPos =  drawBulletText(
+      currentRightPos = await drawBulletText(
         pdf,
         value,
         currentX,
@@ -157,7 +157,7 @@ export const drawVerticalDividerLayout =  (pdf, content, config) => {
         styles.bullet
       );
     } else {
-      currentRightPos =  drawWrappedLongText(
+      currentRightPos = drawWrappedLongText(
         pdf,
         value,
         currentX,
@@ -234,13 +234,13 @@ export const drawGridLayout = async (
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    const cellX = x ;
+    const cellX = x;
     const cellY = y + yPadding;
     const cellWidth = width - 2 * xPadding;
 
     const cellPos = await renderCell(pdf, item, cellX, cellY, cellWidth);
-    const contentHeight = cellPos.y - y + yPadding;
-    const cellHeight = Math.min(contentHeight + yPadding, height); // ensure minimum
+    const contentHeight = (cellPos.y || 0) - y + yPadding;
+    const cellHeight = Math.max(contentHeight + yPadding, height); // ensure maximum
     // Draw background and border using actual height
     if (fillColor) {
       pdf.setFillColor(fillColor);
@@ -260,6 +260,10 @@ export const drawGridLayout = async (
     } else {
       x += width + gapX;
     }
+  }
+  // Make sure last row is counted
+  if (maxRowHeight > 0) {
+    y += maxRowHeight + gapY;
   }
 
   return { x, y };

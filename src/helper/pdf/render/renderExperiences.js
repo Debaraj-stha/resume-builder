@@ -94,7 +94,7 @@ const renderExperienceSection = async (
 
     // Vertical Divider Layout
     if (applyVerticalDivider) {
-      currentPos = drawVerticalDividerLayout(
+      currentPos = await drawVerticalDividerLayout(
         pdf,
         {
           leftSection: [

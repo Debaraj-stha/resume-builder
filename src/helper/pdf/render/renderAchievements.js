@@ -26,7 +26,7 @@ import { FaTrophy } from "react-icons/fa";
 export const renderAchievementsSection = async (
     pdf,
     achievementsArray,
-    header="Achievement",
+    header = "Achievement",
     coords = {},
     style = {},
     padding = {},
@@ -36,8 +36,8 @@ export const renderAchievementsSection = async (
     const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style;
     const { left, right } = padding;
     const {
-        displayGrid = false,
-        gridSize = 3,
+        grid = false,
+        gridSize = 2,
         shouldIncludeDate = false,
         shouldIncludeIcon = false,
         gapX = 10,
@@ -56,12 +56,15 @@ export const renderAchievementsSection = async (
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
 
     // Grid Layout Mode
-    if (displayGrid) {
-        const gridCoords = { x, y: currentPos.y + 5 };
+    if (grid) {
+        console.log("drawing achivement in grid mode");
+        const gridCoords = { x, y: currentPos.y }; // Start below the header
         const gridConfig = { gridSize, gapX, gapY }
         const gridStyle = {
             width: (maxWidth - (gridSize - 1) * gridConfig.gapX) / gridSize, // Equal cell width with 10px gap
         };
+        console.log("x,y", x, y)
+        console.log("currentPos", currentPos)
         currentPos = await drawGridLayout(
             pdf,
             achievementsArray,
@@ -69,32 +72,29 @@ export const renderAchievementsSection = async (
             gridConfig,
             gridStyle,
             cellPadding,
-            async (pdf, achievements,x, y, width) => {            
-                const {achievement, field, date } = achievements
+            async (pdf, achievements, cellX, cellY, width) => {
+                const { achievement, field, date } = achievements
+                let cellPos = drawWrappedLongText(pdf, achievement, cellX, cellY, width, subHeaderStyle);
+                cellPos = drawStyledText(pdf, field, { x: cellX, y: cellPos.y }, subSubHeaderStyle);
 
-                // Render wrapped text
-                let pos =  drawWrappedLongText(pdf, achievement, x, y, width, subHeaderStyle);
-
-                // Render field
-                pos = drawStyledText(pdf, field, { x, y: pos.y }, subSubHeaderStyle);
-
-                // Optional date
                 if (shouldIncludeDate) {
-                    pos = drawStyledText(pdf, date, { x, y: pos.y }, normalStyle);
+                    cellPos = drawStyledText(pdf, date, { x: cellX, y: cellPos.y }, normalStyle);
                 }
 
-                return pos;
+                return cellPos;
+
             }
         );
 
         currentPos.y += 10;
+        console.log("currentPos after grid", currentPos);
         return currentPos;
     }
+    console.log("drawing achivement in standard mode");
 
     // Standard Vertical List Mode
-    for (let achievement of achievementsArray) {
-        const { acheivement, field, date } = achievement;
-
+    for (let achievements of achievementsArray) {
+        const { achievement, field, date } = achievements
         let iconX = x;
         let iconY = currentPos.y;
 
@@ -104,7 +104,7 @@ export const renderAchievementsSection = async (
             iconX = iconPos.x;
             iconY = iconPos.y;
         }
-        currentPos = await drawWrappedLongText(pdf, acheivement, iconX, iconY, maxWidth, {
+        currentPos = drawWrappedLongText(pdf, achievement, iconX, iconY, maxWidth, {
             ...subHeaderStyle,
             align: "left",
         });

@@ -3,7 +3,7 @@ export const sectionPropsByLayout = {
     layout_1: {
       personalDetailsProps: {
         includeIcon: false,
-  
+
         includeAddress: false,
       },
       summaryProps: {},
@@ -46,8 +46,8 @@ export const sectionPropsByLayout = {
     layout_3: {
       personalDetailsProps: {
         includeIcon: false,
-        includeAddress:true,
-        centeredProfession:true
+        includeAddress: true,
+        centeredProfession: true
 
       },
       experiencesProps: {
@@ -56,18 +56,51 @@ export const sectionPropsByLayout = {
         includeDate: true,
         onSameLine: true,
       },
-      educationProps:{
+      educationProps: {
         shouldIncludeDate: true,
-        applyFlex:true
+        applyFlex: true
       },
-      skillsProps:{
-        shouldIncludeField:true
+      skillsProps: {
+        shouldIncludeField: true
       },
       commonProps: {
         alignHeadingLeft: true,
       }
     },
-    layout_4: {},
+    layout_4: {
+      personalDetailsProps:{
+        includeAddress:true,
+        addressOnNextLine:true,
+        includeProfession:false
+      },
+      skillsProps: {
+        borderBottom: true
+      },
+      educationProps: {
+        applyVerticalDivider: true,
+          eachItemAsSection: true,
+      },
+      experiencesProps: {
+        applyVerticalDivider: true,
+          eachItemAsSection: true,
+      },
+      
+      certificatesProps:{
+        eachItemAsSection: true,
+        groupItems:true,
+        grid:true
+      },
+      achievementsProps:{
+        eachItemAsSection:true,
+        groupItems:true,
+        grid:true,
+        shouldIncludeDate:true
+      },
+      commonProps: {
+        alignHeadingLeft: true,
+        align:"left"
+      }
+    },
     layout_5: {},
     layout_6: {},
   },

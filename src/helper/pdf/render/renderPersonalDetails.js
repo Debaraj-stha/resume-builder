@@ -72,18 +72,30 @@ const renderPersonalDetailsSection = async (
         contactStyle
     } = style;
     const {
-        includeIcon = true,
-        shouldIncludeImage = false,
-        rectangularImage = false,
-        addressOnNextLine = false,
-        isStatic = false,
-        includeAddress = false,
-        includeNameInitial = false,
-        listStyle = null,
-        centeredProfession = false
+        includeIcon,
+        shouldIncludeImage,
+        rectangularImage,
+        addressOnNextLine,
+        isStatic,
+        includeAddress,
+        includeNameInitial,
+        listStyle,
+        centeredProfession,
+        includeProfession
+    } = {
+        includeIcon: true,
+        shouldIncludeImage: false,
+        rectangularImage: false,
+        addressOnNextLine: false,
+        isStatic: false,
+        includeAddress: false,
+        includeNameInitial: false,
+        listStyle: null,
+        centeredProfession: false,
+        includeProfession: true,
+        ...props
+    };
 
-
-    } = props;
     const { gapX = 5, gapY = 5 } = contactStyle || {};
     const { top = 20, left = 20, centeredWidth } = coords;
     const { xPadding = 20, yPadding = 20 } = padding;
@@ -126,12 +138,13 @@ const renderPersonalDetailsSection = async (
     currentY = namePos.y;
 
     // Draw profession
-    const professionPos = drawStyledText(pdf, profession, { x: centeredWidth, y: currentY }, {
-        ...subSubHeaderStyle,
-        ...(centeredProfession ? { align: "center" } : {})
-    }
-    );
-    currentY = professionPos.y;
+    if (includeProfession)
+        currentY = drawStyledText(pdf, profession, { x: centeredWidth, y: currentY }, {
+            ...subSubHeaderStyle,
+            ...(centeredProfession ? { align: "center" } : {})
+        }
+        ).y;
+
     const contactItems = [];
     if (phone != null && phone.trim() !== "")
         contactItems.push({ type: "phone", value: phone })
@@ -173,13 +186,14 @@ const renderPersonalDetailsSection = async (
     // Draw address below if on a new line
     if (addressOnNextLine && address && includeAddress) {
         if (includeIcon) {
-            currentY = drawTextWithIcon(
+            const addressPos = await drawTextWithIcon(
                 pdf,
                 contactIconsMap.address,
                 address,
                 { x: left, y: currentY },
                 normalStyle
-            ).y;
+            )
+            currentY=addressPos.y
         } else {
             currentY = drawStyledText(pdf, address, { x: left, y: currentY }, normalStyle).y;
         }

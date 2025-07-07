@@ -1,4 +1,4 @@
-import { headerStyle } from "./pdf/style";
+import { headerStyle, nameStyle } from "./pdf/style";
 
 
 export const stylesByLayout = {
@@ -59,7 +59,12 @@ export const stylesByLayout = {
             }
         },
         layout_4: {
-
+            headerStyle:{
+                align:"left"
+            },
+            nameStyle:{
+                align:"left"
+            }
         },
         layout_5: {
 

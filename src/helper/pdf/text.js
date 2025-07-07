@@ -41,7 +41,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
   }
   catch (error) {
     console.error("Error in drawStyledText:", error);
-    // return { y: coords.y, x: coords.x };
+    return { y: coords.y, x: coords.x };
   };
 }
 
@@ -60,7 +60,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * at the specified coordinates, adjusting the Y position for each line.
  */
 export const drawWrappedLongText = (pdf, text, x, y, maxWidth, style = {}) => {
-
+  console.log("drawing wrapped text", text, x, y, maxWidth, style);
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;
   const lineHeight = style.lineHeight || fontSize * 1.1;
