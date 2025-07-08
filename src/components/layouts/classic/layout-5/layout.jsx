@@ -1,4 +1,4 @@
-import { certificates } from "../../../../static-data/resume-sample-data";
+
 import BaseLayoutRenderer from "../../BaseLayoutRenderer"
 import getLayout5OutputSectionData from "../resume-output/layout5-output";
 

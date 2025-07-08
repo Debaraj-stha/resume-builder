@@ -2,6 +2,7 @@ import jsPDF from "jspdf"
 import { drawJustifyTextItems, drawStyledText, drawTextItems } from "../text"
 import { pdfSize } from "../core"
 import { drawLine } from "../graphics"
+import capitalize from "../../capitalize"
 /**
  * function to render skill section
  * @param {jsPDF} pdf -jsPDF instance
@@ -28,7 +29,7 @@ export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}
     const { headerStyle,  subSubHeaderStyle, normalStyle } = style
     const { pdfWidth } = pdfSize(pdf)
     const { right, left } = padding
-    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+    let currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y },)
     if (!shouldIncludeField) {
         const items = skillsArray.flatMap(skill => skill.items)

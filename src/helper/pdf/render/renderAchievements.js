@@ -5,6 +5,7 @@ import { drawLine } from "../graphics";
 import { drawGridLayout } from "../layout";
 import { drawIcon } from "../image";
 import { FaTrophy } from "react-icons/fa";
+import capitalize from "../../capitalize";
 
 /**
  * function to render achivement
@@ -52,7 +53,7 @@ export const renderAchievementsSection = async (
     const maxWidth = pdfWidth - left - right;
 
     // Draw Section Header
-    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
+    let currentPos = drawStyledText(pdf,capitalize(header), { x: centeredWidth, y }, headerStyle);
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
 
     // Grid Layout Mode

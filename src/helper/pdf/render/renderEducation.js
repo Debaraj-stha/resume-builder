@@ -36,8 +36,8 @@ import { drawVerticalDividerLayout } from "../layout";
  * @param {object} props -optional properties
  * @returns {Promise<{x:number,y:number}>} -updates coordinates after rendering this section
  */
-const renderEducationSection = async (pdf, educationsArray, header="Education",coords = {}, style = {}, padding = {}, props = {}) => {
-    const { x, y ,centeredWidth} = coords
+const renderEducationSection = async (pdf, educationsArray, header = "Education", coords = {}, style = {}, padding = {}, props = {}) => {
+    const { x, y, centeredWidth } = coords
     const { headerStyle, normalStyle, subHeaderStyle, subSubHeaderStyle } = style
     const { top, left, bottom, right } = padding
     const {
@@ -49,15 +49,18 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
         shouldIncludeGPA = false,
         flexIcons = false,
         shouldIncludeAddress = false,
-        shouldIncludeDate = false
+        shouldIncludeDate = false,
+        index = 0
     } = props
 
     console.log("education props", props)
-    let currentPos;
+    let currentPos= { x, y };
     const { pdfWidth } = pdfSize(pdf)
-    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: y }, headerStyle)
-    const x2 = pdfWidth - right
-    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+    if (index === 0) {
+        currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: y }, headerStyle)
+        const x2 = pdfWidth - right
+        currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+    }
 
 
     for (let education of educationsArray) {
@@ -115,7 +118,7 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
                 if (shouldIncludeDate) {
                     itemIconMapArr.push({ icon: BiCalendarAlt, text: start_complete })
                 }
-                currentPos =  drawJustifyContentItems(pdf,
+                currentPos = drawJustifyContentItems(pdf,
                     itemIconMapArr,
                     { x, y: currentPos.y, maxWidth: pdfWidth - (left + right) },
                     [normalStyle, normalStyle]
@@ -160,6 +163,9 @@ const renderEducationSection = async (pdf, educationsArray, header="Education",c
 
                     currentPos = drawStyledText(pdf, address, { x: offsetX, y: baseLineY }, normalStyle);
                 }
+            }
+            if (shouldIncludeDate) {
+                currentPos = drawStyledText(pdf, start_complete, { x: offsetX, y: baseLineY }, normalStyle);
             }
         }
         if (shouldIncludeGPA) {

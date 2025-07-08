@@ -1,3 +1,4 @@
+import capitalize from "../../capitalize";
 import { pdfSize } from "../core";
 import { drawLine } from "../graphics";
 import { drawJustifyTextItems, drawStyledText, drawTextItems, drawWrappedLongText } from "../text";
@@ -117,7 +118,7 @@ export const renderOpenSourceWorkSection = async (
     const { pdfWidth } = pdfSize(pdf)
     const maxWidth = pdfWidth - left - right
     let currentPos
-    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+    currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y })
     if (props.grid) {
         return currentPos

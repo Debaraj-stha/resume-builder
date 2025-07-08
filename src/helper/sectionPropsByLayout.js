@@ -1,3 +1,5 @@
+import { each } from "lodash";
+
 export const sectionPropsByLayout = {
   classical: {
     layout_1: {
@@ -68,41 +70,108 @@ export const sectionPropsByLayout = {
       }
     },
     layout_4: {
-      personalDetailsProps:{
-        includeAddress:true,
-        addressOnNextLine:true,
-        includeProfession:false
+      personalDetailsProps: {
+        includeAddress: true,
+        addressOnNextLine: true,
+        includeProfession: false
       },
       skillsProps: {
         borderBottom: true
       },
       educationProps: {
         applyVerticalDivider: true,
-          eachItemAsSection: true,
+        eachItemAsSection: true,
       },
       experiencesProps: {
         applyVerticalDivider: true,
-          eachItemAsSection: true,
-      },
-      
-      certificatesProps:{
         eachItemAsSection: true,
-        groupItems:true,
-        grid:true
       },
-      achievementsProps:{
-        eachItemAsSection:true,
-        groupItems:true,
-        grid:true,
-        shouldIncludeDate:true
+
+      certificatesProps: {
+        eachItemAsSection: true,
+        groupItems: true,
+        grid: true
+      },
+      achievementsProps: {
+        eachItemAsSection: true,
+        groupItems: true,
+        grid: true,
+        shouldIncludeDate: true
       },
       commonProps: {
         alignHeadingLeft: true,
-        align:"left"
+        align: "left"
+      },
+      headers: {
+        skills: "Technical Skills",
       }
     },
-    layout_5: {},
-    layout_6: {},
+    layout_5: {
+      headers: {
+        skills: "Tech Stack",
+      },
+      personalDetailsProps: {
+        includeIcon: false,
+        includeProfession: false
+      },
+      commonProps: {
+        alignHeadingLeft: true,
+        align: "left"
+      },
+      educationProps: {
+        eachItemAsSection: true,
+        shouldIncludeDate: true
+      },
+      experiencesProps: {
+        eachItemAsSection: true,
+
+        applyFlex: true,
+        includeDateAndAddress: true,
+      },
+      certificatesProps: {
+        eachItemAsSection: true,
+        groupItems: true,
+        grid: true
+      },
+      achievementsProps: {
+        shouldIncludeDate: true,
+        eachItemAsSection: true,
+        groupItems: true,
+        grid: true
+      }
+    },
+    layout_6: {
+      personalDetailsProps: {
+        includeIcon: true,
+        includeProfession: false,
+        addressOnNextLine: true,
+      },
+      commonProps: {
+        alignHeadingLeft: true,
+        align: "left"
+      },
+      educationProps: {
+        eachItemAsSection: true,
+        includeDate: true,
+      },
+      experiencesProps: {
+        eachItemAsSection: true,
+        includeIcon: true,
+        includeDate: true,
+        includeAddress: true,
+      },
+      certificatesProps: {
+        eachItemAsSection: true,
+        groupItems: true,
+        grid: true,
+        shouldIncludeDate: true
+      },
+
+      headers: {
+        summary: "summary of qualifications",
+        skills: "Technical Skills",
+      }
+    },
   },
   modern: {
     layout_1: {},

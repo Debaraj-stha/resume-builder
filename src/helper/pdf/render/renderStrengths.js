@@ -5,6 +5,7 @@ import { drawLine } from "../graphics"; // fixed typo from 'graphiics'
 import { drawIcon } from "../image";
 import { FaChessKnight } from "react-icons/fa";
 import { drawGridLayout } from "../layout";
+import capitalize from "../../capitalize";
 
 /**
  * Draw a strength item with optional icon, title, and wrapped description.
@@ -81,7 +82,7 @@ export const renderStrengthsSection = async (
     const { pdfWidth } = pdfSize(pdf);
     let currentPos = { x, y };
     if (index == 0) {
-        currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
+        currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle);
 
         // Draw line under header
         currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });

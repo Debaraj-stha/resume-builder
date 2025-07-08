@@ -110,7 +110,22 @@ const DirectPDFWriterProvider = ({ children }) => {
             languagesProps = defaultSectionProps.languagesProps,
             summaryProps = defaultSectionProps.summaryProps,
             passionProps = defaultSectionProps.passionProps,
-            commonProps = {}
+            commonProps = {},
+            headers={
+                achievements: "Achievements",
+                experiences: "Experiences",
+                educations: "Education",
+                trainings: "Trainings",
+                awards: "Awards",
+                skills: "Skills",
+                certificates: "Certificates",
+                openSourceWork: "Open Source Work",
+                industryExpertise: "Industry Expertise",
+                strengths: "Strengths",
+                languages: "Languages",
+                passions: "Passions",
+                summary: "Summary"
+            }
 
         } = props;
 
@@ -144,12 +159,12 @@ const DirectPDFWriterProvider = ({ children }) => {
             )
             
         if (summary) {
-            currentPos = renderSummarySection(pdf, summary,
+            currentPos = renderSummarySection(pdf, summary, 
                 { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading, xPadding }, width - xPadding,
                 {
                     normalStyle: appliedNormalStyle,
                     headerStyle: appliedHeaderStyle
-                }
+                },{},summaryProps,headers.summary,
             )
         }
         if (experiences)
@@ -158,6 +173,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: experiences,
+                header: headers.experiences,
                 coords: { left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
                 style: {
                     normalStyle: appliedNormalStyle,
@@ -172,6 +188,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             currentPos = await measureAndRenderSection({
                 renderFn: renderEducationSection,
                 pdf,
+                header:headers.educations,
                 dummyPdf: dummyPDF,
                 data: educations,
                 coords: { x: left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
@@ -190,6 +207,7 @@ const DirectPDFWriterProvider = ({ children }) => {
             currentPos = await measureAndRenderSection({
                 renderFn: renderAchievementsSection,
                 pdf,
+                header: headers.achievements,
                 dummyPdf: dummyPDF,
                 data: achievements,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
@@ -208,7 +226,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 pdf,
                 dummyPdf: dummyPDF,
                 data: skills,
-                header:"Technical Skills",
+                header:headers.skills,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 style: {
                     headerStyle: appliedHeaderStyle,
@@ -224,6 +242,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderStrengthsSection,
                 data: strengths,
                 pdf,
+                header: headers.strengths,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: strengthsProps,
@@ -241,6 +260,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderPassionsSection,
                 data: passions,
                 pdf,
+                header:headers.passions,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: passionProps,
@@ -257,6 +277,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderTrainingsSection,
                 data: trainings,
                 pdf,
+                header: headers.trainings,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: trainingsProps,
@@ -265,7 +286,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                     subSubHeaderStyle: { ...appliedSubsubHeaderStyle, align: "left" },
                     normalStyle: appliedNormalStyle
                 },
-                header: "Training"
+             
 
             })
 
@@ -274,6 +295,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderAwardsSection,
                 data: awards,
                 pdf,
+                header: headers.awards,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: awardsProps,
@@ -291,6 +313,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderCertificateSection,
                 data: certificates,
                 pdf,
+                header: headers.certificates,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: certificatesProps,
@@ -310,6 +333,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderOpenSourceWorkSection,
                 data: openSourceWork,
                 pdf,
+                header: headers.openSourceWork,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: openSourceWorkProps,
@@ -327,6 +351,7 @@ const DirectPDFWriterProvider = ({ children }) => {
         //         renderFn: renderLanguagesSection,
         //         data: languages,
         //         pdf,
+        //         header: "Languages",
         //         coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading},
         //         padding: pagePadding,
         //         props: languagesProps,
@@ -343,6 +368,7 @@ const DirectPDFWriterProvider = ({ children }) => {
                 renderFn: renderIndustryExpertiseSection,
                 data: industryExpertise,
                 pdf,
+                header: headers.industryExpertise,
                 coords: { x: left, y: currentPos.y, centeredWidth: widthToUseForHeading },
                 padding: pagePadding,
                 props: industryExpertiseProps,

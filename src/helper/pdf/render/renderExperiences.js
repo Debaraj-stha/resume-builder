@@ -137,19 +137,6 @@ const renderExperienceSection = async (
         currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y }, normalStyle);
         currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
       } else {
-        if (includeAddrss) {
-          if (onSameLine)
-            currentPos = drawStyledText(pdf, location, { x: pdfWidth - pdf.getTextWidth(location)-left, y: currentPos.y }, normalStyle);
-          else
-            currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
-
-        }
-        if (includeDate) {
-          if (onSameLine)
-            currentPos = drawStyledText(pdf, date, { x: pdfWidth - pdf.getTextWidth(date)-left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
-          else
-            currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
-        }
         if (includeIcon) {
           let iconPos = await drawTextWithIcon(
             pdf,
@@ -165,6 +152,21 @@ const renderExperienceSection = async (
             { x: iconPos.x + 14, y: currentPos.y - 5 },
             normalStyle
           );
+        }
+        else {
+          if (includeAddrss) {
+            if (onSameLine)
+              currentPos = drawStyledText(pdf, location, { x: pdfWidth - pdf.getTextWidth(location) - left, y: currentPos.y }, normalStyle);
+            else
+              currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
+
+          }
+          if (includeDate) {
+            if (onSameLine)
+              currentPos = drawStyledText(pdf, date, { x: pdfWidth - pdf.getTextWidth(date) - left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
+            else
+              currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
+          }
         }
       }
     } else {

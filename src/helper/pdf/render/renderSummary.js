@@ -2,6 +2,7 @@ import jsPDF from "jspdf"
 import { drawStyledText, drawWrappedLongText } from "../text"
 import { drawLine } from "../graphics"
 import { pdfSize } from "../core"
+import capitalize from "../../capitalize"
 /**
  * render summary 
  * @param {jsPDF} pdf -jsPDF instance
@@ -29,7 +30,7 @@ export const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style 
         const { x, y, centeredWidth, xPadding } = coords
         const { normalStyle, headerStyle } = style
         let currentPos;
-        currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+        currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle)
         const { pdfWidth } = pdfSize(pdf)
         const x2 = pdfWidth - xPadding / 2
         currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)

@@ -3,6 +3,7 @@ import {  drawStyledText, drawTextItems, drawWrappedLongText } from "../text";
 import { pdfSize } from "../core";
 import { drawLine } from "../graphics";
 import { drawGridLayout } from "../layout";
+import capitalize from "../../capitalize";
 const drawAwardItem = async (pdf, award, x, y, subSubHeaderStyle, normalStyle, maxWidth,includeDate) => {
     const { title, organization, year } = award;
     // Title (e.g., award name)
@@ -54,7 +55,7 @@ export const renderAwardsSection = async(pdf, awardsArray, header = "Awards", co
 
     } = props
     const { pdfWidth } = pdfSize(pdf)
-    let currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle);
+    let currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle);
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
 
     const maxWidth = pdfWidth - left - right

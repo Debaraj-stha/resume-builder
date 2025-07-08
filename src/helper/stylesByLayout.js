@@ -46,31 +46,41 @@ export const stylesByLayout = {
         layout_3: {
             headerStyle: {
                 align: "left",
-               contactStyle: {
+                contactStyle: {
                     align: "center",
                     listStyle: "disc"
                 }
 
             },
-            subSubHeaderStyle:{
-                 color: [0, 0, 255],
+            subSubHeaderStyle: {
+                color: [0, 0, 255],
                 //  align: "center"
-                 
+
             }
         },
         layout_4: {
-            headerStyle:{
-                align:"left"
+            headerStyle: {
+                align: "left"
             },
-            nameStyle:{
-                align:"left"
+            nameStyle: {
+                align: "left"
             }
         },
         layout_5: {
-
+            headerStyle: {
+                align: "left"
+            },
+            nameStyle: {
+                align: "left"
+            }
         },
         layout_6: {
-
+            headerStyle: {
+                align: "left"
+            },
+            nameStyle: {
+                align: "left"
+            }
         }
     },
     modern: {

@@ -1,3 +1,4 @@
+import capitalize from "../../capitalize"
 import { pdfSize } from "../core"
 import { drawLine } from "../graphics"
 import { drawGridLayout } from "../layout"
@@ -63,7 +64,7 @@ export const renderCertificateSection = async (
     const {  left, right } = padding
     let currentPos;
     const { pdfWidth } = pdfSize(pdf)
-    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+    currentPos = drawStyledText(pdf,capitalize(header), { x: centeredWidth, y }, headerStyle)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y })
     if (grid) {
         currentPos = await drawGridLayout(pdf,

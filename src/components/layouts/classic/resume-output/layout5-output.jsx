@@ -78,7 +78,6 @@ const getlayout5OutputSection = (data, divider)=>{
                 h2: style.h2,
                 h3: style.h3
             },
-            layout_no: layout_no,
             titleHeader: "tech stack"
         }),
         ...generateCertipicates({

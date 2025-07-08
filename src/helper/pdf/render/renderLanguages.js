@@ -115,7 +115,7 @@ export const renderLanguagesSection = (
     } = props
     const { headerStyle, subSubHeaderStyle } = style
     let currentPos;
-    currentPos = drawStyledText(pdf, header, { x: centeredWidth, y }, headerStyle)
+    currentPos = drawStyledText(pdf, capitalize(header), { x: centeredWidth, y }, headerStyle)
     const { pdfWidth } = pdfSize(pdf)
     currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: pdfWidth - right, y2: currentPos.y });
     if (grid) {
