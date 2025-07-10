@@ -1,4 +1,4 @@
-import { each } from "lodash";
+
 
 export const sectionPropsByLayout = {
   classical: {
@@ -26,7 +26,7 @@ export const sectionPropsByLayout = {
     },
     layout_2: {
       experiencesProps: {
-        //  eachItemAsSection: true,
+         eachItemAsSection: true,
         includeIcon: true,
         //  includeDateAndAddress:true
       },
@@ -174,7 +174,11 @@ export const sectionPropsByLayout = {
     },
   },
   modern: {
-    layout_1: {},
+    layout_1: {
+      commonProps:{
+        columnLayout:true
+      }
+    },
     layout_2: {},
     layout_3: {},
     layout_4: {},
