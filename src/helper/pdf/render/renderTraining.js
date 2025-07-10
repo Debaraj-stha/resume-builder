@@ -47,7 +47,7 @@ const drawTrainingItem = async (pdf, training, x, y, subSubHeaderStyle, normalSt
  * @returns {Promise<{x: number, y: number}>} Updated coordinates after rendering the section.
  */
 
-export const renderTrainingsSection = async (
+ const renderTrainingsSection = async (
     pdf,
     trainingsArray,
     header = "Training/Course",
@@ -86,3 +86,5 @@ export const renderTrainingsSection = async (
 
     return { x, y: currentPos.y };
 };
+
+export default renderTrainingsSection;

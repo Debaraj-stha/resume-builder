@@ -42,7 +42,7 @@ const drawAwardItem = async (pdf, award, x, y, subSubHeaderStyle, normalStyle, m
  * @returns {Object|undefined} Coordinates `{ x, y }` after rendering the section, or undefined if not implemented.
  */
 
-export const renderAwardsSection = async(pdf, awardsArray, header = "Awards", coords = {}, style = {}, padding = {}, props = {}) => {
+ const renderAwardsSection = async(pdf, awardsArray, header = "Awards", coords = {}, style = {}, padding = {}, props = {}) => {
  const { x, y, centeredWidth } = coords;
     const { headerStyle, subSubHeaderStyle, normalStyle } = style;
     const { left = 40, right = 40 } = padding;
@@ -73,3 +73,4 @@ export const renderAwardsSection = async(pdf, awardsArray, header = "Awards", co
 
     return { x, y: currentPos.y };
 }
+export default renderAwardsSection;

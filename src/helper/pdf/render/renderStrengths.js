@@ -52,7 +52,7 @@ const drawStrengthItem = async ({
  * @param {{top:number,left:number,right:number,bottom:number}} [padding={}] - Padding around the section.
  * @param {object} [props={}] - Additional optional properties for rendering.
  */
-export const renderStrengthsSection = async (
+ const renderStrengthsSection = async (
     pdf,
     strengthsArray,
     header = "Strength",
@@ -137,3 +137,5 @@ export const renderStrengthsSection = async (
 
     return currentPos;
 };
+
+export default renderStrengthsSection

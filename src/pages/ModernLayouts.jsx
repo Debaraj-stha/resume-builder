@@ -21,7 +21,6 @@ const ModernLayouts = () => {
     const itemsPerPage = 3
     const { currentPage, PaginationButtons, setItemsLength } = usePagination()
     useEffect(() => {
-        console.log("ca;llled pdppd")
         const length = Object.keys(modern_layouts_image_map).length
         //setting items length to calculate pages
         setItemsLength(length)
@@ -36,8 +35,8 @@ const ModernLayouts = () => {
 
                     {/* layout images */}
                     <RenderLayoutImage
-                        layoutDescription={modern_layouts_image_map}
-                        layouts={modernLayoutDescription}
+                        layoutDescription={modernLayoutDescription}
+                        layouts={modern_layouts_image_map}
                         itemsPerPage={itemsPerPage}
                         currentPage={currentPage}
                         layout_type={layout_type_map.MODERN}

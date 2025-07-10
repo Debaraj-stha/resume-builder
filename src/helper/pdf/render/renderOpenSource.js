@@ -96,7 +96,7 @@ const drawOpenSourceWorkItem = async (
  * @param {Object} props - Additional properties that may be used during rendering.
  * @returns {Promise<{x: number, y: number}>} Updated coordinates after rendering the section.
  */
-export const renderOpenSourceWorkSection = async (
+ const renderOpenSourceWorkSection = async (
     pdf,
     openSourceWorkArray,
     header = "Open Source work",
@@ -137,3 +137,4 @@ export const renderOpenSourceWorkSection = async (
     return currentPos
 
 }
+export default renderOpenSourceWorkSection;

@@ -51,7 +51,7 @@ const renderExperienceSection = async (
     normalStyle,
   } = style;
 
-  const { left, xPadding, centeredWidth, y } = coords;
+  const { x, xPadding, centeredWidth, y } = coords;
   const {
     listStyle = null,
     applyFlex = false,
@@ -63,19 +63,23 @@ const renderExperienceSection = async (
     includeDateAndAddress = false,
     onSameLine = false,
     index = 0,
-    real = false
+    real = false,
+    pdfWidth
   } = props;
   if (real) {
     console.log("experience section coords", coords)
 
   }
+  if (pdfWidth == null || pdfWidth == undefined) {
+    const { pdfWidth: width } = pdfSize(pdf);
+    pdfWidth = width
+  }
 
-  const { pdfWidth } = pdfSize(pdf);
-  let currentPos = { x: left, y: y || 40 };
+  let currentPos = { x, y: y || 40 };
   if (index == 0) {
     currentPos = drawStyledText(pdf, header, { x: centeredWidth, y: coords.y }, headerStyle);
     const x2 = pdfWidth - xPadding / 2
-    currentPos = drawLine(pdf, { x1: left, y1: currentPos.y, x2: x2, y2: currentPos.y },)
+    currentPos = drawLine(pdf, { x1: x, y1: currentPos.y, x2: x2, y2: currentPos.y },)
   }
   for (const exp of experiencesArray) {
     const {
@@ -89,7 +93,7 @@ const renderExperienceSection = async (
     } = exp;
 
 
-    const maxWidth = pdfWidth - left * 2;
+    const maxWidth = pdfWidth - x * 2;
     const date = `${startDate} - ${endDate}`;
 
     // Vertical Divider Layout
@@ -109,7 +113,7 @@ const renderExperienceSection = async (
           achievements,
         },
         {
-          x: left,
+          x: x,
           y: currentPos.y,
           maxWidth: maxWidth,
           xPadding,
@@ -131,18 +135,18 @@ const renderExperienceSection = async (
 
     // Icons / Date + Location
     if (!applyFlex) {
-      currentPos = drawStyledText(pdf, positionText, { x: left, y: currentPos.y }, subHeaderStyle);
-      currentPos = drawStyledText(pdf, companyText, { x: left, y: currentPos.y }, subSubHeaderStyle);
+      currentPos = drawStyledText(pdf, positionText, { x, y: currentPos.y }, subHeaderStyle);
+      currentPos = drawStyledText(pdf, companyText, { x, y: currentPos.y }, subSubHeaderStyle);
       if (includeDateAndAddress) {
-        currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y }, normalStyle);
-        currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
+        currentPos = drawStyledText(pdf, location, { x, y: currentPos.y }, normalStyle);
+        currentPos = drawStyledText(pdf, date, { x, y: currentPos.y }, normalStyle);
       } else {
         if (includeIcon) {
           let iconPos = await drawTextWithIcon(
             pdf,
             LiaMapMarkerSolid,
             location,
-            { x: left, y: currentPos.y - 5 },
+            { x, y: currentPos.y - 5 },
             normalStyle
           );
           currentPos = await drawTextWithIcon(
@@ -156,16 +160,16 @@ const renderExperienceSection = async (
         else {
           if (includeAddrss) {
             if (onSameLine)
-              currentPos = drawStyledText(pdf, location, { x: pdfWidth - pdf.getTextWidth(location) - left, y: currentPos.y }, normalStyle);
+              currentPos = drawStyledText(pdf, location, { x: pdfWidth - pdf.getTextWidth(location) - x, y: currentPos.y }, normalStyle);
             else
-              currentPos = drawStyledText(pdf, location, { x: left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
+              currentPos = drawStyledText(pdf, location, { x, y: currentPos.y - normalStyle.fontSize }, normalStyle);
 
           }
           if (includeDate) {
             if (onSameLine)
-              currentPos = drawStyledText(pdf, date, { x: pdfWidth - pdf.getTextWidth(date) - left, y: currentPos.y - normalStyle.fontSize }, normalStyle);
+              currentPos = drawStyledText(pdf, date, { x: pdfWidth - pdf.getTextWidth(date) - x, y: currentPos.y - normalStyle.fontSize }, normalStyle);
             else
-              currentPos = drawStyledText(pdf, date, { x: left, y: currentPos.y }, normalStyle);
+              currentPos = drawStyledText(pdf, date, { x, y: currentPos.y }, normalStyle);
           }
         }
       }
@@ -173,13 +177,13 @@ const renderExperienceSection = async (
       currentPos = drawJustifyTextItems(
         pdf,
         [positionText, location],
-        { x: left, y: currentPos.y, maxWidth },
+        { x, y: currentPos.y, maxWidth },
         [subHeaderStyle, normalStyle]
       );
       currentPos = drawJustifyTextItems(
         pdf,
         [companyText, date],
-        { x: left, y: currentPos.y, maxWidth },
+        { x, y: currentPos.y, maxWidth },
         [subSubHeaderStyle, normalStyle]
       );
     }
@@ -189,7 +193,7 @@ const renderExperienceSection = async (
       currentPos = drawWrappedLongText(
         pdf,
         aboutCompany,
-        left,
+        x,
         currentPos.y,
         pdfWidth - xPadding,
         normalStyle
@@ -202,7 +206,7 @@ const renderExperienceSection = async (
         currentPos = await drawBulletText(
           pdf,
           value,
-          left,
+          x,
           currentPos.y - 10,
           pdfWidth - xPadding,
           normalStyle
@@ -211,7 +215,7 @@ const renderExperienceSection = async (
         currentPos = drawWrappedLongText(
           pdf,
           value,
-          left,
+          x,
           currentPos.y,
           pdfWidth - xPadding,
           normalStyle

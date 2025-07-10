@@ -38,7 +38,7 @@ const drawCertificateitem = async (pdf, certificateObj, x, y, maxWidth, style = 
  * @param {Object} props - Additional properties that may be used during rendering.
  * @returns {Promise<{x: number, y: number}>} Updated coordinates after rendering the section.
  */
-export const renderCertificateSection = async (
+ const renderCertificateSection = async (
     pdf,
     certificateArray,
     header = "Certificate",
@@ -102,3 +102,5 @@ export const renderCertificateSection = async (
     }
     return currentPos
 }
+
+export default renderCertificateSection

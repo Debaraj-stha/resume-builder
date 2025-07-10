@@ -90,7 +90,7 @@ const drawLanguageItem = (
  * @returns {{ x: number, y: number }} - Coordinates after rendering the section, useful for next content positioning.
  */
 
-export const renderLanguagesSection = (
+ const renderLanguagesSection = (
     pdf,
     languagesArray,
     header = "Language",
@@ -150,3 +150,4 @@ export const renderLanguagesSection = (
             props)
     return currentPos
 }
+export default renderLanguagesSection;

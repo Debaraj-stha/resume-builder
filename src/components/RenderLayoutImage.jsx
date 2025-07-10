@@ -7,7 +7,7 @@ const RenderLayoutImage = memo(({ layouts, layoutDescription, currentPage, items
   const layoutEntries = layout_type === "all"
     ? Object.entries(layouts) // e.g., [['modern', {...}], ['classical', {...}]]
     : [[layout_type, layouts[layout_type]]]; // e.g., [['modern', {...}]]
-
+console.log("RenderLayoutImage", layoutEntries, layout_type);
   const allLayouts = layoutEntries.flatMap(([type, layoutMap]) =>
     Object.entries(layoutMap).map(([layoutName, imageSrc]) => ({
       layoutType: type,

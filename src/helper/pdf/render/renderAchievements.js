@@ -24,7 +24,7 @@ import capitalize from "../../capitalize";
  * 
  * @returns {Promise<{x:number,y:number}>}
  */
-export const renderAchievementsSection = async (
+ const renderAchievementsSection = async (
     pdf,
     achievementsArray,
     header = "Achievement",
@@ -122,3 +122,4 @@ export const renderAchievementsSection = async (
     currentPos.y += 5; // bottom padding
     return currentPos;
 };
+export default renderAchievementsSection;

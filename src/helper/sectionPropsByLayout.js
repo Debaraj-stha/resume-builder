@@ -26,7 +26,7 @@ export const sectionPropsByLayout = {
     },
     layout_2: {
       experiencesProps: {
-         eachItemAsSection: true,
+        eachItemAsSection: true,
         includeIcon: true,
         //  includeDateAndAddress:true
       },
@@ -175,9 +175,23 @@ export const sectionPropsByLayout = {
   },
   modern: {
     layout_1: {
-      commonProps:{
-        columnLayout:true
-      }
+      experiencesProps:{
+        eachItemAsSection:true
+      },
+      commonProps: {
+        columnLayout: true,
+        align:"left",
+        isHeadingLeft:true
+      },
+      pagePadding: {
+        rightColumnPadding: {
+          top: 0,
+        },
+        leftColumnPadding: {
+
+        }
+      },
+
     },
     layout_2: {},
     layout_3: {},

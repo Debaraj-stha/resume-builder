@@ -24,7 +24,7 @@ import capitalize from "../../capitalize"
  * @param {object} props  -optional props
  * @returns {x:number,y:number}
  */
-export const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {}, header = "Summary",) => {
+ const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style = {}, padding = {}, props = {}, header = "Summary",) => {
     try {
         const { } = props
         const { x, y, centeredWidth, xPadding } = coords
@@ -41,3 +41,4 @@ export const renderSummarySection = (pdf, summary, coords = {}, maxWidth, style 
         return { x: coords.x, y: coords.y };
     }
 }
+export default renderSummarySection;

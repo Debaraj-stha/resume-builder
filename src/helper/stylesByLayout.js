@@ -1,4 +1,4 @@
-import { headerStyle, nameStyle } from "./pdf/style";
+import { headerStyle, nameStyle, subSubHeaderStyle } from "./pdf/style";
 
 
 export const stylesByLayout = {
@@ -85,7 +85,16 @@ export const stylesByLayout = {
     },
     modern: {
         layout_1: {
-
+            nameStyle:{
+                align:"left"
+            },
+            headerStyle:{
+                align:"left"
+            },
+            subSubHeaderStyle:{
+                color:[0,0,255],
+                align:"left"
+            }
         },
         layout_2: {
 

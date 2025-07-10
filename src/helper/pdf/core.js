@@ -236,10 +236,12 @@ export const measureAndRenderSection = async ({
   dummyPdf,
   header,
 }) => {
-  const { eachItemAsSection, groupItems, itemPerGroup = 2 } = props;
+  const { eachItemAsSection, groupItems, itemPerGroup = 2, columnLayout = false } = props;
   const startY = coords.y;
   let currentY = coords.y;
+  if (columnLayout) {
 
+  }
   const simulatedPdf =
     dummyPdf || new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
 

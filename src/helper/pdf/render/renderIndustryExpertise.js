@@ -7,7 +7,7 @@ import { drawStyledText } from "../text"
 /**
  * Draws a single expertise item with a title and a progress bar
  */
-export const drawIndustryExpertiseItem = async (
+ const drawIndustryExpertiseItem = async (
     pdf,
     industryExpertiseObj,
     x,
@@ -127,3 +127,4 @@ export const renderIndustryExpertiseSection = async (
 
     return currentPos
 }
+export default renderIndustryExpertiseSection;

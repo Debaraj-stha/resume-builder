@@ -40,7 +40,7 @@ import { justifyType } from "../../constant";
  */
 
 
-export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coords = {}) => {
+export const drawTwoColumnsLayout = async(pdf, contents, style = {}, size = {}, coords = {}) => {
   const {
     leftColor = [255, 255, 255],
     rightColor = [255, 255, 255],
@@ -59,7 +59,7 @@ export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coord
   const { leftSize, rightSize } = size
   const { xPadding, yPadding } = padding;
 
-  const { pdfWidth, pdfHeight } = pdfSize()
+  const { pdfWidth, pdfHeight } = pdfSize(pdf)
 
   const leftWidth = leftSize || pdfWidth * 0.5;
   const rightWidth = rightSize || (pdfWidth - leftWidth);
@@ -81,8 +81,8 @@ export const drawTwoColumnsLayout = (pdf, contents, style = {}, size = {}, coord
   const rightX = leftWidth + xPadding;
   const rightY = yPadding;
   const rightMaxWidth = rightWidth - 2 * xPadding;
-  const leftFinalY = leftContent(pdf, { x: leftX, y: leftY, width: leftMaxWidth });
-  const rightFinalY = rightContent(pdf, { x: rightX, y: rightY, width: rightMaxWidth });
+  const leftFinalY = await leftContent(pdf, { x: leftX, y: leftY, width: leftMaxWidth });
+  const rightFinalY =await  rightContent(pdf, { x: rightX, y: rightY, width: rightMaxWidth });
 
   return { leftFinalY, rightFinalY };
 };

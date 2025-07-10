@@ -60,6 +60,7 @@ export const drawStyledText = (pdf, text, coords = {}, style = {}) => {
  * at the specified coordinates, adjusting the Y position for each line.
  */
 export const drawWrappedLongText = (pdf, text, x, y, maxWidth, style = {}) => {
+    console.log("wraped long text x",x)
   console.log("drawing wrapped text", text, x, y, maxWidth, style);
   applyStyle(pdf, style);
   const fontSize = style.fontSize || 12;
@@ -70,6 +71,7 @@ export const drawWrappedLongText = (pdf, text, x, y, maxWidth, style = {}) => {
   if (!paragraphs || paragraphs.length === 0) {
     return { y: cursorY, x: x + maxWidth + 10 };
   }
+
   for (const para of paragraphs) {
     const lines = pdf.splitTextToSize(para, maxWidth);
     lines.forEach(line => {

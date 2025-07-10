@@ -138,7 +138,6 @@ const getCreativeLayout4OuctputSectionData = (data, divider) => {
         }),
         generatePassionSectionData({
             passions,
-            divider,
             style: {
                 sectionHeader: style.sectionHeader,
                 h2: style.h2,

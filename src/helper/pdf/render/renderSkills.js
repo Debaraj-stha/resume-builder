@@ -19,7 +19,7 @@ import capitalize from "../../capitalize"
  * @param {object} props -optional properties
  * @returns {Promise<{x:number,y:number}>}
  */
-export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}, style = {}, padding, props = {}) => {
+ const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}, style = {}, padding, props = {}) => {
     console.log("renderinhg skill   section", skillsArray)
     const {
         shouldIncludeField = false,
@@ -58,3 +58,4 @@ export const renderSkillsSection = (pdf, skillsArray,header="Skills",coords = {}
 
     return currentPos
 }
+export default renderSkillsSection

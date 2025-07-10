@@ -29,7 +29,7 @@ const drawPassionItem = async (pdf, x, y, passion, style, iconStyle, shouldInclu
  * @param {{top:number, left:number, right:number, bottom:number}} [padding={}] - Padding around section.
  * @param {object} [props={}] - Optional rendering props (icons, grid, etc).
  */
-export const renderPassionsSection = async (
+ const renderPassionsSection = async (
     pdf,
     passionArray,
     coords = {},
@@ -107,3 +107,5 @@ export const renderPassionsSection = async (
         currentPos = await drawPassionItem(pdf, x, currentPos.y, passion, subSubHeaderStyle, iconStyle, shouldIncludeIcon, maxWidth)
     return currentPos;
 };
+
+export default renderPassionsSection
