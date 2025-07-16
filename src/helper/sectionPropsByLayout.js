@@ -5,8 +5,8 @@ export const sectionPropsByLayout = {
     layout_1: {
       personalDetailsProps: {
         includeIcon: false,
-
         includeAddress: false,
+        centeredProfession:true
       },
       summaryProps: {},
       experiencesProps: {
@@ -20,9 +20,9 @@ export const sectionPropsByLayout = {
         gridSize: 2
       },
       skillsProps: {},
+      commonProps:{
 
-
-
+      }
     },
     layout_2: {
       experiencesProps: {

@@ -52,7 +52,7 @@ const renderExperienceSection = async (
   } = style;
 
   const { x, xPadding, centeredWidth, y } = coords;
-  const {
+  let {
     listStyle = null,
     applyFlex = false,
     applyVerticalDivider = false,
@@ -71,7 +71,7 @@ const renderExperienceSection = async (
 
   }
   if (pdfWidth == null || pdfWidth == undefined) {
-    const { pdfWidth: width } = pdfSize(pdf);
+    let { pdfWidth: width } = pdfSize(pdf);
     pdfWidth = width
   }
 

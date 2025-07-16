@@ -13,7 +13,7 @@ import renderStrengthsSection from "../render/renderStrengths";
 import renderLanguagesSection from "../render/renderLanguages";
 import renderSummarySection from "../render/renderSummary";
 import renderPassionsSection from "../render/renderPassionsSection";
-import { measureAndRenderSection } from "../core";
+import { measureAndRenderSection, pdfSize } from "../core";
 
 /**
  * a function to render a standard PDF layout
@@ -92,6 +92,8 @@ const standardPDFLayout = async (pdf, sections = {}, styles = {}, props = {}) =>
 
     } = props;
     const dummyPDF = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" })
+    const{pdfWidth}=pdfSize(pdf)
+    const centeredWidth=pdfWidth/2
     const {alignHeadingLeft  = false,align="center" } = commonProps
     const isAlignedLeft = align === "left"
     const isHeadingLeft = alignHeadingLeft || isAlignedLeft
@@ -128,7 +130,7 @@ const standardPDFLayout = async (pdf, sections = {}, styles = {}, props = {}) =>
             dummyPdf: dummyPDF,
             data: experiences,
             header: headers.experiences,
-            coords: { left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
+            coords: { x:left, y: currentPos.y, xPadding, centeredWidth: widthToUseForHeading },
             style: {
                 normalStyle: appliedNormalStyle,
                 headerStyle: appliedHeaderStyle,

@@ -71,7 +71,7 @@ const DirectPDFWriterProvider = ({ children }) => {
 
         const now = Date.now()
         const filename = `resume-${now}.pdf`
-        // pdf.save(filename)
+        pdf.save(filename)
         const blob = pdf.output("blob")
         const pdfFile = new File([blob], filename, { type: 'application/pdf' });
         return pdfFile
