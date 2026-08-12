@@ -17,6 +17,9 @@ import FixedIconWrapper from "./FixedIconWrapper";
 import { useParams } from "react-router-dom";
 import { getSectionAndSectionprops } from "../helper/helper";
 import { useDirectPDFWriter } from "../provider/DirectPDFWriter";
+import { hasDownloadAccess } from "../services/payments";
+import DownloadPaywall from "./DownloadPaywall";
+import { useAuth } from "../provider/AuthProvider";
 
 
 
@@ -26,8 +29,10 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
+    const [isPaywallOpen, setIsPaywallOpen] = useState(false)
 
     const { generatePDF, compileInput,liveDetails } = useLayout();
+    const { user } = useAuth();
     const { uploadFile } = useSupabase();
     const { dividers, changeDivider } = useDivider()
     const { layout_type, layout_id } = useParams()
@@ -45,7 +50,11 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
 
             console.log("sectionNames", sectionNames, "sectionProps", sectionProps, "layoutStyle", layoutStyle);
           
-            const file =   createPDF(sections, layoutStyle, sectionProps)
+            const file = await createPDF(sections, layoutStyle, sectionProps)
+            if (file) {
+                await uploadFile(file, setProgress)
+            }
+            setFileGenerating(false)
             // await uploadFile(file, (progressValue) => {
             //     setProgress(progressValue);
             //     if (progressValue >= 100) {
@@ -61,6 +70,15 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
             setFileGenerating(false);
             setProgress(0)
         }
+    };
+    const handleDownloadClick = async () => {
+        if (await hasDownloadAccess(user?.id)) await uploadAndDownloadFile();
+        else setIsPaywallOpen(true);
+    };
+
+    const handlePaidDownload = async () => {
+        setIsPaywallOpen(false);
+        await uploadAndDownloadFile();
     };
     const handleTemplatesChoose = () => {
         setIsTemplateChangeModelOpen(true)
@@ -101,7 +119,7 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
                 {showIcons && (
                     <>
                         <ToolTip text="Generate Resume">
-                            <CircularIconHolder backgroundColor="#34A853" onClick={uploadAndDownloadFile}>
+                            <CircularIconHolder backgroundColor="#34A853" onClick={handleDownloadClick}>
                                 <FaDownload color="white" />
                             </CircularIconHolder>
                         </ToolTip>
@@ -127,8 +145,9 @@ const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateC
                 )}
 
             </FixedIconWrapper>
-            {fileGenerating && <ProgressBarModal peogress={progress} onClose={setFileGenerating(false)} />}
+            {fileGenerating && <ProgressBarModal progress={progress} onClose={() => setFileGenerating(false)} />}
             {isDividerChangeModelOpen && dividerChooseModal}
+            {isPaywallOpen && <DownloadPaywall onClose={() => setIsPaywallOpen(false)} onPaid={handlePaidDownload} />}
 
 
         </>

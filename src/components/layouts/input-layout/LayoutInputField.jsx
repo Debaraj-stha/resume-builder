@@ -87,10 +87,10 @@ const generatedProps = useMemo(() => {
   }
   
   return (
-    <div className="min-h-screen overflow-y-scroll">
+    <div className="editor-form-panel">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LayoutWrapperWithBorder padding="20px 20mm">
-           <H3>Input Your Details</H3>
+        <LayoutWrapperWithBorder className="editor-card" padding="0">
+          <div className="editor-card-heading"><div><span>YOUR INFORMATION</span><H3>Resume details</H3></div><small>Fields update the preview automatically</small></div>
   
           <ResumeInputFieldWrapper>
             {sectionData.map((section, i) => {
@@ -107,9 +107,6 @@ const generatedProps = useMemo(() => {
 
         </LayoutWrapperWithBorder>
 
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
-          <button type="submit">Save Resume</button>
-        </div>
       </form>
 
     </div>

@@ -4,6 +4,7 @@ import Header from './components/Header'
 import GlobalStyle from './theme/global_styles'
 import ErrorBoundary from './components/ErrorBoundary'
 import AppRoutes from './components/AppRoutes'
+import './css/navbar.css'
 
 
 

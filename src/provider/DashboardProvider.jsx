@@ -9,6 +9,7 @@ import {
 import { useSupabase } from "./supabaseProvider";
 import { usePagination } from "./paginationProvider";
 import { useAuth } from "./AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const DashboardContext = createContext();
 
@@ -21,21 +22,33 @@ const DashboardProvider = ({ children }) => {
     const [previewResumeId, setPreviewResumeId] = useState(null);
     const[isLoading, setIsLoading] = useState(true);
 
-    const { getFiles } = useSupabase();
-    const { user } = useAuth();
+    const [error, setError] = useState(null);
+    const { getFiles, deleteFile } = useSupabase();
+    const { user, loading: authLoading } = useAuth();
     const { setItemsLength } = usePagination();
+    const navigate = useNavigate();
 
     // Fetch resumes on load
     useEffect(() => {
-        if (!user) return;
-        const loadResumes = async () => {
-            const files = await getFiles();
-            setResumes(files || []);
-            console.log("resume files", files);
+        if (authLoading) return;
+        if (!user) {
+            setResumes([]);
             setIsLoading(false);
+            return;
+        }
+        const loadResumes = async () => {
+            try {
+                setError(null);
+                const files = await getFiles();
+                setResumes(files || []);
+            } catch (loadError) {
+                setError(loadError.message || "We could not load your saved CVs.");
+            } finally {
+                setIsLoading(false);
+            }
         };
         loadResumes();
-    }, [user, getFiles]);
+    }, [user, authLoading]);
 
     // Update item count for pagination
     useEffect(() => {
@@ -51,13 +64,19 @@ const DashboardProvider = ({ children }) => {
     }, [resumes, searchQuery]);
 
 
-    const handleDelete = useCallback(() => {
-        setResumes((prev) =>
-            prev.filter((resume) => resume.id !== selectedResumeId)
-        );
+    const handleDelete = useCallback(async () => {
+        const selected = resumes.find((resume) => resume.id === selectedResumeId);
+        if (selected) {
+            const { error: deleteError } = await deleteFile(selected.name);
+            if (deleteError) {
+                setError(deleteError.message || "CV could not be deleted.");
+                return;
+            }
+            setResumes((prev) => prev.filter((resume) => resume.id !== selectedResumeId));
+        }
         setIsModalShow(false);
         setSelectedResumeId(null);
-    }, [selectedResumeId]);
+    }, [deleteFile, resumes, selectedResumeId]);
 
     const confirmDelete = useCallback((id) => {
         setSelectedResumeId(id);
@@ -66,19 +85,9 @@ const DashboardProvider = ({ children }) => {
 
     const closeModal = useCallback(() => setIsModalShow(false), []);
 
-    const handleEdit = useCallback((id) => {
-        alert(`Edit resume with ID: ${id}`);
-    }, []);
+    const handleEdit = useCallback(() => navigate("/templates"), [navigate]);
 
-    const handleCreate = useCallback(() => {
-        const newResume = {
-            id: Date.now(),
-            created_at: new Date(),
-            name: `New Resume ${resumes.length + 1}`,
-            url: "",
-        };
-        setResumes((prev) => [newResume, ...prev]);
-    }, [resumes]);
+    const handleCreate = useCallback(() => navigate("/templates"), [navigate]);
 
     const handleSearchQuery = useCallback((e) => {
         setSearchQuery(e.target.value);
@@ -98,9 +107,9 @@ const DashboardProvider = ({ children }) => {
     );
 
     const showPreview = useCallback((id) => {
-        setPreviewResumeId(id);
-        setIsPreviewShow(true);
-    }, []);
+        const selected = resumes.find((resume) => resume.id === id);
+        if (selected?.url) window.open(selected.url, "_blank", "noopener,noreferrer");
+    }, [resumes]);
 
     const closePreviewModal = useCallback(() => {
         setIsPreviewShow(false);
@@ -130,7 +139,8 @@ const DashboardProvider = ({ children }) => {
             handleSort,
             showPreview,
             closePreviewModal,
-            isLoading
+            isLoading,
+            error
         }),
         [
             resumes,
@@ -153,7 +163,8 @@ const DashboardProvider = ({ children }) => {
             handleSort,
             showPreview,
             closePreviewModal,
-            isLoading
+            isLoading,
+            error
         ]
     );
 

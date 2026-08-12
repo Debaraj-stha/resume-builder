@@ -52,11 +52,11 @@ const LayoutProvider = ({ children }) => {
         phone: pd.phone || "",
         profession: pd.profession || "",
         address: pd.address || "",
-        profile: pd.profile || "",
+        profile: Array.isArray(pd.profile) ? pd.profile : [],
         urls: pd.urls || [{ value: "" }]
       },
       educations: data?.educations || defaultFormFields.educations,
-      summary: pd.summary || "",
+      summary: data?.summary || pd.summary || "",
       experiences: data?.experiences || defaultFormFields.experiences,
       achievements: data?.achievements || defaultFormFields.achievements,
       skills: data?.skills || defaultFormFields.skills,

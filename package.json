@@ -1,5 +1,5 @@
 {
-  "name": "cv-builder",
+  "name": "resu-ai-builder",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "node --test tests/*.test.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,7 +21,9 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "lodash": "^4.17.21",
+    "mammoth": "^1.12.1",
     "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^6.2.108",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.55.0",

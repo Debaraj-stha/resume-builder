@@ -1,98 +1,35 @@
+import { Link } from "react-router-dom";
+import { FiArrowRight, FiCheck, FiFileText, FiHeart, FiShield, FiTarget, FiTrendingUp } from "react-icons/fi";
+import "../css/home.css";
+import "../css/healthcare-tools.css";
 
-import { CTAButton, Hspace, Subtitle } from "../components/CustomComponents";
-import UserThought from "../components/UserThought";
-import styled, { keyframes } from "styled-components";
-import "../css/home.css"
-import CTACard from "../components/CTACard";
-import FeatureCards from "../components/FeatureCard";
-import Container from "../components/Container";
-import useHomeHook from "../helper/hooks/scrollToTopHook";
-import { useGetStarted } from "../helper/hooks/useGetStartedHook";
-import UploadResumeCardAndIcon from "../components/UploadResumeCardAndIcon";
-import LayoutsModal from "../components/LayoutsModal";
+const professions = ["Doctors", "Nurses", "Pharmacists", "Allied Health", "Medical Technicians", "Healthcare Leaders"];
+const benefits = [
+  { icon: <FiHeart />, title: "Built for healthcare", text: "Role-specific guidance for clinical experience, licences, competencies, research and patient-care outcomes." },
+  { icon: <FiTarget />, title: "Healthcare ATS guidance", text: "Check the keywords and evidence employers expect for your profession and target country." },
+  { icon: <FiFileText />, title: "Matching cover letters", text: "Create a focused cover letter that connects your clinical strengths with each vacancy." },
+];
 
-
-
-const TypingAnimation = keyframes`
-  from {
-    max-width: 0;
-  }
-  to {
-    max-width: 100%;
-  }
-
-`
-const TextWrapper = styled.div`
-  color: ${({ theme }) => theme.colors.accent || "black"};
-  font-weight: 800;
-  font-size: 45px;
-  letter-spacing: 3px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height:max-content;
-`;
-
-
-
-const Span = styled.span`
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 0;
-  animation: ${TypingAnimation} 2s steps(30) 1s forwards;
-`;
-
-
-const TopSection = styled.section`
-background-color: ${({ theme }) => theme.colors.card.background};
-  color: ${({ theme }) => theme.colors.card.text};
-  border: 1px solid ${({ theme }) => theme.colors.card.border};
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px ${({ theme }) => theme.colors.card.shadow};
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: translateY(-4px);
-    background: ${({ theme }) => theme.colors.card.hoverBackground};
-  }
-`
-
-const Home = () => {
-  useHomeHook()
-  return (
-    <Container>
-
-      <div className="m-auto">
-        <Hspace height="200px" />
-        <TopSection>
-          <div className="max-w-5xl mx-auto text-center">
-            <TextWrapper>
-              <Span>
-                Build Your Professional CV in Minutes
-              </Span>
-            </TextWrapper>
-            <Subtitle>
-              Easy to use, customizable templates. Download your resume instantly.
-            </Subtitle>
-            <CTAButton onClick={useGetStarted()}>
-              Get Started
-            </CTAButton>
-          </div>
-        </TopSection>
-        {/* features of cv builder */}
-        <FeatureCards />
-        {/* user thought  to this site */}
-        <UserThought />
-
-        <CTACard onClick={useGetStarted()} />
-        <UploadResumeCardAndIcon />
-      <LayoutsModal/>
-      
+export default function Home() {
+  return <main className="landing-page healthcare-home">
+    <section className="hero-section">
+      <div className="hero-copy">
+        <span className="eyebrow">THE CAREER BUILDER FOR HEALTHCARE PROFESSIONALS</span>
+        <h1>Your clinical experience deserves a stronger CV.</h1>
+        <p className="hero-lead">Build an ATS-friendly healthcare CV and tailored cover letter with guidance for your profession, credentials, target role and country.</p>
+        <div className="hero-actions"><Link className="primary-action" to="/get-started">Build my healthcare CV <FiArrowRight /></Link><Link className="secondary-action" to="/cover-letter">Create a cover letter</Link></div>
+        <div className="trust-row"><FiShield /> Private workspace · ATS-friendly layouts · Secure PDF export</div>
+        <div className="profession-strip">{professions.map(item => <span key={item}>{item}</span>)}</div>
       </div>
-   
-    </Container>
-  )
+      <div className="clinical-preview">
+        <div className="clinical-card-head"><span>HEALTHCARE CV CHECK</span><b>86%</b></div>
+        <div className="score-ring">86<span>ATS readiness</span></div>
+        <div className="check-list"><p><FiCheck /> Licence and registration visible</p><p><FiCheck /> Clinical competencies included</p><p><FiCheck /> Patient-care impact demonstrated</p><p className="suggestion"><FiTrendingUp /> Add target-role keywords</p></div>
+        <Link to="/ats-checker">Check my healthcare CV <FiArrowRight /></Link>
+      </div>
+    </section>
+    <section className="benefit-section"><div className="section-heading"><span>MORE THAN A TEMPLATE</span><h2>Guidance that understands healthcare hiring</h2><p>Present trust, competence and measurable impact—not a generic list of duties.</p></div><div className="benefit-grid">{benefits.map(({icon,title,text}) => <article className="benefit-card" key={title}>{icon}<h3>{title}</h3><p>{text}</p></article>)}</div></section>
+    <section className="steps-section"><div><span className="eyebrow">A CLEAR APPLICATION WORKFLOW</span><h2>From experience to interview-ready.</h2><p>Use structured prompts to turn everyday clinical responsibilities into credible evidence.</p></div><ol>{["Select profession, target role and country","Build your CV with healthcare-specific prompts","Check readiness and create a matching cover letter"].map((step,i)=><li key={step}><span>{i+1}</span><p>{step}</p><FiCheck/></li>)}</ol></section>
+    <section className="final-cta"><div><span>START FREE</span><h2>Make your next healthcare application count.</h2><p>Create and preview your CV before paying to download.</p></div><Link className="light-action" to="/get-started">Create my CV <FiArrowRight /></Link></section>
+  </main>;
 }
-export default Home

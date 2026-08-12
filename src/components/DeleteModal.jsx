@@ -6,9 +6,11 @@ import RoundedIcon from "../components/RoundedIcon";
 import { useDashboard } from "../provider/DashboardProvider";
 import ModalFooter from "./ModalFooter";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { useTheme } from "styled-components";
 
 const DeleteModal = () => {
-    const { theme, handleDelete, closeModal } = useDashboard()
+    const { handleDelete, closeModal } = useDashboard()
+    const theme = useTheme()
     return (
         <Modal
             footer={

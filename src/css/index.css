@@ -3,6 +3,7 @@
 
 html{
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -31,8 +32,9 @@ a {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
   min-width: 320px;
   min-height: 100vh;
 }

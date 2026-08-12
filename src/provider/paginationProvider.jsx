@@ -48,7 +48,7 @@ export const PaginationProvider = ({ children }) => {
 
       ))}
       <ToolTip text='Next page'>
-        <Button disabled={currentPage == pages.length} onClick={() => handlePageChange(currentPage + 1)}>Next</Button>
+        <Button disabled={pages.length === 0 || currentPage >= pages.length} onClick={() => handlePageChange(currentPage + 1)}>Next</Button>
       </ToolTip>
     </div>
   ), [pages, currentPage, handlePageChange]);

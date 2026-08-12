@@ -5,11 +5,19 @@ export  const privacyPolicies = [
     },
     {
       title: "Data Usage",
-      description: "Your data is used to provide you with personalized services, including resume building and templates.",
+      description: "Your data is used to provide requested services, including resume building, ATS analysis and optional AI-platform integrations. AI-generated career content must be reviewed by you before use.",
     },
     {
       title: "Data Sharing",
-      description: "We do not share your data with third parties unless explicitly stated or required by law.",
+      description: "Information is sent only to service providers needed to fulfil a request, such as authentication, hosting and the configured AI provider, or when required by law. We do not sell CV content.",
+    },
+    {
+      title: "ChatGPT and MCP tools",
+      description: "When you deliberately invoke a ResuAIBuilder tool from ChatGPT, the text supplied to that tool is processed to return the requested analysis or draft. The MCP endpoint does not intentionally persist CV text. ChatGPT and OpenAI process conversation data under their own policies.",
+    },
+    {
+      title: "Sensitive information",
+      description: "Do not upload patient records, patient-identifying data, government identity numbers or information you are not authorised to disclose. Avoid displaying full licence or passport numbers in public career documents.",
     },
     {
       title: "Data Security",

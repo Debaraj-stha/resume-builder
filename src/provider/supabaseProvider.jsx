@@ -44,7 +44,7 @@ const SupabaseProvider = ({ children }) => {
   };
 
   const uploadFileWithProgress = async (file, onProgress) => {
-    if (!file || !user?.id) return console.warn("Missing file or user");
+    if (!file || !user?.id) return { data: null, error: new Error("Sign in to save this CV to your dashboard.") };
 
     const bucket = "files";
     const path = `images/${user.id}/${file.name}`;
@@ -62,19 +62,22 @@ const SupabaseProvider = ({ children }) => {
         }
       };
 
-      xhr.onload = () => {
-        if (xhr.status !== 200) console.error("Upload failed:", xhr.responseText);
-      };
-      xhr.onerror = () => console.error("XHR upload error");
-
-      xhr.send(file);
+      await new Promise((resolve, reject) => {
+        xhr.onload = () => xhr.status >= 200 && xhr.status < 300
+          ? resolve()
+          : reject(new Error("CV upload failed"));
+        xhr.onerror = () => reject(new Error("CV upload failed"));
+        xhr.send(file);
+      });
+      return { data: { path, name: file.name }, error: null };
     } catch (err) {
       console.error("Upload error:", err.message);
+      return { data: null, error: err };
     }
   };
 
   const getFiles = async () => {
-    if (!user?.id) return console.warn("User not logged in");
+    if (!user?.id) return [];
 
     try {
       const { data: files, error } = await supabase.storage.from("files").list(`images/${user.id}`);
@@ -101,7 +104,13 @@ const SupabaseProvider = ({ children }) => {
       return urls.filter(Boolean);
     } catch (err) {
       console.error("Error fetching files:", err.message);
+      return [];
     }
+  };
+
+  const deleteFile = async (name) => {
+    if (!user?.id || !name) return { error: new Error("Invalid CV") };
+    return supabase.storage.from("files").remove([`images/${user.id}/${name}`]);
   };
   const getSavedData = async (layout_details) => {
     try {
@@ -284,6 +293,7 @@ const SupabaseProvider = ({ children }) => {
     insertAwards: d => insertData("awards", d, true, ["user_id", "title", "organization", "year"]),
     retriveData,
     uploadFile: uploadFileWithProgress,
+    deleteFile,
     getFiles,
     getSavedData,
   }), [

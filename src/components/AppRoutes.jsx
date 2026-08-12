@@ -15,6 +15,15 @@ import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWi
 import Login from "../pages/Login";
 import LayoutProvider from "../provider/layoutProvider";
 import RedirectMessagePage from "../pages/RedirectMessagePage";
+import Pricing from "../pages/Pricing";
+import RefundPolicy from "../pages/RefundPolicy";
+import CoverLetter from "../pages/CoverLetter";
+import HealthcareGuide from "../pages/HealthcareGuide";
+import ATSChecker from "../pages/ATSChecker";
+import HealthcareOnboarding from "../pages/HealthcareOnboarding";
+import AIAssistant from "../pages/AIAssistant";
+import Terms from "../pages/Terms";
+import ChatGPTIntegration from "../pages/ChatGPTIntegration";
 
 
 const AppRoutes = () => {
@@ -33,6 +42,15 @@ const AppRoutes = () => {
                 <Route exact path="creative" element={<CreativeLayoutWithProvider />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/pricing" element={<Pricing />} />
+            <Route exact path="/cover-letter" element={<CoverLetter />} />
+            <Route exact path="/healthcare-guide" element={<HealthcareGuide />} />
+            <Route exact path="/ats-checker" element={<ATSChecker />} />
+            <Route exact path="/get-started" element={<HealthcareOnboarding />} />
+            <Route exact path="/ai-assistant" element={<AIAssistant />} />
+            <Route exact path="/refund-policy" element={<RefundPolicy />} />
+            <Route exact path="/terms" element={<Terms />} />
+            <Route exact path="/chatgpt-integration" element={<ChatGPTIntegration />} />
             <Route exact path="/redirecting" element={<RedirectMessagePage />} />
             <Route exact path="/contact" element={<Contact />}></Route>
             <Route exact path="/privacy" element={<Privacy />}></Route>

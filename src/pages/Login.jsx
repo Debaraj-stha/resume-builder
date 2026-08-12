@@ -174,6 +174,9 @@ const Login = () => {
   }
   const [selected, setSelected] = useState(modes.EMAIL_PASSWORD)
   const [show, setShow] = useState(false)
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false)
+  const [feedback, setFeedback] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
   const {
     loginWithEmailAndPassword,
     loginWithGoogle,
@@ -224,18 +227,21 @@ const Login = () => {
 
 
   const onSubmit = async (data) => {
-    let response;
-    if (selected === modes.EMAIL_PASSWORD) {
-      response = await loginWithEmailAndPassword(data, false)
-    }
-    else {
-      response = await loginWithLink(data.email)
-    }
-    if (response?.status === "success") {
-      reset()//clearing from field
-      // const params = new URLSearchParams(location.search)
-      // const redirectTo = params.get("redirectTo") || "/"
-      // navigate(redirectTo)
+    setSubmitting(true)
+    setFeedback(null)
+    let response
+    try {
+      if (selected === modes.EMAIL_PASSWORD) {
+        response = await loginWithEmailAndPassword(data, !isCreatingAccount)
+      } else {
+        response = await loginWithLink(data.email)
+      }
+      setFeedback(response)
+      if (response?.status === "success") {
+        reset()
+      }
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -243,7 +249,14 @@ const Login = () => {
   //login with google
 
   const handleLoginWithGoogle = async () => {
-    await loginWithGoogle()
+    setSubmitting(true)
+    setFeedback(null)
+    try {
+      const response = await loginWithGoogle()
+      if (response?.status === "error") setFeedback(response)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
 
@@ -263,10 +276,10 @@ const Login = () => {
       {show && <Hspace />}
       <Wrapper>
         <Card>
-          <Title>Login</Title>
-          <GoogleLoginButton onClick={handleLoginWithGoogle}>
+          <Title>{isCreatingAccount ? "Create your account" : "Welcome back"}</Title>
+          <GoogleLoginButton type="button" onClick={handleLoginWithGoogle} disabled={submitting}>
             <img src={google_icon} alt="google icon" />
-            <span>Continue With Google</span>
+            <span>{submitting ? "Connecting to Google..." : "Continue With Google"}</span>
           </GoogleLoginButton>
           <ButtonGroup>
             <ModeButton selected={selected === modes.EMAIL_PASSWORD} onClick={() => handleModeSelect(modes.EMAIL_PASSWORD)}>
@@ -294,7 +307,27 @@ const Login = () => {
                 Email
 
             }
-            <Button type="submit">Log In</Button>
+            {feedback?.message && (
+              <ErrorMessage style={{ color: feedback.status === "success" ? "#087a55" : undefined }}>
+                {feedback.message}
+              </ErrorMessage>
+            )}
+            <Button type="submit" disabled={submitting}>
+              {submitting ? "Please wait..." : selected === modes.EMAIL_LINK ? "Email me a login link" : isCreatingAccount ? "Create account" : "Log in"}
+            </Button>
+            {selected === modes.EMAIL_PASSWORD && (
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  setIsCreatingAccount((value) => !value)
+                  setFeedback(null)
+                }}
+                style={{ marginTop: 10, background: "transparent", color: "inherit", border: "1px solid #cbd5e1" }}
+              >
+                {isCreatingAccount ? "Already have an account? Log in" : "New here? Create an account"}
+              </Button>
+            )}
           </form>
         </Card>
       </Wrapper>
