@@ -82,43 +82,21 @@ const ResumeRow = React.memo(({ resume, index }) => {
     };
 
     return (
-        <>
-            <StyledRow key={index} isEven={index % 2 === 0}>
-                <StyledTD scope="row">{index + 1}</StyledTD>
-                <StyledTD>{resume.name}</StyledTD>
-                <StyledTD>
-                    {new Date(resume.last_accessed_at).toLocaleString()}
-                </StyledTD>
-                <StyledTD>
-                    {new Date(resume.created_at).toLocaleString()}
-                </StyledTD>
-                <StyledTD>
-                    <div className="flex items-center justify-center gap-2">
-                        <ToolTip text="Download">
-                            <Button onClick={() => download(resume.url, resume.name)}>
-                                <BiDownload />
-                            </Button>
-                        </ToolTip>
-                        <ToolTip text="Edit">
-                            <Button variant="outline" onClick={() => handleEdit(resume.id)}>
-                                <BiEdit />
-                            </Button>
-                        </ToolTip>
-                        <ToolTip text="Delete">
-                            <Button variant="danger" onClick={() => confirmDelete(resume.id)}>
-                                <FiDelete />
-                            </Button>
-                        </ToolTip>
-                        <ToolTip text="Preview">
-                            <Button variant="secondary" onClick={() => showPreview(resume.id)}><BsEye /></Button>
-                        </ToolTip>
-                    </div>
-                </StyledTD>
-            </StyledRow>
+        <article className="resume-card">
+            <button className="resume-thumbnail" onClick={() => showPreview(resume.id)} aria-label={`Preview ${resume.name}`}>
+                <iframe src={`${resume.url}#toolbar=0&navpanes=0`} title={resume.name} tabIndex="-1" />
+                <span><BsEye /> Preview PDF</span>
+            </button>
+            <div className="resume-card-body"><span className="resume-number">RESUME {index + 1}</span><h3>{resume.name?.replace(/\.pdf$/i, "")}</h3><p>Created {new Date(resume.created_at).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}</p></div>
+            <div className="resume-card-actions">
+                <Button onClick={() => download(resume.url, resume.name)}><BiDownload /> Download</Button>
+                <ToolTip text="Use another template"><Button variant="outline" onClick={() => handleEdit(resume.id)}><BiEdit /></Button></ToolTip>
+                <ToolTip text="Delete"><Button variant="danger" onClick={() => confirmDelete(resume.id)}><FiDelete /></Button></ToolTip>
+            </div>
             {
                 downloading && <ProgressBarModal progress={downloadProgress} message="Downloading Resume..." />
             }
-        </>
+        </article>
     )
 })
 
@@ -132,35 +110,14 @@ const ResumeTable = () => {
     const { itemPerPage, currentPage } = usePagination()
     const currentReumes = filteredResumes.length > 0 ? filteredResumes : resumes
     return (
-        <div className="mt-5 overflow-x-auto">
-            <table
-                className="w-full border-collapse rounded-lg overflow-hidden"
-                style={{ border: `1px solid ${theme.colors.border}` }}
-            >
-                <thead
-                    style={{
-                        backgroundColor: theme.colors.tableHeaderBg,
-                        color: theme.colors.tableHeaderText,
-                    }}
-                >
-                    <tr>
-                        <StyledTh>#</StyledTh>
-                        <StyledTh>Resume</StyledTh>
-                        <StyledTh>Last Accessed AT</StyledTh>
-                        <StyledTh>Created At</StyledTh>
-                        <StyledTh>Actions</StyledTh>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
+        <div className="resume-card-grid">
+            {currentReumes.length === 0 && <div className="resume-empty"><div><BiEdit /></div><span>YOUR FIRST CV STARTS HERE</span><h3>Create a resume tailored to your profession</h3><p>Choose from ATS-friendly templates designed for technology, healthcare and business roles.</p><Button onClick={() => handleEdit()}>Explore professional templates</Button></div>}
+            {
                         //if there is filtered resume show it otherwise all resume
                         currentReumes.slice((currentPage - 1) * itemPerPage, currentPage * itemPerPage).map((resume, index) => (
                             <ResumeRow key={index} resume={resume} index={index} />
                         ))
-                    }
-
-                </tbody>
-            </table>
+            }
         </div>
     )
 }

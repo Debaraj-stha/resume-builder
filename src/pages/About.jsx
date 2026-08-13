@@ -5,7 +5,6 @@ import { Hspace } from "../components/CustomComponents";
 import CTACard from '../components/CTACard';
 import FeatureCards from '../components/FeatureCard';
 import MissionVisionCard from '../components/MissionVisionCard';
-import Teamscard from '../components/TeamsCard';
 import IntroCard from '../components/IntroCard';
 import Container from '../components/Container';
 import NumberOfResumeCreation from '../components/NumberOfResumeCreation';
@@ -26,7 +25,6 @@ const About = () => {
             <IntroCard />
             <MissionVisionCard />
             <FeatureCards />
-            <Teamscard />
             <CTACard />
             <NumberOfResumeCreation/>
         </Wrapper>

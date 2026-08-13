@@ -1,0 +1,22 @@
+.subscription-grid.four-plans{grid-template-columns:repeat(4,1fr)}
+.payment-button-wrap{width:100%}
+.payment-button-wrap .plan-action,.payment-button-wrap .paywall-pay{width:100%;margin:0}
+.payment-error{margin:8px 0 0!important;color:#b42318!important;font-size:.68rem!important;line-height:1.4!important}
+.paywall-backdrop{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:20px;background:rgba(7,25,39,.72);backdrop-filter:blur(5px)}
+.download-paywall{position:relative;width:min(900px,100%);max-height:94vh;overflow:auto;padding:38px;background:#fff;border-radius:22px;text-align:center;color:#102a43;box-shadow:0 30px 80px rgba(0,0,0,.28)}
+.paywall-close{position:absolute;right:16px;top:14px;margin:0;padding:9px;background:#edf3f2;color:#102a43;border:0}
+.paywall-icon{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 13px;border-radius:15px;background:#e1f7f0;color:#0f766e;font-size:1.5rem}
+.download-paywall>span{font-size:.7rem;font-weight:850;letter-spacing:.13em;color:#0f766e}
+.download-paywall>h2{max-width:650px;margin:10px auto;font-size:2rem;letter-spacing:-.03em}
+.download-paywall>p{color:#5b6f80}
+.paywall-benefits{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:20px 0;font-size:.74rem;color:#405768}
+.paywall-benefits span{display:flex;align-items:center;gap:5px}.paywall-benefits svg{color:#0f766e}
+.paywall-options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}
+.paywall-options article{position:relative;padding:22px 15px;border:1px solid #d9e6e2;border-radius:14px}
+.paywall-options article.featured{border:2px solid #0f766e;background:#f1fbf8}
+.paywall-options em{position:absolute;top:-10px;left:50%;transform:translateX(-50%);padding:4px 8px;border-radius:12px;background:#f4c44e;font-style:normal;font-size:.58rem;font-weight:850;white-space:nowrap}
+.paywall-options h3{font-size:.9rem}.paywall-options strong{display:block;font-size:1.8rem;margin:8px 0}.paywall-options p{font-size:.68rem;color:#5b6f80}
+.paywall-pay{display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border:0;border-radius:8px;background:#0f766e;color:#fff;font-size:.72rem;font-weight:800}
+.download-paywall>small{font-size:.66rem;color:#6a7d8b}.download-paywall>small a{color:#0f766e;text-decoration:underline}
+@media(max-width:1050px){.subscription-grid.four-plans{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.subscription-grid.four-plans,.paywall-options{grid-template-columns:1fr}.download-paywall{padding:32px 18px}.download-paywall>h2{font-size:1.55rem}}

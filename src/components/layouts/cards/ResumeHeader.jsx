@@ -108,7 +108,7 @@ const generateResumeHeader = ({ personalDetails, style, props }) => {
         }
     }
     else{
-        if (profile && profile.length > 0) {
+        if (profile && profile.length > 0 && (profile[0] instanceof Blob || profile[0] instanceof File)) {
             imageUrl = URL.createObjectURL(profile[0]);
         }
     }

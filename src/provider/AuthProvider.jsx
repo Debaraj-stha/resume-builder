@@ -2,6 +2,12 @@ import { createContext, use, useContext, useEffect, useMemo, useState } from "re
 import supabase from "../../supabaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
 const AuthContext = createContext()
+const OAUTH_REDIRECT_KEY = "resuai_oauth_redirect";
+
+const getRedirectPath = (search) => {
+    const requestedPath = new URLSearchParams(search).get("redirectTo");
+    return requestedPath?.startsWith("/") ? requestedPath : "/dashboard";
+}
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
@@ -15,22 +21,23 @@ const AuthProvider = ({ children }) => {
     const getUser = async () => {
         setLoading(true);
         try {
-            const { data, error } = await supabase.auth.getUser();
+            const { data, error } = await supabase.auth.getSession();
             if (error) {
                 console.error("Error getting user:", error);
                 setUser(null);
                 isAuthenciated = false
                 // navigate("/login")
             }
-            else if (data?.session === null) {
-                alert("Please check your email to confirm your account.");
-            }
-            else {
+            else if (!data?.session?.user) {
+                setUser(null);
+                isAuthenciated = false;
+            } else {
+                const authUser = data.session.user;
                 const user = {
-                    id: data.user.id,
-                    email: data.user.email,
-                    name: data.user?.user_metadata?.name,
-                    picture: data.user?.user_metadata?.picture,
+                    id: authUser.id,
+                    email: authUser.email,
+                    name: authUser?.user_metadata?.name,
+                    picture: authUser?.user_metadata?.picture,
                 };
                 isAuthenciated = true
 
@@ -54,43 +61,45 @@ const AuthProvider = ({ children }) => {
 
     const loginWithGoogle = async () => {
         try {
-            const { user, session, error } = await supabase.auth.signInWithOAuth({
+            const redirectPath = getRedirectPath(location.search);
+            sessionStorage.setItem(OAUTH_REDIRECT_KEY, redirectPath);
+            const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/login`,
+                    queryParams: {
+                        prompt: "select_account",
+                    },
+                },
             })
             if (error) {
+                sessionStorage.removeItem(OAUTH_REDIRECT_KEY);
                 console.error("OAuth Login Error: ", error);
-                alert("Failed to log in with Google. Please try again.");
-                return;
+                return { status: "error", message: error.message };
             }
-            console.log("Logged in successfully:", user);
-            if (user) {
-                const params = new URLSearchParams(location.search)
-                console.log("params", params)
-                const redirectTo = params.get("redirectTo") || "/"
-                navigate(`build-resume/${redirectTo}`);
-            }
+            return { status: "success", data };
         } catch (error) {
-            console.log("Unexpected error while login with google", error)
+            console.error("Unexpected error while logging in with Google", error)
+            return { status: "error", message: error.message };
         }
 
     }
     const loginWithLink = async (email) => {
         try {
-            const { data, error } = await supabase.auth.signInWithOtp({ email });
-            const response = {}
+            const redirectPath = getRedirectPath(location.search);
+            const { data, error } = await supabase.auth.signInWithOtp({
+                email,
+                options: { emailRedirectTo: `${window.location.origin}${redirectPath}` },
+            });
             if (error) {
                 console.error("OTP Login failed:", error);
-                alert(error.message);
+                return { status: "error", message: error.message };
             } else {
-                alert("Check your email for the login link.");
-                response.status = "success"
-                const params = new URLSearchParams(location.search)
-                const redirectTo = params.get("redirectTo") || "/"
-                navigate(`build-resume${redirectTo}`);
-                return response
+                return { status: "success", data, message: "Check your email for the secure login link." };
             }
         } catch (e) {
-            console.log("Unexpected error during OTP login:", e);
+            console.error("Unexpected error during OTP login:", e);
+            return { status: "error", message: e.message };
         }
     };
 
@@ -109,20 +118,19 @@ const AuthProvider = ({ children }) => {
                 if (error) throw error;
                 authResult = data;
             }
-            if (authResult?.session === null) {
-                alert("Please check your email to confirm your account.");
+            if (authResult?.session) {
+                navigate(getRedirectPath(location.search));
+                return { status: "success" };
             }
-            console.log("Auth result:", authResult);
 
-            // Extract redirectTo from query string
-            const params = new URLSearchParams(location.search);
-            const redirectTo = params.get("redirectTo") || "/";
-            console.log("Redirecting to:", redirectTo);
-            navigate(`build-resume${redirectTo}`);
+            return {
+                status: "success",
+                message: "Account created. Check your email to confirm it, then sign in.",
+            };
 
         } catch (e) {
             console.error("Auth error:", e.message);
-            alert(e.message || "Unexpected error during authentication");
+            return { status: "error", message: e.message || "Unexpected error during authentication" };
         }
     };
 
@@ -133,6 +141,11 @@ const AuthProvider = ({ children }) => {
         const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
             if (session) {
                 getUser();
+                if (event === "SIGNED_IN" && location.pathname === "/login") {
+                    const redirectPath = sessionStorage.getItem(OAUTH_REDIRECT_KEY) || getRedirectPath(location.search);
+                    sessionStorage.removeItem(OAUTH_REDIRECT_KEY);
+                    navigate(redirectPath, { replace: true });
+                }
             } else {
                 setUser(null);
             }

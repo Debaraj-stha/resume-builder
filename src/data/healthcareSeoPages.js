@@ -1,0 +1,145 @@
+const page = (data) => data;
+
+export const healthcareSeoPages = {
+  "/nurse-resume-builder": page({
+    eyebrow: "NURSING CAREER TOOLKIT", title: "Build a nursing resume that shows clinical confidence.",
+    intro: "Create an ATS-friendly nursing CV that makes your registration, unit experience, clinical competencies and patient-care impact easy to find.",
+    audience: "For staff nurses, registered nurses, charge nurses, ICU nurses, midwives and nurse educators.",
+    highlights: ["Nursing registration and licence visibility", "Unit, acuity and patient-population prompts", "BLS, ACLS, PALS and specialty credentials", "Evidence-led nursing achievement examples"],
+    sectionTitle: "What a strong nursing CV should communicate",
+    sections: [
+      { title: "Safe clinical practice", text: "Show medication administration, assessment, escalation, infection prevention and accurate documentation with clear evidence." },
+      { title: "Relevant unit experience", text: "Name the clinical setting, patient population, bed capacity or acuity level and the procedures you perform confidently." },
+      { title: "Patient-care outcomes", text: "Replace routine duty lists with improvements in safety, education, discharge readiness, compliance or patient experience." },
+    ],
+    exampleTitle: "Example nursing achievement", example: "Improved medication-round compliance by introducing a double-check handover routine and coaching six newly joined nurses on unit protocol.",
+    keywords: ["patient assessment", "care planning", "medication administration", "infection prevention", "clinical documentation", "patient education"],
+    faqs: [
+      ["How long should a nursing CV be?", "Two pages is a practical target for most experienced nurses. A fresher may use one page, while senior or highly specialised nurses may need more space for relevant evidence."],
+      ["Should I list every nursing procedure?", "Prioritise procedures relevant to the target vacancy and group related competencies so the CV stays readable."],
+      ["Can I use this for overseas nursing applications?", "Yes. Select the target country and clearly state your licence, eligibility, verification and examination status without claiming credentials you have not obtained."],
+    ],
+  }),
+  "/doctor-cv-builder": page({
+    eyebrow: "MEDICAL CV BUILDER", title: "Present your medical career with clarity and credibility.",
+    intro: "Structure your clinical appointments, procedures, registration, audits, teaching, research and professional development in a polished physician CV.",
+    audience: "For medical officers, residents, general practitioners, specialists and consultants.",
+    highlights: ["Medical registration and specialty credentials", "Appointments, rotations and clinical privileges", "Procedures, audits, research and publications", "Teaching, leadership and CME evidence"],
+    sectionTitle: "A physician CV built around evidence",
+    sections: [
+      { title: "Clinical scope", text: "Define your specialty, care setting, case mix, on-call exposure and level of responsibility without overcrowding the page." },
+      { title: "Professional standing", text: "Make active registration, board or specialty certification, good standing and life-support credentials immediately visible." },
+      { title: "Contribution beyond duties", text: "Include clinical audits, quality improvement, teaching, research, publications and multidisciplinary leadership." },
+    ],
+    exampleTitle: "Example physician achievement", example: "Led a clinical audit of antibiotic prescribing across 120 inpatient cases, improving guideline adherence through a revised review checklist and team briefing.",
+    keywords: ["clinical assessment", "diagnosis", "treatment planning", "patient safety", "clinical audit", "multidisciplinary care"],
+    faqs: [
+      ["Is a doctor CV different from a standard resume?", "Usually. Medical CVs often need dedicated sections for registration, training, procedures, research, audits, teaching and publications."],
+      ["Should a physician CV include every publication?", "Include complete, accurately formatted publications when academically relevant. For a service-focused role, prioritise the most relevant work and link to a complete profile if appropriate."],
+      ["Can AI safely write my medical CV?", "AI can improve structure and wording, but you should verify every clinical fact, number, credential and claim before using the document."],
+    ],
+  }),
+  "/pharmacist-resume-builder": page({
+    eyebrow: "PHARMACY CAREER TOOLKIT", title: "Turn pharmacy expertise into an ATS-ready resume.",
+    intro: "Build a focused pharmacist CV for hospital, clinical, community, regulatory, pharmacovigilance and medication-safety roles.",
+    audience: "For pharmacists, pharmacy technicians, medication safety officers and pharmacovigilance professionals.",
+    highlights: ["Registration and good-standing details", "Dispensing volume and accuracy evidence", "Medication review and patient counselling", "Regulatory, formulary and inventory compliance"],
+    sectionTitle: "Show the value behind pharmacy responsibilities",
+    sections: [
+      { title: "Medication safety", text: "Highlight prescription screening, intervention, reconciliation and drug-interaction work with credible scope or results." },
+      { title: "Operational precision", text: "Use volume, accuracy, turnaround, stock control and cold-chain evidence where it can be verified." },
+      { title: "Patient and team impact", text: "Show counselling, prescriber collaboration, training, audit participation and improvements in safe medicine use." },
+    ],
+    exampleTitle: "Example pharmacist achievement", example: "Reviewed an average of 140 prescriptions per shift and resolved dose, interaction and duplication concerns in collaboration with prescribers.",
+    keywords: ["medication review", "dispensing accuracy", "drug interactions", "patient counselling", "pharmacovigilance", "inventory compliance"],
+    faqs: [
+      ["What should a hospital pharmacist CV emphasise?", "Prioritise medication review, reconciliation, clinical interventions, formulary work, multidisciplinary collaboration and patient safety."],
+      ["Should prescription volume be included?", "Yes, when accurate. Volume gives employers useful context, but it should not replace quality, safety and impact evidence."],
+      ["Can pharmacy technicians use the builder?", "Yes. Focus on dispensing support, prescription processing, stock control, compounding support and controlled-drug records relevant to the role."],
+    ],
+  }),
+  "/dha-cv-builder": page({
+    eyebrow: "DUBAI HEALTHCARE APPLICATIONS", title: "Create a healthcare CV for DHA opportunities.",
+    intro: "Prepare a clear UAE-focused healthcare CV that surfaces your professional licence status, DataFlow progress, clinical experience and role-specific skills.",
+    audience: "For healthcare professionals exploring Dubai roles under the Dubai Health Authority licensing pathway.",
+    highlights: ["DHA eligibility or licence status placement", "DataFlow and examination status wording", "UAE-relevant role and specialty keywords", "Notice period and location-ready profile structure"],
+    sectionTitle: "Make your Dubai application easier to assess",
+    sections: [
+      { title: "State status accurately", text: "Use precise wording such as planning, applied, eligibility issued or active. Never imply that a pending licence is active." },
+      { title: "Match the vacancy", text: "Mirror the employer's professional title, specialty and essential skills where they truthfully match your experience." },
+      { title: "Keep evidence prominent", text: "Put registration, recent experience, credentials and high-value clinical competencies near the top of the CV." },
+    ],
+    exampleTitle: "Example licence line", example: "DHA eligibility: issued · Primary source verification: completed · BLS: valid through [month/year]",
+    keywords: ["DHA eligibility", "DataFlow", "professional registration", "clinical experience", "patient safety", "UAE healthcare"],
+    faqs: [
+      ["Do I need DHA eligibility before applying for jobs?", "Employer requirements vary. State your current status accurately and check the latest official DHA and employer guidance for your profession."],
+      ["Should DataFlow status appear on the CV?", "It can help recruiters understand your readiness. Include it briefly when relevant, using accurate current wording."],
+      ["Is this an official DHA service?", "No. ResuAIBuilder is an independent CV tool and does not provide licensing decisions or replace official regulatory guidance."],
+    ],
+  }),
+  "/healthcare-ats-checker": page({
+    eyebrow: "HEALTHCARE ATS CHECKER", title: "Check whether your healthcare CV is ready to be read.",
+    intro: "Review CV structure, healthcare keywords, credentials and evidence before applying—and turn verified information into a cleaner editable draft.",
+    audience: "Designed for clinical, allied health, pharmacy, medical coding and healthcare leadership applications.",
+    highlights: ["Healthcare-specific keyword review", "Credentials and licence visibility checks", "Achievement and evidence prompts", "Editable AI-assisted improvement"],
+    sectionTitle: "What the healthcare ATS review looks for",
+    sections: [
+      { title: "Readable structure", text: "Clear headings, simple formatting and an appropriate section order help both screening systems and human recruiters." },
+      { title: "Role alignment", text: "The review compares professional terminology and target-role skills while preserving the facts you provide." },
+      { title: "Evidence quality", text: "It identifies generic duty statements that could be strengthened with scope, action, quality or outcome evidence." },
+    ],
+    exampleTitle: "Before and after", example: "Before: Responsible for patient care. After: Delivered assessment, medication administration and discharge education for a 24-bed medical unit.",
+    keywords: ["ATS-friendly CV", "healthcare keywords", "clinical skills", "licence status", "achievement writing", "resume optimisation"],
+    primaryAction: { label: "Check my healthcare CV", to: "/ats-checker" },
+    faqs: [
+      ["Does an ATS score guarantee an interview?", "No. It is a practical readiness indicator, not a hiring guarantee. Employer criteria, experience, competition and application quality also matter."],
+      ["Will the checker invent missing experience?", "It should improve only the information supplied. Always review the output and remove any statement that is not fully accurate."],
+      ["What file should I upload?", "Use a readable PDF or DOCX with selectable text for the best extraction result. Scanned image-only documents may be less reliable."],
+    ],
+  }),
+  "/gulf-healthcare-cv": page({
+    eyebrow: "GCC HEALTHCARE CAREERS", title: "Build one strong CV for Gulf healthcare opportunities.",
+    intro: "Create a professional healthcare CV for UAE, Saudi Arabia, Qatar and Oman applications with clear licence readiness and relevant clinical evidence.",
+    audience: "For healthcare professionals planning or actively pursuing GCC career opportunities.",
+    highlights: ["DHA, DOH, MOHAP, SCFHS and DHP status fields", "DataFlow and exam-readiness language", "Country-aware credential prompts", "Internationally readable ATS layout"],
+    sectionTitle: "Adapt your CV for GCC recruiters",
+    sections: [
+      { title: "Licence readiness", text: "State the relevant authority and exact stage of your verification, eligibility, classification or registration process." },
+      { title: "Clinical fit", text: "Lead with recent specialty experience, patient setting, equipment, procedures and credentials connected to the vacancy." },
+      { title: "Application clarity", text: "Use a concise profile, consistent dates, current contact information and a simple ATS-friendly layout." },
+    ],
+    exampleTitle: "Example GCC profile opening", example: "Registered Nurse with 6 years of medical-surgical and emergency experience, active home-country registration, completed DataFlow and valid BLS.",
+    keywords: ["GCC healthcare CV", "DataFlow", "Prometric", "DHA", "SCFHS", "clinical licence"],
+    faqs: [
+      ["Can I use the same CV for every Gulf country?", "Keep a master CV, then tailor the licence authority, terminology, role title and most relevant evidence for each country and vacancy."],
+      ["Should nationality and marital status be included?", "Only include personal details that are appropriate, necessary and lawful for the specific market. Avoid unnecessary sensitive information."],
+      ["Does ResuAIBuilder provide licensing advice?", "No. The tool helps organise CV information. Always confirm current licensing rules with the relevant official authority."],
+    ],
+  }),
+  "/medical-cv-examples": page({
+    eyebrow: "HEALTHCARE CV EXAMPLES", title: "Write stronger healthcare CV bullets—with evidence.",
+    intro: "Explore practical examples for clinical, pharmacy, nursing, allied health and healthcare operations roles, then adapt them using your own verified experience.",
+    audience: "Useful for freshers, experienced clinicians, specialists and healthcare leaders.",
+    highlights: ["Role-specific summary patterns", "Evidence-led achievement bullets", "Credential and licence examples", "Ethical AI writing reminders"],
+    sectionTitle: "A simple formula for credible achievements",
+    sections: [
+      { title: "Start with action", text: "Use a clear verb such as assessed, coordinated, verified, improved, led or implemented." },
+      { title: "Add clinical context", text: "Name the setting, patient group, specialty, system, procedure or operational responsibility." },
+      { title: "Finish with evidence", text: "Add a truthful measure of quality, scale, safety, timeliness, compliance, learning or patient impact." },
+    ],
+    exampleTitle: "Examples across healthcare roles", example: "Physiotherapist: Designed progressive rehabilitation plans for a mixed caseload of 25 patients weekly, documenting functional outcomes and coordinating discharge goals.",
+    keywords: ["medical CV examples", "nursing achievements", "pharmacist resume", "clinical experience", "healthcare resume bullets", "ATS CV"],
+    faqs: [
+      ["Can I copy these CV examples directly?", "Use them as writing patterns only. Replace the role, scope and outcome with facts from your own experience."],
+      ["What if I do not have performance numbers?", "Use verifiable scope such as unit type, caseload, shift responsibility, procedures, systems, training or audit contribution. Do not invent metrics."],
+      ["Are fresher CV examples different?", "Freshers can use clinical placements, internships, projects, simulations, certifications and demonstrated competencies instead of extensive employment history."],
+    ],
+  }),
+};
+
+export const seoPageLinks = [
+  ["Nurse Resume Builder", "/nurse-resume-builder"], ["Doctor CV Builder", "/doctor-cv-builder"],
+  ["Pharmacist Resume Builder", "/pharmacist-resume-builder"], ["DHA CV Builder", "/dha-cv-builder"],
+  ["Healthcare ATS Checker", "/healthcare-ats-checker"], ["Gulf Healthcare CV", "/gulf-healthcare-cv"],
+  ["Medical CV Examples", "/medical-cv-examples"],
+];

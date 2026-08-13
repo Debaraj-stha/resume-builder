@@ -4,6 +4,8 @@ import Header from './components/Header'
 import GlobalStyle from './theme/global_styles'
 import ErrorBoundary from './components/ErrorBoundary'
 import AppRoutes from './components/AppRoutes'
+import SEO from './components/SEO'
+import './css/navbar.css'
 
 
 
@@ -13,6 +15,7 @@ function App() {
     <>
       <GlobalStyle />
       <ErrorBoundary>
+      <SEO />
       <Header></Header>
         <AppRoutes/>
         <Footer />
