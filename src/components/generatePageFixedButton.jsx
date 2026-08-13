@@ -1,138 +1,138 @@
 import { memo, useState } from "react";
+import { FaDownload } from "react-icons/fa";
+import { MdPalette } from "react-icons/md";
 import { useLayout } from "../provider/layoutProvider";
-import { CircularIconHolder, P } from "./elements/resumeSectionWrapper";
-import ToolTip from "./Tooltip";
-;
-import { FaCogs, FaDownload } from "react-icons/fa";
-import { MdExpandLess, MdExpandMore, MdPalette } from "react-icons/md";
 import { useSupabase } from "../provider/supabaseProvider";
-
+import { useAuth } from "../provider/AuthProvider";
+import { claimFreeDownload, hasDownloadAccess } from "../services/payments";
+import { CircularIconHolder } from "./elements/resumeSectionWrapper";
+import ToolTip from "./Tooltip";
 import ProgressBarModal from "./ModalWithProgressBar";
-import { RxDividerHorizontal } from "react-icons/rx";
-import { H3 } from "./CustomComponents";
-import { useDivider } from "../provider/DividerProvider";
-import BigModal from "./BigModal";
-import { GridTwo } from "./layouts/input-layout/GridCards";
 import FixedIconWrapper from "./FixedIconWrapper";
-import { useParams } from "react-router-dom";
-import { getSectionAndSectionprops } from "../helper/helper";
-import { useDirectPDFWriter } from "../provider/DirectPDFWriter";
+import DownloadPaywall from "./DownloadPaywall";
 
-
-
-
-
-const GeneratePageFixedButtons = memo(({ setShowIcons, showIcons, setIsTemplateChangeModelOpen }) => {
+const GeneratePageFixedButtons = memo(
+  ({ setShowIcons, showIcons, setIsTemplateChangeModelOpen }) => {
     const [fileGenerating, setFileGenerating] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [isDividerChangeModelOpen, setIsDividerChangeModelOpen] = useState(false)
+    const [isPaywallOpen, setIsPaywallOpen] = useState(false);
+    const [downloadError, setDownloadError] = useState("");
 
-    const { generatePDF, compileInput,liveDetails } = useLayout();
+    const { generatePDF } = useLayout();
+    const { user } = useAuth();
     const { uploadFile } = useSupabase();
-    const { dividers, changeDivider } = useDivider()
-    const { layout_type, layout_id } = useParams()
-    const { createPDF } = useDirectPDFWriter()
-    const uploadAndDownloadFile = async () => {
-        try {
-            setFileGenerating(true);
-            const { sectionNames, props: sectionProps,
-                layoutStyle
-            } = getSectionAndSectionprops(layout_id, layout_type)
-            const sections = {};
-            for (const key of sectionNames) {
-                sections[key] = liveDetails[key];
-            }
 
-            console.log("sectionNames", sectionNames, "sectionProps", sectionProps, "layoutStyle", layoutStyle);
-          
-            const file =   createPDF(sections, layoutStyle, sectionProps)
-            // await uploadFile(file, (progressValue) => {
-            //     setProgress(progressValue);
-            //     if (progressValue >= 100) {
-            //         setTimeout(() => {
-            //             setFileGenerating(false);
-            //             setProgress(0);
-            //         }, 800);
-            //     }
-            // });
+    const createCompletePDF = async () => {
+      setFileGenerating(true);
+      setDownloadError("");
 
-        } catch (error) {
-            console.log("Error while uploading and downloading file", error);
-            setFileGenerating(false);
-            setProgress(0)
+      try {
+        const file = await generatePDF("healthcare-");
+        if (!file || file.size < 1_000) {
+          throw new Error("The generated PDF was unexpectedly empty.");
         }
+        return file;
+      } catch (error) {
+        console.error("Error while generating the complete CV", error);
+        setDownloadError("We could not prepare your full CV. Please try again in a moment.");
+        return null;
+      } finally {
+        setFileGenerating(false);
+      }
     };
-    const handleTemplatesChoose = () => {
-        setIsTemplateChangeModelOpen(true)
-    }
 
-    const handleDividerChange = (key) => {
-        changeDivider(key);
-        setIsDividerChangeModelOpen(false); //  auto-close on selection
-    }
+    const deliverFile = async (file) => {
+      const url = URL.createObjectURL(file);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2_000);
 
-    const dividerChooseModal = (
-        <BigModal
-            header={<H3 color="black">Choose Divider</H3>}
-            onClose={() => setIsDividerChangeModelOpen(false)}
-            bg="#eee"
-            footer={<P color="black">Click on a divider to select it</P>}
-        >
-            <div className="m-2">
-                <P color="black">Choose a divider for your resume</P>
-                <GridTwo>
-                    {Object.entries(dividers).map(([key, DividerComponent]) => (
-                        <div
-                            key={key}
-                            onClick={() => handleDividerChange(key)}
-                            className="border-2 border-gray-300 p-1 bg-gray-100 hover:bg-gray-200 rounded m-1 shadow duration-300 hover:translate-y-1 cursor-pointer py-2"
-                        >
-                            <P color="black">{key}</P>
-                            <div className="my-2">{DividerComponent}</div>
-                        </div>
-                    ))}
-                </GridTwo>
-            </div>
-        </BigModal>
-    );
+      try {
+        await uploadFile(file, setProgress);
+      } catch (error) {
+        // A cloud backup failure should never block the local download.
+        console.error("CV backup upload failed", error);
+      } finally {
+        setProgress(0);
+      }
+    };
+
+    const handleDownloadClick = async () => {
+      if (!user?.id) {
+        window.location.href =
+          "/login?redirectTo=" + encodeURIComponent(window.location.pathname);
+        return;
+      }
+
+      // A failed render should never consume the user's free download.
+      const file = await createCompletePDF();
+      if (!file) return;
+
+      if (await hasDownloadAccess()) {
+        await deliverFile(file);
+        return;
+      }
+
+      try {
+        const freeAccess = await claimFreeDownload();
+        if (freeAccess.granted) await deliverFile(file);
+        else setIsPaywallOpen(true);
+      } catch {
+        setIsPaywallOpen(true);
+      }
+    };
+
+    const handlePaidDownload = async () => {
+      setIsPaywallOpen(false);
+      const file = await createCompletePDF();
+      if (file) await deliverFile(file);
+    };
+
     return (
-        <>
-            <FixedIconWrapper showIcons={showIcons} setShowIcons={setShowIcons}>
-                {showIcons && (
-                    <>
-                        <ToolTip text="Generate Resume">
-                            <CircularIconHolder backgroundColor="#34A853" onClick={uploadAndDownloadFile}>
-                                <FaDownload color="white" />
-                            </CircularIconHolder>
-                        </ToolTip>
+      <>
+        <FixedIconWrapper showIcons={showIcons} setShowIcons={setShowIcons}>
+          {showIcons && (
+            <>
+              <ToolTip text="Download complete PDF">
+                <CircularIconHolder backgroundColor="#168a70" onClick={handleDownloadClick}>
+                  <FaDownload color="white" />
+                </CircularIconHolder>
+              </ToolTip>
+              <ToolTip text="Try another template">
+                <CircularIconHolder
+                  backgroundColor="#6750a4"
+                  onClick={() => setIsTemplateChangeModelOpen(true)}
+                >
+                  <MdPalette color="white" />
+                </CircularIconHolder>
+              </ToolTip>
+            </>
+          )}
+        </FixedIconWrapper>
 
-                        <ToolTip text="Compile Now">
-                            <CircularIconHolder backgroundColor="#FBBC05" onClick={compileInput}>
-                                <FaCogs color="white" />
-                            </CircularIconHolder>
-                        </ToolTip>
-
-                        <ToolTip text="Try on different templates">
-                            <CircularIconHolder backgroundColor="#A142F4" onClick={handleTemplatesChoose}>
-                                <MdPalette color="white" />
-                            </CircularIconHolder>
-                        </ToolTip>
-
-                        <ToolTip text="Change Divider">
-                            <CircularIconHolder backgroundColor="#5F6368" onClick={() => setIsDividerChangeModelOpen(true)}>
-                                <RxDividerHorizontal color="white" />
-                            </CircularIconHolder>
-                        </ToolTip>
-                    </>
-                )}
-
-            </FixedIconWrapper>
-            {fileGenerating && <ProgressBarModal peogress={progress} onClose={setFileGenerating(false)} />}
-            {isDividerChangeModelOpen && dividerChooseModal}
-
-
-        </>
+        {fileGenerating && (
+          <ProgressBarModal progress={progress} onClose={() => setFileGenerating(false)} />
+        )}
+        {downloadError && (
+          <div className="download-error-toast" role="alert">
+            <span>{downloadError}</span>
+            <button type="button" onClick={() => setDownloadError("")} aria-label="Dismiss message">
+              ×
+            </button>
+          </div>
+        )}
+        {isPaywallOpen && (
+          <DownloadPaywall onClose={() => setIsPaywallOpen(false)} onPaid={handlePaidDownload} />
+        )}
+      </>
     );
-});
+  }
+);
+
+GeneratePageFixedButtons.displayName = "GeneratePageFixedButtons";
 
 export default GeneratePageFixedButtons;

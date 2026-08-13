@@ -1,0 +1,58 @@
+.download-error-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 111112;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: min(420px, calc(100vw - 48px));
+  padding: 14px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fff7f7;
+  box-shadow: 0 14px 38px rgba(67, 20, 20, .18);
+  color: #8a1c1c;
+  font-weight: 650;
+}
+
+.download-error-toast button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.score-celebration {
+  min-width: 190px;
+  padding: 14px 16px;
+  border: 1px solid #a7e3d4;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #effcf8, #ffffff);
+  box-shadow: 0 8px 26px rgba(15, 118, 110, .12);
+  text-align: center;
+}
+
+.score-celebration small,
+.score-celebration span {
+  display: block;
+  color: #51716d;
+  font-weight: 700;
+}
+
+.score-celebration strong {
+  display: block;
+  margin: 3px 0;
+  color: #0f766e;
+  font-size: 1.45rem;
+}
+
+.score-celebration span {
+  color: #168a70;
+  font-size: .78rem;
+}
+
+@media (max-width: 650px) {
+  .score-celebration { width: 100%; }
+}

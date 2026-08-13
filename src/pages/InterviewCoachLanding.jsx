@@ -1,0 +1,18 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FiArrowRight, FiCheckCircle, FiMic, FiTarget } from "react-icons/fi";
+import "../css/interview-coach.css";
+
+export default function InterviewCoachLanding() {
+  useEffect(() => {
+    document.title = "AI Healthcare Interview Coach | Practice Healthcare Job Interviews";
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", "Practice realistic healthcare job interviews using your CV, profession and target job description with ResuAIBuilder's AI Interview Coach.");
+    const id = "interview-coach-schema";
+    document.getElementById(id)?.remove();
+    const script = document.createElement("script"); script.id = id; script.type = "application/ld+json";
+    script.text = JSON.stringify({"@context":"https://schema.org","@type":"SoftwareApplication","name":"ResuAIBuilder Healthcare AI Interview Coach","applicationCategory":"BusinessApplication","description":"AI-powered healthcare interview practice based on a candidate CV and target role."});
+    document.head.appendChild(script); return () => script.remove();
+  }, []);
+  return <main className="interview-page"><section className="coach-hero"><div><span>AI HEALTHCARE INTERVIEW COACH</span><h1>Practice the interview before it matters.</h1><p>Prepare with an AI interviewer that uses your CV, profession, specialty and target vacancy to ask realistic questions, evaluate your answers and show you what to improve.</p><div className="coach-proof"><span><FiCheckCircle/> CV-based questions</span><span><FiTarget/> Job-specific preparation</span><span><FiMic/> Real interview flow</span></div><div className="seo-actions" style={{marginTop:24}}><Link className="seo-primary" to="/interview-coach">Start AI Interview <FiArrowRight/></Link><Link className="seo-secondary" to="/ats-checker">Check ATS first</Link></div></div></section><section className="setup-grid"><article className="setup-card"><div className="step-heading"><b>01</b><div><strong>Upload your CV</strong><small>PDF or Word. Your facts remain the source of truth.</small></div></div><h2>Questions grounded in your actual experience</h2><p>The coach can turn relevant CV evidence into interview questions rather than giving you a generic chatbot conversation.</p></article><article className="setup-card"><div className="step-heading"><b>02</b><div><strong>Practice your answers</strong><small>One question at a time.</small></div></div><h2>Get feedback that you can act on</h2><p>Each answer receives an AI-generated practice score with feedback on relevance, clarity, structure, communication and role knowledge.</p></article><article className="setup-card"><div className="step-heading"><b>03</b><div><strong>Find weak areas</strong><small>Know what to practise next.</small></div></div><h2>Prepare for healthcare interviews</h2><p>Choose nursing, pharmacy, medicine and other healthcare professions, plus HR, clinical and GCC-oriented practice modes.</p></article><article className="setup-card"><div className="step-heading"><b>04</b><div><strong>Review your readiness</strong><small>Practice score, not a hiring prediction.</small></div></div><h2>See your interview performance</h2><p>Finish with strengths, improvement areas and questions to practise again before your real interview.</p></article></section><section className="report-page" style={{paddingLeft:0,paddingRight:0}}><div className="report-hero"><span>BUILT FOR HEALTHCARE</span><h2>One career journey</h2><p>Upload CV → Improve ATS → Match a job → Practice the interview → Improve again.</p></div></section></main>;
+}
