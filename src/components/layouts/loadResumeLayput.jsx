@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { layout_type_map } from "../../constant";
 import { TransparentLine } from "../Divider/TransparentDividers";
+import { ensureCompleteSections } from "./completeSections";
 const defaultDivider=<TransparentLine/>
 // Custom hook to dynamically import and render layout sections based on layoutId
 const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical",divider=defaultDivider) => {
@@ -34,7 +35,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
     }
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, divider)
-      setSections(output)
+      setSections(ensureCompleteSections(output, resumeData, divider))
     }
 
   }
@@ -65,7 +66,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
     // If module is loaded and component is still mounted, update the sections state
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, divider); // Call the default exported function with resume data
-      setSections(output); // Set the resulting sections
+      setSections(ensureCompleteSections(output, resumeData, divider)); // Set the resulting sections
     }
 
   }
@@ -94,7 +95,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
     }
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, divider)
-      setSections(output)
+      setSections(ensureCompleteSections(output, resumeData, divider))
     }
   }
 
@@ -119,7 +120,7 @@ const useDynamicLayoutSections = (layoutId, resumeData, layout_type = "classical
     }
     if (layoutModule && isMounted) {
       const output = layoutModule.default(resumeData, divider)
-      setSections(output)
+      setSections(ensureCompleteSections(output, resumeData, divider))
     }
   }
   // useEffect runs whenever layoutId or resumeData changes

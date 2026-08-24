@@ -95,5 +95,6 @@ const defaultFormFields = {
     industryExpertise: defaultIndustryExpertise,
     certificates: defaultCertificates,
     my_time: defaultmy_time,
+    additionalSections: [],
 }
 export default defaultFormFields

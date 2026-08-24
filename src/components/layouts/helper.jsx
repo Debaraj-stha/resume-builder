@@ -11,6 +11,7 @@ import AcheivementCard from "./cards/ResumeAchievementCard"
 
 import { layout_type_map } from "../../constant";
 import generateTitle from "./section-data/titleGenerater";
+import { splitExperienceForPagination } from "../../utils/resumePagination.js";
 
 
 // Helper to generate experience sections
@@ -68,23 +69,26 @@ const generateExperienceSections = ({
         ))
     }
 
-   return experiences.map((experience, index) => ({
-  key: `experience_${index}`,
-  id: `experience_${index}`,
- groupId: `experience_group`,
-  content: () => (
-    <>
-      {renderTitleAndDivider(index)}
-      <SectionContent>
-        <ExperienceCard
-          experience={experience}
-          style={style}
-          {...props}
-        />
-      </SectionContent>
-    </>
-  ),
-}));
+   return experiences.flatMap((experience, index) =>
+      splitExperienceForPagination(experience).map((part, partIndex) => ({
+        key: partIndex === 0 ? `experience_${index}` : `experience_${index}_part_${partIndex}`,
+        id: partIndex === 0 ? `experience_${index}` : `experience_${index}_part_${partIndex}`,
+        groupId: `experience_group`,
+        content: () => (
+          <>
+            {renderTitleAndDivider(index === 0 && partIndex === 0 ? 0 : 1)}
+            <SectionContent>
+              <ExperienceCard
+                experience={part}
+                style={style}
+                isContinuation={partIndex > 0}
+                {...props}
+              />
+            </SectionContent>
+          </>
+        ),
+      }))
+    );
 
 };
 const generateEducationSections = ({

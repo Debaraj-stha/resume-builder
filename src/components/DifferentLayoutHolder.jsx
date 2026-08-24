@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import styled, { keyframes, css, useTheme } from "styled-components";
-import { all_layouts_image_map } from "./LayoutImages";
 import { GridTwo } from "./layouts/input-layout/GridCards";
 import { H2, H3, Hspace } from "./CustomComponents";
 import { useNavigate } from "react-router-dom";
 import { LineDivider } from "./Divider/TransparentDividers";
+import { professionalTemplates } from "../static-data/professional-templates";
 
 const slideIn = keyframes`
   from {
@@ -61,24 +61,17 @@ const ImageWrapper = styled.div`
         opacity: 0.7;
         transform: translateY(-4px);
     }
-     &:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    background: red;
-    top: 0;
-    width: 100%;
-    height: 200px;
-    z-index: -1;
-  }
-
-  img {
-    width: 100%;
-    object-fit: contain;
-    height:100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+    min-height:150px;
+    padding:18px;
+    border:1px solid #d5dfdf;
+    border-radius:12px;
+    background:#fff;
+    color:#172f41;
+    p{margin:7px 0;color:#647681;font-size:.75rem;line-height:1.5}
+    span{margin-top:auto;color:#4f606a;font-size:.68rem;font-weight:750}
 `;
+
+const stableTemplateIds = new Set(["healthcare-leader", "gcc-photo-clinical", "doctor-specialist"]);
 
 const DifferentLayoutHolder = memo(({ isOpen, onHide }) => {
   const [visible, setVisible] = useState(isOpen);
@@ -106,20 +99,18 @@ const DifferentLayoutHolder = memo(({ isOpen, onHide }) => {
 
   return (
     <Wrapper isOpen={isOpen}>
-      <H2>Try Different Resume Layouts</H2>
+      <H2>Choose a CV Format</H2>
       <LineDivider backgroundColor={theme.colors.text} />
       <Hspace height="10px"/>
       <ScrollableWrapper>
         <GridTwo>
-          {Object.entries(all_layouts_image_map).flatMap(
-            ([category, layoutMap], outerIndex) =>
-              Object.entries(layoutMap).map(([layoutName, imageSRC], index) => (
-                <ImageWrapper key={`${outerIndex}-${index}`} onClick={() => handleLayoutClick(category, index + 1)}>
-                  <H3>{category} - {layoutName}</H3>
-                  <img src={imageSRC} loading="lazy" alt={`${category} ${layoutName}`} />
-                </ImageWrapper>
-              ))
-          )}
+          {professionalTemplates.filter((template) => stableTemplateIds.has(template.id)).map((template) => {
+            return <ImageWrapper key={template.id} onClick={() => handleLayoutClick(template.layoutType, template.layoutId)}>
+              <H3>{template.name}</H3>
+              <p>{template.description}</p>
+              <span>Stable A4 · Neutral · {template.photoReady ? "Photo optional" : "ATS-first"}</span>
+            </ImageWrapper>;
+          })}
         </GridTwo>
       </ScrollableWrapper>
 

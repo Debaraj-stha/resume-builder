@@ -1,6 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom"
-
+import { Navigate, Route, Routes } from "react-router-dom"
 import Home from "../pages/Home";
 import Templates from "../pages/Templates";
 import Contact from "../pages/Contact";
@@ -15,37 +14,34 @@ import { ClassicalLayoutWithProvider, CreativeLayoutWithProvider, ModernLayoutWi
 import Login from "../pages/Login";
 import LayoutProvider from "../provider/layoutProvider";
 import RedirectMessagePage from "../pages/RedirectMessagePage";
+import Pricing from "../pages/Pricing";
+import CoverLetter from "../pages/CoverLetter";
+import HealthcareGuide from "../pages/HealthcareGuide";
+import ATSChecker from "../pages/ATSChecker";
+import AIAssistant from "../pages/AIAssistant";
+import CareerCopilot from "../pages/CareerCopilot";
+import InterviewCoach from "../pages/InterviewCoach";
+import InterviewCoachLanding from "../pages/InterviewCoachLanding";
+import PracticeQuestions from "../pages/PracticeQuestions";
+import HealthcareSeoLanding from "../pages/HealthcareSeoLanding";
+import RefundPolicy from "../pages/RefundPolicy";
+import CareerResources from "../pages/CareerResources";
+import CredentialReadiness from "../pages/CredentialReadiness";
+import LicensingExamPrep from "../pages/LicensingExamPrep";
+import UaeHealthcareJobs from "../pages/UaeHealthcareJobs";
+import { healthcareSeoPages } from "../data/healthcareSeoPages";
 
-
-const AppRoutes = () => {
-    return (
-        <Routes>
-            <Route index path="/" element={<Home></Home>}></Route>
-            <Route exact path="/dashboard" element={
-                <DashboardProvider>
-                    <Dashboard />
-                </DashboardProvider>}></Route>
-            <Route exact path="/templates" element={<LayoutWrapper />}>
-                <Route index element={<Templates />} />
-                <Route exact path="classical" element={<ClassicalLayoutWithProvider />} />
-                <Route exact path="modern" element={<ModernLayoutWithProvider />} />
-                <Route exact path="simple" element={<SimpleLayoutWithProvider />} />
-                <Route exact path="creative" element={<CreativeLayoutWithProvider />} />
-            </Route>
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/redirecting" element={<RedirectMessagePage />} />
-            <Route exact path="/contact" element={<Contact />}></Route>
-            <Route exact path="/privacy" element={<Privacy />}></Route>
-            <Route exact path="/about" element={<About />}></Route>
-            <Route exact path="/build-resume/:layout_type/:layout_id" element={
-                <LayoutProvider> <GenerateResume />  </LayoutProvider>
-            }></Route>
-            
-            <Route path="*" element={<NotFound />}></Route>
-
-
-        </Routes>
-    )
-
-}
-export default AppRoutes
+const AppRoutes = () => <Routes>
+  <Route index path="/" element={<Home />} />
+  <Route exact path="/dashboard" element={<DashboardProvider><Dashboard /></DashboardProvider>} />
+  <Route exact path="/templates" element={<LayoutWrapper />}><Route index element={<Templates />} /><Route exact path="classical" element={<ClassicalLayoutWithProvider />} /><Route exact path="modern" element={<ModernLayoutWithProvider />} /><Route exact path="simple" element={<SimpleLayoutWithProvider />} /><Route exact path="creative" element={<CreativeLayoutWithProvider />} /></Route>
+  <Route exact path="/login" element={<Login />} /><Route exact path="/pricing" element={<Pricing />} /><Route exact path="/cover-letter" element={<CoverLetter />} /><Route exact path="/healthcare-guide" element={<HealthcareGuide />} /><Route exact path="/ats-checker" element={<ATSChecker />} /><Route exact path="/career-copilot" element={<CareerCopilot />} /><Route exact path="/interview-coach" element={<InterviewCoach />} /><Route exact path="/healthcare-interview-coach" element={<InterviewCoachLanding />} /><Route exact path="/practice-questions" element={<PracticeQuestions />} />
+  <Route exact path="/get-started" element={<Navigate to="/ats-checker" replace />} /><Route exact path="/ai-assistant" element={<AIAssistant />} />
+  <Route exact path="/credential-readiness" element={<CredentialReadiness />} />
+  <Route exact path="/licensing-exam-prep" element={<LicensingExamPrep />} />
+  <Route exact path="/uae-healthcare-jobs" element={<UaeHealthcareJobs />} />
+  {["/healthcare-cv-examples","/gcc-eligibility-checker","/healthcare-interview-questions","/healthcare-salary-explorer","/application-tracker","/career-readiness-score"].map(path => <Route key={path} exact path={path} element={<CareerResources />} />)}
+  {Object.keys(healthcareSeoPages).map(path => <Route key={path} exact path={path} element={<HealthcareSeoLanding />} />)}
+  <Route exact path="/refund-policy" element={<RefundPolicy />} /><Route exact path="/redirecting" element={<RedirectMessagePage />} /><Route exact path="/contact" element={<Contact />} /><Route exact path="/privacy" element={<Privacy />} /><Route exact path="/about" element={<About />} /><Route exact path="/build-resume/:layout_type/:layout_id" element={<LayoutProvider><GenerateResume /></LayoutProvider>} /><Route path="*" element={<NotFound />} />
+</Routes>;
+export default AppRoutes;

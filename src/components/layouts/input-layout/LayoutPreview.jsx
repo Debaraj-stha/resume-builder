@@ -1,24 +1,22 @@
 
 import { LayoutWrapperWithBorder, ResumesWrapperDiv } from "../../elements/resumeWrapper";
 import { H3 } from "../../CustomComponents"
-import LayoutByType from "../LayoutByType";
-import { useParams } from "react-router-dom";
 import { useLayout } from "../../../provider/layoutProvider";
 import Loading from "../../Loading";
+import StableResumeDocument from "../../StableResumeDocument";
 
 
 
 const LayoutPreview = () => {
-    const { layout_type, layout_id } = useParams()
-    const { setDetailsUpdating, isDetailsUpdating } = useLayout()
+    const { isDetailsUpdating } = useLayout()
     return (
-        <LayoutWrapperWithBorder padding="20px 20mm">
-            <H3>Resume Preview</H3>
-            <div className="flex justify-center items-center flex-col">
-                <ResumesWrapperDiv className="w-full wrapper-div">
+        <LayoutWrapperWithBorder className="preview-card" padding="0">
+            <div className="preview-heading"><div><span>LIVE DOCUMENT</span><H3>Resume preview</H3></div><small>A4 · ATS-friendly</small></div>
+            <div className="preview-stage">
+                <ResumesWrapperDiv className="preview-canvas wrapper-div">
                     {isDetailsUpdating ? <Loading message="updating details" />
                         :
-                        <LayoutByType key={`${layout_type}-${layout_id}`}></LayoutByType>}
+                        <StableResumeDocument />}
                 </ResumesWrapperDiv>
             </div>
         </LayoutWrapperWithBorder>

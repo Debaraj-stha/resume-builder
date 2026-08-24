@@ -12,6 +12,16 @@ const useLoadSavedData = () => {
 
   useEffect(() => {
     let timer;
+    const improvedDraft = sessionStorage.getItem("resuai_improved_cv");
+    if (improvedDraft) {
+      try {
+        setSavedData(JSON.parse(improvedDraft));
+        setIsSavedLoaded(true);
+        return;
+      } catch {
+        sessionStorage.removeItem("resuai_improved_cv");
+      }
+    }
     if (!isAuthenciated) {
       //if not authenticate and exceeds 5 seconds, set isSavedLoaded to true
       // this is to prevent infinite loading

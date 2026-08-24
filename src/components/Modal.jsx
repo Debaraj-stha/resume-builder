@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { CgClose } from "react-icons/cg";
 import styled, { keyframes, useTheme } from "styled-components";
 import ScrollableModal from "./ScrollableModal";
@@ -21,16 +22,38 @@ const Card = styled.div.withConfig({shouldForwardProp: (props) => !["backgroundC
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  width: 91.666667%;
+  width: min(28rem, calc(100vw - 2rem));
   max-width: 28rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
   position: relative;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(15, 32, 46, .58);
+  backdrop-filter: blur(3px);
 `;
 
 
 const Modal = React.memo(({ children, onClose, header, footer,bg}) => {
   const theme=useTheme()
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">
+  useEffect(() => {
+    const closeOnEscape = event => { if (event.key === "Escape") onClose?.(); };
+    document.addEventListener("keydown", closeOnEscape);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", closeOnEscape); document.body.style.overflow = previousOverflow; };
+  }, [onClose]);
+
+  if (typeof document === "undefined") return null;
+  return createPortal(
+    <Overlay role="dialog" aria-modal="true" onMouseDown={event => { if (event.target === event.currentTarget) onClose?.(); }}>
       <Card backgroundColor={bg}>
         {/* Header */}
         <div className="mb-4 flex justify-between items-center border-b pb-2">
@@ -55,7 +78,8 @@ const Modal = React.memo(({ children, onClose, header, footer,bg}) => {
           </div>
         )}
       </Card>
-    </div>
+    </Overlay>,
+    document.body
   );
 });
 

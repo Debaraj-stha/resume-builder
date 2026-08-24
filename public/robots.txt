@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /login
+Disallow: /build-resume/
+Disallow: /redirecting
+Disallow: /get-started
+Disallow: /ai-assistant
+
+Sitemap: https://www.resuaibuilder.com/sitemap.xml

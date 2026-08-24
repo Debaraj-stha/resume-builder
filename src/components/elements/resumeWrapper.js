@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
-export const ResumeWrapper = styled.div`
+export const ResumeWrapper = styled.div.attrs({ "data-resume-page": "true" })`
   width: 210mm;
   height: 297mm;
+  box-sizing: border-box;
   padding:${({ padding }) => padding || "20mm"};
   background: white;
   margin:10px auto;
   overflow:hidden;
+  overflow-wrap: break-word;
+  word-break: normal;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   @media print {
     margin: 0;
@@ -115,12 +118,13 @@ export const ModernResumeWrapper = styled(ResumeWrapper)`
 padding:${({ padding }) => padding || "20px 0 20px 20px"};
 `
 export const ResumeInputFieldWrapper = styled.div`
-  width: 210mm;
-  padding: ${({padding})=>padding||"20mm"};
+  width: 100%;
+  padding: ${({padding})=>padding||"24px"};
   background: white;
   margin:${({margin})=>margin||"10px auto"};
-  height:${({height})=>height||"290mm"};
-  overflow-y:scroll;
+  min-height:${({height})=>height||"600px"};
+  height:auto;
+  overflow:visible;
 
   box-shadow: 0 0 5px ${({ theme }) => theme.colors.card.shadow || "rgba(0, 0, 0, 0.1)"};
   background: ${({ theme }) => theme.colors.card.background || "red"};
@@ -148,5 +152,3 @@ export const FlexResumeWrapper = styled(ResumeWrapper)`
   display: flex;
   padding:0;
 `;
-
-

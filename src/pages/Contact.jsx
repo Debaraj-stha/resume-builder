@@ -3,13 +3,10 @@ import { ErrorParagraph, Heading } from "../components/CustomComponents";
 import { BiPhone } from "react-icons/bi";
 import { BsMailbox } from "react-icons/bs";
 import { FaMapMarker } from "react-icons/fa";
-
 import { useForm } from "react-hook-form";
-import * as z from "zod"
+import * as z from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Container from "../components/Container";
-
-
 
 const PageWrapper = styled.section`
   padding: 4rem 2rem;
@@ -58,9 +55,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
   transition: 0.3s ease;
 
-  &:hover {
-    opacity: 0.9;
-  }
+  &:hover { opacity: 0.9; }
 `;
 
 const InfoSection = styled.div`
@@ -69,72 +64,60 @@ const InfoSection = styled.div`
   gap: 2rem;
 `;
 
+const CompanyName = styled.div`
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 const InfoItem = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
-
-  svg {
-    color: ${({ theme }) => theme.colors.accent};
-  }
+  svg { color: ${({ theme }) => theme.colors.accent}; }
 `;
+
 const schema = z.object({
-    name: z.string()
-        .min(1, { message: "Name is required" })
-        .regex(/^[a-zA-Z\s'-]+$/, {
-            message: "Name can only contain letters, spaces, hyphens, and apostrophes",
-        }),
-    email: z.string().email({ message: "Invalid email address" }),
-    message: z.string().min(1, { message: "Message is required" }),
+  name: z.string().min(1, { message: "Name is required" }).regex(/^[a-zA-Z\s'-]+$/, { message: "Name can only contain letters, spaces, hyphens, and apostrophes" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  message: z.string().min(1, { message: "Message is required" }),
 });
+
 const ContactPage = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
 
-    const onSubmit = (data) => {
-        console.log("Form Submitted:", data);
-    };
+  const onSubmit = ({ name, email, message }) => {
+    const text = `Hello Wyonora Global,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    window.open(`https://wa.me/916375862123?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+  };
 
-    return (
-     <Container>
-         <PageWrapper>
-            <Heading>Contact Us</Heading>
-            <ContactGrid>
-                {/* Contact Form */}
-                <FormSection onSubmit={handleSubmit(onSubmit)}>
-                    <Input type="text" name="name" placeholder="Your Name"{...register("name")} />
-                    {errors.name && <ErrorParagraph>{errors.name.message}</ErrorParagraph>}
-                    <Input type="email" name="email" placeholder="Your Email" {...register("email")} />
-                    {errors.email && <ErrorParagraph>{errors.email.message}</ErrorParagraph>}
-                    <TextArea name="message" placeholder="Your Message" {...register("message")} />
-                    {errors.message && <ErrorParagraph>{errors.message.message}</ErrorParagraph>}
-                    <SubmitButton type="submit">Send Message</SubmitButton>
-                </FormSection>
+  return (
+    <Container>
+      <PageWrapper>
+        <Heading>Contact Us</Heading>
+        <ContactGrid>
+          <FormSection onSubmit={handleSubmit(onSubmit)}>
+            <Input type="text" placeholder="Your Name" {...register("name")} />
+            {errors.name && <ErrorParagraph>{errors.name.message}</ErrorParagraph>}
+            <Input type="email" placeholder="Your Email" {...register("email")} />
+            {errors.email && <ErrorParagraph>{errors.email.message}</ErrorParagraph>}
+            <TextArea placeholder="Your Message" {...register("message")} />
+            {errors.message && <ErrorParagraph>{errors.message.message}</ErrorParagraph>}
+            <SubmitButton type="submit">Send via WhatsApp</SubmitButton>
+          </FormSection>
 
-                {/* Contact Information */}
-                <InfoSection>
-                    <InfoItem>
-                        <BiPhone size={20} />
-                        <span>+9779819222211</span>
-                    </InfoItem>
-                    <InfoItem>
-                        <BsMailbox size={20} />
-                        <span>support@resumebuilder.com</span>
-                    </InfoItem>
-                    <InfoItem>
-                        <FaMapMarker size={20} />
-                        <span>Dharan,Sunari Nepal</span>
-                    </InfoItem>
-                </InfoSection>
-            </ContactGrid>
-        </PageWrapper>
-     </Container>
-    );
+          <InfoSection>
+            <CompanyName>Wyonora Global</CompanyName>
+            <InfoItem><BiPhone size={20} /><a href="https://wa.me/916375862123" target="_blank" rel="noopener noreferrer">WhatsApp: +91 63758 62123</a></InfoItem>
+            <InfoItem><BsMailbox size={20} /><a href="mailto:contact@resuaibuilder.com">contact@resuaibuilder.com</a></InfoItem>
+            <InfoItem><FaMapMarker size={20} /><span>India</span></InfoItem>
+          </InfoSection>
+        </ContactGrid>
+      </PageWrapper>
+    </Container>
+  );
 };
 
 export default ContactPage;

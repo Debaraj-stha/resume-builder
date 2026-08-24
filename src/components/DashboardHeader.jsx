@@ -1,8 +1,7 @@
 
 import React from "react";
 import { Button, Hspace } from "../components/CustomComponents";
-import { H1 } from "../components/elements/resumeSectionWrapper";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { useDashboard } from "../provider/DashboardProvider";
 
 const UtilityHolder = styled.div`
@@ -50,21 +49,18 @@ const DashboardHeader = () => {
     handleSearchQuery,
     handleCreate,
     handleSort}=useDashboard()
-    const theme=useTheme()
   return (
-    <>
-    <Hspace height="10px"/>
-      <H1 color={theme.colors.text}>All Your Resumes</H1>
+    <div className="library-header">
+      <div className="library-heading"><span>YOUR LIBRARY</span><h2>My resumes</h2><p>Manage every version created for your job applications.</p></div>
       <UtilityHolder>
-        <Button onClick={handleCreate}>+ Create New Resume</Button>
-        <SearchBox value={searchQuery} onChange={handleSearchQuery} placeholder="Search Here..." />
+        <SearchBox value={searchQuery} onChange={handleSearchQuery} placeholder="Search resumes..." />
         <SortSelect onChange={handleSort}>
-          <option>Sort By</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="desc">Newest first</option>
+          <option value="asc">Oldest first</option>
         </SortSelect>
+        <Button onClick={handleCreate}>+ New resume</Button>
       </UtilityHolder>
-    </>
+    </div>
   )
 }
 

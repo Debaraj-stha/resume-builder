@@ -1,5 +1,6 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
+  max-width: none;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -76,3 +77,18 @@ input[type="file"]::-webkit-file-upload-button:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.testing-access-banner {
+  align-items: center;
+  background: linear-gradient(90deg, #064e3b, #0f766e);
+  color: #fff;
+  display: flex;
+  font-size: .9rem;
+  gap: .65rem;
+  justify-content: center;
+  padding: .7rem 1rem;
+  position: relative;
+  text-align: center;
+  z-index: 20;
+}
+
+.testing-access-banner svg { flex: 0 0 auto; }

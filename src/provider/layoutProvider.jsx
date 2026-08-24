@@ -52,11 +52,11 @@ const LayoutProvider = ({ children }) => {
         phone: pd.phone || "",
         profession: pd.profession || "",
         address: pd.address || "",
-        profile: pd.profile || "",
+        profile: typeof pd.profile === "string" || Array.isArray(pd.profile) ? pd.profile : [],
         urls: pd.urls || [{ value: "" }]
       },
       educations: data?.educations || defaultFormFields.educations,
-      summary: pd.summary || "",
+      summary: data?.summary || pd.summary || "",
       experiences: data?.experiences || defaultFormFields.experiences,
       achievements: data?.achievements || defaultFormFields.achievements,
       skills: data?.skills || defaultFormFields.skills,
@@ -68,7 +68,8 @@ const LayoutProvider = ({ children }) => {
       openSourceWork: data?.openSourceWork || defaultFormFields.openSourceWork,
       industryExpertise: data?.industryExpertise || defaultFormFields.industryExpertise,
       certificates: data?.certificates || defaultFormFields.certificates,
-      my_time: data?.my_time || defaultFormFields.my_time
+      my_time: data?.my_time || defaultFormFields.my_time,
+      additionalSections: data?.additionalSections || []
     };
   };
 
@@ -81,57 +82,67 @@ const LayoutProvider = ({ children }) => {
   // Function to generate a multi-page PDF from a DOM element
   const generatePDF = useCallback(async (filename_prefix = "new_") => {
     const element = pdfRef.current;
-    // Convert the DOM element to a high-resolution canvas using html2canvas
-    const canvas = await html2canvas(element, { scale: 2 });
+    if (!element) throw new Error("The CV preview is not ready yet.");
 
-    // Convert the canvas to a base64 PNG image
-    const imageData = canvas.toDataURL("image/png");
+    const previewCanvas = element.closest(".preview-canvas");
+    const previousZoom = previewCanvas?.style.zoom || "";
+    const previousFilter = previewCanvas?.style.filter || "";
 
-    // Initialize a jsPDF instance for an A4 portrait PDF (units in pixels)
-    const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: "a4" });
+    try {
+      // Capture the document at its real A4 size. The editor uses CSS zoom,
+      // which otherwise causes html2canvas to collapse and overlap glyphs.
+      if (previewCanvas) {
+        previewCanvas.style.zoom = "1";
+        previewCanvas.style.filter = "none";
+      }
+      if (document.fonts?.ready) await document.fonts.ready;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
-    // Get dimensions of the PDF page
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+      const pages = [...element.querySelectorAll('[data-resume-page="true"]')];
+      if (!pages.length) throw new Error("No printable CV pages were found.");
 
-    // Calculate the scaled height of the image to fit the PDF width
-    const imgProps = pdf.getImageProperties(imageData);
-    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
+      for (let index = 0; index < pages.length; index += 1) {
+        const page = pages[index];
+        const canvas = await html2canvas(page, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true,
+          logging: false,
+          width: page.offsetWidth,
+          height: page.offsetHeight,
+          windowWidth: page.offsetWidth,
+          windowHeight: page.offsetHeight,
+          scrollX: 0,
+          scrollY: 0,
+        });
+        if (!canvas.width || !canvas.height) throw new Error(`CV page ${index + 1} could not be rendered.`);
+        if (index > 0) pdf.addPage("a4", "portrait");
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.96), "JPEG", 0, 0, 210, 297, undefined, "FAST");
+      }
 
-    // Initialize remaining height and drawing position
-    let heightLeft = imgHeight;
-    let position = 0;
-
-    // Add the first portion of the image to the first page
-    pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight);
-    heightLeft -= pageHeight;
-
-    // Add remaining portions of the image to new pages
-    while (heightLeft > 0) {
-      position -= pageHeight;      // Move the image up by one page
-      pdf.addPage();               // Add a new page
-      pdf.addImage(imageData, "PNG", 0, position, pdfWidth, imgHeight); // Draw remaining image
-      heightLeft -= pageHeight;    // Reduce the remaining height
+      const filename = `${filename_prefix}resume-${Date.now()}.pdf`;
+      return new File([pdf.output("blob")], filename, { type: "application/pdf" });
+    } finally {
+      if (previewCanvas) {
+        previewCanvas.style.zoom = previousZoom;
+        previewCanvas.style.filter = previousFilter;
+      }
     }
-
-    // Save the PDF file with a timestamped filename
-    const filename = `${filename_prefix}resume-${Date.now()}.pdf`
-    const pdfBlob = pdf.output("blob")
-    //create file from blob
-    const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
-    return pdfFile
   });
 
 
   // Group sections into printable pages
   const groupSectionsIntoPages = useCallback((refs, setMeasured, setPages) => {
+    // A4 is 1122.5 CSS px at 96dpi. ResumeWrapper uses 20mm (about 76px)
+    // padding at the top and bottom, leaving roughly 971px of usable content.
     const PAGE_HEIGHT = 970;
     let grouped = [], currentGroup = [], currentHeight = 0;
 
     refs.current.forEach((ref, idx) => {
       if (ref && ref.offsetHeight) {
         const sectionHeight = ref.offsetHeight;
-        if (currentHeight + sectionHeight > PAGE_HEIGHT) {
+        if (currentGroup.length > 0 && currentHeight + sectionHeight > PAGE_HEIGHT) {
           grouped.push(currentGroup);
           currentGroup = [];
           currentHeight = 0;

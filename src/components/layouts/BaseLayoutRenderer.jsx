@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useLayoutEffect, useState, memo } from "react";
-import { useFormContext } from "react-hook-form";
 import { useLayout } from "../../provider/layoutProvider";
 import LayoutUi from "./layoutUI";
 import "../../components/layouts/css/google-fonts.css";
 import { layout_type_map } from "../../constant";
+import { ensureCompleteSections } from "./completeSections";
 
 const BaseLayoutRenderer = memo(
   ({
@@ -48,6 +48,7 @@ const BaseLayoutRenderer = memo(
     const awards=staticProps.awards || liveDetails.awards
     const trainings=staticProps.trainings || liveDetails.trainings
     const my_time=staticProps.my_time || liveDetails.my_time
+    const additionalSections=staticProps.additionalSections || liveDetails.additionalSections || []
     const key_val = {
       personalDetails,
       educations,
@@ -63,11 +64,12 @@ const BaseLayoutRenderer = memo(
       passions,
       awards,
       trainings,
-      my_time
+      my_time,
+      additionalSections
 
     };
 
-    const sectionData = getSectionDataFn(key_val);
+    const sectionData = ensureCompleteSections(getSectionDataFn(key_val), key_val, null);
 
     const sectionRefs = useRef([]);
     const [pages, setPages] = useState([]);
@@ -97,6 +99,11 @@ const BaseLayoutRenderer = memo(
       sectionData.length,
       sectionRefs.current.map(ref => ref?.offsetHeight).join(","),
     ]);
+
+    useLayoutEffect(() => {
+      setPages([]);
+      setMeasured(false);
+    }, [layoutId, layout_type, setMeasured]);
 
     useEffect(() => {
       console.log("called measured in useEffect")

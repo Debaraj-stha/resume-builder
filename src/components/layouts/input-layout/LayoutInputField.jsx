@@ -40,16 +40,17 @@ const generatedProps = useMemo(() => {
       return props
     }
     const handleClassicLayoutProps = () => {
-      props.header={acceptImage:false}
+      props.header={acceptImage:true}
       switch (layout_id) {
         case 2:
           props.header = {
             ...props.header,
             shouldAcceptAddress: false,
           }
-          case 4:{
+          break
+        case 4:
           props.header = {...props.header,acceptProfession:false}
-          }
+          break
       }
       
       return props
@@ -83,19 +84,18 @@ const generatedProps = useMemo(() => {
   const sectionData = fetchSectionData({ layout_id, layout_type, props: generatedProps })
   const { handleSubmit } = useFormContext()
   const onSubmit = (data) => {
-    console.log(data)
+    return data
   }
   
   return (
-    <div className="min-h-screen overflow-y-scroll">
+    <div className="editor-form-panel">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LayoutWrapperWithBorder padding="20px 20mm">
-           <H3>Input Your Details</H3>
+        <LayoutWrapperWithBorder className="editor-card" padding="0">
+          <div className="editor-card-heading"><div><span>YOUR INFORMATION</span><H3>Resume details</H3></div><small>Fields update the preview automatically</small></div>
   
           <ResumeInputFieldWrapper>
-            {sectionData.map((section, i) => {
+            {sectionData.map((section) => {
               const isExperienceSection = section.key === "experience-0";
-              console.log("section key",section.key,i)
               return (
                 <Section key={section.key} data-section={isExperienceSection ? "experience" : section.key}>
                   {section.content()}
@@ -107,9 +107,6 @@ const generatedProps = useMemo(() => {
 
         </LayoutWrapperWithBorder>
 
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
-          <button type="submit">Save Resume</button>
-        </div>
       </form>
 
     </div>

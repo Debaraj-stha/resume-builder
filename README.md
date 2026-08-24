@@ -83,7 +83,7 @@ Make sure your Supabase project has:
 
 * A `resumes` table with fields like `user_id`, `template`, `content`, `last_saved`, etc.
 * Row-Level Security enabled with appropriate policies
-* A public storage bucket (e.g., `files`) for image uploads
+* A private storage bucket named `files`; signed URLs and owner-only storage policies are required
 
 ---
 

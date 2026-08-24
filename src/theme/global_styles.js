@@ -8,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
     transition: all 0.3s ease;
     margin: 0;
     font-family: sans-serif;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 `;
 

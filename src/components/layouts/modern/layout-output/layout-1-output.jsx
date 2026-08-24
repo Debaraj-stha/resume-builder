@@ -42,7 +42,7 @@ const getModernLayout1OutputSectionData = (data,divider) => {
 
         }),
         generateExperience({
-            experiences: experiences.slice(0, 2),
+            experiences,
             divider,
             style: {
                 h2: style.h2,

@@ -1,134 +1,54 @@
-import React, { useEffect, useState } from "react";
-
-
-import { MdArrowDropDown } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { FiChevronDown, FiLogOut, FiUser } from "react-icons/fi";
 import Modal from "./Modal";
-import ToolTip from "./Tooltip";
-import { useTheme } from "styled-components";
-import { Button } from "./CustomComponents";
 import { useAuth } from "../provider/AuthProvider";
 import LoginButton from "./LoginButton";
-import profile_holder from "../assets/profile_holder.jpg"
+import profileHolder from "../assets/profile_holder.jpg";
 
-const Usercard = () => {
-    const { user, logout,loading } = useAuth();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const theme=useTheme()
+const Account = styled.div`position:relative;z-index:120;display:flex;align-items:center;`;
+const Trigger = styled.button`
+  display:flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:44px!important;
+  margin:0!important;padding:5px 9px!important;border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:12px!important;background:rgba(255,255,255,.08)!important;color:inherit!important;cursor:pointer;
+  >img,.initial{display:grid!important;place-items:center!important;flex:0 0 32px!important;width:32px!important;height:32px!important;max-width:32px!important;max-height:32px!important;border-radius:50%!important;object-fit:cover!important;background:#79dfd2;color:#063d3b;font-weight:900;font-size:.9rem!important}
+  .copy{display:block;text-align:left;max-width:92px}.copy strong,.copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.copy strong{font-size:.75rem}.copy small{font-size:.62rem;opacity:.75}
+  >svg{flex:0 0 auto;transition:.2s}.rotate{transform:rotate(180deg)}
+  @media(max-width:1400px){.copy{display:none}}
+`;
+const Menu = styled.div`
+  position:absolute;top:calc(100% + 10px);right:0;z-index:400;width:280px;padding:10px;border:1px solid #dbe8e5;border-radius:14px;background:#fff;color:#183b48;box-shadow:0 22px 60px rgba(6,35,52,.22);
+  .summary{display:flex;align-items:center;gap:10px;padding:8px 8px 13px;margin-bottom:6px;border-bottom:1px solid #e8efed}.summary img{flex:0 0 40px;width:40px!important;height:40px!important;max-width:40px!important;border-radius:50%;object-fit:cover}.summary strong,.summary small{display:block;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.summary small{margin-top:3px;color:#71858a;font-size:.72rem}
+  a,button{display:flex!important;align-items:center!important;gap:10px!important;width:100%!important;margin:0!important;padding:11px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#294a55!important;text-align:left;text-decoration:none;font:inherit;font-size:.85rem!important;font-weight:700!important;cursor:pointer}
+  a:hover{background:#eff8f6!important;color:#0f766e!important}.logout{color:#b42318!important}.logout:hover{background:#fff1ef!important}
+  @media(max-width:620px){position:fixed;top:72px;right:12px;width:min(280px,calc(100vw - 24px))}
+`;
+const ModalActions = styled.div`display:flex;justify-content:flex-end;gap:10px;button{padding:10px 14px;border:1px solid #cad8d6;border-radius:9px;background:#fff;color:#24434d;font-weight:750;cursor:pointer}.confirm{border-color:#b42318;background:#b42318;color:#fff}`;
 
-    const handleLogout = () => {
-        setIsModalOpen(true); // Trigger modal open
-    };
-    
+export default function UserCard() {
+  const { user, logout, loading } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const accountRef = useRef(null);
 
-    return (
-        <div className="user-card flex items-center gap-4 p-4 rounded-lg">
-            {user ? (
-                <>
-                    <div className="profile">
-                        <img
-                            src={user?.picture || profile_holder}
-                            alt="User Profile"
-                            className="w-16 h-16 rounded-full"
-                        />
-                    </div>
-                    <div>
-                        <h3 className="text-sm font-semibold sm:text-lg sm:font-medium" style={{color:theme.colors.text}}>
-                            {user.name}
-                        </h3>
-                        <ToolTip text="Logout">
-                        <Button variant="danger"
-                            onClick={handleLogout}
-                            
-                        >
-                            Logout
-                        </Button>
-                        </ToolTip>
-                    </div>
-                    
+  useEffect(() => {
+    const closeOutside = event => { if (!accountRef.current?.contains(event.target)) setMenuOpen(false); };
+    const closeOnEscape = event => { if (event.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("mousedown", closeOutside); document.addEventListener("keydown", closeOnEscape);
+    return () => { document.removeEventListener("mousedown", closeOutside); document.removeEventListener("keydown", closeOnEscape); };
+  }, []);
 
-                    {/* ✅ Render modal when modal state is true */}
-                    {isModalOpen && (
-                        <Modal
-                            onClose={() => setIsModalOpen(false)}
-                            header={<h2 className='text-green-500 text-2xl font-bold text-center'>Confirm Logout</h2>}
-                            footer={
-                                <div className="flex justify-end gap-4">
-                                    <Button variant="ghost"
-                                        onClick={() => setIsModalOpen(false)}
-                                        className="px-4 py-2 bg-gray-300 rounded text-black"
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                    variant="danger"
-                                        onClick={() => {
-                                            logout();
-                                            setIsModalOpen(false);
-                                        }}
-                                        
-                                        >
-                                        Logout
-                                    </Button>
-                                </div>
-                            }
-                        >
-                            <p className=' text-md' style={{color:theme.colors.text}}>Are you sure you want to logout?</p>
-                        </Modal>
-                    )}
-                </>
-            ) : (
-                <LoginButton />
-            )}
-        </div>
-    );
-};
+  if (loading) return null;
+  if (!user) return <LoginButton />;
+  const displayName = user.name || user.email?.split("@")[0] || "My account";
 
-const UserCard = () => {
-    const [isShown, setIsShown] = useState(false);
-
-    const toggleUser = () => {
-        setIsShown((prev) => !prev);
-
-    };
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            if (window.innerWidth >= 640) {
-                setIsShown(false)
-            }
-        }
-        window.addEventListener("resize",handleWindowResize)
-        return ()=>window.removeEventListener("resize",handleWindowResize)
-    },[])
-
-    return (
-        <>
-            {/* toggle button to show and hide on small device */}
-            <button
-                className="sm:hidden cursor-pointer z-50 relative"
-                onClick={toggleUser}
-            >
-                <MdArrowDropDown size={30} />
-            </button>
-
-            {/* Floating user card */}
-            <div
-                className={`fixed top-16 right-4 z-40 transition-all duration-300 ${isShown
-                        ? "opacity-100 pointer-events-auto translate-y-0"
-                        : "opacity-0 pointer-events-none -translate-y-2"
-                    }`}
-            >
-                <div className="bg-white rounded-lg shadow-lg p-4 w-72">
-                    <Usercard />
-                </div>
-            </div>
-
-            {/* Full view on larger screens */}
-            <div className="hidden sm:block">
-                <Usercard />
-            </div>
-        </>
-    );
-};
-
-export default UserCard;
+  return <Account ref={accountRef}>
+    <Trigger type="button" aria-label="Open account menu" aria-haspopup="menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>
+      {user.picture ? <img src={user.picture} alt="" referrerPolicy="no-referrer"/> : <span className="initial">{displayName.charAt(0).toUpperCase()}</span>}
+      <span className="copy"><strong>{displayName}</strong><small>My account</small></span><FiChevronDown className={menuOpen ? "rotate" : ""}/>
+    </Trigger>
+    {menuOpen ? <Menu role="menu"><div className="summary"><img src={user.picture || profileHolder} alt="" referrerPolicy="no-referrer"/><div><strong>{displayName}</strong><small>{user.email}</small></div></div><Link to="/dashboard" role="menuitem" onClick={() => setMenuOpen(false)}><FiUser/> My workspace</Link><button className="logout" type="button" role="menuitem" onClick={() => { setMenuOpen(false); setConfirmOpen(true); }}><FiLogOut/> Log out</button></Menu> : null}
+    {confirmOpen ? <Modal onClose={() => setConfirmOpen(false)} header="Log out of ResuAIBuilder?" footer={<ModalActions><button type="button" onClick={() => setConfirmOpen(false)}>Cancel</button><button type="button" className="confirm" onClick={async () => { await logout(); setConfirmOpen(false); }}>Log out</button></ModalActions>}><p style={{color:"#5e737b",lineHeight:1.55,margin:0}}>Are you sure you want to log out?</p></Modal> : null}
+  </Account>;
+}

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <div className="w-full shadow fixed top-0 left-0 z-50">
+    <header className="app-header">
       <Navbar />
-     
-    </div>
+    </header>
   );
 };
 

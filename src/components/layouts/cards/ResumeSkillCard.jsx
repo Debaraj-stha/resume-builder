@@ -18,7 +18,7 @@ const SkillCard = memo(({ skills, style, ...props }) => {
     padding: "0"
   };
    const borderColor=style.borderColor
-  const RenderItem = ({ item }) => <h3 style={commonStyle}>{capitalize(item)}</h3>
+  const RenderItem = ({ item }) => <h3 style={{ ...commonStyle, minWidth: 0, maxWidth: "100%", overflowWrap: "anywhere", lineHeight: 1.45 }}>{capitalize(item)}</h3>
   const renderSkillItem = (item, key) => {
    
     if (borderBottom) {
@@ -63,6 +63,7 @@ const SkillCard = memo(({ skills, style, ...props }) => {
           margin="0"
           alignItems="center"
           gap="8px"
+          style={{ minWidth: 0, maxWidth: "100%" }}
         >
           {shouldIncludeField && (
             <h3

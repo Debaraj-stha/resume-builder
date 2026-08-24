@@ -1,20 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { Hspace } from "../components/CustomComponents";
-import LayoutInputField from "../components/layouts/input-layout/LayoutInputField";
 import { useLayout } from "../provider/layoutProvider";
 import LayoutPreview from "../components/layouts/input-layout/LayoutPreview";
+import LayoutInputField from "../components/layouts/input-layout/LayoutInputField";
 import GeneratePageFixedButtons from "../components/generatePageFixedButton";
 import Loading from "../components/Loading";
 import useLoadSavedData from "../helper/hooks/useLoadSavedData";
 import useAutoSaveWithDiff from "../helper/hooks/useAutoSaveWithDiff";
 import DividerProvider from "../provider/DividerProvider";
 import DifferentLayoutHolder from "../components/DifferentLayoutHolder";
+import CandidatePhotoUploader from "../components/CandidatePhotoUploader";
 import useHideOnScroll from "../helper/hooks/useHideOnScroll";
-import UploadResumeCard from "../components/UploadResumeCard";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { FiArrowLeft, FiCheckCircle, FiEdit3, FiGrid, FiShield } from "react-icons/fi";
+import "../css/resume-editor.css";
+import "../css/download-experience.css";
 
 const MainWrapper = styled.section`
-  width: 100vw;
+  width: 100%;
   height: auto;
   min-height: 100vh;
   position: relative;
@@ -25,18 +28,21 @@ const MainWrapper = styled.section`
 const ResponsiveGrid = styled.div.withConfig({ shouldForwardProp: (prop) => !['isOpen'].includes(prop) })`
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: 1.25rem;
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.05fr) minmax(500px, .95fr);
   }
 `;
 
 
 
 const GenerateResume = () => {
-  const [showIcons, setShowIcons] = useState(false);
+  const [showIcons, setShowIcons] = useState(true);
+  const [showEditor, setShowEditor] = useState(false);
   const [isTemplateChangeModelOpen, setIsTemplateChangeModelOpen] = useState(false);
+  const [isAIGenerated] = useState(() => Boolean(sessionStorage.getItem("resuai_improved_cv") || sessionStorage.getItem("resuai_ai_completed")));
   const { isSavedLoaded } = useLayout();
+  const { layout_type, layout_id } = useParams();
   const AUTOSAVE_INTERVAL = 1000 * 60;
 
   useLoadSavedData();
@@ -45,34 +51,52 @@ const GenerateResume = () => {
 
   const handleShowIcon = useCallback(() => {
     setShowIcons((prev) => !prev)
-  }, [showIcons]);
+  }, []);
 
   const openTemplateChangeModal = useCallback(() => {
     setIsTemplateChangeModelOpen((prev) => !prev);
-  }, [isTemplateChangeModelOpen,showIcons]);
+  }, []);
 
 
   if (!isSavedLoaded) {
     return <Loading message="Loading saved records from database" />;
   }
 
+  if (!isAIGenerated) return <Navigate to="/ats-checker" replace />;
+
   return (
     <DividerProvider>
       <MainWrapper>
-        <Hspace />
-        <ResponsiveGrid isOpen={isTemplateChangeModelOpen}>
-          {/* {
-            !isTemplateChangeModelOpen  && <LayoutInputField />
-          } */}
-          <LayoutInputField />
+        <div className="resume-studio">
+          <header className="studio-header">
+            <div>
+              <Link to="/templates" className="studio-back"><FiArrowLeft /> All templates</Link>
+              <span className="studio-eyebrow">HEALTHCARE CV STUDIO</span>
+              <h1>Your AI-improved healthcare CV is ready</h1>
+              <p>AI extracted and populated this complete template directly from your uploaded CV. Review the document and download it; editing is available only if you want to make a correction.</p>
+            </div>
+            <div className="studio-meta">
+              <span><FiCheckCircle /> Autosave enabled</span>
+              <span><FiShield /> Private workspace</span>
+              <strong>{layout_type} · Template {layout_id}</strong>
+            </div>
+          </header>
+          <div className="studio-progress" aria-label="Resume workflow">
+            <span><b>1</b> AI completed</span><i></i><span className="active"><b>2</b> Review</span><i></i><span><b>3</b> Download</span>
+          </div>
+          <div className="ai-ready-banner"><div><FiCheckCircle/><span><strong>Your PDF-derived CV is complete</strong><small>All detected information has been populated automatically. Manual entry is not required.</small></span></div><div className="ready-actions"><button type="button" onClick={() => setShowEditor((current) => !current)}><FiEdit3/>{showEditor ? "Hide editor" : "Edit details or add photo"}</button><Link to="/ats-checker">Back to ATS suggestions</Link></div></div>
+          <CandidatePhotoUploader onChoosePhotoFormat={openTemplateChangeModal} />
+          <div className="stable-format-toolbar"><div><span>CV FORMAT</span><strong>{layout_type === "modern" ? "GCC Clinical Sidebar" : layout_type === "simple" ? "Compact Medical" : "Standard ATS"}</strong><small>Formatting is fixed for reliable A4 preview and PDF export.</small></div><button type="button" onClick={openTemplateChangeModal}><FiGrid/> Change format</button></div>
+          <ResponsiveGrid className={!showEditor ? "preview-only" : ""} isOpen={isTemplateChangeModelOpen}>
+          {!isTemplateChangeModelOpen && showEditor && <LayoutInputField />}
           <LayoutPreview />
-        </ResponsiveGrid>
+          </ResponsiveGrid>
+        </div>
         <GeneratePageFixedButtons
           showIcons={showIcons}
           setShowIcons={handleShowIcon}
           setIsTemplateChangeModelOpen={openTemplateChangeModal}
         />
-        <UploadResumeCard/>
       </MainWrapper>
       <DifferentLayoutHolder isOpen={isTemplateChangeModelOpen} onHide={openTemplateChangeModal} />
 

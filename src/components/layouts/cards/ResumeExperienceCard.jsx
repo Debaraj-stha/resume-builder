@@ -5,7 +5,7 @@ import { LiaMapMarkerSolid } from "react-icons/lia";
 import { CgCalendar } from "react-icons/cg";
 import capitalize from "../../../helper/capitalize";
 
-const ExperienceCard = memo(({ experience, style, ...props }) => {
+const ExperienceCard = memo(({ experience, style, isContinuation = false, ...props }) => {
   const {
     position,
     start_date:startDate,
@@ -86,6 +86,21 @@ const ExperienceCard = memo(({ experience, style, ...props }) => {
       </>
     );
   };
+
+  if (isContinuation) {
+    return (
+      <div className="mb-2">
+        <P style={{ ...style.p, fontWeight: 700, marginBottom: "2px" }}>
+          {capitalize(position || companyName)} · continued
+        </P>
+        <Ul display="block" margin="0">
+          {achievements?.map((a, i) => (
+            <Li key={i} style={style.p}>{a.value}</Li>
+          ))}
+        </Ul>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-3">
